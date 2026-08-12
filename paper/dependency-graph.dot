@@ -1,28 +1,41 @@
 digraph ConditionalEntropy {
-  graph [rankdir=TB, bgcolor="transparent", margin=0.05, nodesep=0.25, ranksep=0.45];
+  graph [rankdir=TB, bgcolor="transparent", margin=0.08, nodesep=0.18,
+         ranksep=0.62, splines=ortho, label="36 checked Lean theorem/lemma declarations",
+         labelloc="b", fontname="Latin Modern Roman", fontsize=11];
   node [shape=box, style="rounded,filled", fontname="Latin Modern Roman", fontsize=10,
-        color="#475569", fillcolor="#f8fafc", fontcolor="#0f172a", margin="0.10,0.06"];
-  edge [color="#64748b", arrowsize=0.65, penwidth=1.0];
+        color="#64748b", fillcolor="#ffffff", fontcolor="#0f172a",
+        margin="0.12,0.07"];
+  edge [color="#64748b", arrowsize=0.62, penwidth=0.9];
 
-  main [label="Main parameter conclusions"];
-  sufficient [label="Section 4 coefficient sufficiency"];
-  necessary [label="Section 5 coefficient necessity"];
-  conditioning [label="Appendix A conditioning monotonicity"];
-  profiles [label="Parameter profiles"];
-  basic [label="Shape predicates and curvature forms"];
-  curvature [label="Curvature boundary proofs", fillcolor="#dbeafe", color="#2563eb"];
-  stationarity [label="Exact stationarity correction", fillcolor="#dbeafe", color="#2563eb"];
-  midpoint [label="Finite midpoint contradiction", fillcolor="#dbeafe", color="#2563eb"];
+  l43 [label="Lemma 4.3 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
+  p48 [label="Proposition 4.8 core\n(1 Lean theorem)", fillcolor="#ecfdf5", color="#16a34a"];
+  p51 [label="Proposition 5.1 core\n(4 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
+  p523 [label="Propositions 5.2–5.3 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
+  p56 [label="Proposition 5.6 core\n(1 Lean theorem)", fillcolor="#ecfdf5", color="#16a34a"];
+  nt [label="Negative tropical case, §5\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
+  p57 [label="Proposition 5.7 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
 
-  main -> sufficient;
-  main -> necessary;
-  main -> profiles;
-  sufficient -> curvature;
-  necessary -> curvature;
-  necessary -> stationarity;
-  necessary -> midpoint;
-  conditioning -> basic;
-  curvature -> basic;
-  stationarity -> curvature;
-  midpoint -> basic;
+  appA [label="Appendix A implication\n(8 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
+  b2 [label="Lemma 4.2 / Lemma B.2\n(9 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
+  b15 [label="Lemma B.15\n(2 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
+  b6 [label="Appendix B.6\n(3 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
+
+  { rank=same; l43; p48; p51; p523; }
+  { rank=same; p56; nt; p57; }
+  { rank=same; appA; b2; b15; b6; }
+
+  l43 -> appA;
+  l43 -> b2;
+  p48 -> appA;
+  p51 -> b2;
+  p51 -> b6;
+  p523 -> b2;
+  p523 -> b6;
+  p56 -> b2;
+  p56 -> b6;
+  nt -> b2;
+  nt -> b15;
+  nt -> b6;
+  p57 -> b2;
+  p57 -> b6;
 }

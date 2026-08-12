@@ -1,89 +1,126 @@
-% Standalone section; requires amsmath, amssymb, booktabs, tikz, and hyperref.
-% For the graph: \usetikzlibrary{arrows.meta,positioning,shapes.misc}
+% Standalone section; requires amsmath, amssymb, booktabs, graphicx, tikz, and hyperref.
+% For the graph: \usetikzlibrary{arrows.meta,positioning}
 \section{Lean correspondence}
 \label{app:lean-correspondence}
 
-The accompanying Lean 4 development follows the dependency structure of
-Sections~4 and~5.  Figure~\ref{fig:lean-dependencies} gives the dependency graph
-(arrows point to ingredients and blue boxes mark the standalone boundary
-proofs), while Table~\ref{tab:lean-correspondence} records the
-statement-by-statement correspondence.  All listed declarations are checked
-with Lean~4.32.2 and Mathlib~4.32.2.  The source contains no
-\texttt{sorry}, \texttt{admit}, or project-specific \texttt{axiom}; a dedicated
-kernel audit prints the axiom dependencies of the public declarations.
+The accompanying Lean development follows the dependency structure of
+Sections~4 and~5.  Figure~\ref{fig:lean-dependencies} gives the dependency
+graph (arrows point to checked ingredients), while
+Table~\ref{tab:lean-correspondence} gives the statement-by-statement
+correspondence.  In the figure, green boxes are paper-facing coefficient
+cores and blue boxes are standalone bridge or boundary proofs.  The number in
+parentheses is the number of Lean declarations introduced with
+\texttt{theorem} or \texttt{lemma}; the disjoint counts sum to 36.
 
-The current development formalizes the finite coefficient and
-order-theoretic core of the argument.  The general-measure discretization,
-the differentiated R\'enyi integral, and the high-dimensional localization
-limits remain explicit analytic boundaries rather than hidden assumptions.
-Consequently, the assembled parameter theorems expose their curvature
-hypotheses in their Lean statements.
+All 36 declarations are checked with Lean~4.32.2 and Mathlib~4.32.2.  The
+source contains no \texttt{sorry}, \texttt{admit}, or project-specific
+\texttt{axiom}.  A dedicated kernel audit prints the axiom dependencies of the
+public declarations.  The word ``core'' in the graph is important: the current
+development verifies the finite coefficient and order-theoretic consequences,
+not the general-measure discretisation, differentiated R\'enyi integral, or
+high-dimensional localisation arguments.  Those analytic boundaries are
+listed explicitly in the last row of Table~\ref{tab:lean-correspondence}, and
+are not hidden as hypotheses or axioms.
 
 \begin{figure}[t]
   \centering
+  \resizebox{\textwidth}{!}{%
   \begin{tikzpicture}[
-      node distance=5mm and 9mm,
-      box/.style={draw,rounded corners,align=center,inner sep=3pt,font=\small},
-      boundary/.style={box,fill=blue!12,draw=blue!65!black},
+      x=1cm,y=1cm,
+      box/.style={draw,rounded corners,align=center,inner sep=3pt,font=\small,
+                  minimum width=2.7cm},
+      paper/.style={box,fill=green!8,draw=green!60!black},
+      boundary/.style={box,fill=blue!9,draw=blue!65!black},
       every edge/.style={draw,-{Latex[length=1.6mm]}}]
-    \node[box] (main) {Main parameter conclusions};
-    \node[box,below left=of main] (suff) {Section 4 coefficient\\sufficiency};
-    \node[box,below right=of main] (nec) {Section 5 coefficient\\necessity};
-    \node[box,right=of main] (profiles) {Parameter profiles};
-    \node[boundary,below=of suff] (curv) {Curvature boundary proofs};
-    \node[boundary,below=of nec] (stat) {Exact stationarity};
-    \node[boundary,right=of stat] (mid) {Finite midpoint\\contradiction};
-    \node[box,below=of curv] (basic) {Shape predicates and\\curvature forms};
-    \node[box,left=of basic] (cond) {Conditioning\\monotonicity};
-    \draw (main) edge (suff) edge (nec) edge (profiles);
-    \draw (suff) edge (curv);
-    \draw (nec) edge (curv) edge (stat) edge (mid);
-    \draw (curv) edge (basic);
-    \draw (stat) edge (curv);
-    \draw (mid) edge (basic);
-    \draw (cond) edge (basic);
-  \end{tikzpicture}
-  \caption{Dependency graph for the Lean formalization.}
+    \node[paper] (l43) at (-9,3.2) {Lemma 4.3 core\\\scriptsize(2 Lean theorems)};
+    \node[paper] (p48) at (-6,3.2) {Proposition 4.8 core\\\scriptsize(1 Lean theorem)};
+    \node[paper] (p51) at (-3,3.2) {Proposition 5.1 core\\\scriptsize(4 Lean theorems)};
+    \node[paper] (p523) at (0,3.2) {Propositions 5.2--5.3 core\\\scriptsize(2 Lean theorems)};
+    \node[paper] (p56) at (3,3.2) {Proposition 5.6 core\\\scriptsize(1 Lean theorem)};
+    \node[paper] (nt) at (6,3.2) {Negative tropical case, \S5\\\scriptsize(2 Lean theorems)};
+    \node[paper] (p57) at (9,3.2) {Proposition 5.7 core\\\scriptsize(2 Lean theorems)};
+
+    \node[boundary] (appa) at (-7.5,0) {Appendix A implication\\\scriptsize(8 Lean theorems)};
+    \node[boundary] (b2) at (-2.5,0) {Lemma 4.2 / Lemma B.2\\\scriptsize(9 Lean theorems)};
+    \node[boundary] (b15) at (2.5,0) {Lemma B.15\\\scriptsize(2 Lean theorems)};
+    \node[boundary] (b6) at (7.5,0) {Appendix B.6\\\scriptsize(3 Lean theorems)};
+
+    \draw (l43) edge[out=-90,in=90] (appa);
+    \draw (l43) edge[out=-90,in=90] (b2);
+    \draw (p48) edge[out=-90,in=90] (appa);
+    \draw (p51) edge[out=-90,in=90] (b2);
+    \draw (p51) edge[out=-90,in=90] (b6);
+    \draw (p523) edge[out=-90,in=90] (b2);
+    \draw (p523) edge[out=-90,in=90] (b6);
+    \draw (p56) edge[out=-90,in=90] (b2);
+    \draw (p56) edge[out=-90,in=90] (b6);
+    \draw (nt) edge[out=-90,in=90] (b2);
+    \draw (nt) edge[out=-90,in=90] (b15);
+    \draw (nt) edge[out=-90,in=90] (b6);
+    \draw (p57) edge[out=-90,in=90] (b2);
+    \draw (p57) edge[out=-90,in=90] (b6);
+  \end{tikzpicture}%
+  }
+  \caption{Numbered manuscript dependency graph for the checked Lean core.
+  Parenthetical counts total 36 theorem/lemma declarations.}
   \label{fig:lean-dependencies}
 \end{figure}
 
 \begin{table}[t]
 \centering
-\small
-\begin{tabular}{@{}p{0.25\linewidth}p{0.54\linewidth}p{0.13\linewidth}@{}}
+\scriptsize
+\begin{tabular}{@{}p{0.24\linewidth}p{0.49\linewidth}r p{0.13\linewidth}@{}}
 \toprule
-Manuscript statement & Lean declaration & Status\\
+Manuscript statement & Lean declaration(s) & Count & Status\\
 \midrule
-Appendix A, conditioning-map implication &
+Appendix A, conditioning implication &
+\texttt{isSuperadditive\_of\_concave\_posHomogeneous};
+\texttt{isSubadditive\_of\_convex\_posHomogeneous};
+\texttt{superadditive\_finset\_sum};
+\texttt{subadditive\_finset\_sum};
+\texttt{columnLift\_pushConditioning\_ge};
+\texttt{columnLift\_pushConditioning\_le};
 \texttt{conditioning\_monotone\_of\_concave};
-\texttt{conditioning\_antitone\_of\_convex} & Formalized\\
-Lemma 4.2 / Lemma B.2 &
-\texttt{monomialCurvature\_eq\_neg\_variance};
-\texttt{monomialCurvature\_nonpos\_of\_nonneg} & Formalized\\
-Section 4 finite coefficient sign test &
+\texttt{conditioning\_antitone\_of\_convex} & 8 & Formalized\\
+Lemma 4.2 / Lemma B.2, coefficient-curvature consequences &
+The nine declarations in \texttt{BoundaryProofs.Curvature} & 9 & Formalized core\\
+Lemma 4.3, finite coefficient sign implications &
 \texttt{positiveTemperate\_coefficients\_nonnegative};
-\texttt{negativeTemperate\_two\_coefficient\_curvature} & Formalized\\
-Proposition 5.1, coefficient deductions &
-\texttt{positiveTemperate\_necessary} & Formalized\\
-Propositions 5.2--5.3, moment obstruction &
-\texttt{negativeTemperate\_exceptional\_moment} & Formalized\\
-Proposition 5.6, two upper cells &
-\texttt{negativeTemperate\_atMostOneUpperCell} & Formalized\\
-Negative tropical moment obstruction &
-\texttt{negativeTropical\_exceptional\_moment} & Formalized\\
-Proposition 5.7, derivation obstruction &
-\texttt{derivation\_necessary} & Formalized\\
-Lemma B.15 &
+\texttt{negativeTemperate\_two\_coefficient\_curvature} & 2 & Formalized core\\
+Proposition 4.8, coefficient consequence &
+\texttt{derivation\_supported\_below\_has\_no\_upper\_obstruction} & 1 & Formalized core\\
+Proposition 5.1, coefficient conclusions &
+\texttt{positiveTemperate\_shannon\_atom\_zero};
+\texttt{positiveTemperate\_no\_upper\_moment};
+\texttt{positiveTemperate\_lowerMoment\_le\_one};
+\texttt{positiveTemperate\_necessary} & 4 & Formalized core\\
+Propositions 5.2--5.3, exceptional moment consequence &
+\texttt{negativeTemperate\_truncated\_moment};
+\texttt{negativeTemperate\_exceptional\_moment} & 2 & Formalized core\\
+Proposition 5.6, two-upper-cell contradiction &
+\texttt{negativeTemperate\_atMostOneUpperCell} & 1 & Formalized core\\
+Negative tropical necessity in Section 5 &
+\texttt{negativeTropical\_moment\_nonnegative};
+\texttt{negativeTropical\_exceptional\_moment} & 2 & Formalized core\\
+Proposition 5.7, derivation necessity &
+\texttt{derivation\_no\_positive\_upper\_tail};
+\texttt{derivation\_necessary} & 2 & Formalized core\\
+Lemma B.15, exact stationarity &
 \texttt{stationarityCorrection\_dot};
-\texttt{stationarityCorrection\_tendsto} & Formalized\\
-Appendix B.6 &
+\texttt{stationarityCorrection\_tendsto} & 2 & Formalized\\
+Appendix B.6, finite midpoint contradictions &
 \texttt{not\_concave\_of\_strict\_midpoint\_valley};
 \texttt{not\_convex\_of\_strict\_midpoint\_peak};
-\texttt{not\_quasiConvex\_of\_strict\_midpoint\_peak} & Formalized\\
-Proposition 4.4 and Appendices B.1--B.4 &
-General-measure approximation and localization limits & Analytic boundary\\
+\texttt{not\_quasiConvex\_of\_strict\_midpoint\_peak} & 3 & Formalized\\
+\midrule
+Proposition 4.4 and analytic Lemmas B.1, B.3--B.13 &
+General-measure approximation, differentiation, and localisation & 0 & Analytic boundary\\
+\midrule
+\multicolumn{2}{r}{\textbf{Checked theorem/lemma declarations}} & \textbf{36} & \\
 \bottomrule
 \end{tabular}
-\caption{Correspondence between manuscript statements and Lean declarations.}
+\caption{Correspondence between numbered manuscript statements and Lean
+declarations.  Counts are disjoint, so the total is the number of checked
+theorem/lemma declarations in the project.}
 \label{tab:lean-correspondence}
 \end{table}

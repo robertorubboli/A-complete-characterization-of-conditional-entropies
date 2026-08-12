@@ -56,28 +56,20 @@ GitHub Actions workflow runs them on every push and pull request.
 
 ## Dependency graph
 
-Arrows point from a conclusion to its ingredients. Blue nodes are standalone
-boundary proofs, matching the convention of the reference paper.
+Arrows point from a numbered manuscript conclusion to its checked ingredients,
+as in Figure A.1 of the reference paper. Parenthetical values are counts of
+Lean declarations introduced with `theorem` or `lemma`; the disjoint node
+counts total **36 checked theorems/lemmas**. Green nodes are paper-facing
+coefficient cores. Blue nodes are standalone bridge or boundary proofs. The
+word *core* is deliberate: it does not include the analytic results listed as
+future work in [FORMALIZATION_STATUS.md](FORMALIZATION_STATUS.md).
 
-```mermaid
-flowchart TB
-  Main[Main parameter conclusions] --> Suff[Section 4 coefficient sufficiency]
-  Main --> Nec[Section 5 coefficient necessity]
-  Suff --> Curv[Curvature boundary proofs]
-  Nec --> Curv
-  Nec --> Stat[Exact stationarity]
-  Nec --> Mid[Finite midpoint contradiction]
-  Cond[Conditioning monotonicity] --> Basic[Shape predicates]
-  Curv --> Basic
-  Stat --> Curv
-  Mid --> Basic
-  Main --> Profiles[Parameter profiles]
-  classDef boundary fill:#dbeafe,stroke:#2563eb,color:#172554;
-  class Curv,Stat,Mid boundary;
-```
+![Numbered manuscript dependency graph with theorem counts](paper/dependency-graph.svg)
 
-The rendered version is available as
-[`paper/dependency-graph.svg`](paper/dependency-graph.svg).
+The graph is available as
+[`SVG`](paper/dependency-graph.svg),
+[`PNG`](paper/dependency-graph.png), and
+[`Graphviz source`](paper/dependency-graph.dot).
 
 ## License
 
