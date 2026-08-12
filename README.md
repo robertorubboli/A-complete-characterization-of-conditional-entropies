@@ -52,6 +52,7 @@ GitHub Actions workflow runs them on every push and pull request.
 - `ConditionalEntropy/Necessary.lean`: Section 5 coefficient necessity.
 - `ConditionalEntropy/MainTheorem.lean`: public assembly declarations.
 - `paper/lean-correspondence.tex`: LaTeX correspondence section.
+- `paper/lean-correspondence-standalone.tex`: complete compilable Appendix A document.
 - `paper/dependency-graph.dot`: source for the dependency graph.
 
 ## Dependency graph
