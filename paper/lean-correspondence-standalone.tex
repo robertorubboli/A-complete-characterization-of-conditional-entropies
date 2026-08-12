@@ -77,7 +77,8 @@ axioms. The source is available at
                   font=\small,minimum width=2.75cm},
       paper/.style={box,fill=paperfill,draw=paperline},
       boundary/.style={box,fill=boundaryfill,draw=boundaryline},
-      every edge/.style={draw,gray!75,-{Latex[length=1.6mm]}}]
+      leanedge/.style={draw,gray!80,-{Latex[length=1.6mm]}},
+      paperedge/.style={draw,gray!70,dashed,-{Latex[length=1.6mm]}}]
 
     \node[paper] (l43) at (-9,3.2)
       {Lemma \textcolor{linkblue}{4.3} core\\[-1pt]\scriptsize(2 Lean theorems)};
@@ -99,32 +100,128 @@ axioms. The source is available at
     \node[boundary] (b2) at (-4,0)
       {Lemma \textcolor{linkblue}{4.2 / B.2}\\[-1pt]\scriptsize(4 Lean theorems)};
     \node[boundary] (witness) at (0,0)
-      {Propositions \textcolor{linkblue}{5.1--5.7} witnesses\\[-1pt]\scriptsize(5 Lean theorems)};
+      {Scalar curvature witnesses\\[-1pt]\scriptsize(5 Lean theorems)};
     \node[boundary] (b15) at (4,0)
       {Lemma \textcolor{linkblue}{B.15}\\[-1pt]\scriptsize(2 Lean theorems)};
     \node[boundary] (b6) at (8,0)
       {Appendix \textcolor{linkblue}{B.6}\\[-1pt]\scriptsize(3 Lean theorems)};
 
-    \draw (l43) edge[out=-90,in=90] (appa);
-    \draw (l43) edge[out=-90,in=90] (b2);
-    \draw (p48) edge[out=-90,in=90] (appa);
-    \draw (p51) edge[out=-90,in=90] (witness);
-    \draw (p51) edge[out=-90,in=90] (b6);
-    \draw (p523) edge[out=-90,in=90] (witness);
-    \draw (p523) edge[out=-90,in=90] (b6);
-    \draw (p56) edge[out=-90,in=90] (witness);
-    \draw (p56) edge[out=-90,in=90] (b6);
-    \draw (nt) edge[out=-90,in=90] (witness);
-    \draw (nt) edge[out=-90,in=90] (b15);
-    \draw (nt) edge[out=-90,in=90] (b6);
-    \draw (p57) edge[out=-90,in=90] (witness);
-    \draw (p57) edge[out=-90,in=90] (b6);
+    \draw[paperedge] (l43) edge[out=-90,in=90] (appa);
+    \draw[leanedge] (l43) edge[out=-90,in=90] (b2);
+    \draw[paperedge] (p48) edge[out=-90,in=90] (appa);
+    \draw[leanedge] (p51) edge[out=-90,in=90] (witness);
+    \draw[paperedge] (p51) edge[out=-90,in=90] (b6);
+    \draw[leanedge] (p523) edge[out=-90,in=90] (witness);
+    \draw[paperedge] (p523) edge[out=-90,in=90] (b6);
+    \draw[leanedge] (p56) edge[out=-90,in=90] (witness);
+    \draw[paperedge] (p56) edge[out=-90,in=90] (b6);
+    \draw[leanedge] (nt) edge[out=-90,in=90] (witness);
+    \draw[paperedge] (nt) edge[out=-90,in=90] (b15);
+    \draw[paperedge] (nt) edge[out=-90,in=90] (b6);
+    \draw[leanedge] (p57) edge[out=-90,in=90] (witness);
+    \draw[paperedge] (p57) edge[out=-90,in=90] (b6);
   \end{tikzpicture}%
   }
   \caption{Dependency graph for the checked Lean core. Parenthetical counts
-  total 36 theorem/lemma declarations.}
+  total 36 theorem/lemma declarations. Solid arrows are Lean-kernel
+  dependencies; dashed arrows record manuscript-level implications across the
+  explicit analytic boundary.}
   \label{fig:lean-dependencies}
 \end{figure}
+
+\subsection*{Content of the boxes and meaning of the arrows}
+
+\paragraph{Counting convention.}
+The green boxes contain the paper-facing conclusions proved at the finite
+coefficient level. The blue boxes contain reusable ingredients. In particular,
+the box labelled ``Scalar curvature witnesses'' is not a second copy of
+Propositions~5.1--5.7. It contains five elementary real-variable lemmas used by
+several of those propositions. The declarations assigned to different boxes
+are disjoint, which is why the displayed numbers add to 36 without counting
+any theorem twice.
+
+\paragraph{Two kinds of implication.}
+A solid arrow denotes an actual dependency between checked Lean declarations:
+the theorem in the upper box invokes a theorem in the lower box, possibly
+through an intermediate declaration listed in Table~\ref{tab:lean-correspondence}.
+A dashed arrow has the meaning it has in the manuscript proof. It records the
+route from a curvature calculation to monotonicity or to a finite semiring
+counterexample, but that route presently crosses an analytic statement which
+has not yet been formalized. Thus Figure~\ref{fig:lean-dependencies} is neither
+merely an import graph nor a claim that the complete measure-theoretic
+propositions have already been checked.
+
+\paragraph{The sufficient direction.}
+For a finitely supported parameter measure, the one-column function factorises
+as a monomial of power means. The box ``Lemma 4.2 / Lemma B.2'' contains the
+coefficient part of the corresponding curvature calculation. If
+$\sum_i\beta_i=1$, the checked identity is
+\[
+  \left(\sum_i\beta_i a_i\right)^2-\sum_i\beta_i a_i^2
+  =-\sum_i\beta_i\left(a_i-\sum_j\beta_j a_j\right)^2.
+\]
+Nonnegative coefficients therefore give the nonpositive curvature required
+for the concave branch, while a negative coefficient supplies an explicit
+direction of positive curvature. The two declarations in the ``Lemma 4.3
+core'' box apply these sign facts to the positive-temperate coefficient family
+and to the two-coefficient negative-temperate family. They formalize the
+coefficient test after factorisation; the curvature of the power means, the
+endpoint treatment, and the common discretisation used for a general measure
+remain on the analytic side of the boundary.
+
+The ``Appendix A implication'' box contains the finite algebraic passage from
+one-column shape to conditioning monotonicity. Concavity together with positive
+homogeneity gives superadditivity; convexity together with positive
+homogeneity gives subadditivity. Summing these inequalities over a finite
+row-stochastic mixing matrix proves monotonicity of the column lift in the
+positive case and the reverse inequality used by the oppositely ordered
+negative case. The dashed arrows from Lemma~4.3 and Proposition~4.8 indicate
+that the manuscript combines this implication with the missing analytic shape
+theorems. The single checked declaration attached to Proposition~4.8 records
+only the resulting coefficient-level absence of an upper-support obstruction;
+it does not yet prove concavity of the full R\'enyi barycentre.
+
+\paragraph{The necessary direction.}
+The five scalar witnesses are the algebraic endpoints of the perturbations in
+Section~5. They express the following strict signs:
+\begin{itemize}
+  \item a nonzero Shannon atom contributes $m^2>0$;
+  \item a negative upper-tail coefficient gives $A^2-A>0$;
+  \item a lower coefficient $B>1$ gives $B^2-B>0$;
+  \item two positive coefficients admit an explicitly stationary direction
+        with strictly negative quadratic curvature; and
+  \item a negative upper-tail coefficient for a derivation gives $-A>0$.
+\end{itemize}
+These witnesses imply the green coefficient conclusions by solid arrows.
+Proposition~5.1 combines the first three obstructions to eliminate a Shannon
+atom, exclude support above~1, and bound the lower moment by~1.
+Propositions~5.2--5.3 use the stationary two-positive-coefficient witness to
+obtain the exceptional moment inequality. Proposition~5.6 uses the same
+witness to rule out two separated positive upper cells. The negative tropical
+box uses it with the quasi-convex second-order condition, and Proposition~5.7
+uses the final sign to exclude positive measure above~1 for derivations.
+
+\paragraph{Exact stationarity and finite counterexamples.}
+The full high-dimensional argument differentiates at fixed finite dimension,
+then integrates in the R\'enyi parameter, and only afterwards takes the
+dimension limit. The two-block, three-block, and Shannon-point localisers turn
+parts of the parameter measure into the coefficients appearing in the scalar
+witnesses. Those localisation and dominated-convergence arguments are the
+principal analytic boundary of the present development.
+
+For the negative tropical branch, limiting stationarity is not enough.
+Lemma~B.15 changes one block velocity by a quantity tending to zero so that the
+first derivative vanishes exactly at the same finite dimension where
+quasi-convexity is applied, while the limiting negative second derivative is
+preserved. Appendix~B.6 then uses Taylor's theorem to turn a strict curvature
+sign into two positive finite-dimensional endpoints: positive second
+derivative violates concavity, negative second derivative violates convexity,
+and negative second derivative at exact stationarity gives the midpoint
+violation of quasi-convexity. The arrows to Lemma~B.15 and Appendix~B.6 are
+dashed because the current coefficient theorems assume the resulting
+curvature inequalities directly; they do not yet invoke the formalized
+stationarity or midpoint declarations through a formalized localisation
+theorem.
 
 % Starting at one makes this Table A.2, following Figure A.1 as in the
 % reference appendix.
@@ -173,7 +270,7 @@ Appendix A, conditioning implication &
 \decl{monomialCurvature_pos_of_negative_coefficient}
 & 4 & Formalized core\\[2pt]
 
-\mstmt{Propositions}{5.1--5.7}, scalar witnesses &
+Section 5, scalar curvature witnesses &
 \decl{two_positive_stationary_witness};
 \decl{negative_tail_concavity_obstruction};
 \decl{excessive_lower_moment_concavity_obstruction};
