@@ -1,0 +1,15 @@
+import ConditionalEntropy
+import BoundaryProofs
+
+#print axioms ConditionalEntropy.conditioning_monotone_of_concave
+#print axioms ConditionalEntropy.conditioning_antitone_of_convex
+#print axioms ConditionalEntropy.monomialCurvature_eq_neg_variance
+#print axioms ConditionalEntropy.monomialCurvature_nonpos_of_nonneg
+#print axioms ConditionalEntropy.two_positive_stationary_witness
+#print axioms ConditionalEntropy.stationarityCorrection_dot
+#print axioms ConditionalEntropy.stationarityCorrection_tendsto
+#print axioms ConditionalEntropy.not_quasiConvex_of_strict_midpoint_peak
+#print axioms ConditionalEntropy.positiveTemperate_necessary
+#print axioms ConditionalEntropy.negativeTemperate_exceptional_moment
+#print axioms ConditionalEntropy.negativeTropical_exceptional_moment
+#print axioms ConditionalEntropy.derivation_necessary

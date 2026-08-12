@@ -1,0 +1,89 @@
+% Standalone section; requires amsmath, amssymb, booktabs, tikz, and hyperref.
+% For the graph: \usetikzlibrary{arrows.meta,positioning,shapes.misc}
+\section{Lean correspondence}
+\label{app:lean-correspondence}
+
+The accompanying Lean 4 development follows the dependency structure of
+Sections~4 and~5.  Figure~\ref{fig:lean-dependencies} gives the dependency graph
+(arrows point to ingredients and blue boxes mark the standalone boundary
+proofs), while Table~\ref{tab:lean-correspondence} records the
+statement-by-statement correspondence.  All listed declarations are checked
+with Lean~4.32.2 and Mathlib~4.32.2.  The source contains no
+\texttt{sorry}, \texttt{admit}, or project-specific \texttt{axiom}; a dedicated
+kernel audit prints the axiom dependencies of the public declarations.
+
+The current development formalizes the finite coefficient and
+order-theoretic core of the argument.  The general-measure discretization,
+the differentiated R\'enyi integral, and the high-dimensional localization
+limits remain explicit analytic boundaries rather than hidden assumptions.
+Consequently, the assembled parameter theorems expose their curvature
+hypotheses in their Lean statements.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[
+      node distance=5mm and 9mm,
+      box/.style={draw,rounded corners,align=center,inner sep=3pt,font=\small},
+      boundary/.style={box,fill=blue!12,draw=blue!65!black},
+      every edge/.style={draw,-{Latex[length=1.6mm]}}]
+    \node[box] (main) {Main parameter conclusions};
+    \node[box,below left=of main] (suff) {Section 4 coefficient\\sufficiency};
+    \node[box,below right=of main] (nec) {Section 5 coefficient\\necessity};
+    \node[box,right=of main] (profiles) {Parameter profiles};
+    \node[boundary,below=of suff] (curv) {Curvature boundary proofs};
+    \node[boundary,below=of nec] (stat) {Exact stationarity};
+    \node[boundary,right=of stat] (mid) {Finite midpoint\\contradiction};
+    \node[box,below=of curv] (basic) {Shape predicates and\\curvature forms};
+    \node[box,left=of basic] (cond) {Conditioning\\monotonicity};
+    \draw (main) edge (suff) edge (nec) edge (profiles);
+    \draw (suff) edge (curv);
+    \draw (nec) edge (curv) edge (stat) edge (mid);
+    \draw (curv) edge (basic);
+    \draw (stat) edge (curv);
+    \draw (mid) edge (basic);
+    \draw (cond) edge (basic);
+  \end{tikzpicture}
+  \caption{Dependency graph for the Lean formalization.}
+  \label{fig:lean-dependencies}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}p{0.25\linewidth}p{0.54\linewidth}p{0.13\linewidth}@{}}
+\toprule
+Manuscript statement & Lean declaration & Status\\
+\midrule
+Appendix A, conditioning-map implication &
+\texttt{conditioning\_monotone\_of\_concave};
+\texttt{conditioning\_antitone\_of\_convex} & Formalized\\
+Lemma 4.2 / Lemma B.2 &
+\texttt{monomialCurvature\_eq\_neg\_variance};
+\texttt{monomialCurvature\_nonpos\_of\_nonneg} & Formalized\\
+Section 4 finite coefficient sign test &
+\texttt{positiveTemperate\_coefficients\_nonnegative};
+\texttt{negativeTemperate\_two\_coefficient\_curvature} & Formalized\\
+Proposition 5.1, coefficient deductions &
+\texttt{positiveTemperate\_necessary} & Formalized\\
+Propositions 5.2--5.3, moment obstruction &
+\texttt{negativeTemperate\_exceptional\_moment} & Formalized\\
+Proposition 5.6, two upper cells &
+\texttt{negativeTemperate\_atMostOneUpperCell} & Formalized\\
+Negative tropical moment obstruction &
+\texttt{negativeTropical\_exceptional\_moment} & Formalized\\
+Proposition 5.7, derivation obstruction &
+\texttt{derivation\_necessary} & Formalized\\
+Lemma B.15 &
+\texttt{stationarityCorrection\_dot};
+\texttt{stationarityCorrection\_tendsto} & Formalized\\
+Appendix B.6 &
+\texttt{not\_concave\_of\_strict\_midpoint\_valley};
+\texttt{not\_convex\_of\_strict\_midpoint\_peak};
+\texttt{not\_quasiConvex\_of\_strict\_midpoint\_peak} & Formalized\\
+Proposition 4.4 and Appendices B.1--B.4 &
+General-measure approximation and localization limits & Analytic boundary\\
+\bottomrule
+\end{tabular}
+\caption{Correspondence between manuscript statements and Lean declarations.}
+\label{tab:lean-correspondence}
+\end{table}

@@ -1,0 +1,14 @@
+/.lake/
+/tmp/
+*.olean
+*.ilean
+*.c
+*.o
+*.trace
+*.hash
+*.log
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz

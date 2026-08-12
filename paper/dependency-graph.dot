@@ -1,0 +1,28 @@
+digraph ConditionalEntropy {
+  graph [rankdir=TB, bgcolor="transparent", margin=0.05, nodesep=0.25, ranksep=0.45];
+  node [shape=box, style="rounded,filled", fontname="Latin Modern Roman", fontsize=10,
+        color="#475569", fillcolor="#f8fafc", fontcolor="#0f172a", margin="0.10,0.06"];
+  edge [color="#64748b", arrowsize=0.65, penwidth=1.0];
+
+  main [label="Main parameter conclusions"];
+  sufficient [label="Section 4 coefficient sufficiency"];
+  necessary [label="Section 5 coefficient necessity"];
+  conditioning [label="Appendix A conditioning monotonicity"];
+  profiles [label="Parameter profiles"];
+  basic [label="Shape predicates and curvature forms"];
+  curvature [label="Curvature boundary proofs", fillcolor="#dbeafe", color="#2563eb"];
+  stationarity [label="Exact stationarity correction", fillcolor="#dbeafe", color="#2563eb"];
+  midpoint [label="Finite midpoint contradiction", fillcolor="#dbeafe", color="#2563eb"];
+
+  main -> sufficient;
+  main -> necessary;
+  main -> profiles;
+  sufficient -> curvature;
+  necessary -> curvature;
+  necessary -> stationarity;
+  necessary -> midpoint;
+  conditioning -> basic;
+  curvature -> basic;
+  stationarity -> curvature;
+  midpoint -> basic;
+}
