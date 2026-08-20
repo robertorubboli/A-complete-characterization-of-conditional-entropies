@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if rg -n '^\s*(axiom|opaque)\b|\b(sorry|admit)\b' \
-    --glob '*.lean' --glob '!tmp/**' .; then
-  echo 'Project-specific axiom, opaque declaration, sorry, or admit found.' >&2
-  exit 1
+if command -v rg >/dev/null 2>&1; then
+  if rg -n '^\s*(axiom|opaque)\b|\b(sorry|admit)\b' \
+      --glob '*.lean' --glob '!tmp/**' .; then
+    echo 'Project-specific axiom, opaque declaration, sorry, or admit found.' >&2
+    exit 1
+  fi
+else
+  if grep -RInE --include='*.lean' --exclude-dir=tmp \
+      '(^[[:space:]]*(axiom|opaque)([[:space:]]|$))|(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' .; then
+    echo 'Project-specific axiom, opaque declaration, sorry, or admit found.' >&2
+    exit 1
+  fi
 fi
 
 if [[ "${1:-}" != "--no-build" ]]; then

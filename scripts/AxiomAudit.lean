@@ -1,6 +1,4 @@
-import ConditionalEntropy
-import ConditionalEntropy.Cone
-import BoundaryProofs
+import CompleteCharacterization
 
 #print axioms ConditionalEntropy.conditioning_monotone_of_concave
 #print axioms ConditionalEntropy.conditioning_antitone_of_convex
