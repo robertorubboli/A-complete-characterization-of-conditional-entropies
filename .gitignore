@@ -1,4 +1,6 @@
 /.lake/
+/node_modules/
+/output/
 /tmp/
 *.olean
 *.ilean

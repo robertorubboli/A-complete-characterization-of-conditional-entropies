@@ -1,0 +1,128 @@
+% Appendix fragment for `main (6).tex`.
+% Required preamble additions:
+%   \usepackage{longtable}
+%   \usetikzlibrary{arrows.meta,positioning,fit}
+
+\section{Machine-checked formalization of Sections 4 and 5}
+\label{app:lean-formalization}
+
+\subsection{Scope and trust boundary}
+\label{app:lean-scope}
+
+The source currently used for Sections~4 and~5 is the attached formalization
+blueprint: the corresponding headings in the main manuscript contain only the
+sentence ``See attached note.''  Consequently, the correspondence table below
+uses the stable labels and titles in that blueprint.  Its sufficiency and
+necessity parts contain 152 labelled formal environments (55 definitions,
+73 lemmas, 18 propositions, four corollaries, and two theorems).
+
+The accompanying development is checked with Lean~4.32.2 and
+mathlib~4.32.2.  It contains no \texttt{sorry}, \texttt{admit},
+project-defined \texttt{axiom}, or project-defined \texttt{opaque}
+declaration.  The command
+\begin{verbatim}
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check.ps1
+\end{verbatim}
+checks both the source and the kernel dependencies of the exported results.
+The closed declaration \texttt{verifiedKernelBundle} collects the principal
+finite algebra, order, stationarity, midpoint, and dominant-block results.
+
+This is a coverage report, not a claim that the classification theorem is
+already machine checked.  In particular, the present Lean source does not
+declare \texttt{mainClassification}, \texttt{necessityBundle}, or
+\texttt{allConditionalEntropyAxioms}.  Those declarations would be
+misleading until the endpoint-aware R\'enyi library, measure
+discretization, differentiated signed integrals, and the full block and
+Shannon localization arguments have been translated.  The table records
+these obligations explicitly instead of representing them by hypotheses or
+project-specific axioms.
+
+Two typing conventions in the blueprint should also be kept visible.  First,
+the singular moment at the Shannon point is represented by one-sided
+extended-real moments plus a finiteness guard; an unguarded ordinary signed
+integral need not exist.  Second, the Lean-facing blueprint uses natural
+logarithms, so the fair-bit normalization is \(\log 2\); the normalization
+equal to one in the main manuscript is obtained by division by this positive
+constant.
+
+\subsection{Dependency graph}
+\label{app:lean-dependency-graph}
+
+Figure~\ref{fig:lean-dependency-graph} is the readable module-layer dependency
+graph.  A blue box contains at least one
+kernel-checked component but is not necessarily complete.  An orange box is
+specified by the blueprint but still lacks a faithful Lean translation.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+      x=1cm,y=1cm,
+      dep/.style={-{Stealth[length=1.7mm]},draw=black!55,line width=.45pt},
+      partial/.style={draw=blue!65!black,fill=blue!8,rounded corners=2pt,
+        align=center,font=\scriptsize,minimum height=7mm,text width=38mm},
+      open/.style={draw=orange!80!black,fill=orange!10,rounded corners=2pt,
+        align=center,font=\scriptsize,minimum height=7mm,text width=38mm}]
+    \node[partial] (m1) at (-3.1,0) {M1. Finite carriers, cones, and channels\\\emph{partial}};
+    \node[open]    (m2) at ( 3.1,0) {M2. Compact parameters, measures, support, and moments\\\emph{open}};
+    \node[open]    (m3) at (0,-1.25) {M3. Total endpoint-aware R\'enyi library\\\emph{open}};
+    \node[partial] (m4) at (0,-2.50) {M4. Conditional candidates and shape reductions\\\emph{partial}};
+    \node[partial] (m5) at (-3.1,-3.75) {M5. Temperate sufficiency\\\emph{partial algebraic kernels}};
+    \node[open]    (m6) at (-3.1,-5.00) {M6. Tropical and derivation sufficiency\\\emph{open}};
+    \node[partial] (m7) at ( 3.1,-3.75) {M7. Differentiation and signed integration\\\emph{partial stationarity kernels}};
+    \node[partial] (m8) at ( 3.1,-5.00) {M8. Two- and three-block localization\\\emph{partial dominant-block bounds}};
+    \node[open]    (m9) at ( 3.1,-6.25) {M9. Shannon-point localization\\\emph{open}};
+    \node[partial] (m10) at (0,-7.50) {M10. Necessity branches\\\emph{partial scalar kernels}};
+    \node[open]    (m11) at (0,-8.75) {M11. Classification and embedded-axiom lift\\\emph{open}};
+
+    \draw[dep] (m1) -- (m3);
+    \draw[dep] (m2) -- (m3);
+    \draw[dep] (m1) -- (m4);
+    \draw[dep] (m2) -- (m4);
+    \draw[dep] (m3) -- (m4);
+    \draw[dep] (m2) -- (m5);
+    \draw[dep] (m3) -- (m5);
+    \draw[dep] (m4) -- (m5);
+    \draw[dep] (m3) -- (m6);
+    \draw[dep] (m4) -- (m6);
+    \draw[dep] (m5) -- (m6);
+    \draw[dep] (m2) -- (m7);
+    \draw[dep] (m3) -- (m7);
+    \draw[dep] (m4) -- (m7);
+    \draw[dep] (m1) -- (m8);
+    \draw[dep] (m2) -- (m8);
+    \draw[dep] (m3) -- (m8);
+    \draw[dep] (m7) -- (m8);
+    \draw[dep] (m7) -- (m9);
+    \draw[dep] (m8) -- (m9);
+    \draw[dep] (m4) -- (m10);
+    \draw[dep] (m7) -- (m10);
+    \draw[dep] (m8) -- (m10);
+    \draw[dep] (m9) -- (m10);
+    \draw[dep] (m4) -- (m11);
+    \draw[dep] (m5) -- (m11);
+    \draw[dep] (m6) -- (m11);
+    \draw[dep] (m10) -- (m11);
+  \end{tikzpicture}
+  \caption{Condensed formalization dependency graph.  An arrow
+  \(A\to B\) means that blueprint layer \(B\) is planned to depend on
+  layer \(A\).  Colours report translation status, not mathematical truth.}
+  \label{fig:lean-dependency-graph}
+\end{figure}
+
+The repository also contains Graphviz and SVG versions of the same condensed
+graph.  A separate declaration-level dependency index retains the individual
+Lean names that are intentionally omitted from
+Figure~\ref{fig:lean-dependency-graph}.
+
+\subsection{Statement correspondence}
+\label{app:lean-correspondence}
+
+The status ``proved and kernel checked'' means that the named Lean declaration
+has the blueprint statement's full conclusion.  ``Partial algebraic kernel''
+means that it checks a genuine calculation used by the manuscript statement
+but does not prove that statement's full measure-theoretic or asymptotic
+conclusion.  ``Not formalized'' means that no Lean theorem with the manuscript's
+conclusion is present.  Definitions are marked separately from proved
+propositions.
+
+\input{paper/blueprint-statement-correspondence.tex}

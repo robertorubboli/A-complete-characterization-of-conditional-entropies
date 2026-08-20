@@ -9,8 +9,11 @@ if ($LASTEXITCODE -ne 1) {
   throw 'Source audit failed.'
 }
 
-& lake build ConditionalEntropy BoundaryProofs --wfail
+& lake build CompleteCharacterization --wfail
 if ($LASTEXITCODE -ne 0) { throw 'Lean build failed.' }
 
 & lake env lean scripts/AxiomAudit.lean
 if ($LASTEXITCODE -ne 0) { throw 'Kernel axiom audit failed.' }
+
+& powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-correspondence.ps1
+if ($LASTEXITCODE -ne 0) { throw 'Statement correspondence audit failed.' }

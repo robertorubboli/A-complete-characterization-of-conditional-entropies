@@ -1,0 +1,391 @@
+% Statement ledger for the blueprint's Sections 4--5 and final assembly.
+% This fragment is included by lean-formalization-appendix.tex.
+
+\providecommand{\BlueprintStatement}[2]{%
+  \texttt{\detokenize{#1}}: \emph{#2}}
+\providecommand{\LeanDecl}[1]{\texttt{\detokenize{#1}}}
+
+\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.35\textwidth}
+                  >{\raggedright\arraybackslash}p{0.42\textwidth}
+                  >{\raggedright\arraybackslash}p{0.15\textwidth}}
+\caption{Statement-by-statement correspondence for blueprint Sections 4--5
+and final assembly.}
+\label{tab:blueprint-statement-correspondence}\\
+\toprule
+Manuscript statement & Lean declaration & Status\\
+\midrule
+\endfirsthead
+\toprule
+Manuscript statement & Lean declaration & Status\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\BlueprintStatement{lem:origin-extension}{Extension from the punctured cone}
+  & \LeanDecl{ConditionalEntropy.originExtension} & Proved and kernel checked\\
+\BlueprintStatement{lem:punctured-cone-convex}{Convexity of the punctured nonnegative cone}
+  & \LeanDecl{ConditionalEntropy.puncturedConeConvex} & Proved and kernel checked\\
+\BlueprintStatement{lem:composition-rule}{Monotone composition rule}
+  & \LeanDecl{ConditionalEntropy.compositionRule} & Proved and kernel checked\\
+\BlueprintStatement{lem:cone-composition-rule}{Monotone composition on the punctured cone}
+  & \LeanDecl{ConditionalEntropy.coneCompositionRule} & Proved and kernel checked\\
+\BlueprintStatement{lem:finite-holder}{Finite H\"older inequality}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:power-curvature}{Power-mean curvature}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:parameter-power-curvature}{Compactified power-mean bridge}
+  & --- & Not formalized\\
+\BlueprintStatement{def:hessian-quad}{Hessian quadratic form}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:hessian-sign-criterion}{Hessian sign criterion}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:real-rpow-calculus}{Positive-base real-power calculus}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:monomial-curvature}{Curvature of an affine monomial}
+  & \LeanDecl{ConditionalEntropy.monomialCurvature};
+    \LeanDecl{ConditionalEntropy.monomialCurvature_eq_neg_variance};
+    \LeanDecl{ConditionalEntropy.monomialCurvature_nonpos_of_nonneg};
+    \LeanDecl{ConditionalEntropy.coefficient_mem_Icc_of_curvature_nonpos};
+    \LeanDecl{ConditionalEntropy.monomialCurvature_pos_of_negative_coefficient};
+    \LeanDecl{ConditionalEntropy.two_positive_stationary_witness};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_two_coefficient_curvature}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:finite-support-enumeration}{Enumeration of a finite probability support}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:finite-support-dirac}{Finite-support measure decomposition}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:finite-sufficiency}{Finite-support sufficiency}
+  & \LeanDecl{ConditionalEntropy.positiveTemperate_coefficients_nonnegative};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_two_coefficient_curvature}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:general-sufficiency}{General temperate sufficiency}
+  & \LeanDecl{ConditionalEntropy.isConcave_of_pointwise_tendsto};
+    \LeanDecl{ConditionalEntropy.isConvex_of_pointwise_tendsto};
+    \LeanDecl{ConditionalEntropy.conditioning_monotone_of_concave};
+    \LeanDecl{ConditionalEntropy.conditioning_antitone_of_convex}
+  & Partial algebraic kernel\\
+\BlueprintStatement{cor:finite-t-sufficiency}{Finite-$t$ sufficiency}
+  & \LeanDecl{ConditionalEntropy.positiveTemperate_coefficients_nonnegative};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_two_coefficient_curvature};
+    \LeanDecl{ConditionalEntropy.conditioning_monotone_of_concave};
+    \LeanDecl{ConditionalEntropy.conditioning_antitone_of_convex}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:negative-tropical-sufficiency}{Negative tropical sufficiency}
+  & \LeanDecl{ConditionalEntropy.isQuasiConvex_of_pointwise_tendsto}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:positive-tropical-component}{Positive tropical component formula}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:positive-tropical-sufficiency}{Positive tropical sufficiency}
+  & \LeanDecl{ConditionalEntropy.isStronglyQuasiConcave_of_pointwise_tendsto}
+  & Partial algebraic kernel\\
+\BlueprintStatement{def:derivation-family}{Derivation polymorphic family}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:derivation-sufficiency}{Derivation sufficiency}
+  & --- & Not formalized\\
+\BlueprintStatement{def:signed-column-functions}{Signed-measure column functions}
+  & --- & Not formalized\\
+\BlueprintStatement{def:signed-witness-predicates}{Positive and negative signed witnesses}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:signed-witness-bridge}{Scaling, total variation, support, and atoms of witnesses}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:signed-scalar-column-bridge}{Signed-scalar bridge to the candidate column functions}
+  & --- & Not formalized\\
+\BlueprintStatement{def:finite-param}{Embedding a finite real order}
+  & --- & Not formalized\\
+\BlueprintStatement{def:positive-line-data}{Positive multiplicative line data}
+  & --- & Not formalized\\
+\BlueprintStatement{def:positive-line-raw}{Raw multiplicative line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:positive-line-predicate}{Positivity predicate for a line}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:line-positive-zero}{The base point of a positive line is positive}
+  & --- & Not formalized\\
+\BlueprintStatement{def:line-cone}{Proof-carrying cone versions of a positive line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:positive-line-prob}{Total normalized line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:scalar-qcvx-on}{Scalar quasiconvexity on a set}
+  & \LeanDecl{ConditionalEntropy.IsQuasiConvex}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:cone-affine-line-bridge}{Restricting cone curvature to a positive affine line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:entropy-line}{Entropy line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:entropy-line-first}{First entropy line derivative}
+  & --- & Not formalized\\
+\BlueprintStatement{def:entropy-line-second}{Second entropy line derivative}
+  & --- & Not formalized\\
+\BlueprintStatement{def:escort-weight}{Escort weight}
+  & --- & Not formalized\\
+\BlueprintStatement{def:effective-line-velocity}{Effective line velocity}
+  & --- & Not formalized\\
+\BlueprintStatement{def:escort-mean}{Escort mean}
+  & \LeanDecl{ConditionalEntropy.weightedMean}
+  & Partial algebraic kernel\\
+\BlueprintStatement{def:escort-second}{Escort second moment}
+  & \LeanDecl{ConditionalEntropy.weightedSecondMoment}
+  & Partial algebraic kernel\\
+\BlueprintStatement{def:escort-variance}{Escort variance}
+  & \LeanDecl{ConditionalEntropy.weightedVariance}
+  & Partial algebraic kernel\\
+\BlueprintStatement{def:fixed-max-coordinate}{Fixed maximal-coordinate condition}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:positivity-intervals}{Common positivity and maximal-coordinate intervals}
+  & --- & Not formalized\\
+\BlueprintStatement{def:iterated-deriv}{Iterated one-variable derivative}
+  & --- & Not formalized\\
+\BlueprintStatement{def:lambda-deriv}{Iterated derivative in the second variable}
+  & --- & Not formalized\\
+\BlueprintStatement{def:alpha-lambda-deriv}{Mixed parameter--line derivative}
+  & --- & Not formalized\\
+\BlueprintStatement{def:removable-shannon-quotient}{Removable Shannon quotient}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:parameterized-removable-quotient}{Parameterized removable quotient at the Shannon point}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:signed-integral-differentiate-twice}{Twice differentiating a finite signed-measure integral}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-line-slope}{Shannon line slope}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:exact-derivatives}{Exact entropy derivatives}
+  & --- & Not formalized\\
+\BlueprintStatement{def:integrated-entropy-line}{Integrated entropy along a line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:signed-log-phi-line}{Signed logarithmic column line}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:signed-line-column-bridge}{Exact bridge from line kernels to signed column functions}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:differentiate-integral}{Differentiation through the parameter integral}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:null-thresholds}{Null thresholds}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:two-upper-null-thresholds}{Two finite null thresholds between upper parameters}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:support-strict-integral}{Support gives strict weighted mass}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:scalar-measure-support}{Scalar measure support and null points}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-index}{Finite dependent block carrier}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-vector}{Constant-on-block vector}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-data}{Asymptotic block data}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-count-pos}{Positive block counts}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-carrier-nonempty}{Nonempty block-carrier instance}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-index-nonempty}{Nonempty arbitrary block index}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-max}{Maximum of a nonempty block vector}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-line-data}{Typed block line}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-kernels}{Block exponents, escort weights, and derivative kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-vector-formulas}{Block-vector finite-sum formulas}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:rounding}{Rounding estimates}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:dominant-block}{Dominant-block escort estimate}
+  & \LeanDecl{ConditionalEntropy.dominantBlock_first};
+    \LeanDecl{ConditionalEntropy.dominantBlock_second}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:near-shannon-dominant}{Near-Shannon cancellation for a dominant block}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:large-alpha-tail}{Large-order tail bound}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-limit-kernels}{Pointwise limit kernels for a block family}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:block-limit-passage}{Uniform passage to the block limit}
+  & --- & Not formalized\\
+\BlueprintStatement{def:special-block-data}{Specialized block data and signed truncations}
+  & --- & Not formalized\\
+\BlueprintStatement{def:special-block-top-unique}{Unique top blocks for the special families}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-dominance-maps}{Total two-block and three-block dominance maps}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:two-block-dominance-package}{Exact two-block dominance package}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:three-block-dominance-package}{Exact three-block dominance package}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:two-order-one-dominance}{Unique order-one block for the two-block family}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:three-order-one-dominance}{Unique order-one block for the three-block family}
+  & --- & Not formalized\\
+\BlueprintStatement{def:block-log-g-kernels}{Block logarithmic and norm-free kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:compact-uniform-eval}{Evaluation of compact-uniform convergence}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:compact-uniform-add}{Addition closure for compact-uniform convergence}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:compact-uniform-singleton}{Evaluation on a singleton}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:subtype-uniform-error-bridge}{Subtype bridge for uniform signed-integral errors}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-curve-kernel-bridge}{Block curve--kernel bridge}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-g-kernel-integrals}{Block (G)-kernels are signed kernel integrals}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-log-mass-limit}{Block logarithmic-mass splitting and limit}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-log-mass-continuity}{Continuity of logarithmic block-mass kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:block-kernel-regularity}{Linearity and continuity of the block kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{def:two-block-limits}{Two-block limit polynomials}
+  & --- & Not formalized\\
+\BlueprintStatement{def:three-block-limits}{Three-block cells and limit polynomials}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:two-block-limit-integral-eval}{Evaluation of the two-block limit integrals}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:three-block-limit-integral-eval}{Evaluation of the three-block limit integrals}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:block-localisation}{Two-block and three-block localisation}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:two-block-localisation}{Two-block localisation interface}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:three-block-localisation}{Three-block localisation interface}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-data}{Shannon block data}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-q-pos}{Positivity of the complementary Shannon weight}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-log-scale-pos}{Positivity of the Shannon logarithmic scale}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-count-pos}{Positive Shannon block counts}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-index-nonempty}{Nonempty Shannon index and block representative}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-line-data}{Shannon line and its escort}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-top-unique-at-zero}{The third Shannon block is strictly maximal at the base point}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-kernels}{Named Shannon kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-curve-kernel-bridge}{Shannon curve--kernel bridge}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-kernel-integral-bridge}{Shannon derivative--integral and logarithmic splitting bridge}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-kernel-regularity}{Linearity and continuity of the Shannon kernels}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-dedicated-escort}{Dedicated Shannon escort, compact-region, and tail estimates}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-remainder}{Shannon main term and uniform remainder}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:uniform-shannon-expansion}{Uniform Shannon expansion}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-neighbourhood}{Uniform control near the Shannon point}
+  & --- & Not formalized\\
+\BlueprintStatement{def:remove-signed-atom}{Signed atom and its removal}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:remove-signed-atom}{Removing a signed atom}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:signed-witness-integral-bridge}{Witness atoms and the positive lower truncation}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:shannon-log-mass}{Shannon-block logarithmic mass derivatives}
+  & --- & Not formalized\\
+\BlueprintStatement{def:shannon-localization-targets}{Shannon localization targets}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:shannon-localisation}{Shannon-point localisation}
+  & --- & Not formalized\\
+\BlueprintStatement{def:normalized-curvature}{Normalized scalar-line curvature}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:log-curvature-identity}{Logarithmic curvature identity}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:log-curvature-obstruction}{Logarithmic curvature limit obstruction}
+  & --- & Not formalized\\
+\BlueprintStatement{def:stationarity-package}{Stationarity convergence package}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:stationarity-correction}{Exact stationarity correction}
+  & \LeanDecl{ConditionalEntropy.stationarityCorrection_dot};
+    \LeanDecl{ConditionalEntropy.stationarityCorrection_tendsto}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:quasiconvex-second}{Stationary curvature of a quasi-convex function}
+  & \LeanDecl{ConditionalEntropy.not_quasiConvex_of_strict_midpoint_peak}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:typed-log-curvature-contradiction}{Typed curvature contradiction from logarithmic kernels}
+  & \LeanDecl{ConditionalEntropy.not_concave_of_strict_midpoint_valley};
+    \LeanDecl{ConditionalEntropy.not_convex_of_strict_midpoint_peak}
+  & Partial algebraic kernel\\
+\BlueprintStatement{lem:corrected-stationary-line-obstruction}{Corrected stationary-line obstruction}
+  & \LeanDecl{ConditionalEntropy.stationarityCorrection_dot};
+    \LeanDecl{ConditionalEntropy.stationarityCorrection_tendsto};
+    \LeanDecl{ConditionalEntropy.not_quasiConvex_of_strict_midpoint_peak}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:positive-necessity}{Positive-measure obstruction}
+  & \LeanDecl{ConditionalEntropy.negative_tail_concavity_obstruction};
+    \LeanDecl{ConditionalEntropy.excessive_lower_moment_concavity_obstruction};
+    \LeanDecl{ConditionalEntropy.shannon_atom_concavity_obstruction};
+    \LeanDecl{ConditionalEntropy.positiveTemperate_shannon_atom_zero};
+    \LeanDecl{ConditionalEntropy.positiveTemperate_no_upper_moment};
+    \LeanDecl{ConditionalEntropy.positiveTemperate_lowerMoment_le_one};
+    \LeanDecl{ConditionalEntropy.positiveTemperate_necessary}
+  & Partial algebraic kernel\\
+\BlueprintStatement{cor:positive-temperate-probability-necessity}{Positive temperate necessity for probability measures}
+  & \LeanDecl{ConditionalEntropy.positiveTemperate_necessary}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:negative-shannon-obstruction}{A Shannon atom excludes upper support}
+  & --- & Not formalized\\
+\BlueprintStatement{def:negative-truncations}{Positive lower and upper truncations}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:negative-truncation-bridge}{Negative-witness truncation identities}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:truncated-moment}{Truncated-moment obstruction}
+  & \LeanDecl{ConditionalEntropy.two_positive_stationary_witness};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_truncated_moment};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_exceptional_moment}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:one-upper-point}{At most one upper support point}
+  & \LeanDecl{ConditionalEntropy.two_positive_stationary_witness};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_atMostOneUpperCell}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:negative-temperate-necessity}{Complete negative temperate necessity}
+  & \LeanDecl{ConditionalEntropy.negativeTemperate_exceptional_moment};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_atMostOneUpperCell}
+  & Partial algebraic kernel\\
+\BlueprintStatement{cor:negative-temperate-probability-necessity}{Negative temperate necessity for probability measures}
+  & \LeanDecl{ConditionalEntropy.negativeTemperate_exceptional_moment};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_atMostOneUpperCell}
+  & Partial algebraic kernel\\
+\BlueprintStatement{prop:negative-tropical-necessity}{Complete negative tropical necessity}
+  & \LeanDecl{ConditionalEntropy.negativeTropical_moment_nonnegative};
+    \LeanDecl{ConditionalEntropy.negativeTropical_exceptional_moment}
+  & Partial algebraic kernel\\
+\BlueprintStatement{def:prob-as-pos-cone}{Probability support as a positive cone vector}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:prob-as-pos-cone-identities}{Probability-to-cone identities}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:prob-support-nonempty}{A probability vector has nonempty positive support}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:same-support-decomposition}{Decomposition inside a simplex face}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:probability-eq-dirac-zero}{Probability supported at zero is the zero Dirac measure}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:positive-tropical-necessity}{Only the support-rank measure survives}
+  & --- & Not formalized\\
+\BlueprintStatement{def:derivation-column-function}{Derivation column function}
+  & --- & Not formalized\\
+\BlueprintStatement{prop:derivation-necessity}{Derivation necessity}
+  & \LeanDecl{ConditionalEntropy.positive_tail_derivation_obstruction};
+    \LeanDecl{ConditionalEntropy.derivation_no_positive_upper_tail};
+    \LeanDecl{ConditionalEntropy.derivation_necessary}
+  & Partial algebraic kernel\\
+\BlueprintStatement{thm:necessity-bundle}{All necessary parameter conditions}
+  & \LeanDecl{ConditionalEntropy.positiveTemperate_necessary};
+    \LeanDecl{ConditionalEntropy.negativeTemperate_exceptional_moment};
+    \LeanDecl{ConditionalEntropy.negativeTropical_exceptional_moment};
+    \LeanDecl{ConditionalEntropy.derivation_necessary}
+  & Partial algebraic kernel\\
+\BlueprintStatement{thm:main-classification}{Complete parameter classification}
+  & --- & Not formalized\\
+\BlueprintStatement{def:conditional-entropy-axioms}{Conditional-entropy axiom bundle}
+  & --- & Not formalized\\
+\BlueprintStatement{lem:embedding-lift}{Embedding lift of fixed-row monotonicity}
+  & --- & Not formalized\\
+\BlueprintStatement{cor:all-conditional-entropy-axioms}{Admissible candidates satisfy the complete axiom bundle}
+  & --- & Not formalized\\
+
+\end{longtable}
+\normalsize

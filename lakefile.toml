@@ -1,6 +1,6 @@
 name = "conditional_entropy_characterisation"
 version = "0.1.0"
-defaultTargets = ["ConditionalEntropy"]
+defaultTargets = ["CompleteCharacterization"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -18,3 +18,6 @@ name = "ConditionalEntropy"
 
 [[lean_lib]]
 name = "BoundaryProofs"
+
+[[lean_lib]]
+name = "CompleteCharacterization"

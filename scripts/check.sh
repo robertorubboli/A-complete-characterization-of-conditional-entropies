@@ -8,7 +8,8 @@ if rg -n '^\s*(axiom|opaque)\b|\b(sorry|admit)\b' \
 fi
 
 if [[ "${1:-}" != "--no-build" ]]; then
-  lake build ConditionalEntropy BoundaryProofs --wfail
+  lake build CompleteCharacterization --wfail
 fi
 
 lake env lean scripts/AxiomAudit.lean
+pwsh -NoProfile -File scripts/check-correspondence.ps1

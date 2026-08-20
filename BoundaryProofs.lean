@@ -1,6 +1,9 @@
 import BoundaryProofs.Curvature
 import BoundaryProofs.Midpoint
+import BoundaryProofs.PointwiseLimits
+import BoundaryProofs.DominantBlock
 import BoundaryProofs.Stationarity
+import BoundaryProofs.VerifiedKernelBundle
 
 /-!
 # Analytic boundary calculations

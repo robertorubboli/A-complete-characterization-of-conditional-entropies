@@ -21,8 +21,7 @@ jobs:
           auto-config: false
           build: true
           build-args: >-
-            ConditionalEntropy
-            BoundaryProofs
+            CompleteCharacterization
             --wfail
 
       - name: Verify source and kernel dependencies

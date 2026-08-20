@@ -1,41 +1,70 @@
-digraph ConditionalEntropy {
-  graph [rankdir=TB, bgcolor="transparent", margin=0.08, nodesep=0.18,
-         ranksep=0.62, splines=ortho, label="36 checked Lean theorem/lemma declarations",
-         labelloc="b", fontname="Latin Modern Roman", fontsize=11];
-  node [shape=box, style="rounded,filled", fontname="Latin Modern Roman", fontsize=10,
-        color="#64748b", fillcolor="#ffffff", fontcolor="#0f172a",
-        margin="0.12,0.07"];
-  edge [color="#64748b", arrowsize=0.62, penwidth=0.9];
+digraph FormalizationLayers {
+  graph [rankdir=TB, bgcolor="white", pad=0.20, nodesep=0.35,
+         ranksep=0.55, splines=polyline, newrank=true,
+         fontname="Arial", fontsize=18,
+         label="Lean formalization dependency layers", labelloc=t];
+  node [shape=box, style="rounded,filled", penwidth=1.2,
+        fontname="Arial", fontsize=11, margin="0.16,0.10",
+        width=3.15];
+  edge [color="#6b7280", penwidth=1.0, arrowsize=0.65];
 
-  l43 [label="Lemma 4.3 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
-  p48 [label="Proposition 4.8 core\n(1 Lean theorem)", fillcolor="#ecfdf5", color="#16a34a"];
-  p51 [label="Proposition 5.1 core\n(4 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
-  p523 [label="Propositions 5.2–5.3 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
-  p56 [label="Proposition 5.6 core\n(1 Lean theorem)", fillcolor="#ecfdf5", color="#16a34a"];
-  nt [label="Negative tropical case, §5\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
-  p57 [label="Proposition 5.7 core\n(2 Lean theorems)", fillcolor="#ecfdf5", color="#16a34a"];
+  m1 [label="M1  Finite carriers, cones,\nand channels\nPARTIAL",
+      fillcolor="#eff6ff", color="#2563eb"];
+  m2 [label="M2  Compact parameters, measures,\nsupport, and moments\nOPEN",
+      fillcolor="#fff7ed", color="#ea580c"];
+  m3 [label="M3  Total endpoint-aware\nRenyi library\nOPEN",
+      fillcolor="#fff7ed", color="#ea580c"];
+  m4 [label="M4  Conditional candidates\nand shape reductions\nPARTIAL",
+      fillcolor="#eff6ff", color="#2563eb"];
+  m5 [label="M5  Temperate sufficiency\nPARTIAL ALGEBRAIC KERNELS",
+      fillcolor="#eff6ff", color="#2563eb"];
+  m6 [label="M6  Tropical and derivation\nsufficiency\nOPEN",
+      fillcolor="#fff7ed", color="#ea580c"];
+  m7 [label="M7  Differentiation and\nsigned integration\nPARTIAL STATIONARITY KERNELS",
+      fillcolor="#eff6ff", color="#2563eb"];
+  m8 [label="M8  Two- and three-block\nlocalization\nPARTIAL DOMINANT-BLOCK BOUNDS",
+      fillcolor="#eff6ff", color="#2563eb"];
+  m9 [label="M9  Shannon-point localization\nOPEN",
+      fillcolor="#fff7ed", color="#ea580c"];
+  m10 [label="M10  Necessity branches\nPARTIAL SCALAR KERNELS",
+       fillcolor="#eff6ff", color="#2563eb"];
+  m11 [label="M11  Classification and\nembedded-axiom lift\nOPEN",
+       fillcolor="#fff7ed", color="#ea580c"];
 
-  appA [label="Appendix A implication\n(8 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
-  b2 [label="Lemma 4.2 / Lemma B.2\n(9 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
-  b15 [label="Lemma B.15\n(2 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
-  b6 [label="Appendix B.6\n(3 Lean theorems)", fillcolor="#eef2ff", color="#4f46e5"];
+  { rank=same; m1; m2 }
+  { rank=same; m5; m7 }
+  { rank=same; m6; m8 }
 
-  { rank=same; l43; p48; p51; p523; }
-  { rank=same; p56; nt; p57; }
-  { rank=same; appA; b2; b15; b6; }
+  m1 -> m3;
+  m2 -> m3;
+  m1 -> m4;
+  m2 -> m4;
+  m3 -> m4;
 
-  l43 -> appA;
-  l43 -> b2;
-  p48 -> appA;
-  p51 -> b2;
-  p51 -> b6;
-  p523 -> b2;
-  p523 -> b6;
-  p56 -> b2;
-  p56 -> b6;
-  nt -> b2;
-  nt -> b15;
-  nt -> b6;
-  p57 -> b2;
-  p57 -> b6;
+  m2 -> m5;
+  m3 -> m5;
+  m4 -> m5;
+  m3 -> m6;
+  m4 -> m6;
+  m5 -> m6;
+
+  m2 -> m7;
+  m3 -> m7;
+  m4 -> m7;
+  m1 -> m8;
+  m2 -> m8;
+  m3 -> m8;
+  m7 -> m8;
+  m7 -> m9;
+  m8 -> m9;
+
+  m4 -> m10;
+  m7 -> m10;
+  m8 -> m10;
+  m9 -> m10;
+
+  m4 -> m11;
+  m5 -> m11;
+  m6 -> m11;
+  m10 -> m11;
 }

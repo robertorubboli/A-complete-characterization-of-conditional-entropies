@@ -33,7 +33,7 @@ def IsQuasiConvex {E : Type*} [AddCommMonoid E] [Module ℝ E] (f : E → ℝ) :
 /-- Strong quasi-concavity, the shape condition for the positive tropical branch. -/
 def IsStronglyQuasiConcave {E : Type*} [AddCommMonoid E] [Module ℝ E]
     (f : E → ℝ) : Prop :=
-  ∀ x z : E, ∀ t : ℝ, 0 ≤ t → t ≤ 1 →
+  ∀ x z : E, ∀ t : ℝ, 0 < t → t < 1 →
     max (f x) (f z) ≤ f (t • x + (1 - t) • z)
 
 /-- A finite coefficient family has total mass one. -/
