@@ -8,7 +8,7 @@ if command -v rg >/dev/null 2>&1; then
     exit 1
   fi
 else
-  if grep -RInE --include='*.lean' --exclude-dir=tmp \
+  if grep -RInE --include='*.lean' --exclude-dir=tmp --exclude-dir=.lake --exclude-dir=.git \
       '(^[[:space:]]*(axiom|opaque)([[:space:]]|$))|(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' .; then
     echo 'Project-specific axiom, opaque declaration, sorry, or admit found.' >&2
     exit 1
