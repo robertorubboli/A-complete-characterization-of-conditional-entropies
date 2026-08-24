@@ -8,7 +8,8 @@ axiom audit, forbidden-token scan, and correspondence audit all pass.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
-whose imports transitively cover every project Lean module.
+whose imports transitively cover the complete declaration-bearing release
+dependency tree.
 
 ## Status at a glance
 

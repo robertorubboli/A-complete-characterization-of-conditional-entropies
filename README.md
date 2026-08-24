@@ -27,7 +27,7 @@ foundations. No project-specific axiom is used.
   `allConditionalEntropyAxioms`, the conditional-semiring order, and the
   independently checked boundary-kernel bundle. It also imports the standalone
   Hessian criterion and parameterized removable-Shannon quotient, so the root
-  build checks every project Lean module transitively.
+  build checks the complete declaration-bearing release dependency tree.
 - [`ConditionalEntropy/MainClassification.lean`](ConditionalEntropy/MainClassification.lean)
   assembles `necessityBundle` with the four sufficiency directions into the
   closed predicate `Classifies tau`.
