@@ -1,89 +1,91 @@
 # A complete characterization of conditional entropies
 
-This repository accompanies Sections 4 and 5 of the manuscript and records
-their present Lean 4 formalization status. It contains machine-checked finite
-algebraic, order-theoretic, stationarity, midpoint, dominant-block, and
-pointwise-limit kernels, together with an exhaustive manuscript-to-Lean
-coverage ledger and a LaTeX appendix for the paper.
+This repository contains the Lean 4 development accompanying Sections 4 and
+5 of the manuscript. The current source tree contains the complete vertical
+architecture: endpoint-aware Rényi parameters and integrals, positive-base
+real-power calculus, signed-measure differentiation and discretization,
+two-block, three-block, and Shannon localization, all necessity and
+sufficiency branches, and the original conditional-semiring/channel lift.
 
-> **This is not yet a Lean proof of the complete classification.** The genuine
-> manuscript targets `necessityBundle`, `mainClassification`, and
-> `allConditionalEntropyAxioms` are deliberately **not declared**. The
-> supporting targets `ConditionalEntropyAxioms` and `embeddingLift` are also
-> absent. Completing them requires formalization of the endpoint-aware Rényi
-> parameter and integrals, real-power differentiation, signed-measure
-> differentiation and discretization, the full two-block, three-block, and
-> Shannon localization arguments, and the original semiring/channel lift.
-> None of those missing steps is replaced by an axiom or by an assumed final
-> theorem.
+The two terminal source declarations are:
 
-## What is in the repository
+- `ConditionalEntropy.mainClassification`, the assumption-free four-branch
+  necessary-and-sufficient parameter classification; and
+- `ConditionalEntropy.allConditionalEntropyAxioms`, the literal five-law
+  package for every admissible candidate family.
+
+The complete release audit passed on 24 August 2026. The root target built with
+warnings treated as errors (2,864 jobs), the forbidden-token and exact
+152-row correspondence scans passed, and the 21 audited public declarations
+depend only on Lean's standard `propext`, `Classical.choice`, and `Quot.sound`
+foundations. No project-specific axiom is used.
+
+## Repository contents
 
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
-  checked project entry point. Despite its filename, it imports the currently
-  advertised checked modules; it does not assert the complete classification.
-- [`ConditionalEntropy/Cone.lean`](ConditionalEntropy/Cone.lean) gives the
-  proof-carrying nonnegative cone and checked translations of the first four
-  Section 4 lemmas.
-- [`BoundaryProofs/VerifiedKernelBundle.lean`](BoundaryProofs/VerifiedKernelBundle.lean)
-  declares `ConditionalEntropy.verifiedKernelBundle`, a closed conjunction of
-  the independently checked boundary kernels. Its conjuncts universally
-  quantify their mathematical data and premises, so the bundle is evidence for
-  those implications, not a hypothesis-free classification theorem.
+  project entry point. It imports `mainClassification`,
+  `allConditionalEntropyAxioms`, the conditional-semiring order, and the
+  independently checked boundary-kernel bundle. It also imports the standalone
+  Hessian criterion and parameterized removable-Shannon quotient, so the root
+  build checks every project Lean module transitively.
+- [`ConditionalEntropy/MainClassification.lean`](ConditionalEntropy/MainClassification.lean)
+  assembles `necessityBundle` with the four sufficiency directions into the
+  closed predicate `Classifies tau`.
+- [`ConditionalEntropy/AllConditionalEntropyAxioms.lean`](ConditionalEntropy/AllConditionalEntropyAxioms.lean)
+  assembles nonnegativity, embedding invariance, tensor additivity, fair-bit
+  normalization, and monotonicity under embedded conditional majorization.
 - [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-  is the exhaustive 152-row correspondence table with the columns
-  **Manuscript statement**, **Lean declaration**, and **Status**. The matching
-  LaTeX table is
+  is the exhaustive 152-row correspondence table with exactly the columns
+  **Manuscript statement**, **Lean declaration**, and **Status**. Its LaTeX
+  counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
-- [`paper/dependency-graph.svg`](paper/dependency-graph.svg) is the condensed
-  dependency graph. Its editable source and PNG rendering are
-  [`paper/dependency-graph.dot`](paper/dependency-graph.dot) and
-  [`paper/dependency-graph.png`](paper/dependency-graph.png). A layer guide is
-  in [`DEPENDENCIES.md`](DEPENDENCIES.md), and exact checked
-  declaration-to-declaration edges are in
-  [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md).
+- [`paper/dependency-graph.dot`](paper/dependency-graph.dot) is the authoritative
+  condensed dependency graph. [`DEPENDENCIES.md`](DEPENDENCIES.md) explains its
+  layers, and [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) records
+  paper-facing declaration dependencies. The checked-in SVG and PNG are
+  renderings of the DOT source.
 - [`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex)
-  is the paper appendix containing the scope statement, dependency graph, and
-  three-column correspondence table.
+  is the LaTeX appendix containing the dependency graph, exact terminal
+  signatures, trust-boundary protocol, and three-column correspondence table.
   [`paper/main-with-lean-appendix.tex`](paper/main-with-lean-appendix.tex) is the
-  main-paper wrapper that includes that appendix, while
-  [`paper/lean-correspondence-standalone.tex`](paper/lean-correspondence-standalone.tex)
-  is a bibliography-independent appendix wrapper. The full-paper wrapper
-  retains the supplied manuscript's external bibliography references.
-- [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is a
-  verbatim repository copy of the supplied self-contained blueprint used for
-  the source-ordered audit.
+  supplied main paper with that appendix included.
+- [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
+  repository copy of the supplied self-contained blueprint used to order the
+  statement audit.
 
-![Condensed formalization dependency graph](paper/dependency-graph.svg)
+## Main proof layers
 
-## How to read a correspondence row
+The classification branch follows this dependency path:
 
-The table distinguishes a checked statement from a checked kernel.
-`Proved and kernel checked` means that the listed Lean declaration has the
-blueprint statement's full conclusion. `Partial algebraic kernel` means that
-the listed declaration proves a genuine
-finite calculation or logical implication used by the manuscript statement,
-but not the statement's full measure-theoretic, asymptotic, or channel-level
-conclusion. `Not formalized` means that no current project declaration is a
-semantically justified Lean version of that statement. An entry in the Lean
-column therefore must not be read as a claim that the entire manuscript row is
-proved.
+```text
+finite data and endpoint-aware parameter measures
+  → Rényi/real-power calculus and signed integration
+  → two-block and three-block localization
+  → Shannon log-mass, expansion, and localization
+  → temperate, tropical, and derivation necessity
+  → necessityBundle
+  → mainClassification
+```
 
-For example, the declarations in
-[`ConditionalEntropy/MainTheorem.lean`](ConditionalEntropy/MainTheorem.lean)
-assemble finite-profile consequences under explicit mathematical premises.
-They are useful checked lemmas, but they are not `necessityBundle` or
-`mainClassification`. The remaining analytic obligations are summarized in
-[`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md), with the module-layer
-plan in [`DEPENDENCIES.md`](DEPENDENCIES.md).
+In parallel, the channel-law branch formalizes the finite conditional
+semiring, its quotient order, concrete channel comparison, `embeddingLift`,
+and the normalization/tensor/embedding packages consumed by
+`allConditionalEntropyAxioms`.
+
+## Reading the correspondence table
+
+The ledger uses two status forms:
+
+- **Formalized**: a matching declaration is present and covered by the strict
+  root build.
+- **Formalized (split API)**: the manuscript package is represented by the
+  listed smaller declarations, all covered by the strict root build.
 
 ## Reproduce the checks
 
 The project is pinned to **Lean 4.32.2** by
 [`lean-toolchain`](lean-toolchain) and **Mathlib 4.32.2** by
-[`lakefile.toml`](lakefile.toml).
-
-On Windows, run from the repository root:
+[`lakefile.toml`](lakefile.toml). On Windows, run from the repository root:
 
 ```powershell
 powershell -File scripts/check.ps1
@@ -91,28 +93,18 @@ powershell -File scripts/check.ps1
 
 The script scans project Lean sources for `sorry`, `admit`, project-defined
 `axiom`, and project-defined `opaque`; builds `CompleteCharacterization` with
-warnings treated as errors; and runs the kernel dependency audit in
-[`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean). The checked source
-contains none of those four project-level escape hatches. Standard Lean and
-Mathlib logical dependencies reported by `#print axioms` are part of the
-trusted foundation, not project-specific axioms.
+warnings treated as errors; runs the kernel dependency audit in
+[`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean); and checks the exact
+152-row, three-column correspondence invariant. Standard Lean and Mathlib
+logical dependencies reported by `#print axioms` are part of the trusted
+foundation, not project-specific axioms.
 
-## Lean source map
+To refresh the graph renderings after editing the DOT source:
 
-- `ConditionalEntropy/Cone.lean`: proof-carrying nonnegative cone and four
-  fully translated elementary Section 4 lemmas.
-- `ConditionalEntropy/Basic.lean`: shape predicates and curvature forms.
-- `ConditionalEntropy/Conditioning.lean`: finite row-stochastic conditioning
-  reductions.
-- `ConditionalEntropy/ParameterConditions.lean`: abstract finite profiles for
-  moments and support data not yet produced by the missing analytic layer.
-- `ConditionalEntropy/Sufficient.lean` and
-  `ConditionalEntropy/Necessary.lean`: checked coefficient implications and
-  scalar obstructions.
-- `ConditionalEntropy/MainTheorem.lean`: partial finite-profile assembly.
-- `BoundaryProofs/Curvature.lean`, `Stationarity.lean`, `Midpoint.lean`,
-  `DominantBlock.lean`, and `PointwiseLimits.lean`: independently checked
-  boundary kernels.
+```powershell
+npm install
+npm run render:graph
+```
 
 ## License
 
