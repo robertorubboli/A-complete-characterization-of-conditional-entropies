@@ -66,5 +66,11 @@ for each admissible candidate and uses the semiring/channel lift.
 For manuscript statement correspondence, see
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) and the larger
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
+The publication-facing dependency graph and three-column correspondence table
+are in
+[`paper/four-document-release/lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex).
+All statement numbers displayed there are the numbers in the full-details
+Sections 4 and 5 paper; the concise companion uses the same statement order and
+numbers.
 Build and forbidden-token audit results are tracked separately; this document
 describes dependencies and does not by itself assert compilation status.

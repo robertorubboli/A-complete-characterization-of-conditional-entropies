@@ -130,6 +130,14 @@ For later use, we introduce the function
  \label{eq:def-omega}
 \end{equation}
 The value at $+\infty$ is the continuous limit of $\alpha/(1-\alpha)$ and is also the value compatible with the identity involving $H_\infty$ used below.
+Throughout the paper, $\operatorname{supp}(\tau)$ denotes the closed support of
+a positive measure $\tau$, and $\delta_a$ denotes the Dirac probability measure
+at $a$.  If $T$ is Borel measurable, its push-forward is defined by
+\begin{equation}
+(T_\#\tau)(B):=\tau\bigl(T^{-1}(B)\bigr)
+\label{eq:pushforward-definition}
+\end{equation}
+for every Borel set $B$.
 
 \subsection{Reduction to one column and lift to conditionally mixing channels}
 \label{sec:channel-lift}
@@ -763,6 +771,11 @@ For notational convenience, we combine the parameter $t$ and the probability mea
  \mu:=t\tau.
  \label{eq:mu-equals-t-tau}
 \end{equation}
+For a finite signed measure $\mu$, the notation $|\mu|$ means its
+total-variation measure, and
+$\operatorname{supp}(\mu):=\operatorname{supp}(|\mu|)$.  A point $r$ is called
+$|\mu|$-null when $|\mu|(\{r\})=0$.  These conventions are used whenever a
+localization threshold is chosen below.
 Thus $\mu\geq0$ in the $\mathbb R_+$ case and $\mu\leq0$ in the $\mathbb R_+^{\mathrm{op}}$ case. We write
 \begin{equation}
  \Phi_\mu(\vec x)
@@ -795,6 +808,14 @@ Whenever several coordinate blocks are placed in the same column, we use the not
  \label{eq:col-notation}
 \end{equation}
 for their vertical concatenation. This must not be confused with the semiring direct sum $\oplus$, which would create additional conditioning columns and would change the homomorphism into a sum or a tropical maximum over those columns.
+We also write
+\begin{equation}
+\mathbf1_n:=(1,\ldots,1)\in\mathbb R^n
+\label{eq:ones-vector-definition}
+\end{equation}
+for the all-ones vector.  When the subscript is a parameter set rather than an
+integer, $\mathbf1_E$ denotes the indicator of $E$.  As usual,
+$\lceil s\rceil$ is the least integer not smaller than $s$.
 
 The proof is organised around three elementary high-dimensional perturbations.
 \begin{enumerate}
@@ -1569,6 +1590,35 @@ become formal arguments: the main text chooses the witness and reads its sign,
 while this appendix verifies that every derivative, integral, limit, and finite
 correction used to obtain that sign is legitimate.
 
+We fix the technical notation before it is used.  If
+$\rho=(\rho_i)_{i=1}^N$ is a finite probability vector and $f=(f_i)$ and
+$g=(g_i)$ are real arrays, then
+\begin{align}
+\mathbb E_\rho[f]
+&:=\sum_{i=1}^N\rho_i f_i,
+\label{eq:technical-expectation-definition}\\
+\operatorname{Var}_\rho(f)
+&:=\mathbb E_\rho[f^2]-\bigl(\mathbb E_\rho[f]\bigr)^2,
+\label{eq:technical-variance-definition}\\
+\operatorname{Cov}_\rho(f,g)
+&:=\mathbb E_\rho[fg]-\mathbb E_\rho[f]\,\mathbb E_\rho[g].
+\label{eq:technical-covariance-definition}
+\end{align}
+An omitted subscript means that the probability weights have been named in the
+surrounding sentence.  We use
+\begin{equation}
+\mathrm D^2F(\vec x)[\vec v,\vec v]
+:=\frac{\mathrm d^2}{\mathrm ds^2}F(\vec x+s\vec v)\bigg|_{s=0}
+\label{eq:technical-directional-Hessian-definition}
+\end{equation}
+for the second directional derivative, $\partial_i$ for differentiation in the
+$i$th coordinate, $\delta_{ij}$ for the Kronecker delta, and
+$\|f\|_\infty:=\max_i|f_i|$ for a finite array.  The notation
+$a_s=O(b_s)$ means that $|a_s|\leq C|b_s|$ near the indicated limit, whereas
+$a_s=o(b_s)$ means $a_s/b_s\to0$.  If auxiliary parameters are present,
+``locally uniform'' means uniform on every compact set of those parameters.
+Finally, $g\in L^1(\nu)$ means $\int|g|\,\mathrm d\nu<+\infty$.
+
 \subsection{Real-power curvature, endpoint continuity, and common discretization}
 \label{app:measure-approximation}
 
@@ -1920,7 +1970,23 @@ be an affine path in $\mathbb R^d_{>0}$ for $|\lambda|\leq\lambda_0$.  For $\alp
  u_i(\lambda):=\frac{v_i}{x_i(\lambda)}.
  \label{eq:app-ell-pi-u}
 \end{equation}
-We use $\mathbb E_\alpha$ and $\operatorname{Var}_\alpha$ for expectation and variance under $\pi^{(\alpha)}(\lambda)$.
+The vector $\pi^{(\alpha)}(\lambda)$ is the $\alpha$-escort probability vector.
+For any coordinate arrays $f$ and $g$, we specialize the preceding definitions
+as
+\begin{align}
+\mathbb E_\alpha[f]
+&:=\sum_i\pi_i^{(\alpha)}(\lambda)f_i,
+\label{eq:app-escort-expectation}\\
+\operatorname{Var}_\alpha(f)
+&:=\mathbb E_\alpha[f^2]-\bigl(\mathbb E_\alpha[f]\bigr)^2,
+\label{eq:app-escort-variance}\\
+\operatorname{Cov}_\alpha(f,g)
+&:=\mathbb E_\alpha[fg]-\mathbb E_\alpha[f]\mathbb E_\alpha[g].
+\label{eq:app-escort-covariance}
+\end{align}
+Primes and superscripts $(r)$ in this subsection denote derivatives in
+$\lambda$, while $\partial_\alpha$ denotes differentiation in the R\'enyi
+parameter.
 
 \begin{lemma}[First and second derivatives of the logarithmic power mean]
 \label{lem:app-ell-derivatives}
@@ -2200,6 +2266,10 @@ Consider a vector divided into finitely many coordinate blocks.  At $\lambda=0$,
  :=\frac{\sum_{i\in j}x_i^\alpha}{\sum_ix_i^\alpha}.
  \label{eq:app-aggregate-power-weight}
 \end{equation}
+These numbers are probability weights on the blocks.  Here
+$\ell_{\alpha,d}$ means $\ell_\alpha$ for the $d$-dimensional block path, and
+unsubscripted $\mathbb E$, $\operatorname{Var}$, and $\operatorname{Cov}$ in
+this subsection use the weights $\Pi_d^{(\alpha)}$.
 Then Lemma~\ref{lem:app-ell-derivatives} becomes
 \begin{align}
  \ell_{\alpha,d}'(0)
@@ -2551,7 +2621,12 @@ Adding the norm limits \eqref{eq:app-three-norm-limit} yields
  -\sum_{j\neq k}A_ju_j^2,
  \label{eq:app-three-final-second}
 \end{align}
-which are \eqref{eq:three-block-log-first-main}--\eqref{eq:three-block-log-second-main}.  Omitting the norm term gives
+which are \eqref{eq:three-block-log-first-main}--\eqref{eq:three-block-log-second-main}.  Omitting the norm term, define
+\begin{equation}
+G_d(\lambda):=G_\mu\bigl(\vec x_{a,b}^{(d)}(\lambda)\bigr).
+\label{eq:app-three-G-d-definition}
+\end{equation}
+Then
 \begin{align}
  G_d'(0)&\longrightarrow
  -\left(\sum_{j\neq k}A_j\right)u_k
@@ -2643,6 +2718,24 @@ We next calculate the Shannon derivative exactly enough to identify its limit.  
  w_i(\lambda):=\frac{x_i'(\lambda)}{x_i(\lambda)}.
  \label{eq:app-Shannon-p-w}
 \end{equation}
+For a coordinate array $f$, set
+\begin{align}
+\mathbb E_{p(\lambda)}[f]
+&:=\sum_i p_i(\lambda)f_i,
+\label{eq:app-Shannon-expectation-definition}\\
+\operatorname{Var}_{p(\lambda)}(f)
+&:=\mathbb E_{p(\lambda)}[f^2]
+-\bigl(\mathbb E_{p(\lambda)}[f]\bigr)^2,
+\label{eq:app-Shannon-variance-definition}\\
+\operatorname{Cov}_{p(\lambda)}(f,g)
+&:=\mathbb E_{p(\lambda)}[fg]
+-\mathbb E_{p(\lambda)}[f]\mathbb E_{p(\lambda)}[g].
+\label{eq:app-Shannon-covariance-definition}
+\end{align}
+We abbreviate these subscripts to $p$ when $\lambda$ is clear, and write
+$(\log x)_i:=\log x_i$.  Thus expectation is the weighted average, variance
+measures the squared fluctuation about that average, and covariance measures
+the joint fluctuation of two arrays.
 Then
 \begin{equation}
  p_i'=p_i\bigl(w_i-\mathbb E_p[w]\bigr),
@@ -2892,6 +2985,11 @@ a contradiction.
 \end{proof}
 
 The limiting counterexample velocities in Section~\ref{sec:necessary-conditions} make the limiting first derivative zero. This alone is not sufficient: the derivative must be exactly zero at the same finite $d$ at which Lemma~\ref{lem:app-quasiconvex-stationary} is applied. The following elementary correction supplies exact stationarity.
+
+In the next lemma, $g_{d,z}$ denotes the one-variable restriction obtained by
+using the block-velocity vector $z$ at dimension $d$; its primes are
+$\lambda$-derivatives at zero.  The dot product is
+$c_d\mathbin{\cdot}z:=\sum_j(c_d)_jz_j$.
 
 \begin{lemma}[Exact finite-dimensional stationarity correction]
 \label{lem:app-exact-stationarity}

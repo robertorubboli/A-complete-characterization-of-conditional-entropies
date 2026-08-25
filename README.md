@@ -25,9 +25,11 @@ foundations. No project-specific axiom is used.
 - [`paper/four-document-release`](paper/four-document-release) is the
   self-contained four-paper LaTeX/Overleaf release. The main paper has numbered
   placeholders for Sections 4 and 5; the concise and full-detail companions use
-  the exact Lean counterexamples (including both tropical branches); and the
-  Lean note contains the matching dependency graph and correspondence table
-  through Proposition 2.10. The upload-ready archive is
+  the same explicit finite counterexamples (including both tropical branches);
+  and the Lean note contains the matching dependency graph and correspondence
+  table through Proposition 2.10. Every number in that graph and table is the
+  number in the full-details paper, while the concise paper deliberately uses
+  the identical numbering. The upload-ready archive is
   [`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip).
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
   project entry point. It imports `mainClassification`,

@@ -42,6 +42,8 @@ finite and general measures, both tropical endpoints, and derivations.  In parti
 no global finiteness assumption is imposed on the measure.  The proofs retain the main
 ideas---finite-support factorization, common discretization, and localized
 high-dimensional counterexamples---while omitting the lengthy analytic calculations.
+A statement-by-statement machine-checked formalization of the two sections is
+given in Ref.~\cite{rubboli2026parametersLean}.
 \end{abstract}
 
 \author{Roberto Rubboli}
@@ -429,6 +431,84 @@ convergence make the required moment bounds conclusions of the argument.  Thus
 no derivative is exchanged with an already limiting piecewise envelope, and no
 separate finiteness assumption is needed.
 
+\paragraph{Explicit witness vectors.}
+All counterexamples below are restrictions to affine lines of the form
+$\lambda\mapsto\vec{x}+\lambda\vec{v}$.  We record their initial points and
+directions explicitly, with every coordinate written inside parentheses.  For
+the two-block family, put $R=r+1$ and
+\begin{equation}
+n_{0,d}=\lceil d^R\rceil,
+\qquad
+n_{1,d}=\lceil d^{R-r}\rceil.
+\end{equation}
+The initial point and the direction with block velocities $(u_0,u_1)$ are
+\begin{align}
+\vec{x}_r^{(d)}
+&=\left(
+\underbrace{1,\ldots,1}_{n_{0,d}},
+\underbrace{d,\ldots,d}_{n_{1,d}}
+\right),
+\label{eq:concise-two-block-point}\\
+\vec{v}_r^{(d)}(u_0,u_1)
+&=\left(
+\underbrace{u_0,\ldots,u_0}_{n_{0,d}},
+\underbrace{d u_1,\ldots,d u_1}_{n_{1,d}}
+\right).
+\label{eq:concise-two-block-direction}
+\end{align}
+For the three-block family, put $R=a+b+1$ and
+\begin{equation}
+n_{0,d}=\lceil d^R\rceil,
+\qquad
+n_{1,d}=\lceil d^{R-a}\rceil,
+\qquad
+n_{2,d}=\lceil d^{R-a-b}\rceil.
+\end{equation}
+Its initial point and direction are
+\begin{align}
+\vec{x}_{a,b}^{(d)}
+&=\left(
+\underbrace{1,\ldots,1}_{n_{0,d}},
+\underbrace{d,\ldots,d}_{n_{1,d}},
+\underbrace{d^2,\ldots,d^2}_{n_{2,d}}
+\right),
+\label{eq:concise-three-block-point}\\
+\vec{v}_{a,b}^{(d)}(u_0,u_1,u_2)
+&=\left(
+\underbrace{u_0,\ldots,u_0}_{n_{0,d}},
+\underbrace{d u_1,\ldots,d u_1}_{n_{1,d}},
+\underbrace{d^2u_2,\ldots,d^2u_2}_{n_{2,d}}
+\right).
+\label{eq:concise-three-block-direction}
+\end{align}
+Finally, for the rounded Shannon family put $p=q=1/2$, $R=c+2$, and
+\begin{equation}
+n_{0,d}=\lceil d^R\rceil,
+\qquad
+n_{1,d}=\lceil d^{R-1}\rceil,
+\qquad
+n_{2,d}=\lceil d^{R-1-c}\rceil.
+\end{equation}
+Its initial point and direction are
+\begin{align}
+\vec{x}_{\mathrm{Sh}}^{(d)}
+&=\left(
+\underbrace{q,\ldots,q}_{n_{0,d}},
+\underbrace{dp,\ldots,dp}_{n_{1,d}},
+\underbrace{d^2,\ldots,d^2}_{n_{2,d}}
+\right),
+\label{eq:concise-Shannon-point}\\
+\vec{v}_{\mathrm{Sh}}^{(d)}(h,v)
+&=\left(
+\underbrace{h/\log d,\ldots,h/\log d}_{n_{0,d}},
+\underbrace{-dh/\log d,\ldots,-dh/\log d}_{n_{1,d}},
+\underbrace{d^2v,\ldots,d^2v}_{n_{2,d}}
+\right).
+\label{eq:concise-Shannon-direction}
+\end{align}
+The ceiling signs make these genuine finite-dimensional vectors.  The block
+velocities in parentheses will be specified separately for each obstruction.
+
 \subsection{Necessary conditions; temperate case}
 
 The temperate case corresponds to the bulk entropies $H_{t,\tau}$ in Eq.~(122) of
@@ -475,32 +555,53 @@ $\operatorname{supp}(\mu)\subseteq[0,1]$, $\mu(\{1\})=0$, and
 \end{proposition}
 
 \begin{proof}[Proof idea]
-The three exclusions use three separate localizers, exactly as in the Lean
-proof.  An atom $m=\mu(\{1\})>0$ is detected by the rounded Shannon
-perturbation with $p=q=1/2$, $R=c+2$, and scalar direction $(1,0)$: its
-limiting logarithmic derivatives are $m$ and $0$, so the outer exponential has
-limiting curvature $m^2>0$.
+The three exclusions use the finite localizers displayed above.  An atom
+$m=\mu(\{1\})>0$ is detected by choosing a $\mu$-null point $c>1$ and using
+the complete point-direction pair
+\begin{equation}
+\left(
+\vec{x}_{\mathrm{Sh}}^{(d)},
+\vec{v}_{\mathrm{Sh}}^{(d)}(1,0)
+\right).
+\label{eq:positive-Shannon-witness-pair}
+\end{equation}
+Its limiting logarithmic derivatives are $m$ and $0$, so the outer exponential
+has limiting curvature $m^2>0$.
 
 For the remaining two tests, choose a $\mu$-null threshold $r>0$, put
-$R=r+1$, and use the two-block path having $\lceil d^R\rceil$ entries
-$1+u_0\lambda$ and $\lceil d^{R-r}\rceil$ entries
-$d(1+u_1\lambda)$.  If $r>1$ and upper support is present, the localized
-coefficient
+$R=r+1$, and use the two-block initial point in
+Eq.~\eqref{eq:concise-two-block-point}.  If $r>1$ and upper support is present,
+the complete pair is
+\begin{equation}
+\left(
+\vec{x}_r^{(d)},
+\vec{v}_r^{(d)}(0,1)
+\right),
+\label{eq:positive-upper-witness-pair}
+\end{equation}
+and the localized coefficient
 \[
 A_r=\int_{(r,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)
 \]
-is negative.  The velocity $(u_0,u_1)=(0,1)$ gives limiting first and second
-logarithmic derivatives $A_r$ and $-A_r$, hence curvature
-$A_r^2-A_r>0$.  Thus no upper support is possible.  If $r<1$, write
+is negative.  The limiting first and second logarithmic derivatives are $A_r$
+and $-A_r$, hence the curvature is $A_r^2-A_r>0$.  Thus no upper support is
+possible.  If $r<1$, use instead the complete pair
+\begin{equation}
+\left(
+\vec{x}_r^{(d)},
+\vec{v}_r^{(d)}(1,0)
+\right)
+\label{eq:positive-lower-witness-pair}
+\end{equation}
+and write
 \[
 B_r=\int_{[0,r)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha).
 \]
-The velocity $(u_0,u_1)=(1,0)$ gives limiting derivatives $B_r$ and
-$-B_r$, so concavity implies $B_r(B_r-1)\leq0$ and therefore $B_r\leq1$.
+The limiting derivatives are $B_r$ and $-B_r$, so concavity implies
+$B_r(B_r-1)\leq0$ and therefore $B_r\leq1$.
 Letting null thresholds increase to $1$ and using monotone convergence proves
-the stated moment bound.  These finite Shannon and two-block families are the
-counterexamples formalized in Lean; endpoint-separated truncation justifies
-their limits without a preliminary finiteness hypothesis.
+the stated moment bound.  Endpoint-separated truncation justifies the limits
+without a preliminary finiteness hypothesis.
 \end{proof}
 
 Next, let $\mu$ be negative.
@@ -518,8 +619,15 @@ is convex only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
 
 \begin{proof}[Proof idea]
 Assume that both the Shannon atom and upper support are present.  If
-$m:=\mu(\{1\})<0$ and $A>0$ is a localized upper contribution, use the same
-rounded Shannon family with $p=q=1/2$, $R=c+2$, and direction $(-A/m,1)$.
+$m:=\mu(\{1\})<0$, choose a $|\mu|$-null point $c>1$ for which the localized
+upper contribution $A$ is positive, and use
+\begin{equation}
+\left(
+\vec{x}_{\mathrm{Sh}}^{(d)},
+\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A}{m},1\right)
+\right).
+\label{eq:negative-Shannon-witness-pair}
+\end{equation}
 The first logarithmic derivative then tends to zero and the second tends to
 $-A<0$.  This is a
 genuinely concave direction and contradicts convexity.  Working first on
@@ -551,11 +659,16 @@ A_b+B_a\geq1.
 \end{proposition}
 
 \begin{proof}[Proof idea]
-Use the formalized three-block path with $R=a+b+1$, respective counts
-$\lceil d^R\rceil$, $\lceil d^{R-a}\rceil$, and
-$\lceil d^{R-a-b}\rceil$, and base values $1,d,d^2$.  If
-Eq.~\eqref{eq:negative-truncated-moment-necessary} failed, then
-$C:=1-A_b-B_a>0$.  The velocity
+If Eq.~\eqref{eq:negative-truncated-moment-necessary} failed, then
+$C:=1-A_b-B_a>0$.  Use the three-block pair
+\begin{equation}
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}\!\left(0,\frac1C,-\frac1{A_b}\right)
+\right),
+\label{eq:negative-moment-witness-pair}
+\end{equation}
+where $R=a+b+1$.  The velocity
 \[
 (u_0,u_1,u_2)=\left(0,\frac1C,-\frac1{A_b}\right)
 \]
@@ -616,8 +729,15 @@ In the second case the two one-sided moments are finite and satisfy
 \begin{proof}[Proof idea]
 If two disjoint portions of the support lie above $1$, localize them in two
 different dominant blocks.  Their positive localized weights may be denoted
-$A_1,A_2>0$.  The three-block velocity
-$\left(0,1/A_1,-1/A_2\right)$ cancels the limiting first derivative, while the
+$A_1,A_2>0$.  The complete witness pair is
+\begin{equation}
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}\!\left(0,\frac1{A_1},-\frac1{A_2}\right)
+\right).
+\label{eq:negative-two-upper-witness-pair}
+\end{equation}
+Its direction cancels the limiting first derivative, while the
 limiting second derivative is
 \begin{equation}
 -\frac1{A_1}-\frac1{A_2}<0.
@@ -670,23 +790,92 @@ are finite, and
 
 \begin{proof}[Proof idea]
 A Shannon localizer first excludes $\tau(\{1\})>0$ whenever upper support is
-present.  With the signed measure $-\tau$, its stationary direction is
-$(-A/m,1)$, where $m<0$ is the signed Shannon atom and $A>0$ is a localized
-upper coefficient; the limiting second derivative is $-A<0$.
+present.  For the signed measure $-\tau$, write $m<0$ for the signed Shannon
+atom and choose a null point $c>1$ whose localized upper coefficient $A$ is
+positive.  Use the initial point and the two displayed directions
+\begin{equation}
+\left(
+\vec{x}_{\mathrm{Sh}}^{(d)},
+\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A}{m},1\right)
+\right),
+\qquad
+\left(
+\vec{x}_{\mathrm{Sh}}^{(d)},
+\vec{v}_{\mathrm{Sh}}^{(d)}(0,1)
+\right),
+\label{eq:tropical-Shannon-point-directions}
+\end{equation}
+corresponding to the block-velocity vectors
+$u=(-A/m,1)$ and $e=(0,1)$.  The limiting first derivative along $u$ is zero,
+the second derivative is $-A<0$, and the limiting first derivative along $e$
+is $A\neq0$.
 
 If two separated upper-support portions remain, their coefficients
-$A_1,A_2>0$ and the three-block velocity
-$\left(0,1/A_1,-1/A_2\right)$ give first derivative $0$ and second derivative
-$-1/A_1-1/A_2<0$.  If
+$A_1,A_2>0$ give the initial point and directions
+\begin{equation}
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}\!\left(0,\frac1{A_1},-\frac1{A_2}\right)
+\right),
+\qquad
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}(0,1,0)
+\right),
+\label{eq:tropical-two-upper-point-directions}
+\end{equation}
+corresponding to
+$u=(0,1/A_1,-1/A_2)$ and $e=(0,1,0)$.  The limiting first derivative along
+$u$ is zero, its second derivative is $-1/A_1-1/A_2<0$, and the first
+derivative along $e$ tends to $A_1\neq0$.  If
 Eq.~\eqref{eq:negative-tropical-necessary-moment} fails in the exceptional
-branch, the corresponding truncated coefficients $A,C>0$ and velocity
-$\left(0,1/C,-1/A\right)$ instead give $-1/C-1/A<0$.
-At finite dimension the first derivative is corrected to zero by a vanishing
-transverse adjustment (respectively in directions $(0,1)$, $(0,1,0)$, and
-$(0,0,1)$), after which quasiconvexity is contradicted.  Support isolation makes
-the upper moment finite; monotone passage through lower truncations then proves
-lower-moment finiteness.  These are precisely the Shannon, two-upper-point, and
-truncated-moment counterexamples formalized in Lean.
+branch, the corresponding truncated coefficients $A_b,C>0$ give
+\begin{equation}
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}\!\left(0,\frac1C,-\frac1{A_b}\right)
+\right),
+\qquad
+\left(
+\vec{x}_{a,b}^{(d)},
+\vec{v}_{a,b}^{(d)}(0,0,1)
+\right),
+\label{eq:tropical-moment-point-directions}
+\end{equation}
+corresponding to $u=(0,1/C,-1/A_b)$ and $e=(0,0,1)$.  Here the limiting first
+derivative along $u$ is zero, its second derivative is $-1/C-1/A_b<0$, and the
+first derivative along $e$ tends to $A_b\neq0$.
+
+For each of the three witnesses, let $u$ and $e$ have the values displayed in
+the relevant formula.  At every sufficiently large finite dimension, replace
+$u$ by $u+\theta_de$, where $\theta_d$ is chosen so that the first derivative
+is exactly zero.  The transverse first derivative tends to a nonzero number,
+whereas the first derivative along $u$ tends to zero, so $\theta_d\to0$ and the
+corrected second derivative remains strictly negative.  If $g_d$ is the
+restriction to the corrected affine line, then
+\begin{equation}
+g_d'(0)=0,
+\qquad
+g_d''(0)<0.
+\label{eq:tropical-exact-negative-curvature}
+\end{equation}
+Taylor expansion gives, for every sufficiently small $\varepsilon>0$,
+\begin{equation}
+g_d(-\varepsilon)<g_d(0),
+\qquad
+g_d(\varepsilon)<g_d(0).
+\label{eq:tropical-endpoint-strict-inequalities}
+\end{equation}
+Quasiconvexity at the midpoint would instead require
+\begin{equation}
+g_d(0)\leq
+\max\{g_d(-\varepsilon),g_d(\varepsilon)\},
+\label{eq:tropical-quasiconvex-midpoint}
+\end{equation}
+which is impossible.  Thus all three negative second derivatives give genuine
+finite-dimensional tropical counterexamples.  Support isolation makes the
+upper moment finite; monotone passage through lower truncations then proves
+lower-moment finiteness.
 \end{proof}
 
 \begin{proposition}
@@ -704,18 +893,36 @@ the function in Proposition~\ref{prop:sufficient-tropical-positive}.
 \end{proposition}
 
 \begin{proof}[Proof idea]
-Strong max-quasiconcavity makes the integrated entropy constant on the relative
-interior of every fixed-support simplex face.  Apply this to the exact binary
-witnesses used in Lean,
+Write
+\begin{equation}
+A_\tau(s)=\int_{[0,+\infty]}H_\alpha(s)\,\d\tau(\alpha).
+\label{eq:concise-positive-tropical-integrated-entropy}
+\end{equation}
+Positive-tropical monotonicity gives the inequality
+\begin{equation}
+A_\tau(\lambda p+(1-\lambda)q)
+\geq\max\{A_\tau(p),A_\tau(q)\},
+\qquad 0<\lambda<1.
+\label{eq:concise-strong-max-quasiconcavity}
+\end{equation}
+Applying this inequality in both directions on a fixed-support simplex face
+makes $A_\tau$ constant on the relative interior of that face.  Apply it to the
+binary points
 \[
 p=\left(\frac13,\frac23\right),
 \qquad
 u=\left(\frac12,\frac12\right).
 \]
-They have the same support, while $H_0(p)=\log2$ and
-$H_\alpha(p)<\log2=H_\alpha(u)$ for every
-$\alpha\in(0,+\infty]$.  The nonnegative gap therefore has zero
-$\tau$-integral, forcing $\tau((0,+\infty])=0$ and hence $\tau=\delta_0$.
+They have the same support, so $A_\tau(p)=A_\tau(u)=\log2$.  Moreover,
+$H_0(p)=\log2$ and $H_\alpha(p)<\log2=H_\alpha(u)$ for every
+$\alpha\in(0,+\infty]$.  Hence
+\begin{equation}
+0=\int_{[0,+\infty]}
+\bigl(\log2-H_\alpha(p)\bigr)\,\d\tau(\alpha).
+\label{eq:concise-positive-tropical-zero-gap}
+\end{equation}
+The integrand is nonnegative everywhere and strictly positive on
+$(0,+\infty]$, so $\tau((0,+\infty])=0$ and $\tau=\delta_0$.
 \end{proof}
 
 \subsection{Necessary conditions for derivations}
@@ -727,7 +934,7 @@ to Eq.~(91) and Proposition~3.7 of Ref.~\cite{rubboli2026complete}, these are
 H_{0,\alpha}(P_{XY})=
 \sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y}).
 \end{equation}
-The Lean necessity proof works directly at the measure level.  Thus consider
+It is enough to work directly at the measure level.  Thus consider
 \begin{equation}
 \vec{x}\longmapsto\|\vec{x}\|_1
 \int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha),
@@ -750,8 +957,15 @@ $\alpha\in[0,1]$.
 
 \begin{proof}[Proof idea]
 If the support meets $(1,+\infty]$, choose a null threshold $r>1$, put
-$R=r+1$, and use the exact two-block family from
-Proposition~\ref{prop:first-measure} with velocity $(0,1)$.  Its localized upper
+$R=r+1$, and use the complete pair
+\begin{equation}
+\left(
+\vec{x}_r^{(d)},
+\vec{v}_r^{(d)}(0,1)
+\right).
+\label{eq:derivation-upper-witness-pair}
+\end{equation}
+Its localized upper
 coefficient $A_r$ is negative, while the second derivative of the normalized
 derivation converges to $-A_r>0$.  This is a finite-dimensional convex direction
 and contradicts concavity, including when the upper support point is
