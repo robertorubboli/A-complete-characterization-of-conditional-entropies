@@ -10,10 +10,9 @@
 \usepackage{amsthm}
 \usepackage{float}
 \usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
-\usepackage{caption}
-\captionsetup{justification=raggedright}
+% REVTeX supplies its own caption and longtable* support.  Loading caption
+% (directly or through subcaption) redefines longtable* and breaks compilation.
 \usepackage{lipsum}
-\usepackage{subcaption}
 \usepackage{mwe}
 \usepackage{enumerate}
 \usepackage{sidecap}
