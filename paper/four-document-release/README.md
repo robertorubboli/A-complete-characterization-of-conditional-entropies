@@ -27,6 +27,6 @@ pdflatex DOCUMENT.tex
 ```
 
 The `pdf` subfolder contains the four compile-verified PDFs from release tag
-`four-document-release-v3-2026-08-25`. The source, PDFs, and packaged ZIP are
+`four-document-release-2026-08-25`. The source, PDFs, and packaged ZIP are
 kept together so the GitHub release and the Overleaf folder describe the same
 document state.
