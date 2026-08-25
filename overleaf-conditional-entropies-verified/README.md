@@ -13,9 +13,14 @@ These are the only `.tex` files in the folder, and both are independently
 compilable. Files ending in `.inc` are internal fragments included by those
 entry points; they should not be selected as Overleaf's main document.
 
-The appendix draws its dependency graph directly with TikZ. The DOT, SVG, and
-PNG versions in `paper/` are included as reference artifacts but are not needed
-by TeX during compilation.
+This bundle contains two distinct graph views. The appendix draws the
+**condensed two-branch architecture overview** directly with TikZ. The DOT,
+SVG, and PNG files in `paper/` are three formats of the more detailed **Lean
+implementation dependency graph** at module-group level; they are reference
+artifacts and are not needed by TeX during compilation. Both views use arrows
+from prerequisite to dependent. The separate four-document Lean note contains
+the **theorem-facing proof map**, whose arrows deliberately run from result to
+proof ingredient.
 
 ## Recommended compilation
 

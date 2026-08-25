@@ -2,7 +2,9 @@ digraph ConditionalEntropyDependencies {
   graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.30,
          ranksep=0.55, splines=polyline, newrank=true,
          fontname="Arial", fontsize=18,
-         label="Conditional-entropy formalization: vertical dependencies",
+         label=<<FONT POINT-SIZE="18"><B>Lean implementation dependency graph (module-group view)</B></FONT><BR/>
+                <FONT POINT-SIZE="11">Arrows point from prerequisite to dependent. Colors identify module families, not proof status.</FONT><BR/>
+                <FONT POINT-SIZE="10">Blue: foundation; cyan: algebra/channels; teal: analysis; green: sufficiency; purple: block localization; orange: Shannon; red: necessity/classification; gray: candidate laws.</FONT>>,
          labelloc=t];
   node [shape=box, style="rounded,filled", penwidth=1.2,
         fontname="Arial", fontsize=10.5, margin="0.15,0.09"];

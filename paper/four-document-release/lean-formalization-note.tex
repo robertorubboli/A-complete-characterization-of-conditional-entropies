@@ -24,7 +24,7 @@
 This note records the Lean formalization of the necessary-and-sufficient
 parameter classification for the concrete conditional-entropy candidates of
 Refs.~\cite{rubboli2026complete,rubboli2026parametersConcise,
-rubboli2026parametersFull}. It gives a compact dependency graph, a
+rubboli2026parametersFull}. It gives a compact theorem-facing proof map, a
 statement-by-statement correspondence table, and the precise trust and scope
 boundary. The presentation is deliberately theorem-facing: it separates the
 public conclusions, their paper-level ingredients, and the proved reusable
@@ -69,8 +69,19 @@ zero-embedding invariance, tensor additivity, fair-bit normalization, and
 embedded channel monotonicity for every admissible candidate. Neither theorem
 assumes a project-specific axiom.
 
-Figure~\ref{fig:lean-dependencies} shows the proof at theorem level. Arrows
-point from a conclusion to ingredients used in its proof. Pale green boxes
+The repository contains three complementary diagrams at different levels of
+detail. Figure~\ref{fig:lean-dependencies} is the \emph{theorem-facing proof
+map}: it connects public conclusions to numbered manuscript results and
+reusable proof ingredients. It is not a module-import graph. The standalone
+files \path{paper/dependency-graph.dot}, \path{paper/dependency-graph.svg}, and
+\path{paper/dependency-graph.png} are three formats of one detailed
+\emph{Lean implementation dependency graph}; their arrows run from prerequisite
+to dependent. The main-paper Lean appendix contains a third, coarser
+\emph{condensed two-branch architecture overview} using that same source-level
+arrow direction.
+
+In Figure~\ref{fig:lean-dependencies}, arrows deliberately point in the reverse
+direction, from a conclusion to ingredients used in its proof. Pale green boxes
 are the two public conclusions, white boxes are paper-facing intermediate
 results, pale blue boxes are reusable infrastructure that is itself proved in
 Lean, and the dashed gray box is an upstream representation theorem cited from
@@ -145,13 +156,15 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \draw (local) -- (stationary);
 \draw[dashed] (necess) -- (upstream);
 \end{tikzpicture}
-\caption{Dependency graph for the Lean formalization. Every displayed
+\caption{Theorem-facing proof map for the four-document release. Every displayed
 statement number is the number in the full-details Sections~4 and~5 paper,
 Ref.~\cite{rubboli2026parametersFull}; the concise companion uses the same
-numbering. Arrows point to proof ingredients. Color records proof role, not
-confidence: green means public conclusion, blue means internally proved
-infrastructure, white means a paper-facing result, and dashed gray marks the
-explicitly excluded upstream representation theorem.}
+numbering. Arrows point from a result to ingredients used in its proof, the
+reverse of the source-dependency convention in the module-group graph. Color
+records proof role, not confidence: green means public conclusion, blue means
+internally proved infrastructure, white means a paper-facing result, and dashed
+gray marks the explicitly excluded upstream representation theorem. The dashed
+connector records manuscript context, not a Lean axiom or dependency.}
 \label{fig:lean-dependencies}
 \end{figure}
 
@@ -300,7 +313,7 @@ Range proved; representation cited\\
 
 The table records the human-facing correspondence. The repository also keeps
 the complete implementation ledger with 152 source-ordered rows, together with
-the declaration index and editable module-level dependency graph. Those longer
+the declaration index and editable Lean implementation dependency graph. Those longer
 audits are kept out of this note so that the main proof route remains readable.
 
 \subsection{Trust boundary and reproducibility}

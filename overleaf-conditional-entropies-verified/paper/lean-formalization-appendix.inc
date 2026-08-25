@@ -38,14 +38,22 @@ infinite.  The Lean development uses natural logarithms, so the independent
 fair-bit normalization is \(\log 2\); normalization to one follows by positive
 rescaling.
 
-\subsection{Dependency architecture}
+\subsection{Condensed two-branch architecture overview}
 \label{app:lean-dependency-graph}
 
-Figure~\ref{fig:lean-dependency-graph} condenses the source-level dependency
-graph.  An arrow \(A\to B\) means that declarations in \(B\) use declarations
-from \(A\), after suppressing routine Mathlib and intra-group dependencies.
-The editable full graph, including the module names inside every group, is
-\texttt{paper/dependency-graph.dot}; the declaration-level index is
+The repository provides three complementary diagrams rather than three
+renderings of one graph. Figure~\ref{fig:lean-dependency-graph} is the
+\emph{condensed two-branch architecture overview}. It summarizes the source
+architecture more coarsely than the detailed module-group graph: individual
+module names and manuscript statement numbers are intentionally suppressed.
+An arrow \(A\to B\) uses the standard source-dependency direction and means
+that declarations in \(B\) use declarations from \(A\).
+
+The editable \emph{Lean implementation dependency graph}, including module
+names inside every group, is \texttt{paper/dependency-graph.dot}; its SVG and
+PNG files are renderings of that one DOT source. The four-document Lean note
+contains the third view, a \emph{theorem-facing proof map} whose arrows instead
+run from a conclusion to its proof ingredients. The declaration-level index is
 \texttt{paper/DECLARATION\_INDEX.md}.
 
 \begin{figure}[htbp]
@@ -115,10 +123,16 @@ The editable full graph, including the module names inside every group, is
       node[right,font=\tiny,pos=.58]{\texttt{embeddingLift}}
       (allaxioms.east);
   \end{tikzpicture}
-  \caption{Condensed dependency graph of the final Lean architecture.
+  \caption{Condensed two-branch architecture overview (appendix view).
   The left branch culminates in the necessary-and-sufficient parameter
   classification.  The right branch culminates in the five-part
-  conditional-entropy law package and retains the original channel lift.}
+  conditional-entropy law package and retains the original channel lift. An
+  arrow points from prerequisite to dependent. Blue boxes group foundational
+  and algebraic/channel components, teal boxes group analytic calculus and
+  sufficiency, purple boxes group localization, and red boxes group necessity
+  and terminal assemblies. Colors identify architectural roles, not
+  verification status. For exact modules use the implementation graph; for
+  numbered manuscript correspondence use the theorem-facing proof map.}
   \label{fig:lean-dependency-graph}
 \end{figure}
 

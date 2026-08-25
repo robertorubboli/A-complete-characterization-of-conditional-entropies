@@ -26,8 +26,8 @@ foundations. No project-specific axiom is used.
   self-contained four-paper LaTeX/Overleaf release. The main paper has numbered
   placeholders for Sections 4 and 5; the concise and full-detail companions use
   the same explicit finite counterexamples (including both tropical branches);
-  and the Lean note contains the matching dependency graph and correspondence
-  table through Proposition 2.10. Every number in that graph and table is the
+  and the Lean note contains the matching theorem-facing proof map and
+  correspondence table through Proposition 2.10. Every number in that map and table is the
   number in the full-details paper, while the concise paper deliberately uses
   the identical numbering. The upload-ready archive is
   [`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip).
@@ -49,18 +49,39 @@ foundations. No project-specific axiom is used.
   counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
 - [`paper/dependency-graph.dot`](paper/dependency-graph.dot) is the authoritative
-  condensed dependency graph. [`DEPENDENCIES.md`](DEPENDENCIES.md) explains its
-  layers, and [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) records
-  paper-facing declaration dependencies. The checked-in SVG and PNG are
-  renderings of the DOT source.
+  Lean implementation dependency graph at module-group level.
+  [`DEPENDENCIES.md`](DEPENDENCIES.md) explains its layers, and
+  [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) records
+  paper-facing declaration dependencies. The checked-in SVG and PNG are two
+  renderings of the same DOT graph.
 - [`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex)
-  is the LaTeX appendix containing the dependency graph, exact terminal
+  is the LaTeX appendix containing the condensed two-branch architecture
+  overview, exact terminal
   signatures, trust-boundary protocol, and three-column correspondence table.
   [`paper/main-with-lean-appendix.tex`](paper/main-with-lean-appendix.tex) is the
   supplied main paper with that appendix included.
 - [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
   repository copy of the supplied self-contained blueprint used to order the
   statement audit.
+
+### Three complementary graph views
+
+- The **Lean implementation dependency graph** in
+  [`paper/dependency-graph.svg`](paper/dependency-graph.svg) is the detailed
+  module-group view. Its arrows run from prerequisite to dependent, and its
+  colors distinguish technical subsystems.
+- The **theorem-facing proof map** in the four-document Lean note connects
+  public conclusions to numbered manuscript results and reusable proof
+  ingredients. Its arrows deliberately run from result to ingredient, and its
+  colors distinguish proof roles.
+- The **condensed two-branch architecture overview** in the main-paper Lean
+  appendix suppresses most module and statement detail so that the
+  classification and candidate-law branches can be seen at a glance. It uses
+  prerequisite-to-dependent arrows.
+
+These are three distinct levels of description. The DOT, SVG, and PNG files
+are only three formats of the first graph; copies in release archives do not
+constitute additional diagrams.
 
 ## Main proof layers
 

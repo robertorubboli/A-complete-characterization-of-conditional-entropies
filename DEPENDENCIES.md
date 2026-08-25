@@ -1,11 +1,25 @@
-# Formalization dependency graph
+# Lean implementation dependency graph
 
-The editable graph source is
+The repository contains three complementary diagrams. They are different
+views of the same formalization, not three renderings of one graph.
+
+| Diagram | What it represents | Arrow convention | Source |
+|---|---|---|---|
+| **Lean implementation dependency graph (module-group view)** | The detailed source architecture. Each box groups concrete Lean modules. | Prerequisite to dependent: `A -> B` means declarations in `B` use declarations in `A`. | [`paper/dependency-graph.dot`](paper/dependency-graph.dot), rendered as [`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png) |
+| **Theorem-facing proof map (four-document release)** | The two public conclusions, numbered manuscript statements, and reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/four-document-release/lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex) |
+| **Condensed two-branch architecture overview (appendix view)** | A coarse view of the classification branch and candidate-law branch. It suppresses most module names and manuscript statement numbers. | Prerequisite to dependent, as in the implementation graph. | [`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex) |
+
+The editable source of the detailed implementation graph is
 [`paper/dependency-graph.dot`](paper/dependency-graph.dot). It records the
 current final vertical architecture, condensed from Lean imports and explicit
-uses of project declarations. An arrow `A → B` means that declarations in the
+uses of project declarations. An arrow `A -> B` means that declarations in the
 group `B` use the group `A`, directly or through the displayed condensation;
-routine Mathlib dependencies and most intra-group edges are suppressed.
+routine Mathlib dependencies and most intra-group edges are suppressed. Colors
+identify technical subsystem families, not proof status or confidence: blue is
+the foundation; cyan is semiring and channel algebra; teal is analysis and
+shape reduction; green is sufficiency; purple is block localization; orange is
+Shannon localization; rose/red is necessity and classification; and gray is
+candidate-law assembly.
 
 The checked-in SVG and PNG previews are generated from the DOT source. After
 editing the graph, run `npm install` and `npm run render:graph` to refresh both
@@ -66,8 +80,7 @@ for each admissible candidate and uses the semiring/channel lift.
 For manuscript statement correspondence, see
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) and the larger
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
-The publication-facing dependency graph and three-column correspondence table
-are in
+The theorem-facing proof map and three-column correspondence table are in
 [`paper/four-document-release/lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex).
 All statement numbers displayed there are the numbers in the full-details
 Sections 4 and 5 paper; the concise companion uses the same statement order and

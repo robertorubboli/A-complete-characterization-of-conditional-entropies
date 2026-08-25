@@ -139,7 +139,7 @@ forbidden-token audit results are reported separately.
 | `candidateJointEmbeddingInvariant` | `ConditionalEntropy.CandidateEmbeddingInvariance` | Simultaneous joint zero-extension/embedding invariance package. |
 | `allConditionalEntropyAxioms` | `ConditionalEntropy.AllConditionalEntropyAxioms` | Combines the four candidate packages, the four sufficiency branches, and `embeddingLift` into the literal five-part law bundle. |
 
-The condensed module-level view of these dependencies is
+The detailed Lean implementation dependency graph at module-group level is
 [`dependency-graph.dot`](dependency-graph.dot). The manuscript statement table
 remains in [`BLUEPRINT_STATEMENT_STATUS.md`](BLUEPRINT_STATEMENT_STATUS.md) and
 its LaTeX counterpart.

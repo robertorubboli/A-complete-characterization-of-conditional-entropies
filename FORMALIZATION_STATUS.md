@@ -83,11 +83,13 @@ declaration**, and **Status**. Every row is marked **Formalized** or
 
 The matching LaTeX table is
 [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
-The dependency architecture is recorded in
+The detailed module-group dependency architecture is recorded in
 [`paper/dependency-graph.dot`](paper/dependency-graph.dot),
 [`DEPENDENCIES.md`](DEPENDENCIES.md), and
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md). The paper appendix
-is [`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex).
+contains a separate condensed two-branch architecture overview in
+[`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex),
+while the four-document Lean note contains the theorem-facing proof map.
 
 ## Trust boundary and release audit
 
