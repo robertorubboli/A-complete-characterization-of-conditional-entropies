@@ -66,6 +66,110 @@ here are the same Shannon, two-block, three-block, and binary-face witnesses
 recorded in the Lean correspondence note
 Ref.~\cite{rubboli2026parametersLean}.
 
+\subsection*{Standing notation and definitions}
+
+All alphabets, vectors, and matrices in this paper are finite, and all
+logarithms are natural.  We use
+$\mathbb N:=\{1,2,\ldots\}$ and
+$\mathbb R_+:=[0,+\infty)$.  For a real number $s$,
+$\lfloor s\rfloor$ and $\lceil s\rceil$ are respectively the greatest integer
+not larger than $s$ and the least integer not smaller than $s$.  A probability vector
+$p=(p_i)_{i=1}^d$ has $p_i\geq0$ and $\sum_i p_i=1$; its support is
+\begin{equation}
+ \operatorname{supp}(p):=\{i:p_i>0\}.
+ \label{eq:vector-support-definition}
+\end{equation}
+For such a vector, the R\'enyi entropies used throughout are
+\begin{equation}
+ H_\alpha(p):=
+ \frac{1}{1-\alpha}\log\!\left(\sum_{i:p_i>0}p_i^\alpha\right),
+ \qquad \alpha\in(0,+\infty)\setminus\{1\},
+ \label{eq:renyi-definition-standing}
+\end{equation}
+with the endpoint conventions
+\begin{equation}
+ H_0(p):=\log|\operatorname{supp}(p)|,
+ \qquad
+ H_1(p):=-\sum_{i:p_i>0}p_i\log p_i,
+ \qquad
+ H_\infty(p):=-\log\max_i p_i.
+ \label{eq:renyi-endpoints-standing}
+\end{equation}
+Equivalently, one may include zero coordinates in the Shannon sum by using
+$0\log0:=0$.  The parameter interval $[0,+\infty]$ is the compactified
+nonnegative half-line, including the endpoint $+\infty$.  Throughout, every
+measure on this parameter space is understood to be a Borel measure.  An
+integral over this interval includes any atom at
+$+\infty$.  The adjective \emph{endpoint-aware} means that the definitions and
+limits keep the values at $0$, $1$, and $+\infty$ rather than treating only
+interior R\'enyi orders.
+
+The registers $X$ and $Y$ take values in finite alphabets $\mathcal X$ and
+$\mathcal Y$.  A joint probability distribution is the nonnegative matrix
+$P_{XY}=(P_{XY}(x,y))_{x,y}$ of total mass one.  We set
+\begin{equation}
+ P_Y(y):=\sum_xP_{XY}(x,y),
+ \qquad
+ P_{X|Y=y}(x):=\frac{P_{XY}(x,y)}{P_Y(y)}
+ \quad\text{when }P_Y(y)>0.
+ \label{eq:conditional-probability-standing}
+\end{equation}
+A conditional distribution at a zero-mass value of $y$ may be chosen
+arbitrarily, because every formula either omits that value or multiplies it by
+$P_Y(y)=0$.  A column is the vector $P_{XY}(\mathord\cdot,y)$.  For any
+$\vec x=(x_i)_{i=1}^d\in\mathbb R^d_{\geq0}$, define
+\begin{equation}
+ \|\vec x\|_1:=\sum_{i=1}^d x_i,
+ \qquad
+ \widehat x:=\frac{\vec x}{\|\vec x\|_1}\quad(\vec x\neq0).
+ \label{eq:l1-normalization-standing}
+\end{equation}
+Thus $\widehat x$ is a probability vector.  The mass homomorphism on a matrix is
+$\|P\|:=\sum_{x,y}P(x,y)$; its one-column restriction is $\|\vec x\|_1$.
+The nonnegative and strictly positive cones are
+$\mathbb R^d_{\geq0}:=\{x:x_i\geq0\}$ and
+$\mathbb R^d_{>0}:=\{x:x_i>0\}$; the probability simplex is the subset of the
+nonnegative cone on which $\|x\|_1=1$.
+
+A positive finite measure $\nu$ has $\nu(B)\geq0$ for every Borel set $B$ and
+$\nu([0,+\infty])<+\infty$; it is a probability measure when this total mass is
+one.  Its closed support is the set of points every neighbourhood of which has
+positive measure.  A point $a$ is an atom when $\nu(\{a\})>0$ and is
+$\nu$-null when $\nu(\{a\})=0$; the measure is nonatomic when it has no atoms,
+and $\delta_a$ denotes unit mass at $a$.  If
+$T$ is Borel measurable, the push-forward $T_\#\nu$ is specified by
+\begin{equation}
+ (T_\#\nu)(B):=\nu\bigl(T^{-1}(B)\bigr)
+ \label{eq:pushforward-definition-standing}
+\end{equation}
+for every Borel set $B$.
+
+For later reference, a function $F$ on a convex cone is positively homogeneous
+when $F(sx)=sF(x)$ for $s\geq0$.  For $0\leq\lambda\leq1$, concavity,
+convexity, and quasi-convexity mean, respectively,
+\begin{equation}
+ \begin{aligned}
+ F(\lambda x+(1-\lambda)z)
+ &\geq \lambda F(x)+(1-\lambda)F(z), &&\text{concave},\\
+ F(\lambda x+(1-\lambda)z)
+ &\leq \lambda F(x)+(1-\lambda)F(z), &&\text{convex},\\
+ F(\lambda x+(1-\lambda)z)
+ &\leq \max\{F(x),F(z)\}, &&\text{quasi-convex}.
+ \end{aligned}
+ \label{eq:shape-definitions-standing}
+\end{equation}
+A conditionally mixing channel and the conditional
+majorization preorder it generates are defined concretely in
+Section~\ref{sec:channel-lift}; monotone always means order-preserving for that
+preorder.  The word \emph{temperate} means that $t$ is finite and nonzero.  The
+positive and negative \emph{tropical} cases are the limits
+$t\to+\infty$ and $t\to-\infty$, where log-sum-exp becomes a maximum and a
+minimum.  The set $\mathbb R_+^{\mathrm{op}}$ is $\mathbb R_+$ equipped with
+the reverse order.  Pointwise convergence means convergence at every fixed
+argument.  Locally uniform convergence means uniform convergence on every
+compact set of the auxiliary parameters.  A dominator is an integrable bound
+that is independent of the approximating index.
+
 The proof dependencies can be read from left to right:
 \[
 \begin{aligned}
@@ -130,22 +234,30 @@ For later use, we introduce the function
  \label{eq:def-omega}
 \end{equation}
 The value at $+\infty$ is the continuous limit of $\alpha/(1-\alpha)$ and is also the value compatible with the identity involving $H_\infty$ used below.
-Throughout the paper, $\operatorname{supp}(\tau)$ denotes the closed support of
-a positive measure $\tau$, and $\delta_a$ denotes the Dirac probability measure
-at $a$.  If $T$ is Borel measurable, its push-forward is defined by
-\begin{equation}
-(T_\#\tau)(B):=\tau\bigl(T^{-1}(B)\bigr)
-\label{eq:pushforward-definition}
-\end{equation}
-for every Borel set $B$.
+The support, Dirac-mass, and push-forward conventions are those fixed above.
 
 \subsection{Reduction to one column and lift to conditionally mixing channels}
 \label{sec:channel-lift}
 
+For this paper, a semiring element is represented by a finite unnormalised
+nonnegative joint matrix, up to relabelling and insertion or deletion of zero
+rows or columns.  Semiring addition $\oplus$ is block direct sum and multiplication
+$\otimes$ is the Kronecker product.  A homomorphism preserves these operations
+and their units.  A derivation $\Delta$ at the mass homomorphism is additive and
+satisfies the product rule
+\begin{equation}
+ \Delta(P\otimes Q)
+ =\Delta(P)\|Q\|+\|P\|\Delta(Q).
+ \label{eq:derivation-product-rule-standing}
+\end{equation}
+A preorder is a reflexive and transitive comparison.  Conditional majorization
+is the preorder generated by the channels described next.
+
 We first make the connection between the one-column function and the original
 channel order explicit. Let $P$ be a nonnegative matrix and write
-$p_y=P(\mathord\cdot,y)$ for its columns. A conditionally mixing channel is
-specified by doubly stochastic matrices $S_k$ on the first register and
+$p_y=P(\mathord\cdot,y)$ for its columns. A square matrix is doubly stochastic
+when it is nonnegative and every row and column sums to one. A conditionally
+mixing channel is specified by doubly stochastic matrices $S_k$ on the first register and
 nonnegative matrices $D_k$ on the conditioning register, with
 \begin{equation}
  \sum_{k,y'}D_k(y,y')=1
@@ -176,8 +288,13 @@ Let $F$ be a positively homogeneous one-column functional. Concavity of $F$
 is equivalent to superadditivity on the nonnegative cone: applying concavity
 to $x/(\|x\|_1+\|z\|_1)$ and $z/(\|x\|_1+\|z\|_1)$, followed by positive
 homogeneity, gives $F(x+z)\geq F(x)+F(z)$. The same calculation shows that
-convexity is equivalent to subadditivity. Every R\'enyi entropy is Schur
-concave. Consequently, in the positive-temperature case,
+convexity is equivalent to subadditivity. For vectors of the same dimension
+and total mass, $p$
+majorizes $q$ when the sum of the $j$ largest coordinates of $p$ is at least
+the corresponding sum for $q$, for every $j$, with equality for the full sum.
+A function $G$ is Schur concave when $p$ majorizes $q$ implies
+$G(p)\leq G(q)$.
+Every R\'enyi entropy is Schur concave. Consequently, in the positive-temperature case,
 \begin{equation}
  F(S_kp_y)\geq F(p_y),
  \label{eq:positive-Schur-column}
@@ -221,7 +338,8 @@ The discrete proof is based on two elementary curvature results. We state them i
 
 \begin{lemma}
 \label{lem:power-mean-curvature}
-Let $\alpha\in(0,+\infty]$. The function on the positive cone
+Let $\alpha\in(0,+\infty]$. The function on the nonnegative cone
+$\mathbb R^d_{\geq0}$
 \begin{equation}
  \vec x\longmapsto
  \|\vec x\|_\alpha
@@ -471,6 +589,19 @@ Let $\tau$ be a probability measure on $[0,+\infty]$ and let $t\in\mathbb R\setm
  \end{enumerate}
 \end{enumerate}
 The condition $\tau(\{1\})=0$ excludes an atom at $1$; it does not exclude $1$ from the topological support. In the exceptional branch the two nonnegative one-sided integrals are required to be finite before their signed difference is used. A nonatomic measure may still accumulate at $1$.
+More explicitly, write
+\begin{equation}
+ L_\tau:=\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha),
+ \qquad
+ U_\tau:=\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\mathrm d\tau(\alpha).
+ \label{eq:one-sided-moments-definition}
+\end{equation}
+These are nonnegative extended integrals.  In the exceptional branch, the
+signed integral in the statement means $L_\tau-U_\tau$ and is formed only after
+$L_\tau,U_\tau<+\infty$.  Lebesgue integration does not assign a value to
+$+\infty-(+\infty)$, so there is no additional case in which one divergent
+side is treated as ``more infinite'' than the other.  In the branch supported
+on $[0,1]$, this signed difference is not required.
 \end{proposition}
 
 \begin{proof}
@@ -583,6 +714,14 @@ we have for $t<0$
  \label{eq:negative-log-sum-exp-bound}
 \end{equation}
 where $y_*$ is any minimiser. Both bounds converge to $m$ as $t\to-\infty$.
+For completeness, if
+$M:=\max_{y:p_y>0}a_y$ and $y^*$ is a maximiser, then for $t>0$
+\begin{equation}
+ M+\frac{\log p_{y^*}}t
+ \leq\frac1t\log\sum_yp_ye^{ta_y}\leq M,
+ \label{eq:positive-log-sum-exp-bound}
+\end{equation}
+and both bounds converge to $M$ as $t\to+\infty$.
 
 \begin{proposition}
 \label{prop:negative-tropical-sufficient}
@@ -653,7 +792,7 @@ The function
 \end{proposition}
 
 \begin{proof}
-Choose $\tau=\delta_0$. The moment in Proposition~\ref{prop:general-sufficient}, item 1, is zero, so the associated temperate homomorphism is monotone for every $t>0$. Applying $(1/t)\log$ and using the positive log-sum-exp analogue of \eqref{eq:negative-log-sum-exp-bound} gives
+Choose $\tau=\delta_0$. The moment in Proposition~\ref{prop:general-sufficient}, item 1, is zero, so the associated temperate homomorphism is monotone for every $t>0$. Applying $(1/t)\log$ and using \eqref{eq:positive-log-sum-exp-bound} gives
 \begin{equation}
  \lim_{t\to+\infty}
  \frac1t\log\Phi_{t,\delta_0}(P_{XY})
@@ -676,6 +815,12 @@ The same conditions include $\tau(\{1\})=0$. Since the displayed integrand is st
 This subsection proves Proposition~1.8 of the concise companion.
 
 We finally consider the derivations. Although they can be obtained as first-order limits of the temperate homomorphisms, a direct proof is both shorter and more transparent.
+Here a positive integral mixture means an integral against a finite positive
+measure.  It is a barycentre in the usual sense when that measure is a
+probability measure, and its extremal rays are represented by the normalized
+point masses $\delta_\alpha$.  The
+perspective of a function $h$ on probability vectors is the homogeneous
+one-column function $\vec x\mapsto\|\vec x\|_1h(\widehat x)$.
 
 \begin{proposition}
 \label{prop:derivation-sufficient}
@@ -754,7 +899,7 @@ In this section, we prove that the sufficient conditions obtained in Section~\re
 
 All localizers below use only bounded truncations $[0,a)$ and $(b,+\infty]$, so their coefficients are finite without a singular-moment assumption. In an exceptional upper-support branch, support isolation first makes the upper one-sided moment finite; the truncated curvature inequalities then bound the lower one-sided moment. The signed moment is formed only after these two conclusions. Differentiation under the entropy integral itself needs no singular moment because the removable Shannon quotient is kept intact at fixed dimension.
 
-The difficulty is that the normalised R\'enyi entropy contains a cancellation at $\alpha=1$. If its two terms are separated before differentiation, the factor $\alpha/(1-\alpha)$ appears singular and one is led to impose an unnecessary integrability assumption. We therefore proceed in the following order:
+The difficulty is that the normalised R\'enyi entropy contains a cancellation at $\alpha=1$. If its two terms are separated before differentiation, the factor $\alpha/(1-\alpha)$ appears singular and one is led to impose an unnecessary integrability assumption.  The singularity is removable: the accompanying numerator vanishes at the same rate, leaving a finite continuous limit. We therefore proceed in the following order:
 \begin{equation}
  \boxed{
  \text{differentiate at fixed finite dimension}
@@ -764,19 +909,43 @@ The difficulty is that the normalised R\'enyi entropy contains a cancellation at
  \text{take the high-dimensional limit}.}
  \label{eq:order-of-operations-main}
 \end{equation}
-Every interchange in \eqref{eq:order-of-operations-main} is justified in Appendix~\ref{app:technical-sections45}. The appendix proves joint continuity of the first two derivatives through $\alpha=1$, gives a complete derivative--integral interchange at fixed dimension, and establishes dimension-independent bounds for the block perturbations used below. The limiting piecewise-affine power envelope is never differentiated.
+Every interchange in \eqref{eq:order-of-operations-main} is justified in Appendix~\ref{app:technical-sections45}. The appendix proves joint continuity of the first two derivatives through $\alpha=1$, gives a complete derivative--integral interchange at fixed dimension, and establishes dimension-independent bounds for the block perturbations used below. The limiting piecewise-affine power envelope---the maximum of the affine exponents governing the block contributions---is never differentiated.
 
-For notational convenience, we combine the parameter $t$ and the probability measure $\tau$ into the finite one-signed measure
+For notational convenience, we combine the parameter $t$ and the probability
+measure $\tau$ into the finite signed measure of constant sign
 \begin{equation}
  \mu:=t\tau.
  \label{eq:mu-equals-t-tau}
 \end{equation}
-For a finite signed measure $\mu$, the notation $|\mu|$ means its
-total-variation measure, and
+A finite signed measure has a Jordan decomposition
+$\mu=\mu^+-\mu^-$ into mutually singular finite positive measures.  Its
+ total-variation measure is $|\mu|:=\mu^++\mu^-$.
+\begin{samepage}
+ Its value on a Borel set is equivalently given by
+\begin{equation}
+ |\mu|(B)
+ :=\sup\left\{\sum_{j=1}^n|\mu(B_j)|:
+ B=\mathop{\dot\bigcup}_{j=1}^nB_j\right\},
+ \label{eq:total-variation-definition}
+\end{equation}
+\end{samepage}
+where the supremum is over finite Borel partitions.  Finiteness means
+$|\mu|([0,+\infty])<+\infty$.  We set
 $\operatorname{supp}(\mu):=\operatorname{supp}(|\mu|)$.  A point $r$ is called
-$|\mu|$-null when $|\mu|(\{r\})=0$.  These conventions are used whenever a
-localization threshold is chosen below.
-Thus $\mu\geq0$ in the $\mathbb R_+$ case and $\mu\leq0$ in the $\mathbb R_+^{\mathrm{op}}$ case. We write
+$|\mu|$-null when $|\mu|(\{r\})=0$: it carries no atom, although it may still
+belong to the support.  The finite positive measure $|\mu|$ has at most
+countably many atoms, so a null threshold can be selected inside every
+nonempty open interval.  These
+conventions are used whenever a localization threshold is chosen below.
+
+The relation $\mu\geq0$ means $\mu(B)\geq0$ for every Borel set, and similarly
+for $\mu\leq0$.  Thus $\mu\geq0$ in the $\mathbb R_+$ case and $\mu\leq0$ in the $\mathbb R_+^{\mathrm{op}}$ case.  For $\mu=t\tau$, which has constant
+sign, $|\mu|=|t|\tau$.  A finite real integral against a signed measure is the
+difference of its positive and negative contributions when both are finite;
+an extended signed integral is permitted when those contributions are not
+both infinite.  In particular, a signed moment
+across $\alpha=1$ is never interpreted as an undefined $+\infty-(+\infty)$.
+We write
 \begin{equation}
  \Phi_\mu(\vec x)
  :=\|\vec x\|_1
@@ -791,16 +960,22 @@ For the negative tropical case, it is convenient to remove the outer norm and ex
  :=\int_{[0,+\infty]}H_\alpha(\widehat x)\,\mathrm d\mu(\alpha).
  \label{eq:G-mu-necessary}
 \end{equation}
-Since $0\leq H_\alpha(\widehat x)\leq\log d$ for a $d$-dimensional vector, both quantities are well defined for every finite measure $\mu$.
+Since $0\leq H_\alpha(\widehat x)\leq\log N$ for an $N$-dimensional vector, both quantities are well defined for every finite measure $\mu$.
 
-Let us also clarify why the perturbation directions used below are admissible. The conditional-majorization semiring contains all finite nonnegative matrices, and in particular every positive one-column vector. If $\vec x\in\mathbb R^d_{>0}$ and $\vec v\in\mathbb R^d$, then
+Let us also clarify why the perturbation directions used below are admissible. The conditional-majorization semiring contains all finite nonnegative matrices, and in particular every positive one-column vector. If $\vec x\in\mathbb R^N_{>0}$ and $\vec v\in\mathbb R^N$ is nonzero, then
 \begin{equation}
- \vec x+\lambda\vec v\in\mathbb R^d_{>0}
+ \vec x+\lambda\vec v\in\mathbb R^N_{>0}
  \qquad\text{whenever}\qquad
  |\lambda|<\min_{i:v_i\neq0}\frac{x_i}{|v_i|}.
  \label{eq:positive-line-admissibility}
 \end{equation}
-The direction $\vec v$ need not itself be nonnegative and need not be generated by a conditional mixing channel: it is a tangent direction in the cone on which concavity, convexity, or quasi-convexity is tested. The dimension and the direction may depend on an auxiliary integer $d$. A failure of the required curvature property at any sufficiently large but finite $d$ is already a valid semiring counterexample.
+For $\vec v=0$, positivity holds for every $\lambda$.  The direction $\vec v$
+need not itself be nonnegative and need not be generated by a conditional
+mixing channel: it is a tangent direction in the cone on which concavity,
+convexity, or quasi-convexity is tested. The ambient dimension $N$ and the
+direction may depend on an auxiliary integer scale $d$. A failure of the
+required curvature property at any sufficiently large but finite scale $d$
+is already a valid semiring counterexample.
 
 Whenever several coordinate blocks are placed in the same column, we use the notation
 \begin{equation}
@@ -814,8 +989,21 @@ We also write
 \label{eq:ones-vector-definition}
 \end{equation}
 for the all-ones vector.  When the subscript is a parameter set rather than an
-integer, $\mathbf1_E$ denotes the indicator of $E$.  As usual,
-$\lceil s\rceil$ is the least integer not smaller than $s$.
+integer, $\mathbf1_E$ denotes the indicator of $E$.
+
+A coordinate block is a group of repeated coordinates.  Its multiplicity is
+the number of coordinates in that group, and its relative velocity is the
+common logarithmic derivative $u_j=x_i'(0)/x_i(0)$ on the block.  For a fixed
+order $\alpha$, a block \emph{dominates} when its share of
+$\sum_i x_i^\alpha$ tends to one as the integer scale $d\to\infty$.  The powers
+of $d$ governing the block contributions are the power-sum exponents, and their
+crossings divide the parameter interval into cells.  A localizer is a block
+family designed so that selected cells contribute prescribed interval
+integrals.  In every family below, $d\geq2$ is the integer scale sent to
+infinity; the ambient vector dimension is the sum of the displayed block
+multiplicities and is not generally equal to $d$.  The ceiling signs round
+those multiplicities upward to integers.  In the locally uniform assertions
+below, the auxiliary parameters are the displayed velocities.
 
 The proof is organised around three elementary high-dimensional perturbations.
 \begin{enumerate}
@@ -829,14 +1017,17 @@ We present the limiting formulas in the main text and use them to give transpare
 \label{sec:localized-witnesses}
 
 \paragraph{The two-block perturbation.}
-Fix $r>0$ with $r\neq1$, put $R:=r+1$, and let
+Fix $r>0$ with $r\neq1$, put $R:=r+1$, choose real velocities
+$u_0,u_1\in\mathbb R$, and let
 \begin{equation}
  n_{0,d}:=\lceil d^R\rceil,
  \qquad
  n_{1,d}:=\lceil d^{R-r}\rceil.
  \label{eq:two-block-multiplicities-main}
 \end{equation}
-For bounded velocities $u_0,u_1$, define
+Here and in the other localizers, $R$ is an auxiliary size exponent chosen so
+that every displayed multiplicity grows as a positive power of $d$.
+Define
 \begin{equation}
  \vec x_r^{(d)}(\lambda)
  :=\operatorname{col}\!\left(
@@ -893,7 +1084,8 @@ Now the second block contains $\alpha=1$, and
 The convergence in these formulas is locally uniform in the velocities.
 
 \paragraph{The three-block perturbation.}
-Fix $0<a<b<+\infty$ with $a,b\neq1$, put $R:=a+b+1$, and define
+Fix $0<a<b<+\infty$ with $a,b\neq1$, put $R:=a+b+1$, choose real
+velocities $u_0,u_1,u_2\in\mathbb R$, and define
 \begin{equation}
  \vec x_{a,b}^{(d)}(\lambda)
  :=\operatorname{col}\!\left(
@@ -921,12 +1113,20 @@ Consequently, blocks $0,1,2$ dominate respectively on
  (b,+\infty].
  \label{eq:three-block-cells-main}
 \end{equation}
-Let $k$ be the index of the cell containing $1$, and assume $|\mu|(\{a,b\})=0$. For $j\neq k$, put
+Put
+\begin{equation}
+ J_0:=[0,a),
+ \qquad J_1:=(a,b),
+ \qquad J_2:=(b,+\infty],
+ \label{eq:three-block-J-cells-main}
+\end{equation}
+let $k$ be the index of the cell $J_k$ containing $1$, and assume
+$|\mu|(\{a,b\})=0$. For $j\neq k$, put
 \begin{equation}
  A_j:=\int_{J_j}\omega(\alpha)\,\mathrm d\mu(\alpha),
  \label{eq:three-block-A-j}
 \end{equation}
-where $J_j$ denotes the corresponding interval in \eqref{eq:three-block-cells-main}. No integral is introduced over the cell containing $1$. Then
+where the intervals are those in \eqref{eq:three-block-J-cells-main}. No integral is introduced over the cell containing $1$. Then
 \begin{align}
  \frac{\mathrm d}{\mathrm d\lambda}
  \log\Phi_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
@@ -944,7 +1144,10 @@ where $J_j$ denotes the corresponding interval in \eqref{eq:three-block-cells-ma
 Again, the convergence is locally uniform in $(u_0,u_1,u_2)$.
 
 \paragraph{The Shannon-point perturbation.}
-Fix a $|\mu|$-null point $c>1$, put $p=q:=1/2$ and $R:=c+2$, and define
+Fix a $|\mu|$-null cutoff $c>1$, put $p=q:=1/2$ and $R:=c+2$, and choose
+real velocity parameters $h,v\in\mathbb R$.  Thus $c$ separates the cell
+$(1,c)$ from the upper tail; it is chosen with reference to $|\mu|$, may depend
+on $\mu$, and is not a universal constant.  Define
 \begin{equation}
  n_{0,d}:=\lceil d^R\rceil,
  \qquad
@@ -1002,7 +1205,9 @@ We now apply these three perturbations. Recall that, along any affine line, if
  \log\Phi_\mu(\vec x^{(d)}(\lambda)),
  \label{eq:def-Lambda-d-main}
 \end{equation}
-then
+then primes on $\Phi_\mu$ in the next display mean $\lambda$-derivatives of
+the scalar restriction $\lambda\mapsto
+\Phi_\mu(\vec x^{(d)}(\lambda))$.  Hence
 \begin{equation}
  \frac{\Phi_\mu''(0)}{\Phi_\mu(0)}
  =\Lambda_d''(0)+\bigl(\Lambda_d'(0)\bigr)^2.
@@ -1051,7 +1256,7 @@ Therefore
  \longrightarrow m^2>0.
  \label{eq:positive-atom-curvature}
 \end{equation}
-For every sufficiently large but finite $d$, the line \eqref{eq:Shannon-path-main} violates concavity. Hence $\mu(\{1\})=0$.
+For every sufficiently large but finite scale $d$, the line \eqref{eq:Shannon-path-main} violates concavity. Hence $\mu(\{1\})=0$.
 
 Second, suppose that $\operatorname{supp}(\mu)$ intersects $(1,+\infty]$. Choose a $\mu$-null number $r>1$ such that $\mu((r,+\infty])>0$. Then
 \begin{equation}
@@ -1140,7 +1345,7 @@ Then
  \Lambda_d''(0)\longrightarrow-A_c<0.
  \label{eq:negative-atom-curvature-limit}
 \end{equation}
-By local uniformity of the convergence, the second derivative of $\Phi_\mu$ is negative for every sufficiently large finite $d$, contradicting convexity. This proves \eqref{eq:negative-atom-support-conclusion}.
+By local uniformity of the convergence, the second derivative of $\Phi_\mu$ is negative at every sufficiently large finite scale $d$, contradicting convexity. This proves \eqref{eq:negative-atom-support-conclusion}.
 \end{proof}
 
 If there is no atom at $1$, we cannot initially define a global coefficient
@@ -1148,7 +1353,7 @@ $1-\int\omega\,\mathrm d\mu$, because one or both one-sided integrals may be inf
 
 \begin{proposition}
 \label{prop:negative-truncated-moment}
-Let $\mu$ be an arbitrary finite negative measure such that $\mu(\{1\})=0$, and assume that the function in \eqref{eq:Phi-mu-necessary} is convex. Let $a<1<b$ be $|\mu|$-null points such that $\mu((b,+\infty])<0$, and define
+Let $\mu$ be an arbitrary finite negative measure such that $\mu(\{1\})=0$, and assume that the function in \eqref{eq:Phi-mu-necessary} is convex. Let $0<a<1<b<+\infty$ be $|\mu|$-null points such that $\mu((b,+\infty])<0$, and define
 \begin{equation}
  B_a:=\int_{[0,a)}\omega(\alpha)\,\mathrm d\mu(\alpha)\leq0,
  \qquad
@@ -1170,7 +1375,9 @@ then $\mu$ cannot have support above $1$.
 \end{proposition}
 
 \begin{proof}
-Use the three-block perturbation with thresholds $a<1<b$. The middle block contains $\alpha=1$. The three coefficients in \eqref{eq:three-block-log-first-main} are
+Use the three-block perturbation with thresholds
+$0<a<1<b<+\infty$. The middle block contains $\alpha=1$. The three
+coefficients in \eqref{eq:three-block-log-first-main} are
 \begin{equation}
  B_a,
  \qquad
@@ -1200,13 +1407,13 @@ whereas the limiting second derivative is
  =-\frac1C-\frac1{A_b}<0.
  \label{eq:negative-truncated-second-negative}
 \end{equation}
-Therefore $\Phi_\mu''(0)<0$ for every sufficiently large finite $d$, contradicting convexity. Hence $C\leq0$, which is precisely \eqref{eq:negative-truncated-inequality}.
+Therefore $\Phi_\mu''(0)<0$ at every sufficiently large finite scale $d$, contradicting convexity. Hence $C\leq0$, which is precisely \eqref{eq:negative-truncated-inequality}.
 
 If the two one-sided moments are finite and their sum is smaller than $1$, choose $a\uparrow1$ and $b\downarrow1$ through $|\mu|$-null points. The truncated coefficients converge to the corresponding one-sided integrals, so for sufficiently close $a$ and $b$ one has $A_b+B_a<1$, contradicting the first part.
 \end{proof}
 
 \begin{remark}
-The point and directions in the preceding propositions are not required to be normalised or traceless. This is not an enlargement of the semiring problem: the semiring is defined on unnormalised nonnegative matrices, and Section~\ref{sec:channel-lift} tests the curvature property on the whole cone. Positive homogeneity also shows that rescaling a counterexample does not change the sign of the relevant curvature. Thus the one-column perturbations above are directly admissible.
+The point and directions in the preceding propositions are not required to be normalised or traceless. Here normalised means that the coordinates sum to one, and a traceless direction satisfies $\sum_i v_i=0$, so that it preserves mass to first order. This is not an enlargement of the semiring problem: the semiring is defined on unnormalised nonnegative matrices, and Section~\ref{sec:channel-lift} tests the curvature property on the whole cone. Positive homogeneity also shows that rescaling a counterexample does not change the sign of the relevant curvature. Thus the one-column perturbations above are directly admissible.
 \end{remark}
 
 \begin{remark}
@@ -1265,7 +1472,7 @@ whereas the limiting second derivative is
  =-\frac1{A_1}-\frac1{A_2}<0.
  \label{eq:two-tail-second-negative}
 \end{equation}
-This gives a finite-dimensional violation of convexity for every sufficiently large $d$. Hence there can be at most one support point above $1$.
+This gives a finite-dimensional violation of convexity at every sufficiently large finite scale $d$. Hence there can be at most one support point above $1$.
 \end{proof}
 
 We now combine the preceding results. If a convex negative-measure homomorphism has no support above $1$, no moment condition is required and an atom at $1$ is allowed. Suppose instead that there is support above $1$. Proposition~\ref{prop:negative-single-point} shows that the restriction of $\mu$ to $(1,+\infty]$ is a single atom at some $\alpha_*\in(1,+\infty]$. Proposition~\ref{prop:negative-atom-necessary} gives $\mu(\{1\})=0$.
@@ -1273,7 +1480,7 @@ We now combine the preceding results. If a convex negative-measure homomorphism 
 Choose $b\in(1,\alpha_*)$ with $|\mu|(\{b\})=0$. Then $A_b=\omega(\alpha_*)\mu(\{\alpha_*\})$ is a finite positive number, so the upper one-sided moment is finite. Proposition~\ref{prop:negative-truncated-moment} gives
 \begin{equation}
  B_a\geq1-A_b
- \qquad\text{for every null }a<1.
+ \qquad\text{for every $|\mu|$-null }a<1.
  \label{eq:lower-moment-bound}
 \end{equation}
 As $a\uparrow1$, the quantities $B_a$ form a decreasing family because the integrand $\omega\,\mathrm d\mu$ is negative below $1$. The lower bound in \eqref{eq:lower-moment-bound} prevents convergence to $-\infty$. Hence the lower one-sided moment is finite. Only now, after both one-sided finiteness statements have been proved, do we form their signed difference. Taking the limit gives
@@ -1347,7 +1554,10 @@ channels, then either
 The negative tropical homomorphism is governed by quasi-convexity, not
 convexity.  Apply the one-column shape reduction with the finite negative
 measure $\mu:=-\tau$; multiplying it by another positive scalar would not
-change the argument.  We use only the implication
+change the argument.  Here $C^2$ means twice continuously differentiable, a
+line is stationary at zero when its first derivative there is exactly zero,
+and a transverse velocity is an auxiliary direction on which that first
+derivative is nonzero.  We use only the implication
 \begin{equation}
  g\text{ is quasi-convex and }C^2,
  \qquad
@@ -1356,10 +1566,10 @@ change the argument.  We use only the implication
  g''(0)\geq0.
  \label{eq:quasi-convex-second-order-main}
 \end{equation}
-Stationarity must hold exactly at the finite dimension where quasi-convexity is
+Stationarity must hold exactly at the finite scale $d$ where quasi-convexity is
 applied.  Appendix~\ref{app:tropical-stationarity} proves
 \eqref{eq:quasi-convex-second-order-main} and corrects a limiting stationary
-velocity by a dimension-dependent multiple of a transverse velocity.
+velocity by a scale-dependent multiple of a transverse velocity.
 
 For $G_\mu$ in \eqref{eq:G-mu-necessary}, the norm coefficient is absent.  In
 the three-block notation the limiting derivatives are
@@ -1381,11 +1591,33 @@ The Shannon path has the limits
 \eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main}, since
 its norm derivatives vanish.
 
-There are three counterexamples, exactly as in Lean.  If the signed Shannon
-atom $m<0$ and upper coefficient $A_c>0$ are both present, use
+There are three counterexamples, exactly as in Lean.  First suppose that the
+signed Shannon atom
+\begin{equation}
+ m:=\mu(\{1\})<0
+ \label{eq:tropical-Shannon-atom-local}
+\end{equation}
+is present and that $\mu$ has support above $1$.  Choose a $|\mu|$-null cutoff
+$c>1$ with $\mu((c,+\infty])<0$ and define
+\begin{equation}
+ A_c:=\int_{(c,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:tropical-Shannon-tail-local}
+\end{equation}
+Use
 $(h,v)=(-A_c/m,1)$.  The limiting derivatives are $0$ and $-A_c<0$; the
 transverse direction $e=(0,1)$ has limiting first derivative $A_c\neq0$.
-If two upper portions have coefficients $A_1,A_2>0$, use
+
+Second, suppose that two support points
+$1<\alpha_1<\alpha_2\leq+\infty$ are present.  Choose $|\mu|$-null thresholds
+$1<a<\alpha_1<b<\alpha_2$ (with finite $b$ when
+$\alpha_2=+\infty$), and define the two upper coefficients afresh by
+\begin{equation}
+ A_1:=\int_{(a,b)}\omega(\alpha)\,\mathrm d\mu(\alpha)>0,
+ \qquad
+ A_2:=\int_{(b,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:tropical-two-upper-coefficients-local}
+\end{equation}
+Use
 \begin{equation}
  u=\left(0,\frac1{A_1},-\frac1{A_2}\right),
  \qquad e=(0,1,0).
@@ -1396,9 +1628,15 @@ $-1/A_1-1/A_2<0$, and the first derivative in direction $e$ is $A_1$.
 Thus upper support contains at most one point, and an upper point forces
 $\tau(\{1\})=0$.
 
-Finally suppose that the unique upper point $\alpha_*$ exists.  For
-$a<1<b<\alpha_*$, use $B_a\leq0$ and $A_b>0$ from
-\eqref{eq:negative-truncated-coefficients}.  The tropical coefficients are
+Finally suppose that the unique upper point $\alpha_*$ exists.  Choose
+$|\mu|$-null thresholds $0<a<1<b<\alpha_*$ and define
+\begin{equation}
+ B_a:=\int_{[0,a)}\omega(\alpha)\,\mathrm d\mu(\alpha)\leq0,
+ \qquad
+ A_b:=\int_{(b,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:tropical-truncated-coefficients-local}
+\end{equation}
+The tropical coefficients are
 \begin{equation}
  B_a,
  \qquad
@@ -1425,7 +1663,7 @@ quasi-convexity.  Hence $A_b+B_a\geq0$.
 
 The isolated upper atom makes the upper one-sided moment finite.  Letting
 $a\uparrow1$ proves lower-moment finiteness.  Only then do we form the signed
-moment; after writing $\mu=-k\tau$ with $k>0$, it satisfies
+moment.  Since $\mu=-\tau$ in this proof, it satisfies
 \begin{equation}
  \int_{[0,+\infty]\setminus\{1\}}
  \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
@@ -1454,19 +1692,25 @@ Put
  A_\tau(p):=\int_{[0,+\infty]}H_\alpha(p)\,\mathrm d\tau(\alpha).
  \label{eq:positive-tropical-integrated-entropy}
 \end{equation}
-Positive-tropical monotonicity implies
+For any two probability vectors $p$ and $q$ of the same dimension,
+positive-tropical monotonicity implies
 \begin{equation}
  A_\tau(\lambda p+(1-\lambda)q)
  \geq\max\{A_\tau(p),A_\tau(q)\},
  \qquad 0<\lambda<1.
  \label{eq:strong-max-quasiconcavity}
 \end{equation}
-If $p$ and $q$ have the same support, each can be expressed as a sufficiently
-small mixture of the other with a third point on the same face.  Applying
+Here a simplex face fixes the coordinates that are allowed to be nonzero, and
+its relative interior consists of the probability vectors that are strictly
+positive on every allowed coordinate.  If $p$ and $q$ have the same support,
+each can be expressed as a sufficiently small mixture of the other with a
+third point on the same face.  Applying
 \eqref{eq:strong-max-quasiconcavity} in both directions shows that $A_\tau$ is
 constant on the relative interior of every simplex face.
 
-Now use the exact binary pair formalized in Lean,
+Now use the exact binary pair formalized in Lean.  Here $p$ and $u$ are
+probability vectors, unrelated to the earlier scalar block weights denoted by
+$p$ and $q$:
 \begin{equation}
  p=(1/3,2/3),
  \qquad
@@ -1521,16 +1765,20 @@ Suppose that the support of $\nu$ intersects $(1,+\infty]$. Choose a $\nu$-null 
  \label{eq:derivation-A-r}
 \end{equation}
 Use the two-block perturbation \eqref{eq:two-block-path-main} with $u_0=0$ and $u_1=1$. Write
-\begin{equation}
- S_d(\lambda):=\|\vec x_r^{(d)}(\lambda)\|_1,
+\begin{align}
+ S_d(\lambda)&:=\|\vec x_r^{(d)}(\lambda)\|_1,
  \qquad
  K_d(\lambda):=
- \int H_\alpha(\widehat{x_r^{(d)}(\lambda)})\,\mathrm d\nu(\alpha).
+ \int H_\alpha(\widehat{x_r^{(d)}(\lambda)})\,\mathrm d\nu(\alpha),
+ \notag\\
+ D_{\nu,d}(\lambda)
+ &:=D_\nu(\vec x_r^{(d)}(\lambda))
+ =S_d(\lambda)K_d(\lambda).
  \label{eq:derivation-S-K}
-\end{equation}
+\end{align}
 Since $S_d$ is affine,
 \begin{equation}
- \frac{D_\nu''(0)}{S_d(0)}
+ \frac{D_{\nu,d}''(0)}{S_d(0)}
  =2\frac{S_d'(0)}{S_d(0)}K_d'(0)+K_d''(0).
  \label{eq:derivation-second-product}
 \end{equation}
@@ -1548,16 +1796,16 @@ The two-block localisation gives
 \end{equation}
 Substituting these limits into \eqref{eq:derivation-second-product} yields
 \begin{equation}
- \frac{D_\nu''(0)}{S_d(0)}
+ \frac{D_{\nu,d}''(0)}{S_d(0)}
  \longrightarrow-A_r>0.
  \label{eq:derivation-positive-curvature}
 \end{equation}
-Thus concavity fails for every sufficiently large finite $d$. This proves \eqref{eq:derivation-support-necessary}. Taking $\nu=\delta_\alpha$ gives the extremal statement.
+Thus concavity fails for every sufficiently large finite scale $d$. This proves \eqref{eq:derivation-support-necessary}. Taking $\nu=\delta_\alpha$ gives the extremal statement.
 \end{proof}
 
 \begin{proposition}
 \label{prop:derivation-classification}
-Among the derivations represented in Section~3 of Ref.~\cite{rubboli2026complete} as positive barycentres of the quantities $H_{0,\alpha}$, the monotone ones are precisely those whose representing measure is supported on $[0,1]$. They have the form
+Among the derivations represented in Section~3 of Ref.~\cite{rubboli2026complete} as positive integral mixtures of the quantities $H_{0,\alpha}$, the monotone ones are precisely those whose representing measure is supported on $[0,1]$. They have the form
 \begin{equation}
  \Delta(P_{XY})
  =\int_{[0,1]}H_{0,\alpha}(P_{XY})\,\mathrm d\tau(\alpha),
@@ -1567,7 +1815,7 @@ where $\tau$ is a finite positive measure. Under the normalization adopted in Se
 \end{proposition}
 
 \begin{proof}
-The representation theorem of Section~3 in Ref.~\cite{rubboli2026complete} is the imported starting point: it represents every derivation at $\|\cdot\|$ as a positive barycentre of the quantities $H_{0,\alpha}$ with $\alpha\in[0,+\infty]$. Proposition~\ref{prop:derivation-necessary} shows that monotonicity forces the representing measure to be supported on $[0,1]$. Conversely, Proposition~\ref{prop:derivation-sufficient} proves monotonicity for every positive measure supported on $[0,1]$. This establishes \eqref{eq:derivation-final-classification}. The representation theorem itself is not reproved in this companion.
+The representation theorem of Section~3 in Ref.~\cite{rubboli2026complete} is the imported starting point: it represents every derivation at $\|\cdot\|$ as a positive integral mixture of the quantities $H_{0,\alpha}$ with $\alpha\in[0,+\infty]$. Proposition~\ref{prop:derivation-necessary} shows that monotonicity forces the representing measure to be supported on $[0,1]$. Conversely, Proposition~\ref{prop:derivation-sufficient} proves monotonicity for every positive measure supported on $[0,1]$. This establishes \eqref{eq:derivation-final-classification}. The representation theorem itself is not reproved in this companion.
 \end{proof}
 
 The counterexamples above are deliberately chosen to be as simple as possible. A two-block vector is sufficient whenever only one forbidden coefficient must be isolated; three blocks are needed only when two independent positive coefficients must be exposed; and the separate Shannon perturbation is used only to detect an atom at $\alpha=1$. In every case, the limiting curvature is strict. Appendix~\ref{app:finite-counterexamples} explains how Taylor's theorem converts the strict limiting sign into an explicit pair of finite-dimensional semiring elements violating concavity, convexity, or quasi-convexity.
@@ -1591,7 +1839,8 @@ while this appendix verifies that every derivative, integral, limit, and finite
 correction used to obtain that sign is legitimate.
 
 We fix the technical notation before it is used.  If
-$\rho=(\rho_i)_{i=1}^N$ is a finite probability vector and $f=(f_i)$ and
+$\rho=(\rho_i)_{i=1}^N$ is a finite probability vector, so
+$\rho_i\geq0$ and $\sum_i\rho_i=1$, and $f=(f_i)$ and
 $g=(g_i)$ are real arrays, then
 \begin{align}
 \mathbb E_\rho[f]
@@ -1604,6 +1853,11 @@ $g=(g_i)$ are real arrays, then
 &:=\mathbb E_\rho[fg]-\mathbb E_\rho[f]\,\mathbb E_\rho[g].
 \label{eq:technical-covariance-definition}
 \end{align}
+Products and powers of arrays, and logarithms of positive arrays, are
+understood coordinatewise whenever the displayed expressions are defined.
+Thus expectation is a weighted average, variance is
+$\mathbb E_\rho[(f-\mathbb E_\rho[f])^2]$, and covariance is
+$\mathbb E_\rho[(f-\mathbb E_\rho[f])(g-\mathbb E_\rho[g])]$.
 An omitted subscript means that the probability weights have been named in the
 surrounding sentence.  We use
 \begin{equation}
@@ -1614,10 +1868,17 @@ surrounding sentence.  We use
 for the second directional derivative, $\partial_i$ for differentiation in the
 $i$th coordinate, $\delta_{ij}$ for the Kronecker delta, and
 $\|f\|_\infty:=\max_i|f_i|$ for a finite array.  The notation
-$a_s=O(b_s)$ means that $|a_s|\leq C|b_s|$ near the indicated limit, whereas
+$a_s=O(b_s)$ means that $|a_s|\leq C|b_s|$ near the indicated limit for some
+finite $C>0$, whereas
 $a_s=o(b_s)$ means $a_s/b_s\to0$.  If auxiliary parameters are present,
 ``locally uniform'' means uniform on every compact set of those parameters.
-Finally, $g\in L^1(\nu)$ means $\int|g|\,\mathrm d\nu<+\infty$.
+Symbols $C,C_M,C_K,C_s,\ldots$ in estimates denote finite positive bounds
+independent of the displayed limiting variables; subscripts record permitted
+dependencies, and an unsubscripted $C$ may change from line to line.  This
+generic estimate convention is separate from any coefficient explicitly
+defined as $C$ in a finite counterexample.  Finally, $g\in L^1(\nu)$ means
+$\int|g|\,\mathrm d\nu<+\infty$; for a signed measure $\mu$, integrability means
+$\int|g|\,\mathrm d|\mu|<+\infty$.
 
 \subsection{Real-power curvature, endpoint continuity, and common discretization}
 \label{app:measure-approximation}
@@ -1698,7 +1959,7 @@ It gives
   \left(\sum_i x_i^{\alpha-2}v_i^2\right).
  \label{eq:app-power-CS}
 \end{equation}
-Thus the bracket is nonnegative, and the sign of the Hessian is the sign of $\alpha-1$.  The extension to zero coordinates follows by replacing $\vec x$ by $\vec x+\varepsilon\mathbf1$, applying the inequality in the strictly positive cone, and letting $\varepsilon\downarrow0$.  Finally, $F_\infty$ is the pointwise maximum of the linear coordinate functions $\vec x\mapsto x_i$, and is therefore convex.
+Thus the bracket is nonnegative, and the sign of the Hessian is the sign of $\alpha-1$.  The extension to zero coordinates follows by replacing $\vec x$ by $\vec x+\varepsilon\mathbf1_d$, applying the inequality in the strictly positive cone, and letting $\varepsilon\downarrow0$.  Finally, $F_\infty$ is the pointwise maximum of the linear coordinate functions $\vec x\mapsto x_i$, and is therefore convex.
 \end{proof}
 
 \begin{lemma}[Hessian and sign classification of a monomial]
@@ -1959,7 +2220,8 @@ Let
  \vec x(\lambda)=\vec x+\lambda\vec v
  \label{eq:app-affine-path}
 \end{equation}
-be an affine path in $\mathbb R^d_{>0}$ for $|\lambda|\leq\lambda_0$.  For $\alpha\in(0,+\infty)$, define
+be an affine path in $\mathbb R^d_{>0}$ for $|\lambda|\leq\lambda_0$, where
+$\lambda_0>0$.  For $\alpha\in(0,+\infty)$, define
 \begin{equation}
  \ell_\alpha(\lambda)
  :=\frac1\alpha\log\sum_{i=1}^d x_i(\lambda)^\alpha,
@@ -1970,7 +2232,8 @@ be an affine path in $\mathbb R^d_{>0}$ for $|\lambda|\leq\lambda_0$.  For $\alp
  u_i(\lambda):=\frac{v_i}{x_i(\lambda)}.
  \label{eq:app-ell-pi-u}
 \end{equation}
-The vector $\pi^{(\alpha)}(\lambda)$ is the $\alpha$-escort probability vector.
+The vector $\pi^{(\alpha)}(\lambda)$ is the $\alpha$-escort probability vector:
+it reweights coordinate $i$ in proportion to $x_i(\lambda)^\alpha$.
 For any coordinate arrays $f$ and $g$, we specialize the preceding definitions
 as
 \begin{align}
@@ -1984,9 +2247,11 @@ as
 &:=\mathbb E_\alpha[fg]-\mathbb E_\alpha[f]\mathbb E_\alpha[g].
 \label{eq:app-escort-covariance}
 \end{align}
-Primes and superscripts $(r)$ in this subsection denote derivatives in
-$\lambda$, while $\partial_\alpha$ denotes differentiation in the R\'enyi
-parameter.
+Primes and superscripts $(r)$ in the remainder of the appendix denote
+derivatives in $\lambda$ along the currently displayed path, while
+$\partial_\alpha$ denotes differentiation in the R\'enyi parameter.  In
+particular, $H_\alpha'(0)$ and $H_\alpha''(0)$ abbreviate derivatives of
+$\lambda\mapsto H_\alpha(\widehat{x(\lambda)})$ for that path.
 
 \begin{lemma}[First and second derivatives of the logarithmic power mean]
 \label{lem:app-ell-derivatives}
@@ -2124,13 +2389,18 @@ The parameter endpoints $0$ and $+\infty$ are also needed because the representi
 \label{lem:app-endpoint-differentiability}
 For the strictly positive affine path above, the first two $\lambda$ derivatives of $H_\alpha(\widehat{x(\lambda)})$ extend continuously to $\alpha=0$.  They vanish at $\alpha=0$.
 
-Assume, in addition, that there is a nonempty set $I$ of coordinates, a positive $C^2$ function $m(\lambda)$, and a constant $\rho<1$ such that, for all $|\lambda|\leq\lambda_0$,
+Assume, in addition, that there is a nonempty set $I$ of coordinates, a
+positive $C^2$ function $m(\lambda)$, and a constant $0<\rho<1$.  Here $C^2$
+means twice continuously differentiable.  Suppose that, for all
+$|\lambda|\leq\lambda_0$,
 \begin{equation}
  x_i(\lambda)=m(\lambda)\quad(i\in I),
  \qquad
  \max_{i\notin I}\frac{x_i(\lambda)}{m(\lambda)}\leq\rho.
  \label{eq:app-stable-max}
 \end{equation}
+If $I$ contains every coordinate, the second condition is vacuous; equivalently,
+the maximum over the empty complement is read as zero.
 Then the first two derivatives also extend continuously to $\alpha=+\infty$, with limiting entropy
 \begin{equation}
  H_\infty(\widehat{x(\lambda)})
@@ -2260,16 +2530,20 @@ We next prove the high-dimensional formulas used in Section~\ref{sec:necessary-c
 
 \subsubsection{General block estimates}
 
-Consider a vector divided into finitely many coordinate blocks.  At $\lambda=0$, assume that block $j$ has a common relative velocity $u_j$ and aggregate power weight
+Consider a vector divided into finitely many disjoint coordinate sets $I_j$,
+called blocks.  At $\lambda=0$, assume that block $j$ has a common relative
+velocity $u_j$ and aggregate power weight
 \begin{equation}
  \Pi_{j,d}^{(\alpha)}
- :=\frac{\sum_{i\in j}x_i^\alpha}{\sum_ix_i^\alpha}.
+ :=\frac{\sum_{i\in I_j}x_i^\alpha}{\sum_ix_i^\alpha}.
  \label{eq:app-aggregate-power-weight}
 \end{equation}
 These numbers are probability weights on the blocks.  Here
-$\ell_{\alpha,d}$ means $\ell_\alpha$ for the $d$-dimensional block path, and
+$\ell_{\alpha,d}$ means $\ell_\alpha$ for the block path indexed by the scale
+$d$, and
 unsubscripted $\mathbb E$, $\operatorname{Var}$, and $\operatorname{Cov}$ in
-this subsection use the weights $\Pi_d^{(\alpha)}$.
+this subsection use the weights $\Pi_d^{(\alpha)}$.  When $d$ and $\alpha$ are
+fixed, we abbreviate $\Pi_{j,d}^{(\alpha)}$ to $\Pi_j$.
 Then Lemma~\ref{lem:app-ell-derivatives} becomes
 \begin{align}
  \ell_{\alpha,d}'(0)
@@ -2283,7 +2557,8 @@ Then Lemma~\ref{lem:app-ell-derivatives} becomes
 
 \begin{lemma}[Dominant-block remainder]
 \label{lem:app-dominant-block}
-Let $M:=\max_j|u_j|$.  If block $j_*$ has power weight at least $1-\delta$, then
+Let $M:=\max_j|u_j|$.  If block $j_*$ has power weight at least $1-\delta$ for
+some $0\leq\delta\leq1$, then
 \begin{align}
  \left|\ell_{\alpha,d}'(0)-u_{j_*}\right|
  &\leq2M\delta,
@@ -2343,7 +2618,8 @@ If $f$ and $g$ are constant on the dominant block, with values $f_*$ and $g_*$ t
        \|g-g_*\|_\infty\delta.
  \label{eq:app-covariance-concentration}
 \end{align}
-This estimate is the source of the factor $(\log d)d^{-g}$ below.
+This estimate is the source of factors $(\log d)d^{-g}$ below, where in each
+application $g>0$ is the relevant exponent gap.
 
 \subsubsection{The two-block localiser}
 \label{app:two-block-localisation}
@@ -2364,14 +2640,16 @@ The power sum of \eqref{eq:two-block-path-main} is
  +\theta_{1,d}d^{\alpha-r}(1+u_1\lambda)^\alpha\bigr].
  \label{eq:app-two-power-sum}
 \end{align}
-Thus the exponent gap between the two blocks is $|\alpha-r|$.  On every compact set $K\subset[0,r)$, the off-dominant weight satisfies
+Thus the exponent gap between the two blocks is $|\alpha-r|$.  On every compact
+set $K\subset[0,r)$ there is a finite $C_K>0$, independent of $d$ and
+$\alpha\in K$, such that the off-dominant weight satisfies
 \begin{equation}
  \Pi_{1,d}^{(\alpha)}\leq C_Kd^{-g_K},
  \qquad
  g_K:=\inf_{\alpha\in K}(r-\alpha)>0,
  \label{eq:app-two-left-gap}
 \end{equation}
-and on every compact $K\subset(r,+\infty)$,
+and on every compact $K\subset(r,+\infty)$ there is such a constant $C_K$ with
 \begin{equation}
  \Pi_{0,d}^{(\alpha)}\leq C_Kd^{-g_K},
  \qquad
@@ -2421,7 +2699,8 @@ The variance is $O(M^2d^{-g})$ by \eqref{eq:app-dominant-var-proof}, and both co
  \leq C M^2(\log d)d^{-g}.
  \label{eq:app-two-alpha-second}
 \end{equation}
-Applying the cancellation formula \eqref{eq:app-pole-cancellation} with $r=1,2$ yields
+Applying the cancellation formula \eqref{eq:app-pole-cancellation} at derivative
+orders $s=1,2$ yields
 \begin{equation}
  \sup_{|\alpha-1|\leq\eta}|H_\alpha^{(s)}(0)|
  \leq C_s(\log d)d^{-g},
@@ -2523,13 +2802,22 @@ The pairwise differences of the exponents in \eqref{eq:three-block-exponents-mai
 \end{equation}
 It follows directly that block $0$ is uniquely dominant on $J_0=[0,a)$, block $1$ on $J_1=(a,b)$, and block $2$ on $J_2=(b,+\infty]$.
 
-On a compact set $K$ contained in one open cell, let
+On a compact set $K$ contained in one open cell, let $j_*=j_*(K)$ be its
+unique dominant block and put
 \begin{equation}
  g_K:=\min_{\alpha\in K}
  \left(q_{j_*}(\alpha)-\max_{j\neq j_*}q_j(\alpha)\right)>0.
  \label{eq:app-three-gap-def}
 \end{equation}
-Equation \eqref{eq:app-three-power-sum} then implies that the total off-dominant power weight is at most
+Define the total off-dominant power weight by
+\begin{equation}
+ \delta_{\alpha,d}
+ :=\sum_{j\neq j_*}\Pi_{j,d}^{(\alpha)}
+ =1-\Pi_{j_*,d}^{(\alpha)}.
+ \label{eq:app-three-off-dominant-definition}
+\end{equation}
+Equation \eqref{eq:app-three-power-sum} then implies that there is a finite
+$C_K>0$, independent of $d$ and $\alpha\in K$, such that
 \begin{equation}
  \delta_{\alpha,d}\leq C_Kd^{-g_K}.
  \label{eq:app-three-cell-gap}
@@ -2656,7 +2944,7 @@ No derivative of the limiting piecewise-affine exponent envelope is taken.
 
 The block localisers of Appendix~\ref{app:block-localisation} deliberately suppress the entire cell containing $\alpha=1$.  They therefore cannot distinguish an atom at $1$ from nonatomic mass near $1$.  The perturbation \eqref{eq:Shannon-path-main} is designed to make the Shannon first derivative converge to a prescribed finite number, while the derivatives at every fixed $\alpha\neq1$ below the second crossing converge to zero.
 
-Put
+Recall for this subsection that the scalar block weights are $p=q=1/2$.  Put
 \begin{equation}
  L_d:=\log d,
  \qquad
@@ -2713,32 +3001,32 @@ Both converge to zero, locally uniformly in $(h,v)$.
 
 We next calculate the Shannon derivative exactly enough to identify its limit.  For any strictly positive affine path, let
 \begin{equation}
- p_i(\lambda):=\frac{x_i(\lambda)}{\sum_jx_j(\lambda)},
+ \rho_i(\lambda):=\frac{x_i(\lambda)}{\sum_jx_j(\lambda)},
  \qquad
  w_i(\lambda):=\frac{x_i'(\lambda)}{x_i(\lambda)}.
  \label{eq:app-Shannon-p-w}
 \end{equation}
 For a coordinate array $f$, set
 \begin{align}
-\mathbb E_{p(\lambda)}[f]
-&:=\sum_i p_i(\lambda)f_i,
+\mathbb E_{\rho(\lambda)}[f]
+&:=\sum_i \rho_i(\lambda)f_i,
 \label{eq:app-Shannon-expectation-definition}\\
-\operatorname{Var}_{p(\lambda)}(f)
-&:=\mathbb E_{p(\lambda)}[f^2]
--\bigl(\mathbb E_{p(\lambda)}[f]\bigr)^2,
+\operatorname{Var}_{\rho(\lambda)}(f)
+&:=\mathbb E_{\rho(\lambda)}[f^2]
+-\bigl(\mathbb E_{\rho(\lambda)}[f]\bigr)^2,
 \label{eq:app-Shannon-variance-definition}\\
-\operatorname{Cov}_{p(\lambda)}(f,g)
-&:=\mathbb E_{p(\lambda)}[fg]
--\mathbb E_{p(\lambda)}[f]\mathbb E_{p(\lambda)}[g].
+\operatorname{Cov}_{\rho(\lambda)}(f,g)
+&:=\mathbb E_{\rho(\lambda)}[fg]
+-\mathbb E_{\rho(\lambda)}[f]\mathbb E_{\rho(\lambda)}[g].
 \label{eq:app-Shannon-covariance-definition}
 \end{align}
-We abbreviate these subscripts to $p$ when $\lambda$ is clear, and write
+We abbreviate these subscripts to $\rho$ when $\lambda$ is clear, and write
 $(\log x)_i:=\log x_i$.  Thus expectation is the weighted average, variance
 measures the squared fluctuation about that average, and covariance measures
 the joint fluctuation of two arrays.
 Then
 \begin{equation}
- p_i'=p_i\bigl(w_i-\mathbb E_p[w]\bigr),
+ \rho_i'=\rho_i\bigl(w_i-\mathbb E_\rho[w]\bigr),
  \qquad
  w_i'=-w_i^2.
  \label{eq:app-Shannon-pw-primes}
@@ -2748,51 +3036,51 @@ Then
 \label{lem:app-Shannon-covariance}
 With the notation above,
 \begin{align}
- \frac{\mathrm d}{\mathrm d\lambda}H_1(p(\lambda))
- &=-\operatorname{Cov}_{p(\lambda)}
+ \frac{\mathrm d}{\mathrm d\lambda}H_1(\rho(\lambda))
+ &=-\operatorname{Cov}_{\rho(\lambda)}
    \bigl(w(\lambda),\log x(\lambda)\bigr),
  \label{eq:app-Shannon-first-cov}\\
- \frac{\mathrm d^2}{\mathrm d\lambda^2}H_1(p(\lambda))
- &=-\operatorname{Var}_{p(\lambda)}(w(\lambda))
- +2\mathbb E_{p(\lambda)}[w(\lambda)]
-  \operatorname{Cov}_{p(\lambda)}
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}H_1(\rho(\lambda))
+ &=-\operatorname{Var}_{\rho(\lambda)}(w(\lambda))
+ +2\mathbb E_{\rho(\lambda)}[w(\lambda)]
+  \operatorname{Cov}_{\rho(\lambda)}
   \bigl(w(\lambda),\log x(\lambda)\bigr).
  \label{eq:app-Shannon-second-cov}
 \end{align}
 \end{lemma}
 
 \begin{proof}
-Since $\log p_i=\log x_i-\log\sum_jx_j$, covariance with $\log p$ equals covariance with $\log x$.  Differentiating
+Since $\log \rho_i=\log x_i-\log\sum_jx_j$, covariance with $\log \rho$ equals covariance with $\log x$.  Differentiating
 \begin{equation}
- H_1(p)=-\sum_ip_i\log p_i
+ H_1(\rho)=-\sum_i\rho_i\log \rho_i
  \label{eq:app-Shannon-definition}
 \end{equation}
-and using $\sum_ip_i'=0$ gives
+and using $\sum_i\rho_i'=0$ gives
 \begin{align}
  H_1'
- &=-\sum_ip_i'\log p_i
- =-\sum_ip_i\bigl(w_i-\mathbb E_p[w]\bigr)\log p_i
+ &=-\sum_i\rho_i'\log \rho_i
+ =-\sum_i\rho_i\bigl(w_i-\mathbb E_\rho[w]\bigr)\log \rho_i
  \notag\\
- &=-\operatorname{Cov}_p(w,\log p)
- =-\operatorname{Cov}_p(w,\log x),
+ &=-\operatorname{Cov}_\rho(w,\log \rho)
+ =-\operatorname{Cov}_\rho(w,\log x),
  \label{eq:app-Shannon-first-proof}
 \end{align}
 which proves \eqref{eq:app-Shannon-first-cov}.
 
 For any differentiable observable $f_i(\lambda)$,
 \begin{align}
- \frac{\mathrm d}{\mathrm d\lambda}\mathbb E_p[f]
- &=\sum_ip_i'f_i+\sum_ip_if_i'
+ \frac{\mathrm d}{\mathrm d\lambda}\mathbb E_\rho[f]
+ &=\sum_i\rho_i'f_i+\sum_i\rho_if_i'
  \notag\\
- &=\operatorname{Cov}_p(f,w)+\mathbb E_p[f'].
+ &=\operatorname{Cov}_\rho(f,w)+\mathbb E_\rho[f'].
  \label{eq:app-expectation-derivative}
 \end{align}
 Applying this identity to the covariance in \eqref{eq:app-Shannon-first-cov}, using $(\log x_i)'=w_i$ and $w_i'=-w_i^2$, gives
 \begin{equation}
  \frac{\mathrm d}{\mathrm d\lambda}
- \operatorname{Cov}_p(w,\log x)
- =\operatorname{Var}_p(w)
- -2\mathbb E_p[w]\operatorname{Cov}_p(w,\log x).
+ \operatorname{Cov}_\rho(w,\log x)
+ =\operatorname{Var}_\rho(w)
+ -2\mathbb E_\rho[w]\operatorname{Cov}_\rho(w,\log x).
  \label{eq:app-covariance-derivative-Shannon}
 \end{equation}
 Negating this identity proves \eqref{eq:app-Shannon-second-cov}.
@@ -2987,8 +3275,9 @@ a contradiction.
 The limiting counterexample velocities in Section~\ref{sec:necessary-conditions} make the limiting first derivative zero. This alone is not sufficient: the derivative must be exactly zero at the same finite $d$ at which Lemma~\ref{lem:app-quasiconvex-stationary} is applied. The following elementary correction supplies exact stationarity.
 
 In the next lemma, $g_{d,z}$ denotes the one-variable restriction obtained by
-using the block-velocity vector $z$ at dimension $d$; its primes are
-$\lambda$-derivatives at zero.  The dot product is
+using the block-velocity vector $z$ at scale $d$; its primes are
+$\lambda$-derivatives at zero.  The derivative coefficient vector is
+$c_d\in\mathbb R^m$, and the dot product is
 $c_d\mathbin{\cdot}z:=\sum_j(c_d)_jz_j$.
 
 \begin{lemma}[Exact finite-dimensional stationarity correction]
@@ -2998,12 +3287,14 @@ Let $z\in\mathbb R^m$ denote the vector of block velocities.  Suppose that, for 
  g_{d,z}'(0)=c_d\cdot z,
  \label{eq:app-linear-first-derivative}
 \end{equation}
-where $c_d\to c$.  Suppose also that
+where $c_d\to\bar c\in\mathbb R^m$.  Suppose also that there is a continuous function
+$Q:\mathbb R^m\to\mathbb R$ such that
 \begin{equation}
  g_{d,z}''(0)\longrightarrow Q(z)
  \label{eq:app-second-local-uniform}
 \end{equation}
-locally uniformly in $z$.  Let $z$ satisfy $c\cdot z=0$ and choose an index $k$ with $c_k\neq0$.  Define
+locally uniformly in $z$.  Let $z$ satisfy $\bar c\cdot z=0$ and choose an
+index $k$ with $\bar c_k\neq0$.  Define
 \begin{equation}
  (z_d)_j:=z_j\quad(j\neq k),
  \qquad
@@ -3022,19 +3313,23 @@ Then, for every sufficiently large $d$,
 \end{lemma}
 
 \begin{proof}
-Since $(c_d)_k\to c_k\neq0$, the denominator in \eqref{eq:app-stationarity-correction} is nonzero for all sufficiently large $d$.  By construction,
+Since $(c_d)_k\to\bar c_k\neq0$, the denominator in \eqref{eq:app-stationarity-correction} is nonzero for all sufficiently large $d$.  By construction,
 \begin{align}
  c_d\cdot z_d
  &=c_d\cdot z
  +(c_d)_k\left(-\frac{c_d\cdot z}{(c_d)_k}\right)=0,
  \label{eq:app-stationarity-exact-proof}
 \end{align}
-which proves exact stationarity.  Moreover, $c_d\cdot z\to c\cdot z=0$, so the correction tends to zero and $z_d\to z$.  Local uniform convergence of the second derivatives then gives the final statement.
+which proves exact stationarity.  Moreover,
+$c_d\cdot z\to\bar c\cdot z=0$, so the correction tends to zero and
+$z_d\to z$.  Local uniform convergence of the second derivatives then gives
+the final statement.
 \end{proof}
 
 For all block paths used in Section~\ref{sec:necessary-conditions}, the base point at $\lambda=0$ is independent of the velocity vector. Directional differentiation is therefore exactly linear in the velocities, as required in \eqref{eq:app-linear-first-derivative}. The locally uniform convergence was proved in Appendices~\ref{app:block-localisation} and~\ref{app:Shannon-localisation}. Since $z_d$ remains bounded, the corrected affine paths remain strictly positive on a common neighbourhood of zero.
 
-At exact stationarity, the exponential does not introduce an additional second-order term:
+At exact stationarity, set $g_d:=g_{d,z_d}$.  The exponential does not
+introduce an additional second-order term:
 \begin{equation}
  \frac{(e^{g_d})''(0)}{e^{g_d(0)}}
  =g_d''(0)+(g_d'(0))^2
@@ -3083,7 +3378,7 @@ for every sufficiently small $\varepsilon>0$.  Hence
 \end{equation}
 which is exactly the midpoint violation of quasi-convexity.
 
-Finally, the endpoints are admissible semiring elements. Every base vector used in Section~\ref{sec:necessary-conditions} is strictly positive. For any fixed finite $d$ and bounded velocity vector, there exists $\varepsilon_d>0$ such that all coordinates of $\vec x^{(d)}(\lambda)$ are positive for $|\lambda|<\varepsilon_d$. Thus the two endpoints in \eqref{eq:app-affine-midpoint} are positive one-column matrices in the original semiring. The notation $\operatorname{col}$ denotes vertical concatenation inside that one column; no semiring direct sum is involved.
+Finally, the endpoints are admissible semiring elements. Every base vector used in Section~\ref{sec:necessary-conditions} is strictly positive. For any fixed finite scale $d$ and bounded velocity vector, there exists an admissibility radius $\varepsilon_d^{\mathrm{adm}}>0$ such that all coordinates of $\vec x^{(d)}(\lambda)$ are positive for $|\lambda|<\varepsilon_d^{\mathrm{adm}}$. Thus the two endpoints in \eqref{eq:app-affine-midpoint} are positive one-column matrices in the original semiring. The notation $\operatorname{col}$ denotes vertical concatenation inside that one column; no semiring direct sum is involved.
 
 \bibliographystyle{ultimate}
 \bibliography{bibliography}
