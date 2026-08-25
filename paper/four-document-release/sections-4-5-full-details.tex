@@ -53,6 +53,38 @@ finiteness is derived from monotonicity before the signed moment is formed.
 \maketitle
 \tableofcontents
 
+\section*{Relation to the concise companion}
+\addcontentsline{toc}{section}{Relation to the concise companion}
+
+Ref.~\cite{rubboli2026parametersConcise} is the statement-and-main-ideas layer
+of this paper.  The present paper proves the same numbered statements in the
+same order.  Sections~\ref{sec:sufficient-conditions}
+and~\ref{sec:necessary-conditions} keep the logical obstruction and the witness
+choices visible; Appendix~\ref{app:technical-sections45} supplies the analytic
+infrastructure behind them.  In particular, the finite counterexamples used
+here are the same Shannon, two-block, three-block, and binary-face witnesses
+recorded in the Lean correspondence note
+Ref.~\cite{rubboli2026parametersLean}.
+
+The proof dependencies can be read from left to right:
+\[
+\begin{aligned}
+&\text{endpoint-aware finite-dimensional calculus}
+\longrightarrow \text{signed-measure differentiation}\\
+&\quad\longrightarrow \text{two-/three-block and Shannon localization}
+\longrightarrow \text{finite curvature witness}\\
+&\quad\longrightarrow \text{semiring/channel lift}.
+\end{aligned}
+\]
+For sufficiency, a common discretization transfers the finite-support result to
+arbitrary measures.  At fixed dimension, total variation controls integration
+against signed measures.  For necessity, all potentially singular moments are
+first truncated away from $\alpha=1$; localization extracts finite coefficients,
+and monotone convergence supplies one-sided finiteness only when the exceptional
+branch requires it.  Exact finite-dimensional stationarity is needed only for
+the negative tropical branch.  Finally, Section~\ref{sec:channel-lift} converts
+the one-column shape result into the original channel preorder.
+
 \section{Sufficient conditions for the parameters}
 \label{sec:sufficient-conditions}
 
@@ -174,6 +206,8 @@ padding. This proves the original semiring/channel lift used throughout the
 paper without adding an axiom or an extra regularity hypothesis.
 
 \subsection{Sufficient conditions for the discrete case}
+
+This subsection proves Lemmas~1.1--1.3 of the concise companion.
 
 The discrete proof is based on two elementary curvature results. We state them in the form needed here. Complete Hessian calculations are given in Appendix~\ref{app:technical-sections45}.
 
@@ -389,6 +423,10 @@ Thus $t_nI_n\leq1$ in the positive case and $t_nI_n\geq1$ in the negative except
 \end{proof}
 
 \subsection{Sufficient conditions for the temperate homomorphisms -- general measure}
+\label{sec:common-discretisation}
+
+This subsection supplies the full proof of Proposition~1.4 of the concise
+companion.
 
 We now extend the previous result to an arbitrary probability measure. The main point is to construct a finitely supported approximation on the parameter space which is independent of the vector $\vec x$. This permits us to use the same approximating function at $\vec x$, $\vec z$, and $\lambda\vec x+(1-\lambda)\vec z$. The required approximation and the associated dominated-convergence argument are recorded in Appendix~\ref{app:measure-approximation}; we include the complete calculation below because it is central to the passage from the discrete to the general case.
 
@@ -521,6 +559,9 @@ The second inequality has precisely the required orientation in the oppositely o
 
 \subsection{Sufficient conditions for tropical homomorphisms}
 
+This subsection proves Propositions~1.5--1.6 and Remark~1.7 of the concise
+companion.
+
 We next consider the tropical homomorphisms. The negative tropical quantity is obtained from the temperate one through the limit $t\to-\infty$. The only scalar fact needed is the following finite log-sum-exp limit. If $p_y\geq0$, $\sum_yp_y=1$, and $a_y\in\mathbb R$, then, with
 \begin{equation}
  m:=\min_{y:p_y>0}a_y,
@@ -624,6 +665,8 @@ The same conditions include $\tau(\{1\})=0$. Since the displayed integrand is st
 
 \subsection{Sufficient conditions for derivations}
 
+This subsection proves Proposition~1.8 of the concise companion.
+
 We finally consider the derivations. Although they can be obtained as first-order limits of the temperate homomorphisms, a direct proof is both shorter and more transparent.
 
 \begin{proposition}
@@ -698,6 +741,9 @@ The results of this section provide a sufficient parameter region for all temper
 
 In this section, we prove that the sufficient conditions obtained in Section~\ref{sec:sufficient-conditions} are necessary. The proof removes the regularity assumption previously imposed near $\alpha=1$. In particular, we do not assume that the two one-sided integrals of $|\alpha/(1-\alpha)|$ are finite. Whenever such an integral appears in the final parameter region, its finiteness will be derived from monotonicity.
 
+\subsection{Proof protocol: endpoint differentiation and signed moments}
+\label{sec:necessity-protocol}
+
 All localizers below use only bounded truncations $[0,a)$ and $(b,+\infty]$, so their coefficients are finite without a singular-moment assumption. In an exceptional upper-support branch, support isolation first makes the upper one-sided moment finite; the truncated curvature inequalities then bound the lower one-sided moment. The signed moment is formed only after these two conclusions. Differentiation under the entropy integral itself needs no singular moment because the removable Shannon quotient is kept intact at fixed dimension.
 
 The difficulty is that the normalised R\'enyi entropy contains a cancellation at $\alpha=1$. If its two terms are separated before differentiation, the factor $\alpha/(1-\alpha)$ appears singular and one is led to impose an unnecessary integrability assumption. We therefore proceed in the following order:
@@ -758,10 +804,11 @@ The proof is organised around three elementary high-dimensional perturbations.
 \end{enumerate}
 We present the limiting formulas in the main text and use them to give transparent counterexamples. Their complete derivation, including all uniform estimates and applications of dominated convergence, is contained in Appendix~\ref{app:block-localisation} and Appendix~\ref{app:Shannon-localisation}.
 
-\subsection{Necessary conditions; temperate case}
+\subsection{Endpoint-safe localized witness families}
+\label{sec:localized-witnesses}
 
 \paragraph{The two-block perturbation.}
-Fix $r>0$ with $r\neq1$, choose $R>r$, and let
+Fix $r>0$ with $r\neq1$, put $R:=r+1$, and let
 \begin{equation}
  n_{0,d}:=\lceil d^R\rceil,
  \qquad
@@ -825,7 +872,7 @@ Now the second block contains $\alpha=1$, and
 The convergence in these formulas is locally uniform in the velocities.
 
 \paragraph{The three-block perturbation.}
-Fix $0<a<b<+\infty$ with $a,b\neq1$, choose $R>a+b$, and define
+Fix $0<a<b<+\infty$ with $a,b\neq1$, put $R:=a+b+1$, and define
 \begin{equation}
  \vec x_{a,b}^{(d)}(\lambda)
  :=\operatorname{col}\!\left(
@@ -876,23 +923,34 @@ where $J_j$ denotes the corresponding interval in \eqref{eq:three-block-cells-ma
 Again, the convergence is locally uniform in $(u_0,u_1,u_2)$.
 
 \paragraph{The Shannon-point perturbation.}
-Fix a $|\mu|$-null point $c>1$, choose $p\in(0,1)$, put $q:=1-p$ and $N_d:=\lceil d^c\rceil$, and define
+Fix a $|\mu|$-null point $c>1$, put $p=q:=1/2$ and $R:=c+2$, and define
+\begin{equation}
+ n_{0,d}:=\lceil d^R\rceil,
+ \qquad
+ n_{1,d}:=\lceil d^{R-1}\rceil,
+ \qquad
+ n_{2,d}:=\lceil d^{R-1-c}\rceil.
+ \label{eq:Shannon-counts-main}
+\end{equation}
+The finite path is
 \begin{equation}
  \vec x_{\mathrm{Sh}}^{(d)}(\lambda)
  :=\operatorname{col}\!\left(
- \left(q+\frac{h\lambda}{\log d}\right)\mathbf1_{dN_d},
- d\left(p-\frac{h\lambda}{\log d}\right)\mathbf1_{N_d},
- d^2(1+v\lambda)
+ \left(q+\frac{h\lambda}{\log d}\right)\mathbf1_{n_{0,d}},
+ d\left(p-\frac{h\lambda}{\log d}\right)\mathbf1_{n_{1,d}},
+ d^2(1+v\lambda)\mathbf1_{n_{2,d}}
  \right).
  \label{eq:Shannon-path-main}
 \end{equation}
+This is literally the rounded three-block Shannon family used in Lean, with
+multiplicative block velocities $h/(q\log d)$, $-h/(p\log d)$, and $v$.
 The power-sum exponents are
 \begin{equation}
- c+1,
+ c+2,
  \qquad
- c+\alpha,
+ c+1+\alpha,
  \qquad
- 2\alpha.
+ 1+2\alpha.
  \label{eq:Shannon-exponents-main}
 \end{equation}
 The first block dominates for $\alpha<1$, the second for $1<\alpha<c$, and the third for $\alpha>c$. The first two blocks tie at $\alpha=1$; their $1/\log d$ perturbation is chosen precisely so that the Shannon derivative remains of order one.
@@ -930,6 +988,9 @@ then
  \label{eq:Phi-second-log-main}
 \end{equation}
 Thus a positive value in \eqref{eq:Phi-second-log-main} contradicts concavity, while a negative value contradicts convexity whenever the first derivative is zero.
+
+\subsection{Necessary conditions; temperate case}
+\label{sec:temperate-necessity}
 
 \begin{proposition}
 \label{prop:positive-necessary}
@@ -1231,47 +1292,41 @@ Returning to $\mu=t\tau$, we obtain the exact temperate parameter conditions
 \end{align}
 In \eqref{eq:negative-final-parameter-region}, division of \eqref{eq:negative-full-moment-mu} by the negative number $t$ reverses the inequality.
 
-\paragraph{The positive tropical case.}
-Put
-\begin{equation}
- A_\tau(p):=\int_{[0,+\infty]}H_\alpha(p)\,\mathrm d\tau(\alpha).
- \label{eq:positive-tropical-integrated-entropy}
-\end{equation}
-Positive-tropical monotonicity implies the strong max-quasi-concavity inequality
-\begin{equation}
- A_\tau(\lambda p+(1-\lambda)q)
- \geq\max\{A_\tau(p),A_\tau(q)\},
- \qquad 0<\lambda<1.
- \label{eq:strong-max-quasiconcavity}
-\end{equation}
-If $p$ and $q$ have the same support, then for every sufficiently small
-$\lambda>0$ one can write $p=\lambda q+(1-\lambda)r$ with $r$ having that
-same support. Equation~\eqref{eq:strong-max-quasiconcavity} gives
-$A_\tau(p)\geq A_\tau(q)$. Interchanging $p$ and $q$ gives equality, so
-$A_\tau$ is constant on the relative interior of every simplex face.
+\subsection{Necessary conditions for tropical homomorphisms}
+\label{sec:tropical-necessity}
 
-On the binary full-support face compare
-\begin{equation}
- p=(1/3,2/3),
- \qquad
- u=(1/2,1/2).
- \label{eq:positive-tropical-binary-points}
-\end{equation}
-The preceding constancy gives $A_\tau(p)=A_\tau(u)=\log2$. On the other hand,
-$H_0(p)=\log2$ and $H_\alpha(p)<\log2$ for every
-$\alpha\in(0,+\infty]$. Therefore
-\begin{equation}
- 0=\int_{[0,+\infty]}
- \bigl(\log2-H_\alpha(p)\bigr)\,\mathrm d\tau(\alpha).
- \label{eq:positive-tropical-zero-gap}
-\end{equation}
-The integrand is nonnegative and is strictly positive on $(0,+\infty]$.
-Hence $\tau((0,+\infty])=0$, and thus $\tau=\delta_0$. Together with
-Proposition~\ref{prop:positive-tropical-sufficient}, this proves the
-positive-tropical equivalence.
+We now prove Propositions~2.7--2.8 of the concise companion.  The negative
+branch uses the same Shannon and three-block witnesses as the temperate case,
+with an additional exact stationarity correction.  The positive branch uses a
+separate binary fixed-face witness.
 
-\paragraph{Necessary conditions in the negative tropical case.}
-The negative tropical homomorphism is governed by quasi-convexity, not convexity. We therefore cannot infer a sign for the second derivative at an arbitrary point. The only second-order implication used is
+\begin{proposition}
+\label{prop:negative-tropical-necessary}
+Let $\tau$ be a probability measure on $[0,+\infty]$.  If the function in
+\eqref{eq:negative-tropical-quantity} is monotone under conditionally mixing
+channels, then either
+\begin{enumerate}
+ \item $\operatorname{supp}(\tau)\subseteq[0,1]$; or
+ \item there is a unique $\alpha_*\in(1,+\infty]$ such that
+ \begin{equation}
+  \begin{aligned}
+  &\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\},
+  &&\tau(\{1\})=0,\\
+  &\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,
+  &&\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,\\
+  &\int_{[0,+\infty]\setminus\{1\}}
+  \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)\leq0.
+  \end{aligned}
+  \label{eq:negative-tropical-necessary-condition}
+ \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The negative tropical homomorphism is governed by quasi-convexity, not
+convexity.  Apply the one-column shape reduction with the finite negative
+measure $\mu:=-\tau$; multiplying it by another positive scalar would not
+change the argument.  We use only the implication
 \begin{equation}
  g\text{ is quasi-convex and }C^2,
  \qquad
@@ -1280,9 +1335,13 @@ The negative tropical homomorphism is governed by quasi-convexity, not convexity
  g''(0)\geq0.
  \label{eq:quasi-convex-second-order-main}
 \end{equation}
-The stationarity condition must hold exactly at the finite dimension where quasi-convexity is applied. Appendix~\ref{app:tropical-stationarity} proves \eqref{eq:quasi-convex-second-order-main} and shows how to make the first derivative exactly zero by a dimension-dependent correction of one velocity, while preserving the limiting negative second derivative.
+Stationarity must hold exactly at the finite dimension where quasi-convexity is
+applied.  Appendix~\ref{app:tropical-stationarity} proves
+\eqref{eq:quasi-convex-second-order-main} and corrects a limiting stationary
+velocity by a dimension-dependent multiple of a transverse velocity.
 
-For the tropical function $G_\mu$ in \eqref{eq:G-mu-necessary}, the two- and three-block calculations are the same except that the norm coefficient is removed. In the three-block notation, the limiting first and second derivatives are
+For $G_\mu$ in \eqref{eq:G-mu-necessary}, the norm coefficient is absent.  In
+the three-block notation the limiting derivatives are
 \begin{align}
  \frac{\mathrm d}{\mathrm d\lambda}
  G_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
@@ -1297,45 +1356,119 @@ For the tropical function $G_\mu$ in \eqref{eq:G-mu-necessary}, the two- and thr
  -\sum_{j\neq k}A_ju_j^2.
  \label{eq:tropical-three-second-main}
 \end{align}
-The Shannon perturbation gives the same limits as \eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main}, because the norm derivatives vanish asymptotically.
+The Shannon path has the limits
+\eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main}, since
+its norm derivatives vanish.
 
-Applying the same counterexamples, followed in each case by the exact stationarity correction, gives the following conclusions. If $\mu(\{1\})<0$ and there is support above $1$, the choice \eqref{eq:negative-atom-velocities} gives limiting first derivative zero and limiting second derivative $-A_c<0$, contradicting quasi-convexity. If two points above $1$ belong to the support, the velocities \eqref{eq:two-tail-velocities} give limiting first derivative zero and limiting second derivative \eqref{eq:two-tail-second-negative}. Hence there is at most one point above $1$.
+There are three counterexamples, exactly as in Lean.  If the signed Shannon
+atom $m<0$ and upper coefficient $A_c>0$ are both present, use
+$(h,v)=(-A_c/m,1)$.  The limiting derivatives are $0$ and $-A_c<0$; the
+transverse direction $e=(0,1)$ has limiting first derivative $A_c\neq0$.
+If two upper portions have coefficients $A_1,A_2>0$, use
+\begin{equation}
+ u=\left(0,\frac1{A_1},-\frac1{A_2}\right),
+ \qquad e=(0,1,0).
+ \label{eq:tropical-two-upper-directions}
+\end{equation}
+The limiting first derivative is zero, the second is
+$-1/A_1-1/A_2<0$, and the first derivative in direction $e$ is $A_1$.
+Thus upper support contains at most one point, and an upper point forces
+$\tau(\{1\})=0$.
 
-Finally, suppose that such a point exists. For $a<1<b<\alpha_*$, use the coefficients $B_a\leq0$ and $A_b>0$ from \eqref{eq:negative-truncated-coefficients}. The three tropical coefficients are
+Finally suppose that the unique upper point $\alpha_*$ exists.  For
+$a<1<b<\alpha_*$, use $B_a\leq0$ and $A_b>0$ from
+\eqref{eq:negative-truncated-coefficients}.  The tropical coefficients are
 \begin{equation}
  B_a,
  \qquad
  C:=-A_b-B_a,
  \qquad
- A_b,
+ A_b.
  \label{eq:tropical-three-coefficients-main}
 \end{equation}
-which sum to zero. If $A_b+B_a<0$, then $C>0$ and $A_b>0$. The velocities
+If $A_b+B_a<0$, then $C>0$, and the exact Lean directions are
 \begin{equation}
- u_0=0,
- \qquad
- u_1=\frac1C,
- \qquad
- u_2=-\frac1{A_b}
+ u=\left(0,\frac1C,-\frac1{A_b}\right),
+ \qquad e=(0,0,1).
  \label{eq:tropical-moment-velocities-main}
 \end{equation}
-make the limiting first derivative zero and the limiting second derivative
+The limiting first derivative along $u$ is zero, the second derivative is
 \begin{equation}
- -\frac1C-\frac1{A_b}<0.
+ -\frac1C-\frac1{A_b}<0,
  \label{eq:tropical-moment-second-main}
 \end{equation}
-After exact finite-dimensional stationarity is imposed, this contradicts quasi-convexity. Therefore $A_b+B_a\geq0$. The unique isolated atom at $\alpha_*$ makes the upper one-sided moment finite. Letting $a\uparrow1$ proves finiteness of the lower one-sided moment. Only after these two finiteness conclusions do we form the signed moment; after normalising the negative measure as $\mu=-k\tau$ with $k>0$, it satisfies
+and the first derivative along $e$ is $A_b\neq0$.  The correction proved in
+Appendix~\ref{app:tropical-stationarity} therefore supplies an exact finite
+stationary line while preserving the negative second derivative, contradicting
+quasi-convexity.  Hence $A_b+B_a\geq0$.
+
+The isolated upper atom makes the upper one-sided moment finite.  Letting
+$a\uparrow1$ proves lower-moment finiteness.  Only then do we form the signed
+moment; after writing $\mu=-k\tau$ with $k>0$, it satisfies
 \begin{equation}
  \int_{[0,+\infty]\setminus\{1\}}
  \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
  \leq0.
  \label{eq:tropical-final-moment}
 \end{equation}
-Consequently, the necessary parameter region in the negative tropical case coincides with Proposition~\ref{prop:negative-tropical-sufficient}: either the measure is supported on $[0,1]$, or it is supported on $[0,1]\cup\{\alpha_*\}$ for a unique $\alpha_*\in(1,+\infty]$, has no atom at $1$, has two finite one-sided moments, and satisfies \eqref{eq:tropical-final-moment}. No convexity argument has been used, and the second derivative has been invoked only after exact stationarity.
+This proves the proposition.  Notice that the second derivative was used only
+after exact finite-dimensional stationarity was imposed.
+\end{proof}
+
+\begin{proposition}
+\label{prop:positive-tropical-necessary}
+Let $\tau$ be a probability measure on $[0,+\infty]$.  If
+\begin{equation}
+ P_{XY}\longmapsto
+ \max_{y:P_Y(y)>0}\int_{[0,+\infty]}
+ H_\alpha(P_{X|Y=y})\,\mathrm d\tau(\alpha)
+ \label{eq:positive-tropical-general-candidate}
+\end{equation}
+is monotone under conditionally mixing channels, then $\tau=\delta_0$.
+\end{proposition}
+
+\begin{proof}
+Put
+\begin{equation}
+ A_\tau(p):=\int_{[0,+\infty]}H_\alpha(p)\,\mathrm d\tau(\alpha).
+ \label{eq:positive-tropical-integrated-entropy}
+\end{equation}
+Positive-tropical monotonicity implies
+\begin{equation}
+ A_\tau(\lambda p+(1-\lambda)q)
+ \geq\max\{A_\tau(p),A_\tau(q)\},
+ \qquad 0<\lambda<1.
+ \label{eq:strong-max-quasiconcavity}
+\end{equation}
+If $p$ and $q$ have the same support, each can be expressed as a sufficiently
+small mixture of the other with a third point on the same face.  Applying
+\eqref{eq:strong-max-quasiconcavity} in both directions shows that $A_\tau$ is
+constant on the relative interior of every simplex face.
+
+Now use the exact binary pair formalized in Lean,
+\begin{equation}
+ p=(1/3,2/3),
+ \qquad
+ u=(1/2,1/2).
+ \label{eq:positive-tropical-binary-points}
+\end{equation}
+Constancy gives $A_\tau(p)=A_\tau(u)=\log2$.  Yet $H_0(p)=\log2$ and
+$H_\alpha(p)<\log2$ for every $\alpha\in(0,+\infty]$.  Therefore
+\begin{equation}
+ 0=\int_{[0,+\infty]}
+ \bigl(\log2-H_\alpha(p)\bigr)\,\mathrm d\tau(\alpha).
+ \label{eq:positive-tropical-zero-gap}
+\end{equation}
+The integrand is nonnegative and strictly positive on $(0,+\infty]$, so
+$\tau((0,+\infty])=0$ and $\tau=\delta_0$.  Together with
+Proposition~\ref{prop:positive-tropical-sufficient}, this proves the equivalence.
+\end{proof}
 
 \subsection{Necessary conditions for derivations}
+\label{sec:derivation-necessity}
 
-We finally turn to the derivations. It is useful to treat the full barycentre at once. Let $\nu$ be a finite positive measure and define on an unnormalised column
+We finally prove Propositions~2.9--2.10 of the concise companion.  It is useful
+to treat the full barycentre at once. Let $\nu$ be a finite positive measure and define on an unnormalised column
 \begin{equation}
  D_\nu(\vec x)
  :=\|\vec x\|_1
@@ -1420,14 +1553,23 @@ The counterexamples above are deliberately chosen to be as simple as possible. A
 
 \clearpage
 \appendix
-\section{Technical details for the parameter classification}
+\section{Technical foundations for the concise classification}
 \label{app:technical-sections45}
 
 This appendix collects the analytic statements used in Sections~\ref{sec:sufficient-conditions} and~\ref{sec:necessary-conditions}.  The purpose of separating them from the main text is twofold.  First, it keeps the counterexamples in Section~\ref{sec:necessary-conditions} visible: the main argument is a finite-dimensional curvature test with explicitly chosen velocities.  Second, it makes precise every operation which involves a parameter integral, a derivative, or a high-dimensional limit.  In particular, no appeal is made to an informal interchange of operations.
 
-The appendix is organised as follows.  In Appendix~\ref{app:measure-approximation}, we prove the curvature formulas for power means and monomials, recall the measure-theoretic results used later, and justify the common discretisation of a general R\'enyi-parameter measure.  In Appendix~\ref{app:fixed-d-calculus}, we derive the first two derivatives of the normalised R\'enyi entropy and prove differentiation under the parameter integral at every fixed finite dimension.  Appendix~\ref{app:block-localisation} proves the two- and three-block localisation formulas, including the uniform estimates needed to exchange the parameter integral with the high-dimensional limit.  Appendix~\ref{app:Shannon-localisation} treats the separate perturbation at the Shannon point.  Finally, Appendices~\ref{app:tropical-stationarity} and~\ref{app:finite-counterexamples} give the exact finite-dimensional stationarity correction required in the tropical case and convert every strict curvature sign into an actual pair of semiring elements.
+The technical dependency order is: (1) real-power Hessians and common
+discretization; (2) removable endpoint differentiation at $0$, $1$, and
+$+\infty$; (3) differentiation under a finite signed measure by total-variation
+domination; (4) compact-uniform two- and three-block localization; (5) the
+separate Shannon localizer; (6) exact tropical stationarity; and (7) Taylor
+conversion to finite witnesses followed by the channel lift of
+Section~\ref{sec:channel-lift}.  This order explains how the concise proof ideas
+become formal arguments: the main text chooses the witness and reads its sign,
+while this appendix verifies that every derivative, integral, limit, and finite
+correction used to obtain that sign is legitimate.
 
-\subsection{Curvature, R\'enyi continuity, and common measure approximation}
+\subsection{Real-power curvature, endpoint continuity, and common discretization}
 \label{app:measure-approximation}
 
 We begin with the two curvature computations used in Lemmas~\ref{lem:power-mean-curvature} and~\ref{lem:monomial-curvature}.
@@ -1757,7 +1899,7 @@ The convex case is identical with the opposite inequality.  For quasi-convexity,
 using continuity of the maximum of two real numbers.
 \end{proof}
 
-\subsection{Differential calculus and differentiation under the parameter integral}
+\subsection{Endpoint-aware differentiation and signed-measure integration}
 \label{app:fixed-d-calculus}
 
 We now prove the fixed-dimensional differential identities used throughout Section~\ref{sec:necessary-conditions}. Keeping this step at finite dimension is essential: it is here that the cancellation at $\alpha=1$ is preserved.
@@ -2045,7 +2187,7 @@ Its absolute value is at most
 which tends to zero by uniform continuity of $f_1$.  This proves the case $r=1$.  Applying the same argument with $f_1$ in place of $f_0$ and $f_2$ in place of $f_1$ proves the case $r=2$.  Continuity of the resulting derivatives follows from the same uniform-continuity estimate.
 \end{proof}
 
-\subsection{Uniform block localisation and the high-dimensional limit}
+\subsection{Uniform two-block and three-block localization}
 \label{app:block-localisation}
 
 We next prove the high-dimensional formulas used in Section~\ref{sec:necessary-conditions}. The exact finite-dimensional derivatives are always taken first, according to Proposition~\ref{prop:app-fixed-d-interchange}. Only then do we send $d$ to infinity.
@@ -2443,32 +2585,56 @@ Put
 \begin{equation}
  L_d:=\log d,
  \qquad
- r_d:=\frac d{N_d}.
- \label{eq:app-Shannon-L-r}
-\end{equation}
-Since $N_d=\lceil d^c\rceil$ and $c>1$,
-\begin{equation}
- 0<r_d\leq d^{1-c},
+ \theta_{0,d}:=\frac{n_{0,d}}{d^R},
  \qquad
- r_dL_d\longrightarrow0.
- \label{eq:app-Shannon-r-limit}
+ \theta_{1,d}:=\frac{n_{1,d}}{d^{R-1}},
+ \qquad
+ \theta_{2,d}:=\frac{n_{2,d}}{d^{R-1-c}}.
+ \label{eq:app-Shannon-L-theta}
 \end{equation}
-The total mass of the first two blocks in \eqref{eq:Shannon-path-main} is exactly $dN_d$, because their first derivatives cancel.  The third block has mass $d^2(1+v\lambda)$.  Hence
+Also set
+\begin{equation}
+ \varepsilon_d:=\max_{j=0,1,2}|\theta_{j,d}-1|,
+ \qquad
+ s_d:=\theta_{2,d}d^{1-c},
+ \qquad
+ M_d:=q\theta_{0,d}+p\theta_{1,d}.
+ \label{eq:app-Shannon-rounding-data}
+\end{equation}
+The ceiling bounds give
+\begin{equation}
+ \theta_{j,d}\longrightarrow1,
+ \qquad
+ \varepsilon_dL_d\longrightarrow0,
+ \qquad
+ s_dL_d\longrightarrow0.
+ \label{eq:app-Shannon-rounding-limits}
+\end{equation}
+Keeping the ceiling factors is important: it makes this calculation apply to
+the exact finite vector used in Lean.  Its total mass is
 \begin{equation}
  \|\vec x_{\mathrm{Sh}}^{(d)}(\lambda)\|_1
- =dN_d+d^2(1+v\lambda),
+ =d^R\left[
+ M_d+s_d+\lambda\left(
+ \frac{h(\theta_{0,d}-\theta_{1,d})}{L_d}+s_dv
+ \right)\right],
  \label{eq:app-Shannon-total-mass}
 \end{equation}
-and
+so, writing
+\begin{equation}
+ a_d:=\frac{h(\theta_{0,d}-\theta_{1,d})}{L_d}+s_dv,
+ \label{eq:app-Shannon-a-d}
+\end{equation}
+we have
 \begin{align}
  \ell_{1,d}'(0)
- &=\frac{r_dv}{1+r_d},
+ &=\frac{a_d}{M_d+s_d},
  \label{eq:app-Shannon-norm-first}\\
  \ell_{1,d}''(0)
- &=-\left(\frac{r_dv}{1+r_d}\right)^2.
+ &=-\left(\frac{a_d}{M_d+s_d}\right)^2.
  \label{eq:app-Shannon-norm-second}
 \end{align}
-Both converge to zero, locally uniformly in $v$.
+Both converge to zero, locally uniformly in $(h,v)$.
 
 We next calculate the Shannon derivative exactly enough to identify its limit.  For any strictly positive affine path, let
 \begin{equation}
@@ -2550,14 +2716,16 @@ At $\lambda=0$, the relative velocities in the three blocks are
 \end{equation}
 The normalised masses of the three blocks are
 \begin{equation}
- P_{0,d}=\frac q{1+r_d},
+ P_{0,d}=\frac{q\theta_{0,d}}{M_d+s_d},
  \qquad
- P_{1,d}=\frac p{1+r_d},
+ P_{1,d}=\frac{p\theta_{1,d}}{M_d+s_d},
  \qquad
- P_{2,d}=\frac{r_d}{1+r_d}.
+ P_{2,d}=\frac{s_d}{M_d+s_d}.
  \label{eq:app-Shannon-block-masses}
 \end{equation}
-If the third block is temporarily omitted, the mean velocity is zero and a direct substitution into \eqref{eq:app-Shannon-first-cov} gives
+For the ideal first-two-block comparison in which the rounding factors are
+replaced by $1$, the mean velocity is zero and direct substitution into
+\eqref{eq:app-Shannon-first-cov} gives
 \begin{align}
  H_1'(0)
  &=-\left[
@@ -2575,17 +2743,24 @@ Likewise, \eqref{eq:app-Shannon-second-cov} reduces to the negative variance,
  \left(\frac1p+\frac1q\right).
  \label{eq:app-Shannon-second-two-block-exact}
 \end{equation}
-The third block has normalised mass $O(r_d)$, its relative velocity is bounded on compact $(h,v)$ sets, and its logarithmic coordinate differs from those of the first two blocks by $O(L_d)$.  Equations \eqref{eq:app-Shannon-first-cov}--\eqref{eq:app-Shannon-second-cov} therefore give the uniform error estimates
+The ceiling perturbation changes each of the first two normalized masses by
+$O(\varepsilon_d)$, while the third block has normalized mass $O(s_d)$.  Its
+relative velocity is bounded on compact $(h,v)$ sets, and its logarithmic
+coordinate differs from those of the first two blocks by $O(L_d)$.  Equations
+\eqref{eq:app-Shannon-first-cov}--\eqref{eq:app-Shannon-second-cov} therefore
+give the uniform error estimates
 \begin{align}
  H_1'(0)
- &=h+\frac h{L_d}\log\frac pq+O(r_dL_d),
+ &=h+\frac h{L_d}\log\frac pq
+   +O\bigl((\varepsilon_d+s_d)L_d\bigr),
  \label{eq:app-Shannon-first-full}\\
  H_1''(0)
  &=-\frac{h^2}{L_d^2}
- \left(\frac1p+\frac1q\right)+O(r_dL_d).
+ \left(\frac1p+\frac1q\right)
+   +O\bigl((\varepsilon_d+s_d)L_d\bigr).
  \label{eq:app-Shannon-second-full}
 \end{align}
-In view of \eqref{eq:app-Shannon-r-limit},
+In view of \eqref{eq:app-Shannon-rounding-limits},
 \begin{equation}
  H_1'(0)\longrightarrow h,
  \qquad
@@ -2770,7 +2945,7 @@ At exact stationarity, the exponential does not introduce an additional second-o
 \end{equation}
 This simplification is used only after \eqref{eq:app-stationarity-correction-result} has been imposed.
 
-\subsection{From a strict curvature sign to finite semiring counterexamples}
+\subsection{Finite semiring witnesses and the channel lift}
 \label{app:finite-counterexamples}
 
 The high-dimensional calculations produce a strict limiting sign.  We conclude by explaining why this yields genuine finite-dimensional counterexamples, rather than merely formal tangent obstructions.

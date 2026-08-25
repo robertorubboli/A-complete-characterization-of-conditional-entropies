@@ -26,8 +26,9 @@ parameter classification for the concrete conditional-entropy candidates of
 Refs.~\cite{rubboli2026complete,rubboli2026parametersConcise,
 rubboli2026parametersFull}. It gives a compact dependency graph, a
 statement-by-statement correspondence table, and the precise trust and scope
-boundary. The presentation follows the simple theorem-facing pattern of the
-Lean correspondence appendix in Ref.~\cite{tomamichel2026weaklogmajorization}.
+boundary. The presentation is deliberately theorem-facing: it separates the
+public conclusions, their paper-level ingredients, and the proved reusable
+infrastructure.
 \end{abstract}
 
 \author{Roberto Rubboli}
@@ -50,7 +51,7 @@ tropical stationarity, all sufficiency and necessity branches, and the
 original finite semiring and conditionally mixing channel lift. The source is
 available at
 \url{https://github.com/robertorubboli/A-complete-characterization-of-conditional-entropies}
-under the release tag \texttt{four-document-release-2026-08-25}.
+under the release tag \texttt{four-document-release-v2-2026-08-25}.
 
 There are two public conclusions. The declaration
 \LeanDecl{mainClassification} says that, for every probability measure on the
@@ -63,8 +64,7 @@ embedded channel monotonicity for every admissible candidate. Neither theorem
 assumes a project-specific axiom.
 
 Figure~\ref{fig:lean-dependencies} shows the proof at theorem level. Arrows
-point from a conclusion to ingredients used in its proof, matching the
-convention of Ref.~\cite{tomamichel2026weaklogmajorization}. Pale green boxes
+point from a conclusion to ingredients used in its proof. Pale green boxes
 are the two public conclusions, white boxes are paper-facing intermediate
 results, pale blue boxes are reusable infrastructure that is itself proved in
 Lean, and the dashed gray box is an upstream representation theorem cited from
@@ -96,7 +96,7 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \node[paper] (suff) at (-4.1,-1.8)
   {Sufficiency\\Props.~1.4--1.8};
 \node[paper] (necess) at (0,-1.8)
-  {Necessity\\Props.~2.1--2.7};
+  {Necessity\\Props.~2.1--2.10};
 \node[paper] (candidate) at (4.1,-1.8)
   {Candidate algebra,\\semiring laws, and\\channel laws};
 
@@ -114,7 +114,7 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \node[infra] (disc) at (0,-5.4)
   {Common discretization,\\uniform limits,\\and moments};
 \node[infra] (stationary) at (3.4,-5.4)
-  {Exact tropical\\stationarity and\\finite witnesses};
+  {Tropical stationarity,\\binary-face, and\\finite block witnesses};
 
 \node[boundary] (upstream) at (0,-7.0)
   {Upstream abstract homomorphism/derivation representation\\
@@ -151,7 +151,7 @@ Table~\ref{tab:lean-correspondence} follows the numbered statements of the
 concise companion. All Lean names are in the namespace
 \LeanDecl{ConditionalEntropy}. A split API means that the manuscript statement
 is intentionally proved by several smaller declarations. The last row is
-worded differently because Proposition~2.8 combines the formalized parameter
+worded differently because Proposition~2.10 combines the formalized parameter
 restriction with the upstream representation theorem just identified.
 
 \renewcommand{\arraystretch}{1.12}
@@ -245,11 +245,35 @@ Proposition~2.6: one exceptional upper point &
 \LeanDecl{oneUpperPoint};
 \LeanDecl{negativeTemperateNecessity_of_atom_zero} &
 \Formalized\ (split API)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\textbf{Table~\ref{tab:lean-correspondence} (continued).}\par\smallskip
+\begin{tabular}{p{0.25\textwidth}p{0.49\textwidth}p{0.18\textwidth}}
+\toprule
+Manuscript statement & Lean declaration & Status\\
+\midrule
+Proposition~2.7: negative-tropical necessity &
+\LeanDecl{negativeTropicalUpperAtomZero};
+\LeanDecl{twoUpperSupportPointsTropicalObstruction};
+\LeanDecl{tropicalTruncatedMoment_of_exceptional};
+\LeanDecl{negativeTropicalNecessity} &
+\Formalized\ (split API)\\
 \addlinespace
-Proposition~2.7: derivation necessity &
+Proposition~2.8: positive-tropical necessity &
+\LeanDecl{sameSupportDecomposition};
+\LeanDecl{probabilityEqDiracZero};
+\LeanDecl{positiveTropicalNecessity} &
+\Formalized\ (split API)\\
+\addlinespace
+Proposition~2.9: derivation necessity &
 \LeanDecl{derivationNecessity} & \Formalized\\
 \addlinespace
-Proposition~2.8: represented derivations &
+Proposition~2.10: represented derivations &
 \LeanDecl{derivationSufficiency};
 \LeanDecl{derivationNecessity}; derivation field of
 \LeanDecl{mainClassification} &

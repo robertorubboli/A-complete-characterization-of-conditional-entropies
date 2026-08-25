@@ -21,12 +21,13 @@ dependency tree.
 | `uniformShannonExpansion`, `shannonNeighbourhood`, and `shannonLogMass` | Strict root build passed |
 | `shannonLocalization` | Exact four-limit declaration; strict root build passed |
 | Temperate, tropical, and derivation necessity | Strict root build passed |
+| Human-readable counterexample correspondence | Exact Shannon, rounded block, tropical correction, binary-face, and derivation witnesses audited against Lean |
 | `necessityBundle` | Exact four-part declaration; axiom audit passed |
 | `mainClassification` | Assumption-free declaration; axiom audit passed |
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
 | 152-row, three-column manuscript correspondence ledger | Correspondence audit passed |
-| Final `scripts/check.ps1` release audit | Passed on 24 August 2026 |
+| Final `scripts/check.ps1` release audit | Passed on 25 August 2026 |
 
 ## Classification branch
 
@@ -48,6 +49,12 @@ The source tree formalizes:
    necessity, and derivation necessity; and
 7. `necessityBundle` and the closed theorem
    `mainClassification (tau : ProbabilityMeasure Param) : Classifies tau`.
+
+The four-document paper release uses these same finite witnesses. In
+particular, negative tropical necessity records the three formal correction
+directions, positive tropical necessity uses the binary pair
+`(1/3, 2/3)` and `(1/2, 1/2)`, and derivation necessity uses the formalized
+upper-tail two-block direction `(0, 1)`.
 
 The final declaration has no auxiliary theorem hypothesis. Unfolding
 `Classifies` gives the four manuscript equivalences for finite nonzero

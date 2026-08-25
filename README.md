@@ -14,7 +14,7 @@ The two terminal source declarations are:
 - `ConditionalEntropy.allConditionalEntropyAxioms`, the literal five-law
   package for every admissible candidate family.
 
-The complete release audit passed on 24 August 2026. The root target built with
+The complete release audit passed on 25 August 2026. The root target built with
 warnings treated as errors (2,864 jobs), the forbidden-token and exact
 152-row correspondence scans passed, and the 21 audited public declarations
 depend only on Lean's standard `propext`, `Classical.choice`, and `Quot.sound`
@@ -22,6 +22,13 @@ foundations. No project-specific axiom is used.
 
 ## Repository contents
 
+- [`paper/four-document-release`](paper/four-document-release) is the
+  self-contained four-paper LaTeX/Overleaf release. The main paper has numbered
+  placeholders for Sections 4 and 5; the concise and full-detail companions use
+  the exact Lean counterexamples (including both tropical branches); and the
+  Lean note contains the matching dependency graph and correspondence table
+  through Proposition 2.10. The upload-ready archive is
+  [`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip).
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
   project entry point. It imports `mainClassification`,
   `allConditionalEntropyAxioms`, the conditional-semiring order, and the

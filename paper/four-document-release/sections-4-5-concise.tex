@@ -475,23 +475,32 @@ $\operatorname{supp}(\mu)\subseteq[0,1]$, $\mu(\{1\})=0$, and
 \end{proposition}
 
 \begin{proof}[Proof idea]
-For $p\in(0,1)$, use the two-block point and traceless direction
-\begin{align}
-\vec{x}&=\left[
-\underbrace{\frac p d,\ldots,\frac p d}_{d\ \mathrm{times}},
-\underbrace{\frac{1-p}{d^2},\ldots,\frac{1-p}{d^2}}_{d^2\ \mathrm{times}}
-\right],\\
-\vec{v}&=\left[
-\underbrace{-\frac1d,\ldots,-\frac1d}_{d\ \mathrm{times}},
-\underbrace{\frac1{d^2},\ldots,\frac1{d^2}}_{d^2\ \mathrm{times}}
-\right].
-\end{align}
-As $d\to\infty$, the two blocks localize the ranges below and above $1$.  Any
-Shannon mass produces a strictly positive leading curvature.  Upper mass gives a
-coefficient $\beta<0$, hence $\beta^2-\beta>0$, and a lower moment exceeding
-$1$ gives the same wrong sign with $\beta>1$.  Each case contradicts concavity.
-The truncation procedure described above justifies the limits and simultaneously
-shows that the lower moment is finite and bounded by $1$.
+The three exclusions use three separate localizers, exactly as in the Lean
+proof.  An atom $m=\mu(\{1\})>0$ is detected by the rounded Shannon
+perturbation with $p=q=1/2$, $R=c+2$, and scalar direction $(1,0)$: its
+limiting logarithmic derivatives are $m$ and $0$, so the outer exponential has
+limiting curvature $m^2>0$.
+
+For the remaining two tests, choose a $\mu$-null threshold $r>0$, put
+$R=r+1$, and use the two-block path having $\lceil d^R\rceil$ entries
+$1+u_0\lambda$ and $\lceil d^{R-r}\rceil$ entries
+$d(1+u_1\lambda)$.  If $r>1$ and upper support is present, the localized
+coefficient
+\[
+A_r=\int_{(r,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)
+\]
+is negative.  The velocity $(u_0,u_1)=(0,1)$ gives limiting first and second
+logarithmic derivatives $A_r$ and $-A_r$, hence curvature
+$A_r^2-A_r>0$.  Thus no upper support is possible.  If $r<1$, write
+\[
+B_r=\int_{[0,r)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha).
+\]
+The velocity $(u_0,u_1)=(1,0)$ gives limiting derivatives $B_r$ and
+$-B_r$, so concavity implies $B_r(B_r-1)\leq0$ and therefore $B_r\leq1$.
+Letting null thresholds increase to $1$ and using monotone convergence proves
+the stated moment bound.  These finite Shannon and two-block families are the
+counterexamples formalized in Lean; endpoint-separated truncation justifies
+their limits without a preliminary finiteness hypothesis.
 \end{proof}
 
 Next, let $\mu$ be negative.
@@ -509,10 +518,10 @@ is convex only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
 
 \begin{proof}[Proof idea]
 Assume that both the Shannon atom and upper support are present.  If
-$\mu(\{1\})<0$ and $\beta_1>0$ is a localized upper contribution, the
-two-block direction is scaled as $(-\beta_1/\mu(\{1\}),1)$.  The first
-logarithmic derivative then tends to zero and the second tends to
-$-\beta_1<0$.  This is a
+$m:=\mu(\{1\})<0$ and $A>0$ is a localized upper contribution, use the same
+rounded Shannon family with $p=q=1/2$, $R=c+2$, and direction $(-A/m,1)$.
+The first logarithmic derivative then tends to zero and the second tends to
+$-A<0$.  This is a
 genuinely concave direction and contradicts convexity.  Working first on
 truncated ranges makes the calculation finite; the endpoint limits are taken only
 after the curvature sign is fixed.
@@ -527,29 +536,36 @@ function
 \exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
 \d\mu(\alpha)\right)
 \end{equation}
-is convex.  If $\operatorname{supp}(\mu)$ meets $(1,+\infty]$, then both
-one-sided integrals are finite and
+is convex.  Let $a<1<b$ be $|\mu|$-null thresholds with
+$\mu((b,+\infty])<0$, and set
 \begin{equation}
-\label{eq:negative-moment-necessary}
-\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)
-+\int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\geq1.
+B_a=\int_{[0,a)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\leq0,
+\qquad
+A_b=\int_{(b,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
 \end{equation}
-Consequently, a finite signed sum smaller than $1$ is compatible with convexity
-only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
+Then
+\begin{equation}
+\label{eq:negative-truncated-moment-necessary}
+A_b+B_a\geq1.
+\end{equation}
 \end{proposition}
 
 \begin{proof}[Proof idea]
-First use separated upper neighborhoods with stationary block velocities.  If
-two distinct upper portions survived, their limiting second derivative would be
-negative, so convexity leaves at most one upper point; its upper moment is
-therefore finite.  A three-block construction then controls normalization and
-localizes the lower and upper ranges.  The perturbation
-is chosen so that the first derivative is exactly zero.  On every truncation away
-from $1$, a signed moment smaller than $1$ makes the limiting second derivative
-negative.  Convexity rules this out.  Monotone passage through the truncations
-forces finiteness of the lower moment and gives
-Eq.~\eqref{eq:negative-moment-necessary}.  This is how endpoint localization
-replaces the old global finiteness hypothesis.
+Use the formalized three-block path with $R=a+b+1$, respective counts
+$\lceil d^R\rceil$, $\lceil d^{R-a}\rceil$, and
+$\lceil d^{R-a-b}\rceil$, and base values $1,d,d^2$.  If
+Eq.~\eqref{eq:negative-truncated-moment-necessary} failed, then
+$C:=1-A_b-B_a>0$.  The velocity
+\[
+(u_0,u_1,u_2)=\left(0,\frac1C,-\frac1{A_b}\right)
+\]
+has limiting first logarithmic derivative $0$ and limiting second derivative
+\[
+-\frac1C-\frac1{A_b}<0.
+\]
+This gives a finite-dimensional violation of convexity.  The statement is made
+only with truncated coefficients: no singular signed moment is formed before
+its two one-sided parts are known to be finite.
 \end{proof}
 
 \begin{remark}
@@ -590,39 +606,117 @@ unique $\alpha_*\in(1,+\infty]$ such that
 \operatorname{supp}(\mu)\subseteq[0,1]\cup\{\alpha_*\}.
 \end{equation}
 In the second case the two one-sided moments are finite and satisfy
-Eq.~\eqref{eq:negative-moment-necessary}.
+\begin{equation}
+\label{eq:negative-moment-necessary}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)
++\int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\geq1.
+\end{equation}
 \end{proposition}
 
 \begin{proof}[Proof idea]
 If two disjoint portions of the support lie above $1$, localize them in two
 different dominant blocks.  Their positive localized weights may be denoted
-$\beta_1,\beta_2>0$.  The block velocities are chosen to cancel the first
-derivative, while the limiting second derivative is
+$A_1,A_2>0$.  The three-block velocity
+$\left(0,1/A_1,-1/A_2\right)$ cancels the limiting first derivative, while the
+limiting second derivative is
 \begin{equation}
--\frac1{\beta_1}-\frac1{\beta_2}<0.
+-\frac1{A_1}-\frac1{A_2}<0.
 \end{equation}
 This contradicts convexity.  Shrinking the two localization windows shows that
 the upper support has at most one point.  The finiteness and signed inequality in
-the exceptional branch are the conclusion of the joint truncation argument in
-Proposition~\ref{prop:second-measure}.
+the exceptional branch now follow from Proposition~\ref{prop:second-measure}:
+the single upper atom gives a finite upper moment, its truncated inequality
+bounds the lower terms, and monotone convergence gives lower-moment finiteness.
+Only then are the two one-sided integrals combined.
 \end{proof}
 
 Thus the last two propositions cover all negative measures without a global
 finiteness assumption; the all-lower branch still carries no moment condition.
 
-The same stationary localization proves necessity at the negative tropical
-endpoint: convexity is replaced by quasiconvexity, so one first imposes exact
-stationarity and then uses the negative second derivative.  The result is exactly
-the two alternatives of Proposition~\ref{prop:sufficient-tropical}, with the
-right-hand side of the signed moment bound equal to $0$.  At the positive
-tropical endpoint, strong max-quasiconcavity on simplex faces forces
-$\tau$ to be concentrated at $\alpha=0$: strong max-quasiconcavity would force
-the integrated entropy to be constant on each fixed-support face, whereas
-comparing a nonuniform point with the uniform point gives a strict $H_\alpha$ gap
-for every $\alpha>0$.
-Thus the negative tropical endpoint has exactly the measures of
-Proposition~\ref{prop:sufficient-tropical}, whereas the positive tropical endpoint
-is only $H_{+\infty,0}$ in Eq.~(125) of Ref.~\cite{rubboli2026complete}.
+\subsection{Necessary conditions for tropical homomorphisms}
+\label{sec:necessary-tropical}
+
+The tropical counterexamples use the same finite witness families as the
+temperate proof, but quasiconvexity permits a second-derivative test only after
+the first derivative has been made exactly zero at the finite dimension under
+consideration.
+
+\begin{proposition}
+\label{prop:negative-tropical-necessary}
+Let $\tau$ be a probability measure on $[0,+\infty]$.  If the function in
+Eq.~\eqref{eq:TropicalForm} is monotone under conditionally mixing channels,
+then either
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{supp}(\tau)\subseteq[0,1]$; or
+\item there is a unique $\alpha_*\in(1,+\infty]$ such that
+\[
+\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\},
+\qquad \tau(\{1\})=0,
+\]
+both one-sided integrals
+\[
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha),
+\qquad
+\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\d\tau(\alpha)
+\]
+are finite, and
+\begin{equation}
+\label{eq:negative-tropical-necessary-moment}
+\int_{[0,+\infty]\setminus\{1\}}
+\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)\leq0.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof idea]
+A Shannon localizer first excludes $\tau(\{1\})>0$ whenever upper support is
+present.  With the signed measure $-\tau$, its stationary direction is
+$(-A/m,1)$, where $m<0$ is the signed Shannon atom and $A>0$ is a localized
+upper coefficient; the limiting second derivative is $-A<0$.
+
+If two separated upper-support portions remain, their coefficients
+$A_1,A_2>0$ and the three-block velocity
+$\left(0,1/A_1,-1/A_2\right)$ give first derivative $0$ and second derivative
+$-1/A_1-1/A_2<0$.  If
+Eq.~\eqref{eq:negative-tropical-necessary-moment} fails in the exceptional
+branch, the corresponding truncated coefficients $A,C>0$ and velocity
+$\left(0,1/C,-1/A\right)$ instead give $-1/C-1/A<0$.
+At finite dimension the first derivative is corrected to zero by a vanishing
+transverse adjustment (respectively in directions $(0,1)$, $(0,1,0)$, and
+$(0,0,1)$), after which quasiconvexity is contradicted.  Support isolation makes
+the upper moment finite; monotone passage through lower truncations then proves
+lower-moment finiteness.  These are precisely the Shannon, two-upper-point, and
+truncated-moment counterexamples formalized in Lean.
+\end{proof}
+
+\begin{proposition}
+\label{prop:positive-tropical-necessary}
+Let $\tau$ be a probability measure on $[0,+\infty]$.  If
+\begin{equation}
+\label{eq:general-positive-tropical-candidate}
+P_{XY}\longmapsto
+\max_{\substack{y\in\Y\\P_Y(y)>0}}
+\int_{[0,+\infty]}H_\alpha(P_{X|Y=y})\,\d\tau(\alpha)
+\end{equation}
+is monotone under conditionally mixing channels, then $\tau=\delta_0$.
+Consequently, Eq.~\eqref{eq:general-positive-tropical-candidate} is precisely
+the function in Proposition~\ref{prop:sufficient-tropical-positive}.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Strong max-quasiconcavity makes the integrated entropy constant on the relative
+interior of every fixed-support simplex face.  Apply this to the exact binary
+witnesses used in Lean,
+\[
+p=\left(\frac13,\frac23\right),
+\qquad
+u=\left(\frac12,\frac12\right).
+\]
+They have the same support, while $H_0(p)=\log2$ and
+$H_\alpha(p)<\log2=H_\alpha(u)$ for every
+$\alpha\in(0,+\infty]$.  The nonnegative gap therefore has zero
+$\tau$-integral, forcing $\tau((0,+\infty])=0$ and hence $\tau=\delta_0$.
+\end{proof}
 
 \subsection{Necessary conditions for derivations}
 \label{sec:necessary-derivations}
@@ -633,35 +727,35 @@ to Eq.~(91) and Proposition~3.7 of Ref.~\cite{rubboli2026complete}, these are
 H_{0,\alpha}(P_{XY})=
 \sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y}).
 \end{equation}
-It is therefore sufficient to consider the concavity of
+The Lean necessity proof works directly at the measure level.  Thus consider
 \begin{equation}
-\vec{x}\longmapsto\|\vec{x}\|_1H_\alpha(\hat{x}),
+\vec{x}\longmapsto\|\vec{x}\|_1
+\int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha),
 \end{equation}
-as required by Lemma~A.2 of Ref.~\cite{rubboli2026complete}.  We now show that
-every $\alpha>1$, including $+\infty$, is excluded.
+for a finite positive measure $\tau$.  Point masses recover the extremal
+derivations required by Lemma~A.2 of Ref.~\cite{rubboli2026complete}.
 
 \begin{proposition}
 \label{prop:measure-derivation}
-The function
-\begin{equation}
-\vec{x}\longmapsto\|\vec{x}\|_1H_\alpha(\hat{x})
-\end{equation}
-is concave only if $\alpha\in[0,1]$.
+Let $\tau$ be a finite positive measure.  The function
+\[
+\vec{x}\longmapsto\|\vec{x}\|_1
+\int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha)
+\]
+is concave only if
+$\operatorname{supp}(\tau)\subseteq[0,1]$.  In particular,
+$\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ is concave only if
+$\alpha\in[0,1]$.
 \end{proposition}
 
 \begin{proof}[Proof idea]
-Use the two-block point and direction from Proposition~\ref{prop:first-measure}.
-For $\alpha>1$, put
-\begin{equation}
-\beta=\frac{\alpha}{1-\alpha}<0.
-\end{equation}
-After the large-dimensional localization, the second derivative at the origin
-tends, up to a positive factor, to
-\begin{equation}
--\frac{\beta}{p^2}>0.
-\end{equation}
-This is a convex direction and contradicts the required concavity.  The endpoint
-$\alpha=+\infty$ follows from the same localization by taking the endpoint limit.
+If the support meets $(1,+\infty]$, choose a null threshold $r>1$, put
+$R=r+1$, and use the exact two-block family from
+Proposition~\ref{prop:first-measure} with velocity $(0,1)$.  Its localized upper
+coefficient $A_r$ is negative, while the second derivative of the normalized
+derivation converges to $-A_r>0$.  This is a finite-dimensional convex direction
+and contradicts concavity, including when the upper support point is
+$+\infty$.
 \end{proof}
 
 Importing the upstream representation of derivations from Proposition~3.7 and
