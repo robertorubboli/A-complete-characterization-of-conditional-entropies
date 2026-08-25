@@ -1,0 +1,114 @@
+digraph ConditionalEntropyDependencies {
+  graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.30,
+         ranksep=0.55, splines=polyline, newrank=true,
+         fontname="Arial", fontsize=18,
+         label="Conditional-entropy formalization: vertical dependencies",
+         labelloc=t];
+  node [shape=box, style="rounded,filled", penwidth=1.2,
+        fontname="Arial", fontsize=10.5, margin="0.15,0.09"];
+  edge [color="#64748b", penwidth=1.05, arrowsize=0.65];
+
+  foundation [label="FiniteData · ParamMeasure · Renyi · Moments\nfinite carriers, endpoint parameter, measures",
+              fillcolor="#eff6ff", color="#2563eb"];
+
+  semiring [label="FiniteSemiring · FiniteSemiringQuotient\nconditional commutative semiring",
+            fillcolor="#ecfeff", color="#0891b2"];
+  channels [label="FiniteChannels · FiniteChannelAlgebra\nConditionalSemiringOrder\nchannel relation, quotient order, embeddingLift",
+            fillcolor="#ecfeff", color="#0891b2"];
+
+  endpoint [label="RenyiProperties · LineData · LineCalculus\nEndpointLineCalculus · EndpointParameterContinuity\nIntegratedEntropy · SignedWitnesses · SignedLineCalculus\nCompactUniform · UniformSignedDCT\nendpoint calculus and signed integration",
+            fillcolor="#f0fdfa", color="#0f766e"];
+  shape [label="ColumnFunctions · ShapeReduction\nTropicalShapeReduction · ULiftInvariance\none-column shape transport",
+         fillcolor="#f0fdfa", color="#0f766e"];
+
+  sufficiency [label="FiniteSupportSufficiency · GeneralSufficiency\nSection4Sufficiency\nfour sufficient-condition branches",
+               fillcolor="#f0fdf4", color="#16a34a"];
+
+  block [label="BlockData · BlockEstimates · BlockCurves\nBlockLimitPassage · BlockLocalization\nexact two-/three-block integral limits",
+         fillcolor="#faf5ff", color="#9333ea"];
+  block_interface [label="BlockLocalizationInterfaces\nLocalizationStationarity\ntwoBlockLocalization · threeBlockLocalization\nblockLocalization · threeBlockGStationarityPackage",
+                   fillcolor="#faf5ff", color="#9333ea"];
+
+  shannon_core [label="ShannonData · ShannonAlgebra · ShannonCurves · ShannonAtoms\nShannonWitnessBridge · ShannonKernelRegularity\nShannonEscortCalculus · ShannonDominance · ShannonDedicatedEscort\nShannonLocalizationTargets · ShannonKernelBridges\nShannonKernelRegularityBridge · ShannonCurveKernelBridge",
+                fillcolor="#fff7ed", color="#ea580c"];
+  shannon_asymptotics [label="ShannonLogMass · ShannonExpansion\nshannonLogMass · uniformShannonExpansion\nshannonNeighbourhood",
+                       fillcolor="#fff7ed", color="#ea580c"];
+  shannon_localization [label="ShannonLocalization\nshannonLocalization\ncompact-uniform q = 1,2 log/G limits",
+                        fillcolor="#fff7ed", color="#ea580c"];
+
+  necessity_measure [label="NullThresholds · NecessityMeasureAlgebra\nNecessitySupportAlgebra · NecessityMomentPassage\nNecessityExceptionalMeasureAlgebra · NegativeMomentPositivity\ntruncation, support isolation, moment passage",
+                     fillcolor="#fff1f2", color="#e11d48"];
+  temperate [label="PositiveTemperateNecessity · PositiveNecessity\nNegativeTemperateNecessity · NegativeNecessity\npositive/negative temperate branches",
+             fillcolor="#fff1f2", color="#e11d48"];
+  tropical [label="PositiveTropicalNecessity\nNegativeTropicalShannonNecessity\nNegativeTropicalNecessity\npositive/negative tropical branches",
+            fillcolor="#fff1f2", color="#e11d48"];
+  derivation [label="DerivationNecessity\nderivation branch",
+              fillcolor="#fff1f2", color="#e11d48"];
+
+  necessity_bundle [label="NecessityBundle\nnecessityBundle",
+                    fillcolor="#fef2f2", color="#b91c1c", penwidth=1.7];
+  classification [label="MainClassification\nmainClassification",
+                  fillcolor="#fef2f2", color="#991b1b", penwidth=1.8];
+
+  candidate_axioms [label="ConditionalEntropyAxioms · CandidateNormalization\nJointTensorCandidates · CandidateEmbeddingInvariance\ncandidate law packages",
+                    fillcolor="#f8fafc", color="#475569"];
+  all_axioms [label="AllConditionalEntropyAxioms\nallConditionalEntropyAxioms",
+              fillcolor="#f8fafc", color="#334155", penwidth=1.8];
+
+  { rank=same; semiring; endpoint }
+  { rank=same; sufficiency; block_interface; shannon_asymptotics }
+  { rank=same; temperate; tropical; derivation }
+  { rank=same; classification; all_axioms }
+
+  foundation -> semiring;
+  foundation -> endpoint;
+  semiring -> channels;
+  channels -> endpoint;
+  channels -> shape;
+  endpoint -> shape;
+
+  endpoint -> sufficiency;
+  shape -> sufficiency;
+
+  endpoint -> block;
+  block -> block_interface;
+  endpoint -> block_interface;
+
+  block -> shannon_core;
+  endpoint -> shannon_core;
+  shannon_core -> shannon_asymptotics;
+  endpoint -> shannon_asymptotics;
+  shannon_asymptotics -> shannon_localization;
+  shannon_core -> shannon_localization;
+  block -> shannon_localization;
+  endpoint -> shannon_localization;
+
+  endpoint -> necessity_measure;
+  block -> necessity_measure;
+
+  shape -> temperate;
+  block_interface -> temperate;
+  shannon_localization -> temperate;
+  necessity_measure -> temperate;
+
+  shape -> tropical;
+  block_interface -> tropical;
+  shannon_localization -> tropical;
+  necessity_measure -> tropical;
+
+  shape -> derivation;
+  block_interface -> derivation;
+  necessity_measure -> derivation;
+
+  temperate -> necessity_bundle;
+  tropical -> necessity_bundle;
+  derivation -> necessity_bundle;
+  necessity_bundle -> classification;
+  sufficiency -> classification;
+
+  channels -> candidate_axioms;
+  endpoint -> candidate_axioms;
+  candidate_axioms -> all_axioms;
+  sufficiency -> all_axioms;
+  channels -> all_axioms [label="embeddingLift", fontsize=9];
+}

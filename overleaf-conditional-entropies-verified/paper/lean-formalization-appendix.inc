@@ -1,4 +1,4 @@
-% Appendix fragment included from paper/main-with-lean-appendix.tex.
+% Appendix fragment included from either tested entry point in this bundle.
 % The main file already loads tikz, graphicx, booktabs, longtable, and array.
 
 \section{Lean formalization and verification architecture}
@@ -262,4 +262,4 @@ by several smaller Lean declarations.  Every row is marked ``Formalized'' or
 ``Formalized (split API)'' and is covered by the strict root build.  The audit
 box above records the release-wide verification result.
 
-\input{paper/blueprint-statement-correspondence.tex}
+\input{paper/blueprint-statement-correspondence.inc}
