@@ -66,6 +66,33 @@ are monotone under conditional majorization.  In the following section, we show 
 these conditions are also necessary, without imposing a separate regularity assumption
 on the measure.
 
+\paragraph{Basic terminology and notation.}
+A \emph{register} is one component of the joint system: $X$ is the first
+register and $Y$ is the conditioning register.  We write $P_{XY}$ for their
+joint probability mass function on finite alphabets, $\Y$ for the alphabet of
+$Y$, and
+\[
+P_Y(y):=\sum_xP_{XY}(x,y),
+\qquad
+P_{X|Y=y}(x):=\frac{P_{XY}(x,y)}{P_Y(y)}
+\]
+when $P_Y(y)>0$.  A zero-mass conditional distribution may be chosen
+arbitrarily because every formula below either omits it or multiplies it by
+$P_Y(y)=0$.  A \emph{column} is the nonnegative vector
+$P_{XY}(\mathord\cdot,y)$.
+
+A \emph{conditionally mixing channel} stochastically processes $Y$ and, in
+each resulting branch, applies a doubly stochastic mixing map to the
+$X$-column; doubly stochastic means that the map is nonnegative and every row
+and column sums to one.  Conditional majorization is the preorder generated
+by these channels.  A preorder is a reflexive and transitive comparison, and
+\emph{monotone} means order-preserving for this comparison.  The corresponding
+semiring consists of finite nonnegative
+joint matrices with the direct-sum and tensor-product operations of
+Ref.~\cite{rubboli2026complete}.  A \emph{homomorphism} preserves those
+operations and their units.  A \emph{derivation} is additive and obeys the
+product rule relative to a chosen homomorphism.
+
 In Ref.~\cite{rubboli2026complete}, the general forms of the homomorphisms and
 derivations depend on a finite measure: in the temperate case one may write it as
 $\mu=t\tau$, with $\tau$ a probability measure and its sign encoded by $t$.
@@ -101,11 +128,46 @@ t\int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha)
 \qquad
 \hat{x}=\frac{\vec{x}}{\|\vec{x}\|_1}.
 \end{equation}
-The R\'enyi family and its endpoint values $H_0$, $H_1$, and $H_\infty$ are those
-of Eq.~(2) and the sentence following it in Ref.~\cite{rubboli2026complete}.
-We begin with finite support, pass to a general
-measure by a common discretization, and finally take the tropical and derivation
-limits.
+Here $d$ is the number of coordinates,
+$\|\vec{x}\|_1:=\sum_{i=1}^d x_i$, and $\hat{x}$ is the normalized probability
+vector obtained from $\vec{x}$.  For a probability vector $s=(s_i)_i$, the
+R\'enyi entropy is
+\[
+H_\alpha(s):=\frac{1}{1-\alpha}\log\!\left(\sum_i s_i^\alpha\right),
+\qquad \alpha\in(0,+\infty)\setminus\{1\},
+\]
+with endpoint values
+\[
+H_0(s)=\log|\{i:s_i>0\}|,
+\qquad
+H_1(s)=-\sum_i s_i\log s_i,
+\qquad
+H_\infty(s)=-\log\max_i s_i,
+\]
+where $0\log0:=0$.  These are the conventions of Eq.~(2) and the sentence
+following it in Ref.~\cite{rubboli2026complete}.  The \emph{support} of a
+vector is its set of nonzero coordinates.  For a positive measure $\nu$, its
+closed support $\operatorname{supp}(\nu)$ is the set of points every
+neighbourhood of which has positive $\nu$-measure.  A point $a$ is an
+\emph{atom} when $\nu(\{a\})>0$, and $\delta_a$ is the Dirac probability
+measure concentrated at $a$.  A discrete, finitely supported measure is one
+concentrated on finitely many parameter values.
+
+The word \emph{temperate} means that $t$ is finite and nonzero.  The positive
+and negative \emph{tropical} regimes are the limits $t\to+\infty$ and
+$t\to-\infty$, where log-sum-exp becomes a maximum and a minimum,
+respectively.  A derivation is the first-order $t\to0$ object.  A
+\emph{common discretization} uses the same finitely supported approximation
+of the parameter measure at every vector in one convexity or concavity
+inequality.  For reference, $F$ is convex when
+\[
+F(\lambda x+(1-\lambda)z)
+\leq \lambda F(x)+(1-\lambda)F(z),
+\qquad 0\leq\lambda\leq1,
+\]
+and concave when this inequality is reversed.  We begin with finite support,
+pass to a general measure by a common discretization, and finally take the
+tropical and derivation limits.
 
 \subsection{Sufficient conditions for the discrete case}
 
@@ -215,6 +277,13 @@ integral
 is used only when the two one-sided integrals are finite; at $+\infty$ the
 integrand is $-1$.  In particular, Eq.~\eqref{eq:IntegralCond} never hides an
 undefined cancellation at $\alpha=1$.
+The first integral is the \emph{lower one-sided moment}, and the second is the
+\emph{upper one-sided moment}; moment-finiteness means that the relevant
+integral is an ordinary finite real number.  We call support in $[0,1]$
+\emph{all-lower support}, and support in $(1,+\infty]$ \emph{upper support}.
+The exceptional negative branch allows all-lower support together with one
+isolated point $\alpha_*>1$.  The \emph{Shannon point}, atom, or branch refers
+to $\alpha=1$.
 
 \begin{proposition}
 \label{prop:sufficient-conditions}
@@ -246,12 +315,21 @@ is preserved.  The Shannon branch is kept separate, and in the exceptional
 negative case the point $\alpha_*$ is fixed throughout the approximation.  Each
 finite approximation satisfies Lemma~\ref{lem:discrete-measure}.
 
+Here a \emph{cell} is one set in the finite partition, and its
+\emph{representative} is the single parameter value to which the mass of that
+cell is moved.  Calling the discretization common means that these cells and
+representatives do not depend on which vector in the inequality is being
+evaluated.
+
 For fixed dimension, $0\leq H_\alpha(\hat{x})\leq\log d$, including the endpoint
 values.  Dominated convergence therefore gives pointwise convergence of the
 entropy integrals and of their exponentials, and a pointwise limit preserves the
 required convexity or concavity inequality.  This is the only convergence input
 needed here.  Notice especially that the all-lower branch with $t<0$ requires no
 integrability of $\alpha/(1-\alpha)$ near $1$.
+Here dominated convergence means that one common integrable bound allows the
+limit to pass through the integral, and pointwise means at each fixed vector
+$\vec{x}$.
 \end{proof}
 
 \subsection{Monotonicity under mixing channels}
@@ -372,6 +450,9 @@ log-sum-exp identity
 passes monotonicity to the limit.  Equivalently, this is the concavity of the
 perspective $\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ used in Lemma~A.2
 of Ref.~\cite{rubboli2026complete}.
+The word \emph{perspective} means precisely this positively homogeneous
+extension from normalized probability vectors to nonzero nonnegative vectors;
+positive homogeneity is the identity $F(s\vec{x})=sF(\vec{x})$ for $s>0$.
 \end{proof}
 
 These results identify the admissible homomorphisms and derivations.  With the
@@ -396,22 +477,32 @@ wrong sign.  Sharp counterexamples require increasingly high dimensions, but the
 underlying idea is the finite-dimensional multivariate monomial
 \begin{equation}
 \label{eq:multivariate-divergences-function}
-\vec{v}\longmapsto v_1^{\beta_0}v_2^{\beta_1}\cdots v_d^{\beta_d},
+ (v_0,\ldots,v_d)\longmapsto
+ v_0^{\beta_0}v_1^{\beta_1}\cdots v_d^{\beta_d},
 \qquad \beta_0=1-\sum_{i=1}^d\beta_i,
 \end{equation}
 whose curvature criterion is Lemma~\ref{lem:Matrix-majorization}.  In the
 discrete entropy expression, the correspondence is
 \begin{equation}
-\beta_i\longleftrightarrow
-\tau(\{\alpha_i\})t\frac{\alpha_i}{1-\alpha_i},
-\qquad
-v_i\longleftrightarrow
+\begin{aligned}
+v_0&\longleftrightarrow\sum_jx_j,\\
+\beta_i&\longleftrightarrow
+\tau(\{\alpha_i\})t\frac{\alpha_i}{1-\alpha_i},\\
+v_i&\longleftrightarrow
 \left(\sum_jx_j^{\alpha_i}\right)^{1/\alpha_i}.
+\end{aligned}
 \end{equation}
 The latter quantities are coupled through $\vec{x}$.  Blocks whose cardinalities
 and weights scale with a dimension parameter make different blocks dominate on
 different ranges of $\alpha$.  For example, appending $d$ entries of weight
-$1/d$ gives
+$1/d$ to a fixed vector $\vec{x}=(x_1,\ldots,x_k)$ gives
+\[
+\vec{y}=\left(
+x_1,\ldots,x_k,
+\underbrace{1/d,\ldots,1/d}_{d\text{ entries}}
+\right)
+\]
+and hence
 \begin{equation}
 \left(\sum_jy_j^\alpha\right)^{1/\alpha}
 =\left(\sum_{j=1}^k x_j^\alpha+d^{1-\alpha}\right)^{1/\alpha},
@@ -421,7 +512,7 @@ $(\sum_{j=1}^k x_j^\alpha)^{1/\alpha}$ for $\alpha>1$.
 
 There is one analytic point that is important even in this abbreviated account.
 For each localized path used below, its support is fixed near the perturbation
-point and one maximizing coordinate remains fixed there.  On these paths the
+point and its set of maximizing coordinates remains fixed there.  On these paths the
 endpoint-aware kernels and their first two path derivatives extend continuously
 through $0$, $1$, and $+\infty$; in particular, the apparent pole at $1$ is
 removable.  One differentiates the finite-dimensional kernels before integrating,
@@ -431,11 +522,52 @@ convergence make the required moment bounds conclusions of the argument.  Thus
 no derivative is exchanged with an already limiting piecewise envelope, and no
 separate finiteness assumption is needed.
 
+An \emph{endpoint-aware kernel} is the function
+$\alpha\mapsto H_\alpha(\widehat{\vec{x}+\lambda\vec{v}})$ with the endpoint
+values at $0$, $1$, and $+\infty$ retained.  A \emph{removable pole} means
+that the apparent denominator $1-\alpha$ is cancelled by a numerator that
+also vanishes at $\alpha=1$.  \emph{Endpoint-separated truncation} means
+integrating on closed regions below and above $1$ before moving their
+boundaries towards $1$.  Domination by total variation means controlling the
+absolute value of the kernel by an integrable bound for the positive measure
+$|\nu|$ defined next.
+
+For any finite signed measure $\nu$, meaning a finite measure that may take
+both positive and negative values, its \emph{total-variation measure}
+$|\nu|$ is the positive measure that records the absolute mass of $\nu$, and
+we set $\operatorname{supp}(\nu):=\operatorname{supp}(|\nu|)$.  A point $s$
+is $|\nu|$-null when $|\nu|(\{s\})=0$; for a positive measure this simply
+means $\nu(\{s\})=0$.  Thus a \emph{null point} may still lie in the support:
+it has no atom at that single point.  A \emph{null threshold} is a null point
+used as the boundary between localization intervals.  A finite measure has at
+most countably many atoms, so such thresholds can be chosen between distinct
+parameter values.
+
 \paragraph{Explicit witness vectors.}
 All counterexamples below are restrictions to affine lines of the form
-$\lambda\mapsto\vec{x}+\lambda\vec{v}$.  We record their initial points and
-directions explicitly, with every coordinate written inside parentheses.  For
-the two-block family, put $R=r+1$ and
+$\lambda\mapsto\vec{x}+\lambda\vec{v}$.  Here $\lambda\in\R$ is taken small
+enough that all coordinates remain positive; $\vec{x}$ is the initial point
+at $\lambda=0$, and $\vec{v}$ is its perturbation direction.  The curvature
+of a path is its second derivative at $\lambda=0$, while a logarithmic
+derivative is a derivative of the logarithm of the positive function being
+tested.
+
+Here $d\geq2$ is an auxiliary integer scale parameter tending to infinity.
+It is not the actual vector dimension, which is the sum of the block
+cardinalities $n_{j,d}$.  A \emph{block} is a group of repeated equal
+coordinates, its cardinality is the number of coordinates in that group, and
+$\lceil s\rceil$ is the least integer not smaller than $s$.  A block velocity
+is the common relative first-order change assigned to one block.  A block
+\emph{dominates} at a parameter $\alpha$ when its contribution to
+$\sum_i x_i^\alpha$ has the largest power of $d$.  A \emph{localizer} is a
+block family arranged so that the dominant block changes with $\alpha$ and
+thereby isolates the measure on selected parameter intervals.  A
+\emph{witness pair} is the displayed initial point together with its
+direction.
+
+We record every coordinate inside parentheses.  For the two-block family, fix
+$r>0$ with $r\neq1$.  The number $r$ is the threshold at which the dominant
+block changes, and $R:=r+1$ is an auxiliary size exponent.  Put
 \begin{equation}
 n_{0,d}=\lceil d^R\rceil,
 \qquad
@@ -456,7 +588,9 @@ The initial point and the direction with block velocities $(u_0,u_1)$ are
 \right).
 \label{eq:concise-two-block-direction}
 \end{align}
-For the three-block family, put $R=a+b+1$ and
+For the three-block family, fix $0<a<b<+\infty$, with $a,b\neq1$.  The two
+numbers $a$ and $b$ are the dominant-block crossing thresholds, and
+$R:=a+b+1$.  Put
 \begin{equation}
 n_{0,d}=\lceil d^R\rceil,
 \qquad
@@ -481,7 +615,12 @@ Its initial point and direction are
 \right).
 \label{eq:concise-three-block-direction}
 \end{align}
-Finally, for the rounded Shannon family put $p=q=1/2$, $R=c+2$, and
+Finally, fix a cutoff $c>1$.  It separates the middle parameter range
+$1<\alpha<c$ from the upper tail $\alpha>c$ and is not a universal constant.
+In each application, $c$ is chosen null for the relevant measure, so no atom
+lies on this boundary.  The first two blocks cross at the Shannon point $1$,
+and the second and third cross at $c$.  For the rounded Shannon family put
+$p=q:=1/2$, $R:=c+2$, and
 \begin{equation}
 n_{0,d}=\lceil d^R\rceil,
 \qquad
@@ -506,18 +645,31 @@ Its initial point and direction are
 \right).
 \label{eq:concise-Shannon-direction}
 \end{align}
-The ceiling signs make these genuine finite-dimensional vectors.  The block
-velocities in parentheses will be specified separately for each obstruction.
+In the first two families $u_0,u_1,u_2\in\R$ are the block velocities.  In
+the Shannon family, $p=q=1/2$ are fixed scalar block weights, while
+$h,v\in\R$ control the first-two-block Shannon perturbation and the third
+block, respectively; the scalar $v$ is unrelated to a direction vector
+$\vec{v}$.  The subscript $\mathrm{Sh}$ stands for Shannon, and ``rounded''
+refers to the ceiling signs that turn the desired block sizes into integers.
+The velocities will be specified separately for each obstruction.
 
 \subsection{Necessary conditions; temperate case}
 
 The temperate case corresponds to the bulk entropies $H_{t,\tau}$ in Eq.~(122) of
-Ref.~\cite{rubboli2026complete}.  As above, it is sufficient to study
+Ref.~\cite{rubboli2026complete}; ``bulk'' here means the finite-temperature,
+or temperate, family.  As above, it is sufficient to study
 Eq.~\eqref{eq:conditionfunct}.  For notational convenience, combine the weight
 $t$ with the probability measure $\tau$ and write
 \begin{equation}
 \mu:=t\tau.
 \end{equation}
+A measure $\mu$ is positive when $\mu(E)\geq0$ for every measurable set $E$,
+and negative when $\mu(E)\leq0$ for every such $E$.  Since $\mu=t\tau$ is
+one-signed, $\mu>0$ means $t>0$, $\mu<0$ means $t<0$, and
+$|\mu|=|t|\tau$.  As above, $\operatorname{supp}(\mu)$ means the support of
+$|\mu|$.  A lower or upper \emph{truncated coefficient} is a weighted integral
+over $[0,a)$ or $(b,+\infty]$, with $a<1<b$; it therefore stays away from the
+Shannon point until the two limits are taken separately.
 Whenever the two one-sided integrals are finite, we also have the coefficient
 \begin{equation}
 \label{eq:definition-beta0}
@@ -555,7 +707,8 @@ $\operatorname{supp}(\mu)\subseteq[0,1]$, $\mu(\{1\})=0$, and
 \end{proposition}
 
 \begin{proof}[Proof idea]
-The three exclusions use the finite localizers displayed above.  An atom
+The three exclusions use the finite-dimensional witness families, or
+localizers, displayed above.  An atom
 $m=\mu(\{1\})>0$ is detected by choosing a $\mu$-null point $c>1$ and using
 the complete point-direction pair
 \begin{equation}
@@ -602,6 +755,8 @@ $B_r(B_r-1)\leq0$ and therefore $B_r\leq1$.
 Letting null thresholds increase to $1$ and using monotone convergence proves
 the stated moment bound.  Endpoint-separated truncation justifies the limits
 without a preliminary finiteness hypothesis.
+Monotone convergence here means that the increasing nonnegative truncated
+integrands may be passed to their limiting integral.
 \end{proof}
 
 Next, let $\mu$ be negative.
@@ -619,17 +774,22 @@ is convex only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
 
 \begin{proof}[Proof idea]
 Assume that both the Shannon atom and upper support are present.  If
-$m:=\mu(\{1\})<0$, choose a $|\mu|$-null point $c>1$ for which the localized
-upper contribution $A$ is positive, and use
+$m:=\mu(\{1\})<0$, choose a $|\mu|$-null point $c>1$ such that
+$\mu((c,+\infty])<0$, and define the localized upper contribution
+\[
+A_c:=\int_{(c,+\infty]}
+\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
+\]
+Use
 \begin{equation}
 \left(
 \vec{x}_{\mathrm{Sh}}^{(d)},
-\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A}{m},1\right)
+\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A_c}{m},1\right)
 \right).
 \label{eq:negative-Shannon-witness-pair}
 \end{equation}
 The first logarithmic derivative then tends to zero and the second tends to
-$-A<0$.  This is a
+$-A_c<0$.  This is a
 genuinely concave direction and contradicts convexity.  Working first on
 truncated ranges makes the calculation finite; the endpoint limits are taken only
 after the curvature sign is fixed.
@@ -644,13 +804,15 @@ function
 \exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
 \d\mu(\alpha)\right)
 \end{equation}
-is convex.  Let $a<1<b$ be $|\mu|$-null thresholds with
+is convex.  Let $0<a<1<b<+\infty$ be $|\mu|$-null thresholds with
 $\mu((b,+\infty])<0$, and set
 \begin{equation}
 B_a=\int_{[0,a)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\leq0,
 \qquad
 A_b=\int_{(b,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
 \end{equation}
+Thus $B_a$ is the lower truncated coefficient and $A_b$ the upper truncated
+coefficient.
 Then
 \begin{equation}
 \label{eq:negative-truncated-moment-necessary}
@@ -660,7 +822,8 @@ A_b+B_a\geq1.
 
 \begin{proof}[Proof idea]
 If Eq.~\eqref{eq:negative-truncated-moment-necessary} failed, then
-$C:=1-A_b-B_a>0$.  Use the three-block pair
+$C:=1-A_b-B_a>0$.  This $C$ is the remaining coefficient of the middle
+block, which contains $\alpha=1$.  Use the three-block pair
 \begin{equation}
 \left(
 \vec{x}_{a,b}^{(d)},
@@ -684,7 +847,9 @@ its two one-sided parts are known to be finite.
 \begin{remark}
 The points used in these counterexamples need not initially be normalized.  The
 function is positively homogeneous on the whole semiring domain, so rescaling by
-a positive constant does not change the curvature sign.  Equivalently, the
+a positive constant does not change the curvature sign.  Here normalized means
+that the coordinates sum to one, and positively homogeneous means
+$F(s\vec{x})=sF(\vec{x})$ for $s>0$.  Equivalently, the
 counterexample can be embedded into a normalized joint probability matrix and
 then interpreted in the semiring of Section~3B and lifted using
 Proposition~A.1 and Lemma~A.3 of Ref.~\cite{rubboli2026complete}.
@@ -692,7 +857,10 @@ Proposition~A.1 and Lemma~A.3 of Ref.~\cite{rubboli2026complete}.
 
 \begin{remark}
 A nontraceless direction can likewise be embedded into a trace-preserving
-two-column perturbation.  If the first column changes as
+two-column perturbation.  A direction is traceless when $\sum_i v_i=0$;
+trace-preserving means that the total mass of all columns remains constant.
+Let $\vec{x}'>0$ be a second-column base point and put
+$\hat{x}':=\vec{x}'/\|\vec{x}'\|_1$.  If the first column changes as
 $\vec{x}+\lambda\vec{v}$, change the second as
 \begin{equation}
 \vec{x}'-\lambda\hat{x}'\sum_i v_i.
@@ -727,9 +895,18 @@ In the second case the two one-sided moments are finite and satisfy
 \end{proposition}
 
 \begin{proof}[Proof idea]
-If two disjoint portions of the support lie above $1$, localize them in two
-different dominant blocks.  Their positive localized weights may be denoted
-$A_1,A_2>0$.  The complete witness pair is
+Suppose that $1<\alpha_1<\alpha_2\leq+\infty$ are two support points.  Choose
+$|\mu|$-null thresholds
+$1<a<\alpha_1<b<\alpha_2$; when $\alpha_2=+\infty$, take any finite null
+$b>\alpha_1$ that separates the two support portions.  Define
+\[
+A_1:=\int_{(a,b)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0,
+\qquad
+A_2:=\int_{(b,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
+\]
+These are positive because both $\mu$ and $\alpha/(1-\alpha)$ are negative
+above $1$.  The two intervals are localized in different dominant blocks.
+The complete witness pair is
 \begin{equation}
 \left(
 \vec{x}_{a,b}^{(d)},
@@ -760,6 +937,15 @@ The tropical counterexamples use the same finite witness families as the
 temperate proof, but quasiconvexity permits a second-derivative test only after
 the first derivative has been made exactly zero at the finite dimension under
 consideration.
+Here quasiconvexity means
+\[
+G(\lambda x+(1-\lambda)z)
+\leq\max\{G(x),G(z)\},
+\qquad 0\leq\lambda\leq1.
+\]
+A direction is \emph{stationary} when its first derivative is zero.  A
+\emph{transverse direction} is a correction direction whose first derivative
+is nonzero, so a small multiple of it can impose exact stationarity.
 
 \begin{proposition}
 \label{prop:negative-tropical-necessary}
@@ -790,13 +976,18 @@ are finite, and
 
 \begin{proof}[Proof idea]
 A Shannon localizer first excludes $\tau(\{1\})>0$ whenever upper support is
-present.  For the signed measure $-\tau$, write $m<0$ for the signed Shannon
-atom and choose a null point $c>1$ whose localized upper coefficient $A$ is
-positive.  Use the initial point and the two displayed directions
+present.  Set $\mu:=-\tau$.  Then the signed Shannon atom is
+$m:=\mu(\{1\})=-\tau(\{1\})<0$.  Choose a $|\mu|$-null point $c>1$ with
+$\mu((c,+\infty])<0$ and define
+\[
+A_c:=\int_{(c,+\infty]}
+\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
+\]
+Use the initial point and the two displayed directions
 \begin{equation}
 \left(
 \vec{x}_{\mathrm{Sh}}^{(d)},
-\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A}{m},1\right)
+\vec{v}_{\mathrm{Sh}}^{(d)}\!\left(-\frac{A_c}{m},1\right)
 \right),
 \qquad
 \left(
@@ -806,12 +997,20 @@ positive.  Use the initial point and the two displayed directions
 \label{eq:tropical-Shannon-point-directions}
 \end{equation}
 corresponding to the block-velocity vectors
-$u=(-A/m,1)$ and $e=(0,1)$.  The limiting first derivative along $u$ is zero,
-the second derivative is $-A<0$, and the limiting first derivative along $e$
-is $A\neq0$.
+$u=(-A_c/m,1)$ and $e=(0,1)$.  The limiting first derivative along $u$ is
+zero, the second derivative is $-A_c<0$, and the limiting first derivative
+along $e$ is $A_c\neq0$.
 
-If two separated upper-support portions remain, their coefficients
-$A_1,A_2>0$ give the initial point and directions
+If two separated upper-support portions remain, choose support points
+$1<\alpha_1<\alpha_2\leq+\infty$ and $|\mu|$-null thresholds
+$1<a<\alpha_1<b<\alpha_2$, with the same finite-$b$ interpretation as above
+when $\alpha_2=+\infty$.  Define
+\[
+A_1:=\int_{(a,b)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0,
+\qquad
+A_2:=\int_{(b,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0.
+\]
+These coefficients give the initial point and directions
 \begin{equation}
 \left(
 \vec{x}_{a,b}^{(d)},
@@ -829,7 +1028,20 @@ $u=(0,1/A_1,-1/A_2)$ and $e=(0,1,0)$.  The limiting first derivative along
 $u$ is zero, its second derivative is $-1/A_1-1/A_2<0$, and the first
 derivative along $e$ tends to $A_1\neq0$.  If
 Eq.~\eqref{eq:negative-tropical-necessary-moment} fails in the exceptional
-branch, the corresponding truncated coefficients $A_b,C>0$ give
+branch, choose $|\mu|$-null thresholds $0<a<1<b<\alpha_*$ close enough to
+$1$ that
+\[
+B_a:=\int_{[0,a)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\leq0,
+\qquad
+A_b:=\int_{(b,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)>0
+\]
+satisfy $A_b+B_a<0$, and define
+\[
+C:=-A_b-B_a>0.
+\]
+This tropical coefficient has no added $1$: unlike the temperate function,
+the tropical one-column function has no outer $\|\vec{x}\|_1$ term.  The
+coefficients $A_b,C>0$ give
 \begin{equation}
 \left(
 \vec{x}_{a,b}^{(d)},
@@ -848,11 +1060,13 @@ first derivative along $e$ tends to $A_b\neq0$.
 
 For each of the three witnesses, let $u$ and $e$ have the values displayed in
 the relevant formula.  At every sufficiently large finite dimension, replace
-$u$ by $u+\theta_de$, where $\theta_d$ is chosen so that the first derivative
-is exactly zero.  The transverse first derivative tends to a nonzero number,
+$u$ by $u+\theta_de$, where $\theta_d\in\R$ is the scalar correction chosen
+so that the first derivative is exactly zero.  The transverse first derivative
+tends to a nonzero number,
 whereas the first derivative along $u$ tends to zero, so $\theta_d\to0$ and the
-corrected second derivative remains strictly negative.  If $g_d$ is the
-restriction to the corrected affine line, then
+corrected second derivative remains strictly negative.  Let $g_d(\lambda)$ be
+the negative tropical one-column function restricted to this corrected affine
+line.  Then
 \begin{equation}
 g_d'(0)=0,
 \qquad
@@ -893,26 +1107,31 @@ the function in Proposition~\ref{prop:sufficient-tropical-positive}.
 \end{proposition}
 
 \begin{proof}[Proof idea]
-Write
+For a finite probability vector $s$, write
 \begin{equation}
 A_\tau(s)=\int_{[0,+\infty]}H_\alpha(s)\,\d\tau(\alpha).
 \label{eq:concise-positive-tropical-integrated-entropy}
 \end{equation}
-Positive-tropical monotonicity gives the inequality
+For probability vectors $p,q$ of the same dimension, positive-tropical
+monotonicity gives the max-quasiconcavity inequality
 \begin{equation}
 A_\tau(\lambda p+(1-\lambda)q)
 \geq\max\{A_\tau(p),A_\tau(q)\},
 \qquad 0<\lambda<1.
 \label{eq:concise-strong-max-quasiconcavity}
 \end{equation}
-Applying this inequality in both directions on a fixed-support simplex face
-makes $A_\tau$ constant on the relative interior of that face.  Apply it to the
-binary points
+A fixed-support simplex face is the set of probability vectors with one fixed
+pattern of allowed nonzero coordinates; its relative interior consists of
+the vectors strictly positive on every allowed coordinate.  Applying the
+displayed inequality in both directions on such a face makes $A_\tau$ constant
+on its relative interior.  Apply it to the binary points
 \[
 p=\left(\frac13,\frac23\right),
 \qquad
 u=\left(\frac12,\frac12\right).
 \]
+Here $p$ is a probability vector, unrelated to the scalar Shannon block weight
+$p=1/2$ used above, and $u$ is the uniform binary vector.
 They have the same support, so $A_\tau(p)=A_\tau(u)=\log2$.  Moreover,
 $H_0(p)=\log2$ and $H_\alpha(p)<\log2=H_\alpha(u)$ for every
 $\alpha\in(0,+\infty]$.  Hence
@@ -941,6 +1160,8 @@ It is enough to work directly at the measure level.  Thus consider
 \end{equation}
 for a finite positive measure $\tau$.  Point masses recover the extremal
 derivations required by Lemma~A.2 of Ref.~\cite{rubboli2026complete}.
+Here \emph{extremal} means the point-mass case $\tau=\delta_\alpha$; a general
+represented derivation is a positive integral mixture of these cases.
 
 \begin{proposition}
 \label{prop:measure-derivation}
@@ -956,8 +1177,13 @@ $\alpha\in[0,1]$.
 \end{proposition}
 
 \begin{proof}[Proof idea]
-If the support meets $(1,+\infty]$, choose a null threshold $r>1$, put
-$R=r+1$, and use the complete pair
+If the support meets $(1,+\infty]$, choose a $\tau$-null threshold $r>1$ with
+$\tau((r,+\infty])>0$, put $R=r+1$, and define afresh
+\[
+A_r:=\int_{(r,+\infty]}
+\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)<0.
+\]
+Use the complete pair
 \begin{equation}
 \left(
 \vec{x}_r^{(d)},
@@ -977,6 +1203,16 @@ Eq.~(91) of Ref.~\cite{rubboli2026complete}, and combining it with
 Proposition~\ref{prop:sufficient-derivations} and the semiring lift, gives the
 final statement.
 
+For clarity, $S$ is the conditional-majorization semiring of unnormalized
+joint probability matrices from Ref.~\cite{rubboli2026complete}; its addition
+and multiplication are direct sum and tensor product.  The distinguished norm
+$\|P\|$ is the total weight, namely the sum of all entries of $P$.  A
+derivation $\Delta$ at this norm is additive and satisfies
+\[
+\Delta(P\otimes Q)
+=\Delta(P)\|Q\|+\|P\|\Delta(Q).
+\]
+
 \begin{proposition}
 \label{prop:Derivations}
 The set of derivations of the conditional majorization semiring $S$ at
@@ -985,8 +1221,12 @@ Ref.~\cite{rubboli2026complete}, with $\alpha\in[0,1]$.
 \end{proposition}
 
 The span assertion in Proposition~\ref{prop:Derivations} is imported from that
-upstream representation.  The sufficiency and curvature arguments in this note
-supply the exact restriction $\alpha\in[0,1]$ for its extremal candidates.
+upstream representation.  Here ``spanned'' means generated by positive
+barycentres: a represented derivation has the form
+$\int H_{0,\alpha}\,\d\tau(\alpha)$ for a finite positive measure $\tau$;
+under the normalization of the cited paper, $\tau$ is a probability measure.
+The sufficiency and curvature arguments in this note supply the exact
+restriction $\alpha\in[0,1]$ for its extremal candidates.
 
 Together, the temperate, tropical, and derivation statements give the exact
 parameter ranges for the concrete candidate families in Eqs.~(122)--(125) of
