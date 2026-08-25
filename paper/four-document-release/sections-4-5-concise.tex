@@ -1,0 +1,694 @@
+\documentclass[aps,pra,11pt,onecolumn,nofootinbib,tightenlines]{revtex4-2}
+
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{xurl}
+\usepackage{natbib}
+
+\setlength{\jot}{7pt}
+\allowdisplaybreaks
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Y}{\mathcal{Y}}
+\def\d{\mathrm{d}}
+\renewcommand{\thesection}{\arabic{section}}
+\makeatletter
+\renewcommand\@pnumwidth{2.5em}
+\makeatother
+
+\begin{document}
+
+\title{Sufficient and Necessary Conditions for the Parameters of Conditional Entropies}
+
+\begin{abstract}
+This standalone note gives the sufficient and necessary parameter conditions for the
+conditional entropies introduced in Ref.~\cite{rubboli2026complete}.  It is a concise,
+human-readable replacement for Sections~4 and~5 of that paper.  The statements cover
+finite and general measures, both tropical endpoints, and derivations.  In particular,
+no global finiteness assumption is imposed on the measure.  The proofs retain the main
+ideas---finite-support factorization, common discretization, and localized
+high-dimensional counterexamples---while omitting the lengthy analytic calculations.
+\end{abstract}
+
+\author{Roberto Rubboli}
+\noaffiliation
+\author{Erkka Haapasalo}
+\noaffiliation
+\author{Marco Tomamichel}
+\noaffiliation
+
+\maketitle
+
+\tableofcontents
+
+\section{Sufficient conditions for the parameters}
+\label{sec:sufficient-conditions-measure}
+
+In this section, we establish sufficient conditions for the parameters under which the
+homomorphisms and derivations (and, consequently, the associated conditional entropies)
+are monotone under conditional majorization.  In the following section, we show that
+these conditions are also necessary, without imposing a separate regularity assumption
+on the measure.
+
+In Ref.~\cite{rubboli2026complete}, the general forms of the homomorphisms and
+derivations depend on a finite measure: in the temperate case one may write it as
+$\mu=t\tau$, with $\tau$ a probability measure and its sign encoded by $t$.
+However, not all such choices are valid, as some lead to violations of monotonicity
+under conditionally mixing channels.
+While monotonicity under mixing channels acting on the first register always holds,
+monotonicity under channels acting on the conditioning register fails for some choices
+of the parameters.  We therefore examine the convexity properties of the homomorphism
+as a function of the joint probability matrix.  Proposition~A.1 and Lemma~A.3 of
+Ref.~\cite{rubboli2026complete} identify these convexity properties with the required
+monotonicity and lift the columnwise result to the original semiring and channel
+preorder of Eqs.~(43) and~(49) therein.
+
+Let us first identify the function for which we need to establish convexity or
+concavity properties.  In the temperate case, Eq.~(78) and Proposition~3.6 of
+Ref.~\cite{rubboli2026complete} give
+\begin{align}
+\label{eq:TemperateForm}
+\Phi(P_{XY})&=\Phi_{t,\tau}(P_{XY})
+=\sum_{y\in\Y}P_Y(y)
+  \exp\!\left(t\int_{[0,+\infty]}H_\alpha(P_{X|Y=y})\,
+  \d\tau(\alpha)\right),
+\end{align}
+where $\tau$ is a probability measure and
+$t\in\R\setminus\{0\}$.  Thus it suffices to study, for
+$\vec{x}\in\R^d_{\geq0}\setminus\{0\}$,
+\begin{equation}
+\label{eq:conditionfunct}
+\vec{x}\longmapsto
+\|\vec{x}\|_1\exp\!\left(
+t\int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha)
+\right),
+\qquad
+\hat{x}=\frac{\vec{x}}{\|\vec{x}\|_1}.
+\end{equation}
+The R\'enyi family and its endpoint values $H_0$, $H_1$, and $H_\infty$ are those
+of Eq.~(2) and the sentence following it in Ref.~\cite{rubboli2026complete}.
+We begin with finite support, pass to a general
+measure by a common discretization, and finally take the tropical and derivation
+limits.
+
+\subsection{Sufficient conditions for the discrete case}
+
+The discrete case exploits two basic facts.  The first is Minkowski's inequality
+\cite[Theorem~9]{bullen2013handbook}.
+
+\begin{lemma}
+\label{lem:Minkowski}
+Let $\alpha>0$.  The function, defined on
+$\R^d_{>0}$,
+\begin{equation}
+\vec{x}\longmapsto\left(\sum_{i=1}^d x_i^\alpha\right)^{1/\alpha},
+\end{equation}
+\begin{enumerate}[itemsep=1pt]
+\item is convex if $\alpha>1$;
+\item is concave if $0<\alpha<1$.
+\end{enumerate}
+\end{lemma}
+
+The displayed power mean is not defined at $\alpha=0$.  Whenever the entropy
+parameter equals $0$, the proof instead uses the endpoint formula for $H_0$.
+
+The second fact is the standard convexity criterion for multivariate monomials
+\cite[Lemma~8]{mu21_renyi}; see also Ref.~\cite[Proposition~13]{farooq2024matrix}.
+
+\begin{lemma}
+\label{lem:Matrix-majorization}
+Let $N\in\mb{N}$ and let
+$\vec{\beta}=(\beta_1,\ldots,\beta_N)\in\R^N$ satisfy
+$\sum_{\ell=1}^N\beta_\ell=1$.  The function, defined on
+$\R^N_{>0}$,
+\begin{equation}
+\vec{y}\longmapsto\prod_{\ell=1}^N y_\ell^{\beta_\ell},
+\end{equation}
+\begin{enumerate}[itemsep=1pt]
+\item is concave if and only if $\beta_\ell\geq0$ for every $\ell$;
+\item is convex if and only if there is a unique index $k$ such that
+$\beta_k>0$ and $\beta_\ell\leq0$ for every $\ell\neq k$.
+\end{enumerate}
+\end{lemma}
+
+Combining these facts gives the finite-support result.
+
+\begin{lemma}
+\label{lem:discrete-measure}
+Let $\tau$ be a discrete probability measure supported on finitely many points
+$\alpha_1<\cdots<\alpha_N$ of $[0,+\infty]$, and let
+$t\in\R\setminus\{0\}$.  For every $d\in\mb{N}$, the function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1
+\exp\!\left(t\int_{[0,+\infty]}H_\alpha(\hat{x})\,
+\d\tau(\alpha)\right)
+\end{equation}
+on $\R^d_{\geq0}\setminus\{0\}$ is
+\begin{enumerate}
+\item concave if $t>0$, $\alpha_1,\ldots,\alpha_N<1$, and
+\begin{equation}
+\sum_{\ell=1}^N\frac{\alpha_\ell}{1-\alpha_\ell}
+\tau(\{\alpha_\ell\})\leq\frac1t;
+\end{equation}
+\item convex if $t<0$ and either
+  \begin{enumerate}[label=(\alph*)]
+  \item $\alpha_1,\ldots,\alpha_N\leq1$, or
+  \item $\alpha_1,\ldots,\alpha_{N-1}<1$, $\alpha_N>1$, and
+  \begin{equation}
+  \sum_{\ell=1}^N\frac{\alpha_\ell}{1-\alpha_\ell}
+  \tau(\{\alpha_\ell\})\leq\frac1t,
+  \end{equation}
+  where $\alpha/(1-\alpha)$ has value $-1$ at $\alpha=+\infty$.
+  \end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}[Proof idea]
+First assume that every atom satisfies
+$0<\alpha_\ell<+\infty$ and $\alpha_\ell\neq1$, and set
+\begin{equation}
+\beta_\ell=t\frac{\alpha_\ell}{1-\alpha_\ell}
+\tau(\{\alpha_\ell\}),
+\qquad
+\bar\beta=1-\sum_{\ell=1}^N\beta_\ell.
+\end{equation}
+The function factors as
+\begin{equation}
+\left(\sum_i x_i\right)^{\bar\beta}
+\prod_{\ell=1}^N
+\left(\sum_i x_i^{\alpha_\ell}\right)^{\beta_\ell/\alpha_\ell}.
+\end{equation}
+Lemma~\ref{lem:Minkowski} supplies the convexity or concavity of each power mean,
+and Lemma~\ref{lem:Matrix-majorization} supplies the joint sign criterion for the
+outer monomial.  When $t<0$ and all support lies in $[0,1]$, no moment bound is
+needed.  Atoms at $0$, $1$, and $+\infty$ are handled by the endpoint formulas
+and endpoint-preserving perturbations or pointwise limits; the branch containing
+$\alpha=1$ occurs only in the all-lower negative case.
+\end{proof}
+
+\subsection{Sufficient conditions for the temperate homomorphisms - general measure}
+
+We now extend the result to a general probability measure $\tau$.  The signed
+integral
+\begin{equation}
+\label{eq:IntegralCond}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)
++\int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)
+\leq\frac1t
+\end{equation}
+is used only when the two one-sided integrals are finite; at $+\infty$ the
+integrand is $-1$.  In particular, Eq.~\eqref{eq:IntegralCond} never hides an
+undefined cancellation at $\alpha=1$.
+
+\begin{proposition}
+\label{prop:sufficient-conditions}
+Let $\tau$ be a probability measure on $[0,+\infty]$ and let
+$t\in\R\setminus\{0\}$.  The function in Eq.~\eqref{eq:conditionfunct} is
+\begin{enumerate}
+\item concave if $t>0$,
+$\operatorname{supp}(\tau)\subseteq[0,1]$, $\tau(\{1\})=0$, and
+\begin{equation}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)\leq\frac1t;
+\end{equation}
+\item convex if $t<0$ and either
+  \begin{enumerate}[label=(\alph*)]
+  \item $\operatorname{supp}(\tau)\subseteq[0,1]$, with no moment-finiteness
+  condition, or
+  \item there is $\alpha_*\in(1,+\infty]$ such that
+  $\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\}$,
+  $\tau(\{1\})=0$, the two one-sided integrals in
+  Eq.~\eqref{eq:IntegralCond} are finite, and Eq.~\eqref{eq:IntegralCond} holds.
+  \end{enumerate}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Use one partition of $[0,+\infty]$ for every vector appearing in the convexity
+inequality and push the mass of each cell to a common representative.  On
+$[0,1)$ the representatives are chosen from below, so the discrete moment bound
+is preserved.  The Shannon branch is kept separate, and in the exceptional
+negative case the point $\alpha_*$ is fixed throughout the approximation.  Each
+finite approximation satisfies Lemma~\ref{lem:discrete-measure}.
+
+For fixed dimension, $0\leq H_\alpha(\hat{x})\leq\log d$, including the endpoint
+values.  Dominated convergence therefore gives pointwise convergence of the
+entropy integrals and of their exponentials, and a pointwise limit preserves the
+required convexity or concavity inequality.  This is the only convergence input
+needed here.  Notice especially that the all-lower branch with $t<0$ requires no
+integrability of $\alpha/(1-\alpha)$ near $1$.
+\end{proof}
+
+\subsection{Monotonicity under mixing channels}
+\label{sec:mixing-channels}
+
+As mentioned at the beginning of this section, monotonicity under mixing channels
+acting on the first register $X$ always holds.  Mixing on $X$ increases every
+$H_\alpha(P_X)$ and hence the integrated entropy.  Consequently
+$\Phi_{t,\tau}$ increases for $t>0$ and decreases for $t<0$; after applying
+$(1/t)\log$, the associated conditional entropy increases in both cases.  This
+gives the appropriate positive- and negative-homomorphism order directions.
+Proposition~A.1 and
+Lemma~A.3 of Ref.~\cite{rubboli2026complete} then convert the columnwise
+concavity or convexity established above into monotonicity under the conditioning
+operation and lift the two components to the original conditionally mixing
+channels.  For derivations, the corresponding statements are Lemmas~A.2 and~A.4
+of that reference.
+
+\subsection{Sufficient conditions for tropical homomorphisms}
+
+We next take the tropical limits.  Monotonicity is preserved under pointwise
+limits, so the temperate conditions immediately provide the admissible endpoint
+families.
+
+\begin{proposition}
+\label{prop:sufficient-tropical}
+Let $\tau$ be a probability measure on $[0,+\infty]$.  The function
+\begin{equation}
+\label{eq:TropicalForm}
+P_{XY}\longmapsto
+\min_{\substack{y\in\Y\\P_Y(y)>0}}
+\int_{[0,+\infty]}H_\alpha(P_{X|Y=y})\,\d\tau(\alpha)
+\end{equation}
+is monotone under conditionally mixing channels if either
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{supp}(\tau)\subseteq[0,1]$, with no moment-finiteness
+condition, or
+\item there is $\alpha_*\in(1,+\infty]$ such that
+$\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\}$,
+$\tau(\{1\})=0$, both one-sided integrals are finite, and
+\begin{equation}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)
++\int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)\leq0.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Use
+\begin{align}
+\label{eq:limit-tropical}
+&\lim_{t\to-\infty}\frac1t\log\!\left(
+\sum_{y\in\Y}P_Y(y)
+\exp\!\left(t\int H_\alpha(P_{X|Y=y})\,\d\tau(\alpha)\right)
+\right)\\
+&\hspace{8em}=
+\min_{\substack{y\in\Y\\P_Y(y)>0}}
+\int H_\alpha(P_{X|Y=y})\,\d\tau(\alpha).
+\end{align}
+The all-lower case is the limit of Proposition~\ref{prop:sufficient-conditions}(2a).
+If the signed moment is strictly negative, the exceptional case holds for all
+sufficiently large $|t|$.  At equality, move an arbitrarily small amount of mass
+to $\alpha_*$, apply the strict case, and take a final pointwise limit.  This
+retains both normalization and the boundary of the parameter range.
+\end{proof}
+
+\begin{proposition}
+\label{prop:sufficient-tropical-positive}
+The function
+\begin{equation}
+P_{XY}\longmapsto
+\max_{\substack{y\in\Y\\P_Y(y)>0}}H_0(P_{X|Y=y})
+\end{equation}
+is monotone under conditionally mixing channels.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+This is the $t\to+\infty$ limit of the positive temperate branch with
+$\tau$ concentrated at $\alpha=0$:
+\begin{equation}
+\lim_{t\to+\infty}\frac1t\log\!\left(
+\sum_{y\in\Y}P_Y(y)e^{tH_0(P_{X|Y=y})}\right)
+=\max_{\substack{y\in\Y\\P_Y(y)>0}}H_0(P_{X|Y=y}).
+\end{equation}
+\end{proof}
+
+\begin{remark}
+Unless $\alpha=0$, the positive temperate moment bound is eventually violated as
+$t\to+\infty$.  Thus the positive tropical family contains only the
+$\alpha=0$ point mass.  In contrast, every point mass is allowed in the negative
+tropical family, subject to the two alternatives in
+Proposition~\ref{prop:sufficient-tropical}.
+\end{remark}
+
+\subsection{Sufficient conditions for derivations}
+
+We now turn to the derivations.
+
+\begin{proposition}
+\label{prop:sufficient-derivations}
+The function
+\begin{equation}
+P_{XY}\longmapsto
+\sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y})
+\end{equation}
+is monotone under conditionally mixing channels if $\alpha\in[0,1]$.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+For the point mass at the actual parameter $\alpha$, take $t\to0^-$ in the
+all-lower branch of Proposition~\ref{prop:sufficient-conditions}.  The finite
+log-sum-exp identity
+\begin{equation}
+\lim_{t\to0}\frac1t\log\!\left(
+\sum_{y\in\Y}P_Y(y)e^{tH_\alpha(P_{X|Y=y})}\right)
+=\sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y})
+\end{equation}
+passes monotonicity to the limit.  Equivalently, this is the concavity of the
+perspective $\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ used in Lemma~A.2
+of Ref.~\cite{rubboli2026complete}.
+\end{proof}
+
+These results identify the admissible homomorphisms and derivations.  With the
+normalizations of Definition~6.1 in Ref.~\cite{rubboli2026complete}, they give
+the families in Eqs.~(122)--(125) of that reference.
+
+\section{Necessary conditions for the parameters}
+\label{sec:necessary-conditions-measures}
+
+In this section, we show that the sufficient conditions on the parameters derived
+in the previous section are also necessary.  No assumption is made that the
+measure vanishes at a prescribed rate as $\alpha\to1$, and no global finiteness
+condition is placed on the weighted integral.  In the positive branch, concavity
+forces the lower one-sided moment to be finite and bounded.  In the exceptional
+negative branch, convexity forces both one-sided moments to be finite, whereas
+the all-lower negative branch requires no such finiteness.
+
+Our approach consists in identifying explicit perturbation directions and
+computing the signs of the second derivatives along them.  Outside the ranges of
+Section~\ref{sec:sufficient-conditions-measure}, the resulting curvature has the
+wrong sign.  Sharp counterexamples require increasingly high dimensions, but the
+underlying idea is the finite-dimensional multivariate monomial
+\begin{equation}
+\label{eq:multivariate-divergences-function}
+\vec{v}\longmapsto v_1^{\beta_0}v_2^{\beta_1}\cdots v_d^{\beta_d},
+\qquad \beta_0=1-\sum_{i=1}^d\beta_i,
+\end{equation}
+whose curvature criterion is Lemma~\ref{lem:Matrix-majorization}.  In the
+discrete entropy expression, the correspondence is
+\begin{equation}
+\beta_i\longleftrightarrow
+\tau(\{\alpha_i\})t\frac{\alpha_i}{1-\alpha_i},
+\qquad
+v_i\longleftrightarrow
+\left(\sum_jx_j^{\alpha_i}\right)^{1/\alpha_i}.
+\end{equation}
+The latter quantities are coupled through $\vec{x}$.  Blocks whose cardinalities
+and weights scale with a dimension parameter make different blocks dominate on
+different ranges of $\alpha$.  For example, appending $d$ entries of weight
+$1/d$ gives
+\begin{equation}
+\left(\sum_jy_j^\alpha\right)^{1/\alpha}
+=\left(\sum_{j=1}^k x_j^\alpha+d^{1-\alpha}\right)^{1/\alpha},
+\end{equation}
+which diverges for $\alpha<1$ and converges to
+$(\sum_{j=1}^k x_j^\alpha)^{1/\alpha}$ for $\alpha>1$.
+
+There is one analytic point that is important even in this abbreviated account.
+For each localized path used below, its support is fixed near the perturbation
+point and one maximizing coordinate remains fixed there.  On these paths the
+endpoint-aware kernels and their first two path derivatives extend continuously
+through $0$, $1$, and $+\infty$; in particular, the apparent pole at $1$ is
+removable.  One differentiates the finite-dimensional kernels before integrating,
+then truncates the high-dimensional analysis on the two sides of $1$ and passes
+to the endpoint only afterward.  Domination by total variation and monotone
+convergence make the required moment bounds conclusions of the argument.  Thus
+no derivative is exchanged with an already limiting piecewise envelope, and no
+separate finiteness assumption is needed.
+
+\subsection{Necessary conditions; temperate case}
+
+The temperate case corresponds to the bulk entropies $H_{t,\tau}$ in Eq.~(122) of
+Ref.~\cite{rubboli2026complete}.  As above, it is sufficient to study
+Eq.~\eqref{eq:conditionfunct}.  For notational convenience, combine the weight
+$t$ with the probability measure $\tau$ and write
+\begin{equation}
+\mu:=t\tau.
+\end{equation}
+Whenever the two one-sided integrals are finite, we also have the coefficient
+\begin{equation}
+\label{eq:definition-beta0}
+\beta_0=1-
+\int_{[0,+\infty]\setminus\{1\}}
+\frac{\alpha}{1-\alpha}\,\d\mu(\alpha),
+\end{equation}
+where the integral is the sum of its parts on $[0,1)$ and $(1,+\infty]$.
+
+Whenever a signed moment is written as a single ordinary real number below, it is
+the sum of the two one-sided integrals after their finiteness has been established.
+Finiteness is not a blanket hypothesis on $\mu$: before it is known, the argument
+works with endpoint-separated truncations.  The localized estimates show that if
+convexity leaves any support above $1$, the relevant one-sided moments must be
+finite.  If all support lies in $[0,1]$, no such condition is imposed.
+
+We first treat $\mu>0$, and then $\mu<0$.  In the negative case the Shannon atom,
+the signed moment, and the number of upper support points are isolated in separate
+steps, exactly matching the alternatives in
+Proposition~\ref{prop:sufficient-conditions}.
+
+\begin{proposition}
+\label{prop:first-measure}
+Let $\mu$ be a positive finite measure on $[0,+\infty]$.  The function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1
+\exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
+\d\mu(\alpha)\right)
+\end{equation}
+is concave only if
+$\operatorname{supp}(\mu)\subseteq[0,1]$, $\mu(\{1\})=0$, and
+\begin{equation}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\leq1.
+\end{equation}
+\end{proposition}
+
+\begin{proof}[Proof idea]
+For $p\in(0,1)$, use the two-block point and traceless direction
+\begin{align}
+\vec{x}&=\left[
+\underbrace{\frac p d,\ldots,\frac p d}_{d\ \mathrm{times}},
+\underbrace{\frac{1-p}{d^2},\ldots,\frac{1-p}{d^2}}_{d^2\ \mathrm{times}}
+\right],\\
+\vec{v}&=\left[
+\underbrace{-\frac1d,\ldots,-\frac1d}_{d\ \mathrm{times}},
+\underbrace{\frac1{d^2},\ldots,\frac1{d^2}}_{d^2\ \mathrm{times}}
+\right].
+\end{align}
+As $d\to\infty$, the two blocks localize the ranges below and above $1$.  Any
+Shannon mass produces a strictly positive leading curvature.  Upper mass gives a
+coefficient $\beta<0$, hence $\beta^2-\beta>0$, and a lower moment exceeding
+$1$ gives the same wrong sign with $\beta>1$.  Each case contradicts concavity.
+The truncation procedure described above justifies the limits and simultaneously
+shows that the lower moment is finite and bounded by $1$.
+\end{proof}
+
+Next, let $\mu$ be negative.
+
+\begin{proposition}
+\label{prop:no-alpha-one}
+Let $\mu$ be a negative finite measure with $\mu(\{1\})\neq0$.  Then the function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1
+\exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
+\d\mu(\alpha)\right)
+\end{equation}
+is convex only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Assume that both the Shannon atom and upper support are present.  If
+$\mu(\{1\})<0$ and $\beta_1>0$ is a localized upper contribution, the
+two-block direction is scaled as $(-\beta_1/\mu(\{1\}),1)$.  The first
+logarithmic derivative then tends to zero and the second tends to
+$-\beta_1<0$.  This is a
+genuinely concave direction and contradicts convexity.  Working first on
+truncated ranges makes the calculation finite; the endpoint limits are taken only
+after the curvature sign is fixed.
+\end{proof}
+
+\begin{proposition}
+\label{prop:second-measure}
+Let $\mu$ be a negative finite measure with $\mu(\{1\})=0$, and suppose that the
+function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1
+\exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
+\d\mu(\alpha)\right)
+\end{equation}
+is convex.  If $\operatorname{supp}(\mu)$ meets $(1,+\infty]$, then both
+one-sided integrals are finite and
+\begin{equation}
+\label{eq:negative-moment-necessary}
+\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)
++\int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\mu(\alpha)\geq1.
+\end{equation}
+Consequently, a finite signed sum smaller than $1$ is compatible with convexity
+only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+First use separated upper neighborhoods with stationary block velocities.  If
+two distinct upper portions survived, their limiting second derivative would be
+negative, so convexity leaves at most one upper point; its upper moment is
+therefore finite.  A three-block construction then controls normalization and
+localizes the lower and upper ranges.  The perturbation
+is chosen so that the first derivative is exactly zero.  On every truncation away
+from $1$, a signed moment smaller than $1$ makes the limiting second derivative
+negative.  Convexity rules this out.  Monotone passage through the truncations
+forces finiteness of the lower moment and gives
+Eq.~\eqref{eq:negative-moment-necessary}.  This is how endpoint localization
+replaces the old global finiteness hypothesis.
+\end{proof}
+
+\begin{remark}
+The points used in these counterexamples need not initially be normalized.  The
+function is positively homogeneous on the whole semiring domain, so rescaling by
+a positive constant does not change the curvature sign.  Equivalently, the
+counterexample can be embedded into a normalized joint probability matrix and
+then interpreted in the semiring of Section~3B and lifted using
+Proposition~A.1 and Lemma~A.3 of Ref.~\cite{rubboli2026complete}.
+\end{remark}
+
+\begin{remark}
+A nontraceless direction can likewise be embedded into a trace-preserving
+two-column perturbation.  If the first column changes as
+$\vec{x}+\lambda\vec{v}$, change the second as
+\begin{equation}
+\vec{x}'-\lambda\hat{x}'\sum_i v_i.
+\end{equation}
+The opposite sign is essential: it keeps the total weight fixed.  Additivity over
+the conditioning register makes the second column affine in $\lambda$, so it
+does not alter the curvature obstruction.
+\end{remark}
+
+Finally, the upper support cannot contain two distinct points.
+
+\begin{proposition}
+\label{prop:third-measure}
+Let $\mu$ be a negative finite measure with $\mu(\{1\})=0$, and suppose that the
+function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1
+\exp\!\left(\int_{[0,+\infty]}H_\alpha(\hat{x})\,
+\d\mu(\alpha)\right)
+\end{equation}
+is convex.  Then either $\operatorname{supp}(\mu)\subseteq[0,1]$, or there is a
+unique $\alpha_*\in(1,+\infty]$ such that
+\begin{equation}
+\operatorname{supp}(\mu)\subseteq[0,1]\cup\{\alpha_*\}.
+\end{equation}
+In the second case the two one-sided moments are finite and satisfy
+Eq.~\eqref{eq:negative-moment-necessary}.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+If two disjoint portions of the support lie above $1$, localize them in two
+different dominant blocks.  Their positive localized weights may be denoted
+$\beta_1,\beta_2>0$.  The block velocities are chosen to cancel the first
+derivative, while the limiting second derivative is
+\begin{equation}
+-\frac1{\beta_1}-\frac1{\beta_2}<0.
+\end{equation}
+This contradicts convexity.  Shrinking the two localization windows shows that
+the upper support has at most one point.  The finiteness and signed inequality in
+the exceptional branch are the conclusion of the joint truncation argument in
+Proposition~\ref{prop:second-measure}.
+\end{proof}
+
+Thus the last two propositions cover all negative measures without a global
+finiteness assumption; the all-lower branch still carries no moment condition.
+
+The same stationary localization proves necessity at the negative tropical
+endpoint: convexity is replaced by quasiconvexity, so one first imposes exact
+stationarity and then uses the negative second derivative.  The result is exactly
+the two alternatives of Proposition~\ref{prop:sufficient-tropical}, with the
+right-hand side of the signed moment bound equal to $0$.  At the positive
+tropical endpoint, strong max-quasiconcavity on simplex faces forces
+$\tau$ to be concentrated at $\alpha=0$: strong max-quasiconcavity would force
+the integrated entropy to be constant on each fixed-support face, whereas
+comparing a nonuniform point with the uniform point gives a strict $H_\alpha$ gap
+for every $\alpha>0$.
+Thus the negative tropical endpoint has exactly the measures of
+Proposition~\ref{prop:sufficient-tropical}, whereas the positive tropical endpoint
+is only $H_{+\infty,0}$ in Eq.~(125) of Ref.~\cite{rubboli2026complete}.
+
+\subsection{Necessary conditions for derivations}
+\label{sec:necessary-derivations}
+
+Next, we turn to the necessary conditions for the extremal derivations.  According
+to Eq.~(91) and Proposition~3.7 of Ref.~\cite{rubboli2026complete}, these are
+\begin{equation}
+H_{0,\alpha}(P_{XY})=
+\sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y}).
+\end{equation}
+It is therefore sufficient to consider the concavity of
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1H_\alpha(\hat{x}),
+\end{equation}
+as required by Lemma~A.2 of Ref.~\cite{rubboli2026complete}.  We now show that
+every $\alpha>1$, including $+\infty$, is excluded.
+
+\begin{proposition}
+\label{prop:measure-derivation}
+The function
+\begin{equation}
+\vec{x}\longmapsto\|\vec{x}\|_1H_\alpha(\hat{x})
+\end{equation}
+is concave only if $\alpha\in[0,1]$.
+\end{proposition}
+
+\begin{proof}[Proof idea]
+Use the two-block point and direction from Proposition~\ref{prop:first-measure}.
+For $\alpha>1$, put
+\begin{equation}
+\beta=\frac{\alpha}{1-\alpha}<0.
+\end{equation}
+After the large-dimensional localization, the second derivative at the origin
+tends, up to a positive factor, to
+\begin{equation}
+-\frac{\beta}{p^2}>0.
+\end{equation}
+This is a convex direction and contradicts the required concavity.  The endpoint
+$\alpha=+\infty$ follows from the same localization by taking the endpoint limit.
+\end{proof}
+
+Importing the upstream representation of derivations from Proposition~3.7 and
+Eq.~(91) of Ref.~\cite{rubboli2026complete}, and combining it with
+Proposition~\ref{prop:sufficient-derivations} and the semiring lift, gives the
+final statement.
+
+\begin{proposition}
+\label{prop:Derivations}
+The set of derivations of the conditional majorization semiring $S$ at
+$\|\cdot\|$ is spanned by the quantities $H_{0,\alpha}$ of Definition~6.1 in
+Ref.~\cite{rubboli2026complete}, with $\alpha\in[0,1]$.
+\end{proposition}
+
+The span assertion in Proposition~\ref{prop:Derivations} is imported from that
+upstream representation.  The sufficiency and curvature arguments in this note
+supply the exact restriction $\alpha\in[0,1]$ for its extremal candidates.
+
+Together, the temperate, tropical, and derivation statements give the exact
+parameter ranges for the concrete candidate families in Eqs.~(122)--(125) of
+Ref.~\cite{rubboli2026complete}; see also Definitions~6.2 and~6.3 there for the
+parameter sets.  They supply the parameter-classification input used in
+Theorem~7.1 of that paper.  The upstream representation theorem and the later
+operational applications remain results of the cited paper rather than claims of
+this standalone note.
+
+\bibliographystyle{ultimate}
+\bibliography{bibliography}
+
+\end{document}

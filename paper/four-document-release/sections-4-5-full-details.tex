@@ -1,0 +1,2818 @@
+\documentclass[aps,pra,11pt,onecolumn,nofootinbib,tightenlines]{revtex4-2}
+
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage[shortlabels]{enumitem}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{xurl}
+\usepackage{natbib}
+
+\allowdisplaybreaks[2]
+\setlength{\jot}{7pt}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\def\d{\mathrm{d}}
+\renewcommand{\thesection}{\arabic{section}}
+\makeatletter
+\renewcommand\@pnumwidth{2.5em}
+\makeatother
+
+\begin{document}
+
+\title{Sufficient and Necessary Conditions for the Parameters of Conditional Entropies: Complete Proofs}
+
+\begin{abstract}
+This standalone companion gives the complete analytic proofs of the exact
+parameter ranges for the conditional-entropy candidates introduced in
+Ref.~\cite{rubboli2026complete}. It follows the order and notation of the
+concise companion~\cite{rubboli2026parametersConcise}, but includes the real-power
+calculus, common discretization, signed-measure differentiation, two-block and
+three-block localization, the separate Shannon argument, tropical stationarity,
+and the lift from one-column shape inequalities to the original semiring and
+conditionally mixing channels. No global finiteness assumption is placed on the
+parameter measure. In the exceptional branches, the required one-sided moment
+finiteness is derived from monotonicity before the signed moment is formed.
+\end{abstract}
+
+\author{Roberto Rubboli}
+\noaffiliation
+\author{Erkka Haapasalo}
+\noaffiliation
+\author{Marco Tomamichel}
+\noaffiliation
+
+\maketitle
+\tableofcontents
+
+\section{Sufficient conditions for the parameters}
+\label{sec:sufficient-conditions}
+
+In this section, we establish sufficient conditions on the parameters under which the homomorphisms and derivations obtained in Section~3 of Ref.~\cite{rubboli2026complete} are monotone under conditional majorization. These conditions will be shown to be necessary in Section~\ref{sec:necessary-conditions}. The proofs below apply to arbitrary probability measures and do not impose a regularity assumption at the Shannon point $\alpha=1$.
+
+Let us first explain the structure of the argument. The homomorphisms in the temperate case are of the form
+\begin{equation}
+ \Phi_{t,\tau}(P_{XY})
+ =\sum_{y\in\mathcal Y}P_Y(y)
+  \exp\!\left(
+    t\int_{[0,+\infty]}H_\alpha(P_{X|Y=y})\,\mathrm d\tau(\alpha)
+  \right),
+ \label{eq:temperate-homomorphism-section4}
+\end{equation}
+where $t\in\mathbb R\setminus\{0\}$ and $\tau$ is a probability measure on $[0,+\infty]$. Appendix~A of Ref.~\cite{rubboli2026complete} relates monotonicity under stochastic maps acting on the conditioning system to a concavity or convexity property of the corresponding function on a single unnormalised column. We give the complete reduction and its converse below. For $\vec x\in\mathbb R^d_{\geq0}\setminus\{0\}$, consider
+\begin{equation}
+ \vec x\longmapsto
+ \Phi_{t,\tau}(\vec x)
+ :=\|\vec x\|_1
+ \exp\!\left(
+   t\int_{[0,+\infty]}H_\alpha(\widehat x)\,\mathrm d\tau(\alpha)
+ \right),
+ \qquad
+ \widehat x:=\frac{\vec x}{\|\vec x\|_1}.
+ \label{eq:single-column-Phi}
+\end{equation}
+We set $\Phi_{t,\tau}(0):=0$. The required property is concavity when $t>0$, corresponding to the codomain $\mathbb R_+$, and convexity when $t<0$, corresponding to $\mathbb R_+^{\mathrm{op}}$.
+
+The proof is organised as follows.
+\begin{enumerate}
+ \item We first treat finitely supported measures. In this case, the function in \eqref{eq:single-column-Phi} factorises into a monomial of power means. The admissible parameter range then follows from the curvature of the power means and of the outer monomial.
+ \item We extend the result to a general probability measure by a common discretisation of the parameter space. The word ``common'' is important: one and the same discrete measure is used at every vector appearing in a concavity or convexity inequality.
+ \item We verify monotonicity under doubly stochastic maps on the first system. This step is independent of the concavity or convexity analysis and follows from the Schur concavity of every R\'enyi entropy.
+ \item Finally, we obtain the tropical homomorphisms and the derivations. The tropical quantities arise as log-sum-exp limits, whereas the derivations are treated directly as perspectives of concave R\'enyi entropies.
+\end{enumerate}
+
+For later use, we introduce the function
+\begin{equation}
+ \omega(\alpha):=\frac{\alpha}{1-\alpha},
+ \qquad \alpha\in[0,+\infty]\setminus\{1\},
+ \qquad
+ \omega(+\infty):=-1.
+ \label{eq:def-omega}
+\end{equation}
+The value at $+\infty$ is the continuous limit of $\alpha/(1-\alpha)$ and is also the value compatible with the identity involving $H_\infty$ used below.
+
+\subsection{Reduction to one column and lift to conditionally mixing channels}
+\label{sec:channel-lift}
+
+We first make the connection between the one-column function and the original
+channel order explicit. Let $P$ be a nonnegative matrix and write
+$p_y=P(\mathord\cdot,y)$ for its columns. A conditionally mixing channel is
+specified by doubly stochastic matrices $S_k$ on the first register and
+nonnegative matrices $D_k$ on the conditioning register, with
+\begin{equation}
+ \sum_{k,y'}D_k(y,y')=1
+ \qquad\text{for every }y.
+ \label{eq:channel-normalisation}
+\end{equation}
+Its output is
+\begin{equation}
+ Q(x,y')=\sum_{k,y,z}S_k(x,z)P(z,y)D_k(y,y'),
+ \label{eq:conditional-channel-output}
+\end{equation}
+and therefore its $y'$th column is
+\begin{equation}
+ q_{y'}=\sum_{k,y}D_k(y,y')S_kp_y.
+ \label{eq:output-column-decomposition}
+\end{equation}
+All summands are nonnegative. Since every $S_k$ preserves mass,
+\begin{align}
+ \sum_{x,y'}Q(x,y')
+ &=\sum_{k,y,y'}D_k(y,y')\sum_zP(z,y)\sum_xS_k(x,z)\notag\\
+ &=\sum_y\left(\sum_{k,y'}D_k(y,y')\right)\sum_zP(z,y)
+ =\sum_{z,y}P(z,y),
+ \label{eq:channel-mass-preservation}
+\end{align}
+so the formula preserves normalization when $P$ is a probability matrix.
+
+Let $F$ be a positively homogeneous one-column functional. Concavity of $F$
+is equivalent to superadditivity on the nonnegative cone: applying concavity
+to $x/(\|x\|_1+\|z\|_1)$ and $z/(\|x\|_1+\|z\|_1)$, followed by positive
+homogeneity, gives $F(x+z)\geq F(x)+F(z)$. The same calculation shows that
+convexity is equivalent to subadditivity. Every R\'enyi entropy is Schur
+concave. Consequently, in the positive-temperature case,
+\begin{equation}
+ F(S_kp_y)\geq F(p_y),
+ \label{eq:positive-Schur-column}
+\end{equation}
+whereas in the negative-temperature case the negative exponential coefficient
+reverses this inequality:
+\begin{equation}
+ F(S_kp_y)\leq F(p_y).
+ \label{eq:negative-Schur-column}
+\end{equation}
+Using \eqref{eq:output-column-decomposition}, superadditivity, and
+\eqref{eq:channel-normalisation}, the positive branch satisfies
+\begin{align}
+ \sum_{y'}F(q_{y'})
+ &\geq\sum_{y',k,y}D_k(y,y')F(S_kp_y)\notag\\
+ &\geq\sum_{y',k,y}D_k(y,y')F(p_y)
+ =\sum_yF(p_y).
+ \label{eq:positive-channel-lift}
+\end{align}
+Convexity, subadditivity, and \eqref{eq:negative-Schur-column} give the reverse
+inequality in the negative branch. For derivations the relevant perspective is
+concave, so the first argument applies directly. The tropical inequalities
+follow either by the analogous max/min calculation or by the pointwise
+temperature limits proved below.
+
+The converse shape implication uses only a two-column merge. Put positive
+multiples of $x$ and $z$ in two conditioning columns and apply the channel
+that merges them into the single column $\lambda x+(1-\lambda)z$. Channel
+monotonicity then gives exactly the concavity or convexity inequality for $F$.
+Finally, relabeling and adjoining zero rows or columns do not change any
+candidate. Embed matrices with different alphabets into a common zero-padded
+matrix, apply the fixed-alphabet channel inequality there, and remove the
+padding. This proves the original semiring/channel lift used throughout the
+paper without adding an axiom or an extra regularity hypothesis.
+
+\subsection{Sufficient conditions for the discrete case}
+
+The discrete proof is based on two elementary curvature results. We state them in the form needed here. Complete Hessian calculations are given in Appendix~\ref{app:technical-sections45}.
+
+\begin{lemma}
+\label{lem:power-mean-curvature}
+Let $\alpha\in(0,+\infty]$. The function on the positive cone
+\begin{equation}
+ \vec x\longmapsto
+ \|\vec x\|_\alpha
+ :=\left(\sum_{i=1}^d x_i^\alpha\right)^{1/\alpha},
+ \qquad
+ \|\vec x\|_\infty:=\max_i x_i,
+ \label{eq:power-mean-function}
+\end{equation}
+ is concave for $0<\alpha<1$ and convex for $1\leq\alpha\leq+\infty$.
+\end{lemma}
+
+\begin{lemma}
+\label{lem:monomial-curvature}
+Let $N\in\mathbb N$ and let $\beta_0,\ldots,\beta_N\in\mathbb R$ satisfy
+\begin{equation}
+ \sum_{\ell=0}^N\beta_\ell=1.
+ \label{eq:beta-sum-one}
+\end{equation}
+Then the function
+\begin{equation}
+ (y_0,\ldots,y_N)\longmapsto
+ \prod_{\ell=0}^N y_\ell^{\beta_\ell}
+ \label{eq:outer-monomial}
+\end{equation}
+ on $\mathbb R_{>0}^{N+1}$ is
+\begin{enumerate}
+ \item concave if and only if $\beta_\ell\geq0$ for every $\ell$;
+ \item convex if and only if exactly one coefficient is positive and all the remaining coefficients are nonpositive.
+\end{enumerate}
+Moreover, the monomial is increasing in a coordinate with positive exponent and decreasing in a coordinate with negative exponent.
+\end{lemma}
+
+We now combine these two results. The statement includes the endpoint values $\alpha=0,1,+\infty$. Their treatment is explained explicitly in the proof.
+
+\begin{lemma}
+\label{lem:discrete-sufficient}
+Let $\tau$ be a probability measure supported on finitely many points of $[0,+\infty]$, and let $t\in\mathbb R\setminus\{0\}$. The function in \eqref{eq:single-column-Phi} is
+\begin{enumerate}
+ \item concave if $t>0$,
+ \begin{equation}
+  \operatorname{supp}(\tau)\subseteq[0,1),
+  \qquad
+  \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+  \leq\frac1t;
+  \label{eq:discrete-positive-condition}
+ \end{equation}
+ \item convex if $t<0$ and either
+ \begin{enumerate}
+  \item $\operatorname{supp}(\tau)\subseteq[0,1]$; or
+  \item there exists $\alpha_*\in(1,+\infty]$ such that
+  \begin{equation}
+   \operatorname{supp}(\tau)\subseteq[0,1)\cup\{\alpha_*\},
+   \qquad
+   \int_{[0,+\infty]\setminus\{1\}}
+   \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+   \leq\frac1t.
+   \label{eq:discrete-negative-condition}
+  \end{equation}
+ \end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We first assume that the support of $\tau$ does not contain $0$ or $1$. Write
+\begin{equation}
+ \tau=\sum_{\ell=1}^N\tau_\ell\delta_{\alpha_\ell},
+ \qquad
+ \tau_\ell>0,
+ \qquad
+ \sum_{\ell=1}^N\tau_\ell=1.
+ \label{eq:discrete-measure}
+\end{equation}
+For every finite $\alpha\neq1$, we have
+\begin{align}
+ H_\alpha(\widehat x)
+ &=\frac1{1-\alpha}
+   \log\!\left(
+     \sum_i\left(\frac{x_i}{\|\vec x\|_1}\right)^\alpha
+   \right)\notag\\
+ &=\frac1{1-\alpha}
+   \left(
+     \log\sum_i x_i^\alpha
+     -\alpha\log\|\vec x\|_1
+   \right)\notag\\
+ &=\frac{\alpha}{1-\alpha}
+   \left(
+     \log\|\vec x\|_\alpha-
+     \log\|\vec x\|_1
+   \right).
+ \label{eq:homogeneous-renyi-identity}
+\end{align}
+The same identity holds at $\alpha=+\infty$ when $\|\vec x\|_\alpha$ is replaced by $\|\vec x\|_\infty$ and $\omega(+\infty)=-1$. Indeed,
+\begin{equation}
+ H_\infty(\widehat x)
+ =-\log\max_i\frac{x_i}{\|\vec x\|_1}
+ =\log\|\vec x\|_1-
+  \log\|\vec x\|_\infty.
+ \label{eq:H-infinity-homogeneous}
+\end{equation}
+Define
+\begin{equation}
+ \beta_\ell:=t\,\omega(\alpha_\ell)\tau_\ell,
+ \qquad
+ \overline\beta:=1-\sum_{\ell=1}^N\beta_\ell.
+ \label{eq:discrete-beta-definition}
+\end{equation}
+Substituting \eqref{eq:homogeneous-renyi-identity} into \eqref{eq:single-column-Phi} gives the exact factorisation
+\begin{equation}
+ \Phi_{t,\tau}(\vec x)
+ =\|\vec x\|_1^{\overline\beta}
+  \prod_{\ell=1}^N
+  \|\vec x\|_{\alpha_\ell}^{\beta_\ell}.
+ \label{eq:discrete-factorisation}
+\end{equation}
+The exponents in \eqref{eq:discrete-factorisation} sum to one. We now analyse their signs.
+
+Assume first that $t>0$ and all support points are smaller than $1$. Since $\omega(\alpha)>0$ for $0<\alpha<1$, we have $\beta_\ell>0$. Moreover, condition \eqref{eq:discrete-positive-condition} is equivalent to
+\begin{equation}
+ \sum_{\ell=1}^N\beta_\ell
+ =t\int\omega(\alpha)\,\mathrm d\tau(\alpha)
+ \leq1,
+ \qquad\text{that is,}\qquad
+ \overline\beta\geq0.
+ \label{eq:positive-beta-signs}
+\end{equation}
+Hence all exponents of the outer monomial are nonnegative. By Lemma~\ref{lem:power-mean-curvature}, every inner function $\|\cdot\|_{\alpha_\ell}$ is concave, while $\|\cdot\|_1$ is linear. By Lemma~\ref{lem:monomial-curvature}, the outer monomial is concave and increasing in all of its arguments. Therefore, for $\lambda\in[0,1]$,
+\begin{align}
+ &\Phi_{t,\tau}(\lambda\vec x+(1-\lambda)\vec z)\notag\\
+ &\quad\geq
+ \left(\lambda\|\vec x\|_1+(1-\lambda)\|\vec z\|_1\right)^{\overline\beta}
+ \prod_{\ell=1}^N
+ \left(
+   \lambda\|\vec x\|_{\alpha_\ell}
+   +(1-\lambda)\|\vec z\|_{\alpha_\ell}
+ \right)^{\beta_\ell}
+ \notag\\
+ &\quad\geq
+ \lambda\Phi_{t,\tau}(\vec x)
+ +(1-\lambda)\Phi_{t,\tau}(\vec z),
+ \label{eq:discrete-concavity-chain}
+\end{align}
+which proves concavity.
+
+Assume next that $t<0$ and that all support points are smaller than $1$. Then every $\beta_\ell<0$, and consequently
+\begin{equation}
+ \overline\beta
+ =1-\sum_{\ell=1}^N\beta_\ell>0.
+ \label{eq:negative-below-signs}
+\end{equation}
+Thus $\overline\beta$ is the unique positive exponent. The outer monomial is convex, increasing in its first argument, and decreasing in all remaining arguments. Since the power means with $\alpha_\ell<1$ are concave, we obtain
+\begin{align}
+ &\Phi_{t,\tau}(\lambda\vec x+(1-\lambda)\vec z)\notag\\
+ &\quad\leq
+ \left(\lambda\|\vec x\|_1+(1-\lambda)\|\vec z\|_1\right)^{\overline\beta}
+ \prod_{\ell=1}^N
+ \left(
+   \lambda\|\vec x\|_{\alpha_\ell}
+   +(1-\lambda)\|\vec z\|_{\alpha_\ell}
+ \right)^{\beta_\ell}
+ \notag\\
+ &\quad\leq
+ \lambda\Phi_{t,\tau}(\vec x)
+ +(1-\lambda)\Phi_{t,\tau}(\vec z).
+ \label{eq:discrete-convexity-below-chain}
+\end{align}
+No additional integral condition is required in this case.
+
+Finally, assume that $t<0$ and that $\alpha_*>1$ is the unique support point above $1$. The exponent corresponding to $\alpha_*$ is positive because both $t$ and $\omega(\alpha_*)$ are negative. Every exponent corresponding to a point below $1$ is negative. Moreover, \eqref{eq:discrete-negative-condition} implies
+\begin{equation}
+ t\int\omega(\alpha)\,\mathrm d\tau(\alpha)\geq1,
+ \label{eq:negative-condition-multiplied}
+\end{equation}
+where the inequality reverses because $t<0$. Hence
+\begin{equation}
+ \overline\beta
+ =1-t\int\omega(\alpha)\,\mathrm d\tau(\alpha)
+ \leq0.
+ \label{eq:exceptional-normalization-exponent}
+\end{equation}
+The exponent belonging to $\alpha_*$ is therefore the unique positive exponent. Its inner function is convex, whereas every inner function carrying a negative exponent is concave or linear. The monotonicity of the outer monomial in each coordinate then gives the same two-step inequality as in \eqref{eq:discrete-convexity-below-chain}, and proves convexity. The argument includes $\alpha_*=+\infty$ by \eqref{eq:H-infinity-homogeneous} and the convexity of $\|\cdot\|_\infty$.
+
+It remains to discuss atoms at $0$ and $1$. We treat them by pointwise approximation, which avoids any separate and potentially misleading manipulation of the support factor $e^{tH_0}$.
+
+An atom at $1$ can occur only in item 2(a). Replace it by an atom of the same mass at $1-1/n$. Every approximating function is convex by the preceding argument, and it converges pointwise to the desired function because $H_{1-1/n}(p)\to H_1(p)$ for every finite probability vector $p$. Passing to the limit in the convexity inequality proves the claim.
+
+For an atom at $0$, let $a_0:=\tau(\{0\})$ and replace $a_0\delta_0$ by $a_0\delta_{\varepsilon_n}$, where $\varepsilon_n\downarrow0$. Write
+\begin{equation}
+ I:=\int_{[0,+\infty]\setminus\{0,1\}}\omega(\alpha)\,\mathrm d\tau(\alpha),
+ \qquad
+ I_n:=I+a_0\omega(\varepsilon_n),
+ \qquad
+ \delta_n:=I_n-I\downarrow0.
+ \label{eq:endpoint-zero-moments}
+\end{equation}
+In the cases with a moment constraint, define at the same time
+\begin{equation}
+ t_n:=\frac{t}{1+t\delta_n}.
+ \label{eq:endpoint-zero-t-n}
+\end{equation}
+For all sufficiently large $n$, the denominator is positive and $t_n\to t$. Moreover,
+\begin{equation}
+ t_nI_n-1
+ =\frac{tI-1}{1+t\delta_n}.
+ \label{eq:endpoint-zero-sign-preservation}
+\end{equation}
+Thus $t_nI_n\leq1$ in the positive case and $t_nI_n\geq1$ in the negative exceptional case. Every approximating function therefore has the required curvature. In the negative case supported entirely below $1$, no moment constraint is present and we simply keep $t_n=t$. Since $H_{\varepsilon_n}(p)\to H_0(p)$ for every finite probability vector $p$, the approximating functions converge pointwise to $\Phi_{t,\tau}$. Pointwise limits preserve concavity and convexity, so the endpoint $\alpha=0$ is included. The cases in which one of the vectors is zero follow from positive homogeneity. This completes the proof.
+\end{proof}
+
+\subsection{Sufficient conditions for the temperate homomorphisms -- general measure}
+
+We now extend the previous result to an arbitrary probability measure. The main point is to construct a finitely supported approximation on the parameter space which is independent of the vector $\vec x$. This permits us to use the same approximating function at $\vec x$, $\vec z$, and $\lambda\vec x+(1-\lambda)\vec z$. The required approximation and the associated dominated-convergence argument are recorded in Appendix~\ref{app:measure-approximation}; we include the complete calculation below because it is central to the passage from the discrete to the general case.
+
+\begin{proposition}
+\label{prop:general-sufficient}
+Let $\tau$ be a probability measure on $[0,+\infty]$ and let $t\in\mathbb R\setminus\{0\}$. The function in \eqref{eq:single-column-Phi} is
+\begin{enumerate}
+ \item concave if $t>0$ and
+ \begin{equation}
+  \operatorname{supp}(\tau)\subseteq[0,1],
+  \qquad
+  \tau(\{1\})=0,
+  \qquad
+  \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+  \leq\frac1t;
+  \label{eq:general-positive-condition}
+ \end{equation}
+ \item convex if $t<0$ and either
+ \begin{enumerate}
+  \item $\operatorname{supp}(\tau)\subseteq[0,1]$; or
+  \item there exists $\alpha_*\in(1,+\infty]$ such that
+  \begin{equation}
+   \begin{aligned}
+   &\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\},
+   &&\tau(\{1\})=0,\\
+   &\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,
+   &&\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,\\
+   &\int_{[0,+\infty]\setminus\{1\}}
+   \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+   \leq\frac1t.
+   \end{aligned}
+   \label{eq:general-negative-condition}
+  \end{equation}
+ \end{enumerate}
+\end{enumerate}
+The condition $\tau(\{1\})=0$ excludes an atom at $1$; it does not exclude $1$ from the topological support. In the exceptional branch the two nonnegative one-sided integrals are required to be finite before their signed difference is used. A nonatomic measure may still accumulate at $1$.
+\end{proposition}
+
+\begin{proof}
+We first prove item 1. For $n\in\mathbb N$, define the finite-valued Borel map
+\begin{equation}
+ T_n(\alpha):=\frac{\lfloor n\alpha\rfloor}{n}
+ \quad(0\leq\alpha<1),
+ \qquad
+ T_n(1):=1-\frac1n,
+ \label{eq:positive-quantizer}
+\end{equation}
+ and let
+\begin{equation}
+ \tau_n:=(T_n)_\#\tau
+ \label{eq:pushforward-tau-n}
+\end{equation}
+be the push-forward measure. Since $\tau(\{1\})=0$, the value assigned at $1$ does not affect any integral. The function $\omega$ is increasing on $[0,1)$, and $T_n(\alpha)\leq\alpha$. Therefore
+\begin{align}
+ \int\omega(\beta)\,\mathrm d\tau_n(\beta)
+ &=\int\omega(T_n(\alpha))\,\mathrm d\tau(\alpha)\notag\\
+ &\leq\int\omega(\alpha)\,\mathrm d\tau(\alpha)
+ \leq\frac1t.
+ \label{eq:quantizer-moment-preservation}
+\end{align}
+Each $\tau_n$ is finitely supported and satisfies the hypotheses of Lemma~\ref{lem:discrete-sufficient}; hence $\Phi_{t,\tau_n}$ is concave.
+
+Let $p$ be any probability vector with at most $d$ nonzero entries. The map $\alpha\mapsto H_\alpha(p)$ is continuous on the compactified interval $[0,+\infty]$, and
+\begin{equation}
+ 0\leq H_\alpha(p)\leq\log d
+ \qquad\text{for all }\alpha\in[0,+\infty].
+ \label{eq:renyi-uniform-bound}
+\end{equation}
+Since $T_n(\alpha)\to\alpha$ for $\tau$-almost every $\alpha$, the dominated convergence theorem applies and gives
+\begin{align}
+ \int H_\beta(p)\,\mathrm d\tau_n(\beta)
+ &=\int H_{T_n(\alpha)}(p)\,\mathrm d\tau(\alpha)
+ \longrightarrow
+ \int H_\alpha(p)\,\mathrm d\tau(\alpha).
+ \label{eq:common-discrete-DCT}
+\end{align}
+Consequently, $\Phi_{t,\tau_n}(\vec x)\to\Phi_{t,\tau}(\vec x)$ for every $\vec x$. Fix $\vec x,\vec z$ and $\lambda\in[0,1]$. Since the same $\tau_n$ occurs at all three vectors, we have
+\begin{equation}
+ \Phi_{t,\tau_n}(\lambda\vec x+(1-\lambda)\vec z)
+ \geq
+ \lambda\Phi_{t,\tau_n}(\vec x)
+ +(1-\lambda)\Phi_{t,\tau_n}(\vec z).
+ \label{eq:common-concavity-inequality}
+\end{equation}
+Taking $n\to\infty$ proves concavity of $\Phi_{t,\tau}$.
+
+For item 2(a), use the same definition on $[0,1)$ but set $T_n(1):=1$. The measures $\tau_n$ are finitely supported in $[0,1]$, so Lemma~\ref{lem:discrete-sufficient}, item 2(a), applies without a moment condition. Equation \eqref{eq:common-discrete-DCT} and passage to the pointwise limit prove convexity.
+
+For item 2(b), keep the exceptional point fixed and discretise only the part below $1$:
+\begin{equation}
+ T_n(\alpha_*):=\alpha_*,
+ \qquad
+ T_n(\alpha):=\frac{\lfloor n\alpha\rfloor}{n}
+ \quad(0\leq\alpha<1),
+ \qquad
+ T_n(1):=1-\frac1n.
+ \label{eq:exceptional-quantizer}
+\end{equation}
+The positive contribution of the part below $1$ can only decrease, while the negative contribution of the atom at $\alpha_*$ is unchanged. Thus
+\begin{equation}
+ \int\omega\,\mathrm d\tau_n
+ \leq\int\omega\,\mathrm d\tau
+ \leq\frac1t.
+ \label{eq:exceptional-moment-preservation}
+\end{equation}
+Every approximating function is convex by Lemma~\ref{lem:discrete-sufficient}, item 2(b). The same dominated-convergence calculation then proves convexity of the limiting function.
+\end{proof}
+
+\subsection{Monotonicity under doubly stochastic maps}
+
+The previous subsections establish the shape property required for maps acting on the conditioning system. We now verify explicitly the remaining monotonicity under doubly stochastic maps acting on the first system.
+
+Let $D$ be a doubly stochastic matrix and let $p$ be a probability vector. Then $p$ majorises $Dp$. Every R\'enyi entropy is Schur concave, including the endpoint values $\alpha=0,1,+\infty$, and therefore
+\begin{equation}
+ H_\alpha(Dp)\geq H_\alpha(p)
+ \qquad
+ \text{for every }\alpha\in[0,+\infty].
+ \label{eq:renyi-DS-monotonicity}
+\end{equation}
+If $\vec x$ is unnormalised, doubly stochasticity also preserves $\|\vec x\|_1$. Hence
+\begin{align}
+ \Phi_{t,\tau}(D\vec x)
+ &\geq\Phi_{t,\tau}(\vec x), && t>0,
+ \label{eq:DS-positive-Phi}\\
+ \Phi_{t,\tau}(D\vec x)
+ &\leq\Phi_{t,\tau}(\vec x), && t<0.
+ \label{eq:DS-negative-Phi}
+\end{align}
+The second inequality has precisely the required orientation in the oppositely ordered codomain $\mathbb R_+^{\mathrm{op}}$. Combining \eqref{eq:DS-positive-Phi}--\eqref{eq:DS-negative-Phi} with Proposition~\ref{prop:general-sufficient} and the lift proved in Section~\ref{sec:channel-lift} establishes monotonicity under all conditionally mixing channels in the stated parameter ranges.
+
+\subsection{Sufficient conditions for tropical homomorphisms}
+
+We next consider the tropical homomorphisms. The negative tropical quantity is obtained from the temperate one through the limit $t\to-\infty$. The only scalar fact needed is the following finite log-sum-exp limit. If $p_y\geq0$, $\sum_yp_y=1$, and $a_y\in\mathbb R$, then, with
+\begin{equation}
+ m:=\min_{y:p_y>0}a_y,
+ \label{eq:min-a-y}
+\end{equation}
+we have for $t<0$
+\begin{equation}
+ m\leq
+ \frac1t\log\sum_yp_ye^{ta_y}
+ \leq m+\frac{\log p_{y_*}}t,
+ \label{eq:negative-log-sum-exp-bound}
+\end{equation}
+where $y_*$ is any minimiser. Both bounds converge to $m$ as $t\to-\infty$.
+
+\begin{proposition}
+\label{prop:negative-tropical-sufficient}
+Let $\tau$ be a probability measure on $[0,+\infty]$. The function
+\begin{equation}
+ P_{XY}\longmapsto
+ \min_{y:P_Y(y)>0}
+ \int_{[0,+\infty]}
+ H_\alpha(P_{X|Y=y})\,\mathrm d\tau(\alpha)
+ \label{eq:negative-tropical-quantity}
+\end{equation}
+ is monotone under conditionally mixing channels if either
+\begin{enumerate}
+ \item $\operatorname{supp}(\tau)\subseteq[0,1]$; or
+ \item there exists $\alpha_*\in(1,+\infty]$ such that
+ \begin{equation}
+  \begin{aligned}
+  &\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\},
+  &&\tau(\{1\})=0,\\
+  &\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,
+  &&\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,\\
+  &\int_{[0,+\infty]\setminus\{1\}}
+  \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+  \leq0.
+  \end{aligned}
+  \label{eq:negative-tropical-sufficient-condition}
+ \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+In the first case, Proposition~\ref{prop:general-sufficient}, item 2(a), gives a monotone temperate homomorphism for every $t<0$. Apply $(1/t)\log$ to the corresponding monotonicity inequality and then use \eqref{eq:negative-log-sum-exp-bound} for the finitely many values of $y$. Passing to the limit $t\to-\infty$ proves monotonicity of \eqref{eq:negative-tropical-quantity}.
+
+In the second case, set
+\begin{equation}
+ I(\tau):=
+ \int_{[0,+\infty]\setminus\{1\}}
+ \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha).
+ \label{eq:def-I-tau}
+\end{equation}
+If $I(\tau)<0$, then $I(\tau)\leq1/t$ for every sufficiently large negative $t$, and Proposition~\ref{prop:general-sufficient}, item 2(b), applies. The same limiting argument proves the result.
+
+The boundary case $I(\tau)=0$ does not follow by fixing $\tau$ and applying Proposition~\ref{prop:general-sufficient} for finite $t$, because $1/t<0$. For $\varepsilon\in(0,1)$, define
+\begin{equation}
+ \tau_\varepsilon
+ :=(1-\varepsilon)\tau+
+   \varepsilon\delta_{\alpha_*}.
+ \label{eq:tropical-boundary-approximation}
+\end{equation}
+Then
+\begin{equation}
+ I(\tau_\varepsilon)
+ =\varepsilon\frac{\alpha_*}{1-\alpha_*}<0,
+ \label{eq:tropical-boundary-negative-moment}
+\end{equation}
+where the value is $-\varepsilon$ if $\alpha_*=+\infty$. Hence the tropical quantity corresponding to $\tau_\varepsilon$ is monotone. For every fixed finite joint distribution, all conditional integrals converge as $\varepsilon\downarrow0$, and the minimum of finitely many real numbers is continuous. Passing to this limit proves the case $I(\tau)=0$.
+\end{proof}
+
+\begin{proposition}
+\label{prop:positive-tropical-sufficient}
+The function
+\begin{equation}
+ P_{XY}\longmapsto
+ \max_{y:P_Y(y)>0}H_0(P_{X|Y=y})
+ \label{eq:positive-tropical-quantity}
+\end{equation}
+ is monotone under conditionally mixing channels.
+\end{proposition}
+
+\begin{proof}
+Choose $\tau=\delta_0$. The moment in Proposition~\ref{prop:general-sufficient}, item 1, is zero, so the associated temperate homomorphism is monotone for every $t>0$. Applying $(1/t)\log$ and using the positive log-sum-exp analogue of \eqref{eq:negative-log-sum-exp-bound} gives
+\begin{equation}
+ \lim_{t\to+\infty}
+ \frac1t\log\Phi_{t,\delta_0}(P_{XY})
+ =\max_{y:P_Y(y)>0}H_0(P_{X|Y=y}).
+ \label{eq:positive-tropical-limit}
+\end{equation}
+Taking the limit in the monotonicity inequality proves the claim.
+\end{proof}
+
+\begin{remark}
+If one fixed $\tau$ satisfies all conditions in Proposition~\ref{prop:general-sufficient}, item 1, for arbitrarily large $t$, then
+\begin{equation}
+ \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)=0.
+\end{equation}
+The same conditions include $\tau(\{1\})=0$. Since the displayed integrand is strictly positive on $(0,1)$, they force $\tau=\delta_0$.
+\end{remark}
+
+\subsection{Sufficient conditions for derivations}
+
+We finally consider the derivations. Although they can be obtained as first-order limits of the temperate homomorphisms, a direct proof is both shorter and more transparent.
+
+\begin{proposition}
+\label{prop:derivation-sufficient}
+Let $\tau$ be a finite positive measure supported on $[0,1]$. Then
+\begin{equation}
+ \Delta_\tau(P_{XY})
+ :=\sum_{y\in\mathcal Y}P_Y(y)
+   \int_{[0,1]}H_\alpha(P_{X|Y=y})\,\mathrm d\tau(\alpha)
+ \label{eq:general-derivation-barycentre}
+\end{equation}
+ is monotone under conditionally mixing channels. In particular,
+\begin{equation}
+ H_{0,\alpha}(P_{XY})
+ :=\sum_{y\in\mathcal Y}P_Y(y)H_\alpha(P_{X|Y=y})
+ \label{eq:extremal-derivation}
+\end{equation}
+ is monotone for every $\alpha\in[0,1]$.
+\end{proposition}
+
+\begin{proof}
+For $\alpha\in[0,1]$, the R\'enyi entropy $H_\alpha$ is concave on the probability simplex. At $\alpha=0$, for $\lambda\in(0,1)$ we have
+\begin{equation}
+ \operatorname{supp}(\lambda p+(1-\lambda)q)
+ =\operatorname{supp}(p)\cup\operatorname{supp}(q).
+ \label{eq:support-union}
+\end{equation}
+It follows that
+\begin{equation}
+ H_0(\lambda p+(1-\lambda)q)
+ \geq\max\{H_0(p),H_0(q)\}
+ \geq\lambda H_0(p)+(1-\lambda)H_0(q).
+ \label{eq:H0-concavity}
+\end{equation}
+For $\vec x\neq0$, define the perspective
+\begin{equation}
+ f_\alpha(\vec x)
+ :=\|\vec x\|_1H_\alpha(\widehat x).
+ \label{eq:renyi-perspective}
+\end{equation}
+Let $\vec x,\vec z\neq0$, let $\lambda\in[0,1]$, and put
+\begin{equation}
+ s:=\lambda\|\vec x\|_1+(1-\lambda)\|\vec z\|_1,
+ \qquad
+ \theta:=\frac{\lambda\|\vec x\|_1}{s}.
+ \label{eq:perspective-theta}
+\end{equation}
+Then
+\begin{equation}
+ \widehat{\lambda\vec x+(1-\lambda)\vec z}
+ =\theta\widehat x+(1-\theta)\widehat z.
+ \label{eq:normalised-mixture}
+\end{equation}
+Using concavity of $H_\alpha$ and multiplying by $s$ gives
+\begin{align}
+ f_\alpha(\lambda\vec x+(1-\lambda)\vec z)
+ &\geq
+ s\bigl(\theta H_\alpha(\widehat x)
+ +(1-\theta)H_\alpha(\widehat z)\bigr)\notag\\
+ &=\lambda f_\alpha(\vec x)
+ +(1-\lambda)f_\alpha(\vec z).
+ \label{eq:perspective-concavity}
+\end{align}
+The cases involving the zero vector follow from positive homogeneity. Integrating \eqref{eq:perspective-concavity} against the positive measure $\tau$ preserves the inequality. Section~\ref{sec:channel-lift} identifies this concavity property, together with \eqref{eq:renyi-DS-monotonicity}, with monotonicity under conditionally mixing channels. Notice that the required property is concavity, not convexity.
+\end{proof}
+
+The results of this section provide a sufficient parameter region for all temperate, tropical, and derivation cases. In the next section, we construct explicit counterexamples outside this region and prove that the conditions are also necessary without any auxiliary regularity assumption at $\alpha=1$.
+
+
+\section{Necessary conditions for the parameters}
+\label{sec:necessary-conditions}
+
+In this section, we prove that the sufficient conditions obtained in Section~\ref{sec:sufficient-conditions} are necessary. The proof removes the regularity assumption previously imposed near $\alpha=1$. In particular, we do not assume that the two one-sided integrals of $|\alpha/(1-\alpha)|$ are finite. Whenever such an integral appears in the final parameter region, its finiteness will be derived from monotonicity.
+
+All localizers below use only bounded truncations $[0,a)$ and $(b,+\infty]$, so their coefficients are finite without a singular-moment assumption. In an exceptional upper-support branch, support isolation first makes the upper one-sided moment finite; the truncated curvature inequalities then bound the lower one-sided moment. The signed moment is formed only after these two conclusions. Differentiation under the entropy integral itself needs no singular moment because the removable Shannon quotient is kept intact at fixed dimension.
+
+The difficulty is that the normalised R\'enyi entropy contains a cancellation at $\alpha=1$. If its two terms are separated before differentiation, the factor $\alpha/(1-\alpha)$ appears singular and one is led to impose an unnecessary integrability assumption. We therefore proceed in the following order:
+\begin{equation}
+ \boxed{
+ \text{differentiate at fixed finite dimension}
+ \;\longrightarrow\;
+ \text{integrate in }\alpha
+ \;\longrightarrow\;
+ \text{take the high-dimensional limit}.}
+ \label{eq:order-of-operations-main}
+\end{equation}
+Every interchange in \eqref{eq:order-of-operations-main} is justified in Appendix~\ref{app:technical-sections45}. The appendix proves joint continuity of the first two derivatives through $\alpha=1$, gives a complete derivative--integral interchange at fixed dimension, and establishes dimension-independent bounds for the block perturbations used below. The limiting piecewise-affine power envelope is never differentiated.
+
+For notational convenience, we combine the parameter $t$ and the probability measure $\tau$ into the finite one-signed measure
+\begin{equation}
+ \mu:=t\tau.
+ \label{eq:mu-equals-t-tau}
+\end{equation}
+Thus $\mu\geq0$ in the $\mathbb R_+$ case and $\mu\leq0$ in the $\mathbb R_+^{\mathrm{op}}$ case. We write
+\begin{equation}
+ \Phi_\mu(\vec x)
+ :=\|\vec x\|_1
+ \exp\!\left(
+   \int_{[0,+\infty]}H_\alpha(\widehat x)\,\mathrm d\mu(\alpha)
+ \right).
+ \label{eq:Phi-mu-necessary}
+\end{equation}
+For the negative tropical case, it is convenient to remove the outer norm and exponential and define
+\begin{equation}
+ G_\mu(\vec x)
+ :=\int_{[0,+\infty]}H_\alpha(\widehat x)\,\mathrm d\mu(\alpha).
+ \label{eq:G-mu-necessary}
+\end{equation}
+Since $0\leq H_\alpha(\widehat x)\leq\log d$ for a $d$-dimensional vector, both quantities are well defined for every finite measure $\mu$.
+
+Let us also clarify why the perturbation directions used below are admissible. The conditional-majorization semiring contains all finite nonnegative matrices, and in particular every positive one-column vector. If $\vec x\in\mathbb R^d_{>0}$ and $\vec v\in\mathbb R^d$, then
+\begin{equation}
+ \vec x+\lambda\vec v\in\mathbb R^d_{>0}
+ \qquad\text{whenever}\qquad
+ |\lambda|<\min_{i:v_i\neq0}\frac{x_i}{|v_i|}.
+ \label{eq:positive-line-admissibility}
+\end{equation}
+The direction $\vec v$ need not itself be nonnegative and need not be generated by a conditional mixing channel: it is a tangent direction in the cone on which concavity, convexity, or quasi-convexity is tested. The dimension and the direction may depend on an auxiliary integer $d$. A failure of the required curvature property at any sufficiently large but finite $d$ is already a valid semiring counterexample.
+
+Whenever several coordinate blocks are placed in the same column, we use the notation
+\begin{equation}
+ \operatorname{col}(z^{(1)},\ldots,z^{(m)})
+ \label{eq:col-notation}
+\end{equation}
+for their vertical concatenation. This must not be confused with the semiring direct sum $\oplus$, which would create additional conditioning columns and would change the homomorphism into a sum or a tropical maximum over those columns.
+
+The proof is organised around three elementary high-dimensional perturbations.
+\begin{enumerate}
+ \item A two-block perturbation isolates one interval of R\'enyi parameters and gives the shortest counterexamples for positive measures and for derivations.
+ \item A three-block perturbation isolates two disjoint intervals. It is needed when convexity can fail because two independent coefficients are positive, and in particular to rule out two separated portions of support above $1$.
+ \item A Shannon-point perturbation produces a bounded first-derivative spike at $\alpha=1$. It detects an atom at $1$ while making the contribution of every nonatomic measure in a neighbourhood of $1$ vanish in the high-dimensional limit.
+\end{enumerate}
+We present the limiting formulas in the main text and use them to give transparent counterexamples. Their complete derivation, including all uniform estimates and applications of dominated convergence, is contained in Appendix~\ref{app:block-localisation} and Appendix~\ref{app:Shannon-localisation}.
+
+\subsection{Necessary conditions; temperate case}
+
+\paragraph{The two-block perturbation.}
+Fix $r>0$ with $r\neq1$, choose $R>r$, and let
+\begin{equation}
+ n_{0,d}:=\lceil d^R\rceil,
+ \qquad
+ n_{1,d}:=\lceil d^{R-r}\rceil.
+ \label{eq:two-block-multiplicities-main}
+\end{equation}
+For bounded velocities $u_0,u_1$, define
+\begin{equation}
+ \vec x_r^{(d)}(\lambda)
+ :=\operatorname{col}\!\left(
+   (1+u_0\lambda)\mathbf1_{n_{0,d}},
+   d(1+u_1\lambda)\mathbf1_{n_{1,d}}
+ \right).
+ \label{eq:two-block-path-main}
+\end{equation}
+The power-sum exponents, after removal of the common factor $d^R$, are
+\begin{equation}
+ 0
+ \qquad\text{and}\qquad
+ \alpha-r.
+ \label{eq:two-block-exponents-main}
+\end{equation}
+Thus the first block dominates for $\alpha<r$ and the second for $\alpha>r$.
+
+Choose $r$ so that $|\mu|(\{r\})=0$. If $r>1$, define
+\begin{equation}
+ A_r:=\int_{(r,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha).
+ \label{eq:def-A-r}
+\end{equation}
+Since the block containing $\alpha=1$ is the first block, Appendix~\ref{app:two-block-localisation} proves
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ \log\Phi_\mu(\vec x_r^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ (1-A_r)u_0+A_ru_1,
+ \label{eq:two-block-log-first-r-above}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}
+ \log\Phi_\mu(\vec x_r^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ -(1-A_r)u_0^2-A_ru_1^2.
+ \label{eq:two-block-log-second-r-above}
+\end{align}
+If $0<r<1$, define instead
+\begin{equation}
+ B_r:=\int_{[0,r)}\omega(\alpha)\,\mathrm d\mu(\alpha).
+ \label{eq:def-B-r}
+\end{equation}
+Now the second block contains $\alpha=1$, and
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ \log\Phi_\mu(\vec x_r^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ B_ru_0+(1-B_r)u_1,
+ \label{eq:two-block-log-first-r-below}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}
+ \log\Phi_\mu(\vec x_r^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ -B_ru_0^2-(1-B_r)u_1^2.
+ \label{eq:two-block-log-second-r-below}
+\end{align}
+The convergence in these formulas is locally uniform in the velocities.
+
+\paragraph{The three-block perturbation.}
+Fix $0<a<b<+\infty$ with $a,b\neq1$, choose $R>a+b$, and define
+\begin{equation}
+ \vec x_{a,b}^{(d)}(\lambda)
+ :=\operatorname{col}\!\left(
+ (1+u_0\lambda)\mathbf1_{\lceil d^R\rceil},
+ d(1+u_1\lambda)\mathbf1_{\lceil d^{R-a}\rceil},
+ d^2(1+u_2\lambda)\mathbf1_{\lceil d^{R-a-b}\rceil}
+ \right).
+ \label{eq:three-block-path-main}
+\end{equation}
+The three power-sum exponents are
+\begin{equation}
+ q_0(\alpha)=0,
+ \qquad
+ q_1(\alpha)=\alpha-a,
+ \qquad
+ q_2(\alpha)=2\alpha-a-b.
+ \label{eq:three-block-exponents-main}
+\end{equation}
+Consequently, blocks $0,1,2$ dominate respectively on
+\begin{equation}
+ [0,a),
+ \qquad
+ (a,b),
+ \qquad
+ (b,+\infty].
+ \label{eq:three-block-cells-main}
+\end{equation}
+Let $k$ be the index of the cell containing $1$, and assume $|\mu|(\{a,b\})=0$. For $j\neq k$, put
+\begin{equation}
+ A_j:=\int_{J_j}\omega(\alpha)\,\mathrm d\mu(\alpha),
+ \label{eq:three-block-A-j}
+\end{equation}
+where $J_j$ denotes the corresponding interval in \eqref{eq:three-block-cells-main}. No integral is introduced over the cell containing $1$. Then
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ \log\Phi_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ \left(1-\sum_{j\neq k}A_j\right)u_k
+ +\sum_{j\neq k}A_ju_j,
+ \label{eq:three-block-log-first-main}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}
+ \log\Phi_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ -\left(1-\sum_{j\neq k}A_j\right)u_k^2
+ -\sum_{j\neq k}A_ju_j^2.
+ \label{eq:three-block-log-second-main}
+\end{align}
+Again, the convergence is locally uniform in $(u_0,u_1,u_2)$.
+
+\paragraph{The Shannon-point perturbation.}
+Fix a $|\mu|$-null point $c>1$, choose $p\in(0,1)$, put $q:=1-p$ and $N_d:=\lceil d^c\rceil$, and define
+\begin{equation}
+ \vec x_{\mathrm{Sh}}^{(d)}(\lambda)
+ :=\operatorname{col}\!\left(
+ \left(q+\frac{h\lambda}{\log d}\right)\mathbf1_{dN_d},
+ d\left(p-\frac{h\lambda}{\log d}\right)\mathbf1_{N_d},
+ d^2(1+v\lambda)
+ \right).
+ \label{eq:Shannon-path-main}
+\end{equation}
+The power-sum exponents are
+\begin{equation}
+ c+1,
+ \qquad
+ c+\alpha,
+ \qquad
+ 2\alpha.
+ \label{eq:Shannon-exponents-main}
+\end{equation}
+The first block dominates for $\alpha<1$, the second for $1<\alpha<c$, and the third for $\alpha>c$. The first two blocks tie at $\alpha=1$; their $1/\log d$ perturbation is chosen precisely so that the Shannon derivative remains of order one.
+
+Set
+\begin{equation}
+ m:=\mu(\{1\}),
+ \qquad
+ A_c:=\int_{(c,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha).
+ \label{eq:Shannon-m-A}
+\end{equation}
+Appendix~\ref{app:Shannon-localisation} proves
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ \log\Phi_\mu(\vec x_{\mathrm{Sh}}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow mh+A_cv,
+ \label{eq:Shannon-log-first-main}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}
+ \log\Phi_\mu(\vec x_{\mathrm{Sh}}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow-A_cv^2.
+ \label{eq:Shannon-log-second-main}
+\end{align}
+The first derivative produced by the nonatomic part of the measure in a full neighbourhood of $1$ tends to zero; only the atom $m$ survives. This is the step that removes the need for an integrability assumption at $\alpha=1$.
+
+We now apply these three perturbations. Recall that, along any affine line, if
+\begin{equation}
+ \Lambda_d(\lambda):=
+ \log\Phi_\mu(\vec x^{(d)}(\lambda)),
+ \label{eq:def-Lambda-d-main}
+\end{equation}
+then
+\begin{equation}
+ \frac{\Phi_\mu''(0)}{\Phi_\mu(0)}
+ =\Lambda_d''(0)+\bigl(\Lambda_d'(0)\bigr)^2.
+ \label{eq:Phi-second-log-main}
+\end{equation}
+Thus a positive value in \eqref{eq:Phi-second-log-main} contradicts concavity, while a negative value contradicts convexity whenever the first derivative is zero.
+
+\begin{proposition}
+\label{prop:positive-necessary}
+Let $\mu$ be an arbitrary finite positive measure. The function in \eqref{eq:Phi-mu-necessary} can be concave only if
+\begin{equation}
+ \mu(\{1\})=0,
+ \qquad
+ \operatorname{supp}(\mu)\subseteq[0,1],
+ \qquad
+ \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\mu(\alpha)
+ \leq1.
+ \label{eq:positive-necessary-condition}
+\end{equation}
+The integral is an extended nonnegative integral; the conclusion shows that it is finite.
+\end{proposition}
+
+\begin{proof}
+We prove the three statements in \eqref{eq:positive-necessary-condition} separately.
+
+First, suppose $m:=\mu(\{1\})>0$. In the Shannon perturbation choose
+\begin{equation}
+ h=1,
+ \qquad
+ v=0.
+ \label{eq:positive-atom-choice}
+\end{equation}
+Equations \eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main} give
+\begin{equation}
+ \Lambda_d'(0)\longrightarrow m,
+ \qquad
+ \Lambda_d''(0)\longrightarrow0.
+ \label{eq:positive-atom-Lambda-limits}
+\end{equation}
+Therefore
+\begin{equation}
+ \frac{\Phi_\mu''(0)}{\Phi_\mu(0)}
+ \longrightarrow m^2>0.
+ \label{eq:positive-atom-curvature}
+\end{equation}
+For every sufficiently large but finite $d$, the line \eqref{eq:Shannon-path-main} violates concavity. Hence $\mu(\{1\})=0$.
+
+Second, suppose that $\operatorname{supp}(\mu)$ intersects $(1,+\infty]$. Choose a $\mu$-null number $r>1$ such that $\mu((r,+\infty])>0$. Then
+\begin{equation}
+ A_r=\int_{(r,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)<0.
+ \label{eq:positive-tail-A-negative}
+\end{equation}
+Use the two-block perturbation with
+\begin{equation}
+ u_0=0,
+ \qquad
+ u_1=1.
+ \label{eq:positive-tail-velocities}
+\end{equation}
+Equations \eqref{eq:two-block-log-first-r-above}--\eqref{eq:two-block-log-second-r-above} yield
+\begin{equation}
+ \Lambda_d'(0)\longrightarrow A_r,
+ \qquad
+ \Lambda_d''(0)\longrightarrow-A_r.
+ \label{eq:positive-tail-Lambda-limits}
+\end{equation}
+Consequently,
+\begin{equation}
+ \frac{\Phi_\mu''(0)}{\Phi_\mu(0)}
+ \longrightarrow A_r^2-A_r
+ =A_r(A_r-1)>0,
+ \label{eq:positive-tail-curvature}
+\end{equation}
+again contradicting concavity. Hence the measure is supported on $[0,1]$.
+
+Finally, choose a $\mu$-null number $r\in(0,1)$ and define $B_r$ as in \eqref{eq:def-B-r}. Use
+\begin{equation}
+ u_0=1,
+ \qquad
+ u_1=0.
+ \label{eq:positive-moment-velocities}
+\end{equation}
+Then \eqref{eq:two-block-log-first-r-below}--\eqref{eq:two-block-log-second-r-below} give
+\begin{equation}
+ \Lambda_d'(0)\longrightarrow B_r,
+ \qquad
+ \Lambda_d''(0)\longrightarrow-B_r,
+ \label{eq:positive-moment-Lambda-limits}
+\end{equation}
+so concavity requires
+\begin{equation}
+ B_r(B_r-1)\leq0.
+ \label{eq:B-r-between-zero-one}
+\end{equation}
+Since $B_r\geq0$, this gives $B_r\leq1$. Let $r\uparrow1$ through $\mu$-null points. The functions $\omega\mathbf1_{[0,r)}$ increase pointwise to $\omega\mathbf1_{[0,1)}$, and the monotone convergence theorem yields
+\begin{equation}
+ \int_{[0,1)}\omega(\alpha)\,\mathrm d\mu(\alpha)
+ =\lim_{r\uparrow1}B_r\leq1.
+ \label{eq:positive-moment-limit}
+\end{equation}
+This proves the proposition.
+\end{proof}
+
+We now consider a finite negative measure $\mu$. The first obstruction is an atom at the Shannon point together with any support above $1$.
+
+\begin{proposition}
+\label{prop:negative-atom-necessary}
+Let $\mu$ be an arbitrary finite negative measure such that $\mu(\{1\})\neq0$. If the function in \eqref{eq:Phi-mu-necessary} is convex, then
+\begin{equation}
+ \operatorname{supp}(\mu)\subseteq[0,1].
+ \label{eq:negative-atom-support-conclusion}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Suppose that the measure has support above $1$. Choose a $|\mu|$-null point $c>1$ with $\mu((c,+\infty])<0$. Since $\omega<0$ above $1$,
+\begin{equation}
+ A_c:=\int_{(c,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:negative-atom-A-positive}
+\end{equation}
+Write $m:=\mu(\{1\})<0$ and choose in \eqref{eq:Shannon-path-main}
+\begin{equation}
+ v=1,
+ \qquad
+ h=-\frac{A_c}{m}.
+ \label{eq:negative-atom-velocities}
+\end{equation}
+Then
+\begin{equation}
+ \Lambda_d'(0)\longrightarrow mh+A_c=0,
+ \qquad
+ \Lambda_d''(0)\longrightarrow-A_c<0.
+ \label{eq:negative-atom-curvature-limit}
+\end{equation}
+By local uniformity of the convergence, the second derivative of $\Phi_\mu$ is negative for every sufficiently large finite $d$, contradicting convexity. This proves \eqref{eq:negative-atom-support-conclusion}.
+\end{proof}
+
+If there is no atom at $1$, we cannot initially define a global coefficient
+$1-\int\omega\,\mathrm d\mu$, because one or both one-sided integrals may be infinite. We instead work with truncated coefficients. This is the only modification needed to remove the former regularity assumption.
+
+\begin{proposition}
+\label{prop:negative-truncated-moment}
+Let $\mu$ be an arbitrary finite negative measure such that $\mu(\{1\})=0$, and assume that the function in \eqref{eq:Phi-mu-necessary} is convex. Let $a<1<b$ be $|\mu|$-null points such that $\mu((b,+\infty])<0$, and define
+\begin{equation}
+ B_a:=\int_{[0,a)}\omega(\alpha)\,\mathrm d\mu(\alpha)\leq0,
+ \qquad
+ A_b:=\int_{(b,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:negative-truncated-coefficients}
+\end{equation}
+Then
+\begin{equation}
+ A_b+B_a\geq1.
+ \label{eq:negative-truncated-inequality}
+\end{equation}
+In particular, if both one-sided moments exist as finite numbers and
+\begin{equation}
+ \int_{[0,+\infty]\setminus\{1\}}
+ \omega(\alpha)\,\mathrm d\mu(\alpha)<1,
+ \label{eq:negative-global-less-than-one}
+\end{equation}
+then $\mu$ cannot have support above $1$.
+\end{proposition}
+
+\begin{proof}
+Use the three-block perturbation with thresholds $a<1<b$. The middle block contains $\alpha=1$. The three coefficients in \eqref{eq:three-block-log-first-main} are
+\begin{equation}
+ B_a,
+ \qquad
+ C:=1-A_b-B_a,
+ \qquad
+ A_b.
+ \label{eq:negative-three-coefficients}
+\end{equation}
+Suppose that \eqref{eq:negative-truncated-inequality} fails. Then $C>0$, while $A_b>0$. Thus the limiting curvature has two positive coefficients. Choose the explicit velocities
+\begin{equation}
+ u_0=0,
+ \qquad
+ u_1=\frac1C,
+ \qquad
+ u_2=-\frac1{A_b}.
+ \label{eq:negative-truncated-velocities}
+\end{equation}
+The limiting first derivative is
+\begin{equation}
+ B_au_0+Cu_1+A_bu_2
+ =0+1-1=0,
+ \label{eq:negative-truncated-first-zero}
+\end{equation}
+whereas the limiting second derivative is
+\begin{equation}
+ -B_au_0^2-Cu_1^2-A_bu_2^2
+ =-\frac1C-\frac1{A_b}<0.
+ \label{eq:negative-truncated-second-negative}
+\end{equation}
+Therefore $\Phi_\mu''(0)<0$ for every sufficiently large finite $d$, contradicting convexity. Hence $C\leq0$, which is precisely \eqref{eq:negative-truncated-inequality}.
+
+If the two one-sided moments are finite and their sum is smaller than $1$, choose $a\uparrow1$ and $b\downarrow1$ through $|\mu|$-null points. The truncated coefficients converge to the corresponding one-sided integrals, so for sufficiently close $a$ and $b$ one has $A_b+B_a<1$, contradicting the first part.
+\end{proof}
+
+\begin{remark}
+The point and directions in the preceding propositions are not required to be normalised or traceless. This is not an enlargement of the semiring problem: the semiring is defined on unnormalised nonnegative matrices, and Section~\ref{sec:channel-lift} tests the curvature property on the whole cone. Positive homogeneity also shows that rescaling a counterexample does not change the sign of the relevant curvature. Thus the one-column perturbations above are directly admissible.
+\end{remark}
+
+\begin{remark}
+If one nevertheless wishes to realise the same calculation on a fixed-mass affine hyperplane, one may append a second positive column and vary its total mass by the negative of the mass variation of the first column. Additivity of the homomorphism separates the two columns, and the second column contributes only a linear correction. This optional construction leads to the same second-order obstruction, but it is not needed for the semiring argument.
+\end{remark}
+
+It remains to show that a convex negative-measure homomorphism cannot have two different support points above $1$. This is where the three-block perturbation is essential.
+
+\begin{proposition}
+\label{prop:negative-single-point}
+Let $\mu$ be an arbitrary finite negative measure. If the function in \eqref{eq:Phi-mu-necessary} is convex, then
+\begin{equation}
+ \operatorname{supp}(\mu)\cap(1,+\infty]
+ \label{eq:support-above-one-set}
+\end{equation}
+contains at most one point.
+\end{proposition}
+
+\begin{proof}
+Suppose that two distinct points
+\begin{equation}
+ 1<\alpha_1<\alpha_2\leq+\infty
+ \label{eq:two-support-points}
+\end{equation}
+lie in the support. Choose $|\mu|$-null thresholds
+\begin{equation}
+ 1<a<\alpha_1<b<\alpha_2.
+ \label{eq:two-support-thresholds}
+\end{equation}
+If $\alpha_2=+\infty$, the last inequality means that $b$ is any finite null point larger than $\alpha_1$. The first block in \eqref{eq:three-block-path-main} contains $\alpha=1$. Define
+\begin{equation}
+ A_1:=\int_{(a,b)}\omega(\alpha)\,\mathrm d\mu(\alpha)>0,
+ \qquad
+ A_2:=\int_{(b,+\infty]}\omega(\alpha)\,\mathrm d\mu(\alpha)>0.
+ \label{eq:two-positive-tail-coefficients}
+\end{equation}
+The strict inequalities follow because $\mu$ and $\omega$ are both negative above $1$, while each interval has positive $|\mu|$-measure by the definition of support.
+
+Choose
+\begin{equation}
+ u_0=0,
+ \qquad
+ u_1=\frac1{A_1},
+ \qquad
+ u_2=-\frac1{A_2}.
+ \label{eq:two-tail-velocities}
+\end{equation}
+Then the limiting first derivative in \eqref{eq:three-block-log-first-main} is
+\begin{equation}
+ A_1u_1+A_2u_2=0,
+ \label{eq:two-tail-first-zero}
+\end{equation}
+whereas the limiting second derivative is
+\begin{equation}
+ -A_1u_1^2-A_2u_2^2
+ =-\frac1{A_1}-\frac1{A_2}<0.
+ \label{eq:two-tail-second-negative}
+\end{equation}
+This gives a finite-dimensional violation of convexity for every sufficiently large $d$. Hence there can be at most one support point above $1$.
+\end{proof}
+
+We now combine the preceding results. If a convex negative-measure homomorphism has no support above $1$, no moment condition is required and an atom at $1$ is allowed. Suppose instead that there is support above $1$. Proposition~\ref{prop:negative-single-point} shows that the restriction of $\mu$ to $(1,+\infty]$ is a single atom at some $\alpha_*\in(1,+\infty]$. Proposition~\ref{prop:negative-atom-necessary} gives $\mu(\{1\})=0$.
+
+Choose $b\in(1,\alpha_*)$ with $|\mu|(\{b\})=0$. Then $A_b=\omega(\alpha_*)\mu(\{\alpha_*\})$ is a finite positive number, so the upper one-sided moment is finite. Proposition~\ref{prop:negative-truncated-moment} gives
+\begin{equation}
+ B_a\geq1-A_b
+ \qquad\text{for every null }a<1.
+ \label{eq:lower-moment-bound}
+\end{equation}
+As $a\uparrow1$, the quantities $B_a$ form a decreasing family because the integrand $\omega\,\mathrm d\mu$ is negative below $1$. The lower bound in \eqref{eq:lower-moment-bound} prevents convergence to $-\infty$. Hence the lower one-sided moment is finite. Only now, after both one-sided finiteness statements have been proved, do we form their signed difference. Taking the limit gives
+\begin{equation}
+ \int_{[0,+\infty]\setminus\{1\}}
+ \omega(\alpha)\,\mathrm d\mu(\alpha)
+ \geq1.
+ \label{eq:negative-full-moment-mu}
+\end{equation}
+Thus finiteness of the weighted integral is a consequence of convexity in the exceptional branch, rather than an assumption.
+
+Returning to $\mu=t\tau$, we obtain the exact temperate parameter conditions
+\begin{align}
+ t>0:\quad&
+ \operatorname{supp}(\tau)\subseteq[0,1],
+ \qquad
+ \tau(\{1\})=0,
+ \qquad
+ \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+ \leq\frac1t;
+ \label{eq:positive-final-parameter-region}\\
+ t<0:\quad&
+ \operatorname{supp}(\tau)\subseteq[0,1],
+ \quad\text{or}\quad
+ \begin{cases}
+  \operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\},\\
+  \tau(\{1\})=0,\\
+  \displaystyle\int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,\\
+  \displaystyle\int_{(1,+\infty]}\frac{-\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)<+\infty,\\
+  \displaystyle
+  \int_{[0,+\infty]\setminus\{1\}}
+  \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+  \leq\dfrac1t,
+ \end{cases}
+ \qquad \alpha_*\in(1,+\infty].
+ \label{eq:negative-final-parameter-region}
+\end{align}
+In \eqref{eq:negative-final-parameter-region}, division of \eqref{eq:negative-full-moment-mu} by the negative number $t$ reverses the inequality.
+
+\paragraph{The positive tropical case.}
+Put
+\begin{equation}
+ A_\tau(p):=\int_{[0,+\infty]}H_\alpha(p)\,\mathrm d\tau(\alpha).
+ \label{eq:positive-tropical-integrated-entropy}
+\end{equation}
+Positive-tropical monotonicity implies the strong max-quasi-concavity inequality
+\begin{equation}
+ A_\tau(\lambda p+(1-\lambda)q)
+ \geq\max\{A_\tau(p),A_\tau(q)\},
+ \qquad 0<\lambda<1.
+ \label{eq:strong-max-quasiconcavity}
+\end{equation}
+If $p$ and $q$ have the same support, then for every sufficiently small
+$\lambda>0$ one can write $p=\lambda q+(1-\lambda)r$ with $r$ having that
+same support. Equation~\eqref{eq:strong-max-quasiconcavity} gives
+$A_\tau(p)\geq A_\tau(q)$. Interchanging $p$ and $q$ gives equality, so
+$A_\tau$ is constant on the relative interior of every simplex face.
+
+On the binary full-support face compare
+\begin{equation}
+ p=(1/3,2/3),
+ \qquad
+ u=(1/2,1/2).
+ \label{eq:positive-tropical-binary-points}
+\end{equation}
+The preceding constancy gives $A_\tau(p)=A_\tau(u)=\log2$. On the other hand,
+$H_0(p)=\log2$ and $H_\alpha(p)<\log2$ for every
+$\alpha\in(0,+\infty]$. Therefore
+\begin{equation}
+ 0=\int_{[0,+\infty]}
+ \bigl(\log2-H_\alpha(p)\bigr)\,\mathrm d\tau(\alpha).
+ \label{eq:positive-tropical-zero-gap}
+\end{equation}
+The integrand is nonnegative and is strictly positive on $(0,+\infty]$.
+Hence $\tau((0,+\infty])=0$, and thus $\tau=\delta_0$. Together with
+Proposition~\ref{prop:positive-tropical-sufficient}, this proves the
+positive-tropical equivalence.
+
+\paragraph{Necessary conditions in the negative tropical case.}
+The negative tropical homomorphism is governed by quasi-convexity, not convexity. We therefore cannot infer a sign for the second derivative at an arbitrary point. The only second-order implication used is
+\begin{equation}
+ g\text{ is quasi-convex and }C^2,
+ \qquad
+ g'(0)=0
+ \quad\Longrightarrow\quad
+ g''(0)\geq0.
+ \label{eq:quasi-convex-second-order-main}
+\end{equation}
+The stationarity condition must hold exactly at the finite dimension where quasi-convexity is applied. Appendix~\ref{app:tropical-stationarity} proves \eqref{eq:quasi-convex-second-order-main} and shows how to make the first derivative exactly zero by a dimension-dependent correction of one velocity, while preserving the limiting negative second derivative.
+
+For the tropical function $G_\mu$ in \eqref{eq:G-mu-necessary}, the two- and three-block calculations are the same except that the norm coefficient is removed. In the three-block notation, the limiting first and second derivatives are
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ G_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ -\left(\sum_{j\neq k}A_j\right)u_k
+ +\sum_{j\neq k}A_ju_j,
+ \label{eq:tropical-three-first-main}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}
+ G_\mu(\vec x_{a,b}^{(d)}(\lambda))\bigg|_{\lambda=0}
+ &\longrightarrow
+ \left(\sum_{j\neq k}A_j\right)u_k^2
+ -\sum_{j\neq k}A_ju_j^2.
+ \label{eq:tropical-three-second-main}
+\end{align}
+The Shannon perturbation gives the same limits as \eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main}, because the norm derivatives vanish asymptotically.
+
+Applying the same counterexamples, followed in each case by the exact stationarity correction, gives the following conclusions. If $\mu(\{1\})<0$ and there is support above $1$, the choice \eqref{eq:negative-atom-velocities} gives limiting first derivative zero and limiting second derivative $-A_c<0$, contradicting quasi-convexity. If two points above $1$ belong to the support, the velocities \eqref{eq:two-tail-velocities} give limiting first derivative zero and limiting second derivative \eqref{eq:two-tail-second-negative}. Hence there is at most one point above $1$.
+
+Finally, suppose that such a point exists. For $a<1<b<\alpha_*$, use the coefficients $B_a\leq0$ and $A_b>0$ from \eqref{eq:negative-truncated-coefficients}. The three tropical coefficients are
+\begin{equation}
+ B_a,
+ \qquad
+ C:=-A_b-B_a,
+ \qquad
+ A_b,
+ \label{eq:tropical-three-coefficients-main}
+\end{equation}
+which sum to zero. If $A_b+B_a<0$, then $C>0$ and $A_b>0$. The velocities
+\begin{equation}
+ u_0=0,
+ \qquad
+ u_1=\frac1C,
+ \qquad
+ u_2=-\frac1{A_b}
+ \label{eq:tropical-moment-velocities-main}
+\end{equation}
+make the limiting first derivative zero and the limiting second derivative
+\begin{equation}
+ -\frac1C-\frac1{A_b}<0.
+ \label{eq:tropical-moment-second-main}
+\end{equation}
+After exact finite-dimensional stationarity is imposed, this contradicts quasi-convexity. Therefore $A_b+B_a\geq0$. The unique isolated atom at $\alpha_*$ makes the upper one-sided moment finite. Letting $a\uparrow1$ proves finiteness of the lower one-sided moment. Only after these two finiteness conclusions do we form the signed moment; after normalising the negative measure as $\mu=-k\tau$ with $k>0$, it satisfies
+\begin{equation}
+ \int_{[0,+\infty]\setminus\{1\}}
+ \frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)
+ \leq0.
+ \label{eq:tropical-final-moment}
+\end{equation}
+Consequently, the necessary parameter region in the negative tropical case coincides with Proposition~\ref{prop:negative-tropical-sufficient}: either the measure is supported on $[0,1]$, or it is supported on $[0,1]\cup\{\alpha_*\}$ for a unique $\alpha_*\in(1,+\infty]$, has no atom at $1$, has two finite one-sided moments, and satisfies \eqref{eq:tropical-final-moment}. No convexity argument has been used, and the second derivative has been invoked only after exact stationarity.
+
+\subsection{Necessary conditions for derivations}
+
+We finally turn to the derivations. It is useful to treat the full barycentre at once. Let $\nu$ be a finite positive measure and define on an unnormalised column
+\begin{equation}
+ D_\nu(\vec x)
+ :=\|\vec x\|_1
+   \int_{[0,+\infty]}H_\alpha(\widehat x)\,\mathrm d\nu(\alpha).
+ \label{eq:general-derivation-D-nu}
+\end{equation}
+By Section~\ref{sec:channel-lift}, monotonicity of the derivation requires concavity of $D_\nu$.
+
+\begin{proposition}
+\label{prop:derivation-necessary}
+Let $\nu$ be an arbitrary finite positive measure. If the function in \eqref{eq:general-derivation-D-nu} is concave, then
+\begin{equation}
+ \operatorname{supp}(\nu)\subseteq[0,1].
+ \label{eq:derivation-support-necessary}
+\end{equation}
+In particular, the extremal function
+\begin{equation}
+ \vec x\longmapsto
+ \|\vec x\|_1H_\alpha(\widehat x)
+ \label{eq:extremal-derivation-column}
+\end{equation}
+ is concave only if $\alpha\in[0,1]$.
+\end{proposition}
+
+\begin{proof}
+Suppose that the support of $\nu$ intersects $(1,+\infty]$. Choose a $\nu$-null point $r>1$ such that $\nu((r,+\infty])>0$, and set
+\begin{equation}
+ A_r:=\int_{(r,+\infty]}\omega(\alpha)\,\mathrm d\nu(\alpha)<0.
+ \label{eq:derivation-A-r}
+\end{equation}
+Use the two-block perturbation \eqref{eq:two-block-path-main} with $u_0=0$ and $u_1=1$. Write
+\begin{equation}
+ S_d(\lambda):=\|\vec x_r^{(d)}(\lambda)\|_1,
+ \qquad
+ K_d(\lambda):=
+ \int H_\alpha(\widehat{x_r^{(d)}(\lambda)})\,\mathrm d\nu(\alpha).
+ \label{eq:derivation-S-K}
+\end{equation}
+Since $S_d$ is affine,
+\begin{equation}
+ \frac{D_\nu''(0)}{S_d(0)}
+ =2\frac{S_d'(0)}{S_d(0)}K_d'(0)+K_d''(0).
+ \label{eq:derivation-second-product}
+\end{equation}
+The first block contains $\alpha=1$ and has velocity zero, so
+\begin{equation}
+ \frac{S_d'(0)}{S_d(0)}\longrightarrow0.
+ \label{eq:derivation-norm-derivative-zero}
+\end{equation}
+The two-block localisation gives
+\begin{equation}
+ K_d'(0)\longrightarrow A_r,
+ \qquad
+ K_d''(0)\longrightarrow-A_r>0.
+ \label{eq:derivation-K-limits}
+\end{equation}
+Substituting these limits into \eqref{eq:derivation-second-product} yields
+\begin{equation}
+ \frac{D_\nu''(0)}{S_d(0)}
+ \longrightarrow-A_r>0.
+ \label{eq:derivation-positive-curvature}
+\end{equation}
+Thus concavity fails for every sufficiently large finite $d$. This proves \eqref{eq:derivation-support-necessary}. Taking $\nu=\delta_\alpha$ gives the extremal statement.
+\end{proof}
+
+\begin{proposition}
+\label{prop:derivation-classification}
+Among the derivations represented in Section~3 of Ref.~\cite{rubboli2026complete} as positive barycentres of the quantities $H_{0,\alpha}$, the monotone ones are precisely those whose representing measure is supported on $[0,1]$. They have the form
+\begin{equation}
+ \Delta(P_{XY})
+ =\int_{[0,1]}H_{0,\alpha}(P_{XY})\,\mathrm d\tau(\alpha),
+ \label{eq:derivation-final-classification}
+\end{equation}
+where $\tau$ is a finite positive measure. Under the normalization adopted in Section~3 of Ref.~\cite{rubboli2026complete}, $\tau$ is a probability measure. Hence, within that representation theorem, the cone of monotone derivations is generated by $H_{0,\alpha}$ with $\alpha\in[0,1]$.
+\end{proposition}
+
+\begin{proof}
+The representation theorem of Section~3 in Ref.~\cite{rubboli2026complete} is the imported starting point: it represents every derivation at $\|\cdot\|$ as a positive barycentre of the quantities $H_{0,\alpha}$ with $\alpha\in[0,+\infty]$. Proposition~\ref{prop:derivation-necessary} shows that monotonicity forces the representing measure to be supported on $[0,1]$. Conversely, Proposition~\ref{prop:derivation-sufficient} proves monotonicity for every positive measure supported on $[0,1]$. This establishes \eqref{eq:derivation-final-classification}. The representation theorem itself is not reproved in this companion.
+\end{proof}
+
+The counterexamples above are deliberately chosen to be as simple as possible. A two-block vector is sufficient whenever only one forbidden coefficient must be isolated; three blocks are needed only when two independent positive coefficients must be exposed; and the separate Shannon perturbation is used only to detect an atom at $\alpha=1$. In every case, the limiting curvature is strict. Appendix~\ref{app:finite-counterexamples} explains how Taylor's theorem converts the strict limiting sign into an explicit pair of finite-dimensional semiring elements violating concavity, convexity, or quasi-convexity.
+
+\clearpage
+\appendix
+\section{Technical details for the parameter classification}
+\label{app:technical-sections45}
+
+This appendix collects the analytic statements used in Sections~\ref{sec:sufficient-conditions} and~\ref{sec:necessary-conditions}.  The purpose of separating them from the main text is twofold.  First, it keeps the counterexamples in Section~\ref{sec:necessary-conditions} visible: the main argument is a finite-dimensional curvature test with explicitly chosen velocities.  Second, it makes precise every operation which involves a parameter integral, a derivative, or a high-dimensional limit.  In particular, no appeal is made to an informal interchange of operations.
+
+The appendix is organised as follows.  In Appendix~\ref{app:measure-approximation}, we prove the curvature formulas for power means and monomials, recall the measure-theoretic results used later, and justify the common discretisation of a general R\'enyi-parameter measure.  In Appendix~\ref{app:fixed-d-calculus}, we derive the first two derivatives of the normalised R\'enyi entropy and prove differentiation under the parameter integral at every fixed finite dimension.  Appendix~\ref{app:block-localisation} proves the two- and three-block localisation formulas, including the uniform estimates needed to exchange the parameter integral with the high-dimensional limit.  Appendix~\ref{app:Shannon-localisation} treats the separate perturbation at the Shannon point.  Finally, Appendices~\ref{app:tropical-stationarity} and~\ref{app:finite-counterexamples} give the exact finite-dimensional stationarity correction required in the tropical case and convert every strict curvature sign into an actual pair of semiring elements.
+
+\subsection{Curvature, R\'enyi continuity, and common measure approximation}
+\label{app:measure-approximation}
+
+We begin with the two curvature computations used in Lemmas~\ref{lem:power-mean-curvature} and~\ref{lem:monomial-curvature}.
+
+\begin{lemma}[Hessian of the power mean]
+\label{lem:app-power-mean-hessian}
+Let $\alpha\in(0,+\infty)$ and define, on $\mathbb R^d_{>0}$,
+\begin{equation}
+ F_\alpha(\vec x):=\left(\sum_{i=1}^d x_i^\alpha\right)^{1/\alpha}.
+ \label{eq:app-F-alpha}
+\end{equation}
+For every $\vec v\in\mathbb R^d$,
+\begin{align}
+ \mathrm D^2F_\alpha(\vec x)[\vec v,\vec v]
+ ={}&(\alpha-1)
+ \left(\sum_i x_i^\alpha\right)^{1/\alpha-2}
+ \notag\\
+ &\times\left[
+ \left(\sum_i x_i^\alpha\right)
+ \left(\sum_i x_i^{\alpha-2}v_i^2\right)
+ -\left(\sum_i x_i^{\alpha-1}v_i\right)^2
+ \right].
+ \label{eq:app-power-mean-Hessian}
+\end{align}
+The expression in square brackets is nonnegative.  Consequently, $F_\alpha$ is concave for $0<\alpha<1$, linear for $\alpha=1$, and convex for $\alpha>1$.  These conclusions extend continuously from the strictly positive cone to $\mathbb R^d_{\geq0}$.  Moreover, $F_\infty(\vec x):=\max_i x_i$ is convex.
+\end{lemma}
+
+\begin{proof}
+Put
+\begin{equation}
+ S_\alpha(\vec x):=\sum_i x_i^\alpha,
+ \qquad
+ F_\alpha=S_\alpha^{1/\alpha}.
+ \label{eq:app-S-alpha}
+\end{equation}
+Along the affine line $\vec x+s\vec v$, direct differentiation gives
+\begin{align}
+ \frac{\mathrm d}{\mathrm ds}S_\alpha(\vec x+s\vec v)\bigg|_{s=0}
+ &=\alpha\sum_i x_i^{\alpha-1}v_i,
+ \label{eq:app-S-first}\\
+ \frac{\mathrm d^2}{\mathrm ds^2}S_\alpha(\vec x+s\vec v)\bigg|_{s=0}
+ &=\alpha(\alpha-1)\sum_i x_i^{\alpha-2}v_i^2.
+ \label{eq:app-S-second}
+\end{align}
+Since
+\begin{equation}
+ \frac{\mathrm d}{\mathrm ds}S_\alpha^{1/\alpha}
+ =\frac1\alpha S_\alpha^{1/\alpha-1}S_\alpha',
+ \label{eq:app-chain-first}
+\end{equation}
+we obtain
+\begin{align}
+ \frac{\mathrm d^2}{\mathrm ds^2}S_\alpha^{1/\alpha}
+ ={}&\frac1\alpha\left(\frac1\alpha-1\right)
+ S_\alpha^{1/\alpha-2}(S_\alpha')^2
+ +\frac1\alpha S_\alpha^{1/\alpha-1}S_\alpha''.
+ \label{eq:app-chain-second}
+\end{align}
+Substitution of \eqref{eq:app-S-first}--\eqref{eq:app-S-second} into \eqref{eq:app-chain-second}, followed by extraction of the common factor $(\alpha-1)S_\alpha^{1/\alpha-2}$, gives exactly \eqref{eq:app-power-mean-Hessian}.
+
+To determine the sign of the square bracket, apply the Cauchy--Schwarz inequality to the vectors
+\begin{equation}
+ a_i:=x_i^{\alpha/2},
+ \qquad
+ b_i:=x_i^{\alpha/2-1}v_i.
+ \label{eq:app-CS-vectors}
+\end{equation}
+It gives
+\begin{equation}
+ \left(\sum_i x_i^{\alpha-1}v_i\right)^2
+ =\left(\sum_i a_ib_i\right)^2
+ \leq
+ \left(\sum_i a_i^2\right)
+ \left(\sum_i b_i^2\right)
+ =\left(\sum_i x_i^\alpha\right)
+  \left(\sum_i x_i^{\alpha-2}v_i^2\right).
+ \label{eq:app-power-CS}
+\end{equation}
+Thus the bracket is nonnegative, and the sign of the Hessian is the sign of $\alpha-1$.  The extension to zero coordinates follows by replacing $\vec x$ by $\vec x+\varepsilon\mathbf1$, applying the inequality in the strictly positive cone, and letting $\varepsilon\downarrow0$.  Finally, $F_\infty$ is the pointwise maximum of the linear coordinate functions $\vec x\mapsto x_i$, and is therefore convex.
+\end{proof}
+
+\begin{lemma}[Hessian and sign classification of a monomial]
+\label{lem:app-monomial-hessian}
+Let $\beta_0,\ldots,\beta_N\in\mathbb R$ satisfy $\sum_{j=0}^N\beta_j=1$, and put
+\begin{equation}
+ M_\beta(\vec y):=\prod_{j=0}^N y_j^{\beta_j},
+ \qquad \vec y\in\mathbb R_{>0}^{N+1}.
+ \label{eq:app-M-beta}
+\end{equation}
+For every $\vec v\in\mathbb R^{N+1}$,
+\begin{equation}
+ \frac{\mathrm D^2M_\beta(\vec y)[\vec v,\vec v]}{M_\beta(\vec y)}
+ =\left(\sum_{j=0}^N\beta_j\frac{v_j}{y_j}\right)^2
+ -\sum_{j=0}^N\beta_j\left(\frac{v_j}{y_j}\right)^2.
+ \label{eq:app-monomial-Hessian}
+\end{equation}
+It follows that $M_\beta$ is concave if and only if every $\beta_j$ is nonnegative, and convex if and only if exactly one coefficient is positive and all the remaining coefficients are nonpositive.
+\end{lemma}
+
+\begin{proof}
+The logarithm of the monomial is
+\begin{equation}
+ \log M_\beta(\vec y)=\sum_j\beta_j\log y_j.
+ \label{eq:app-log-monomial}
+\end{equation}
+Consequently,
+\begin{equation}
+ \partial_iM_\beta=M_\beta\frac{\beta_i}{y_i},
+ \label{eq:app-monomial-first}
+\end{equation}
+and
+\begin{equation}
+ \partial_i\partial_jM_\beta
+ =M_\beta\left(
+   \frac{\beta_i\beta_j}{y_iy_j}
+   -\delta_{ij}\frac{\beta_i}{y_i^2}
+ \right).
+ \label{eq:app-monomial-second}
+\end{equation}
+Contracting \eqref{eq:app-monomial-second} with $v_iv_j$ proves \eqref{eq:app-monomial-Hessian}.
+
+Assume first that all $\beta_j\geq0$.  Since they sum to one, the right-hand side of \eqref{eq:app-monomial-Hessian} is the negative of the variance of the numbers $v_j/y_j$ under the probability weights $\beta_j$:
+\begin{equation}
+ \left(\sum_j\beta_ja_j\right)^2-\sum_j\beta_ja_j^2
+ =-\operatorname{Var}_\beta(a)\leq0.
+ \label{eq:app-monomial-variance}
+\end{equation}
+Hence the monomial is concave.  Conversely, if the Hessian is negative semidefinite, choose $a_j:=v_j/y_j$ with $a_k=1$ and all other coordinates zero.  Then
+\begin{equation}
+ \beta_k^2-\beta_k=\beta_k(\beta_k-1)\leq0,
+ \label{eq:app-concave-diagonal-test}
+\end{equation}
+so $0\leq\beta_k\leq1$ for every $k$.  This proves the concavity classification.
+
+Suppose next that exactly one coefficient is positive.  Relabel the coordinates so that
+\begin{equation}
+ \beta_0=1+\Gamma>0,
+ \qquad
+ \beta_j=-\gamma_j\leq0\quad(j\geq1),
+ \qquad
+ \Gamma:=\sum_{j\geq1}\gamma_j.
+ \label{eq:app-convex-beta-param}
+\end{equation}
+Writing $a_j=a_0+d_j$ for $j\geq1$, a direct calculation gives
+\begin{align}
+ \left(\sum_j\beta_ja_j\right)^2-
+ \sum_j\beta_ja_j^2
+ &=\left(a_0-\sum_{j\geq1}\gamma_jd_j\right)^2
+   -\left(a_0^2-2a_0\sum_{j\geq1}\gamma_jd_j
+          -\sum_{j\geq1}\gamma_jd_j^2\right)
+ \notag\\
+ &=\left(\sum_{j\geq1}\gamma_jd_j\right)^2
+   +\sum_{j\geq1}\gamma_jd_j^2
+ \geq0.
+ \label{eq:app-convex-monomial-square}
+\end{align}
+Thus the monomial is convex.
+
+Conversely, positive semidefiniteness and the one-coordinate test imply that each $\beta_j$ belongs to $(-\infty,0]\cup[1,+\infty)$.  If two coefficients $\beta_i$ and $\beta_j$ were positive, choose
+\begin{equation}
+ a_i=\frac1{\beta_i},
+ \qquad
+ a_j=-\frac1{\beta_j},
+ \qquad
+ a_k=0\quad(k\neq i,j).
+ \label{eq:app-two-positive-test}
+\end{equation}
+Then $\sum_k\beta_ka_k=0$, whereas
+\begin{equation}
+ \sum_k\beta_ka_k^2=\frac1{\beta_i}+\frac1{\beta_j}>0,
+ \label{eq:app-two-positive-test-value}
+\end{equation}
+so \eqref{eq:app-monomial-Hessian} is negative.  This contradicts convexity.  Since the coefficients sum to one, at least one is positive, and the convexity classification follows.
+\end{proof}
+
+We next record the elementary facts about R\'enyi entropies and measure convergence that are used in Section~\ref{sec:sufficient-conditions}.
+
+\begin{lemma}[Continuity and uniform bound for finite-dimensional R\'enyi entropy]
+\label{lem:app-renyi-continuity}
+Let $p=(p_1,\ldots,p_d)$ be a probability vector, let $s:=|\operatorname{supp}p|$, and use the standard endpoint definitions
+\begin{equation}
+ H_0(p)=\log s,
+ \qquad
+ H_1(p)=-\sum_{i:p_i>0}p_i\log p_i,
+ \qquad
+ H_\infty(p)=-\log\max_i p_i.
+ \label{eq:app-renyi-endpoints}
+\end{equation}
+Then $\alpha\mapsto H_\alpha(p)$ is continuous on the compactified interval $[0,+\infty]$, and
+\begin{equation}
+ 0\leq H_\alpha(p)\leq\log s\leq\log d
+ \qquad(\alpha\in[0,+\infty]).
+ \label{eq:app-renyi-bound}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $\alpha\in(0,+\infty)\setminus\{1\}$, write
+\begin{equation}
+ Z(\alpha):=\sum_{i:p_i>0}p_i^\alpha,
+ \qquad
+ H_\alpha(p)=\frac{\log Z(\alpha)}{1-\alpha}.
+ \label{eq:app-Z-alpha}
+\end{equation}
+The function $Z$ is smooth and strictly positive.  At $\alpha=1$, Taylor's theorem gives
+\begin{equation}
+ Z(1+h)=1+h\sum_ip_i\log p_i+o(h),
+ \label{eq:app-Z-near-one}
+\end{equation}
+whence
+\begin{equation}
+ \lim_{h\to0}\frac{\log Z(1+h)}{-h}
+ =-\sum_ip_i\log p_i=H_1(p).
+ \label{eq:app-renyi-to-Shannon}
+\end{equation}
+At $\alpha=0$, each positive term $p_i^\alpha$ converges to one, so $Z(\alpha)\to s$ and $H_\alpha(p)\to\log s$.  At $+\infty$, put $m:=\max_i p_i$.  If $q$ is the number of maximisers, then
+\begin{equation}
+ m^\alpha\leq Z(\alpha)\leq s m^\alpha.
+ \label{eq:app-Z-infinity-squeeze}
+\end{equation}
+Taking logarithms, dividing by $1-\alpha<0$, and letting $\alpha\to+\infty$ yields $H_\alpha(p)\to-\log m$.
+
+For the bound, the lower inequality follows from $Z(\alpha)\geq1$ when $0\leq\alpha<1$ and $Z(\alpha)\leq1$ when $\alpha>1$.  For the upper inequality, Jensen's inequality gives
+\begin{equation}
+ Z(\alpha)\leq s^{1-\alpha}
+ \quad(0<\alpha<1),
+ \qquad
+ Z(\alpha)\geq s^{1-\alpha}
+ \quad(\alpha>1).
+ \label{eq:app-Z-uniform-bound}
+\end{equation}
+In both cases, division by $1-\alpha$ gives $H_\alpha(p)\leq\log s$.  The endpoint inequalities follow by continuity.
+\end{proof}
+
+\begin{lemma}[Concavity and Schur concavity in the sufficient-condition ranges]
+\label{lem:app-renyi-shape}
+For every $\alpha\in[0,1]$, $H_\alpha$ is concave on each finite probability simplex.  For every $\alpha\in[0,+\infty]$, $H_\alpha$ is Schur concave.  In particular, if $D$ is doubly stochastic, then
+\begin{equation}
+ H_\alpha(Dp)\geq H_\alpha(p).
+ \label{eq:app-Schur-DS}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $0<\alpha<1$, the function $p\mapsto\sum_i p_i^\alpha$ is concave and positive, while the logarithm is increasing and concave.  Therefore, for $0\leq\lambda\leq1$,
+\begin{align}
+ \log\sum_i(\lambda p_i+(1-\lambda)q_i)^\alpha
+ &\geq\log\left(\lambda\sum_ip_i^\alpha+(1-\lambda)\sum_iq_i^\alpha\right)
+ \notag\\
+ &\geq\lambda\log\sum_ip_i^\alpha
+ +(1-\lambda)\log\sum_iq_i^\alpha.
+ \label{eq:app-renyi-concavity-chain}
+\end{align}
+Division by $1-\alpha>0$ proves concavity.  For $\alpha=1$, the Hessian of $-\sum_i p_i\log p_i$ on the interior is the diagonal matrix with entries $-1/p_i$, so the Shannon entropy is concave, and continuity extends the result to the boundary.  The case $\alpha=0$ is proved directly in \eqref{eq:H0-concavity}.
+
+For Schur concavity, suppose that $p$ majorises $q$.  Karamata's inequality gives
+\begin{equation}
+ \sum_i p_i^\alpha\leq\sum_i q_i^\alpha
+ \quad(0<\alpha<1),
+ \qquad
+ \sum_i p_i^\alpha\geq\sum_i q_i^\alpha
+ \quad(\alpha>1).
+ \label{eq:app-Karamata-power}
+\end{equation}
+For $0<\alpha<1$, the denominator $1-\alpha$ is positive; for $\alpha>1$, it is negative.  In both cases, \eqref{eq:app-Karamata-power} implies $H_\alpha(p)\leq H_\alpha(q)$.  Shannon entropy is Schur concave by the same Karamata argument applied to the concave function $-x\log x$.  If $p$ majorises $q$, then $|\operatorname{supp}p|\leq|\operatorname{supp}q|$ and $\max_i p_i\geq\max_iq_i$, proving the endpoint cases $0$ and $+\infty$.  Since $Dp$ is majorised by $p$ for every doubly stochastic $D$, \eqref{eq:app-Schur-DS} follows.
+\end{proof}
+
+For clarity, we state the measure-theoretic tools in the exact forms in which they are used.
+
+\begin{lemma}[Measure-theoretic tools]
+\label{lem:app-measure-tools}
+Let $(\Omega,\mathcal F,\nu)$ be a finite positive measure space.
+\begin{enumerate}
+ \item If $f_n\to f$ $\nu$-almost everywhere and $|f_n|\leq g$ for some $g\in L^1(\nu)$, then
+ \begin{equation}
+  \int f_n\,\mathrm d\nu\longrightarrow\int f\,\mathrm d\nu.
+  \label{eq:app-DCT-statement}
+ \end{equation}
+ \item If $0\leq f_n\uparrow f$ pointwise, then
+ \begin{equation}
+  \int f_n\,\mathrm d\nu\uparrow\int f\,\mathrm d\nu,
+  \label{eq:app-MCT-statement}
+ \end{equation}
+ where the value $+\infty$ is allowed.
+ \item If $F$ is absolutely integrable with respect to the product of two finite measures, then its iterated integrals exist and agree with its product integral.
+\end{enumerate}
+The first, second, and third statements are respectively the dominated convergence theorem, the monotone convergence theorem, and Fubini's theorem.  For a finite signed measure $\mu$, they are applied to its total-variation measure $|\mu|$.
+\end{lemma}
+
+\begin{lemma}[Common discrete approximation of the R\'enyi parameter]
+\label{lem:app-common-discretisation}
+Let $\tau$ be a finite positive measure on $[0,+\infty]$, let $T_n$ be a finite-valued Borel map such that $T_n(\alpha)\to\alpha$ for $\tau$-almost every $\alpha$, and let $\tau_n:=(T_n)_\#\tau$.  Then, for every finite probability vector $p$,
+\begin{equation}
+ \int H_\beta(p)\,\mathrm d\tau_n(\beta)
+ =\int H_{T_n(\alpha)}(p)\,\mathrm d\tau(\alpha)
+ \longrightarrow
+ \int H_\alpha(p)\,\mathrm d\tau(\alpha).
+ \label{eq:app-common-discretisation-limit}
+\end{equation}
+If the same maps $T_n$ are used for all vectors, then the same sequence of functions may be used simultaneously at every point in a concavity, convexity, or quasi-convexity inequality.
+\end{lemma}
+
+\begin{proof}
+The equality in \eqref{eq:app-common-discretisation-limit} is the defining property of a push-forward measure.  By Lemma~\ref{lem:app-renyi-continuity}, the integrand converges pointwise for $\tau$-almost every $\alpha$ and is bounded by the constant $\log d$.  Since $\tau$ is finite, this constant belongs to $L^1(\tau)$.  The dominated convergence theorem therefore proves the limit.
+
+For the final assertion, fix $\vec x,\vec z$ and $\lambda\in[0,1]$.  A curvature inequality for the $n$th approximating function compares its values at the three points $\vec x$, $\vec z$, and $\lambda\vec x+(1-\lambda)\vec z$.  The use of a single $T_n$, rather than three vector-dependent approximations, ensures that these are values of one and the same function.  Pointwise convergence at the three points then permits passage to the limit.
+\end{proof}
+
+\begin{lemma}[Pointwise limits preserve the shape inequalities]
+\label{lem:app-pointwise-shape}
+Let $C$ be a convex set and suppose that $f_n:C\to\mathbb R$ converges pointwise to $f$.  If every $f_n$ is concave, convex, or quasi-convex, then $f$ has the same respective property.
+\end{lemma}
+
+\begin{proof}
+For concavity, take the limit in
+\begin{equation}
+ f_n(\lambda x+(1-\lambda)y)
+ \geq\lambda f_n(x)+(1-\lambda)f_n(y).
+ \label{eq:app-limit-concavity}
+\end{equation}
+The convex case is identical with the opposite inequality.  For quasi-convexity, take the limit in
+\begin{equation}
+ f_n(\lambda x+(1-\lambda)y)
+ \leq\max\{f_n(x),f_n(y)\},
+ \label{eq:app-limit-quasiconvexity}
+\end{equation}
+using continuity of the maximum of two real numbers.
+\end{proof}
+
+\subsection{Differential calculus and differentiation under the parameter integral}
+\label{app:fixed-d-calculus}
+
+We now prove the fixed-dimensional differential identities used throughout Section~\ref{sec:necessary-conditions}. Keeping this step at finite dimension is essential: it is here that the cancellation at $\alpha=1$ is preserved.
+
+Let
+\begin{equation}
+ \vec x(\lambda)=\vec x+\lambda\vec v
+ \label{eq:app-affine-path}
+\end{equation}
+be an affine path in $\mathbb R^d_{>0}$ for $|\lambda|\leq\lambda_0$.  For $\alpha\in(0,+\infty)$, define
+\begin{equation}
+ \ell_\alpha(\lambda)
+ :=\frac1\alpha\log\sum_{i=1}^d x_i(\lambda)^\alpha,
+ \qquad
+ \pi_i^{(\alpha)}(\lambda)
+ :=\frac{x_i(\lambda)^\alpha}{\sum_jx_j(\lambda)^\alpha},
+ \qquad
+ u_i(\lambda):=\frac{v_i}{x_i(\lambda)}.
+ \label{eq:app-ell-pi-u}
+\end{equation}
+We use $\mathbb E_\alpha$ and $\operatorname{Var}_\alpha$ for expectation and variance under $\pi^{(\alpha)}(\lambda)$.
+
+\begin{lemma}[First and second derivatives of the logarithmic power mean]
+\label{lem:app-ell-derivatives}
+For every $\alpha\in(0,+\infty)$,
+\begin{align}
+ \ell_\alpha'(\lambda)
+ &=\mathbb E_\alpha[u],
+ \label{eq:app-ell-first}\\
+ \ell_\alpha''(\lambda)
+ &=-\mathbb E_\alpha[u^2]
+   +\alpha\operatorname{Var}_\alpha(u).
+ \label{eq:app-ell-second}
+\end{align}
+Equivalently,
+\begin{equation}
+ \ell_\alpha''(\lambda)
+ =(\alpha-1)\mathbb E_\alpha[u^2]
+ -\alpha\bigl(\mathbb E_\alpha[u]\bigr)^2.
+ \label{eq:app-ell-second-alternative}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $S_\alpha(\lambda):=\sum_i x_i(\lambda)^\alpha$.  Since $x_i'=v_i=x_i u_i$,
+\begin{equation}
+ S_\alpha'
+ =\alpha\sum_i x_i^{\alpha-1}v_i
+ =\alpha\sum_i x_i^\alpha u_i
+ =\alpha S_\alpha\mathbb E_\alpha[u].
+ \label{eq:app-S-alpha-path-first}
+\end{equation}
+Therefore
+\begin{equation}
+ \ell_\alpha'
+ =\frac1\alpha\frac{S_\alpha'}{S_\alpha}
+ =\mathbb E_\alpha[u],
+ \label{eq:app-ell-first-derivation}
+\end{equation}
+which proves \eqref{eq:app-ell-first}.
+
+The two elementary derivatives needed for the second derivative are
+\begin{equation}
+ u_i'=-u_i^2
+ \label{eq:app-u-prime}
+\end{equation}
+and
+\begin{align}
+ (\pi_i^{(\alpha)})'
+ &=\alpha\pi_i^{(\alpha)}u_i
+  -\pi_i^{(\alpha)}\frac{S_\alpha'}{S_\alpha}
+ \notag\\
+ &=\alpha\pi_i^{(\alpha)}
+  \bigl(u_i-\mathbb E_\alpha[u]\bigr).
+ \label{eq:app-pi-prime}
+\end{align}
+Differentiating \eqref{eq:app-ell-first} and using \eqref{eq:app-u-prime}--\eqref{eq:app-pi-prime} gives
+\begin{align}
+ \ell_\alpha''
+ &=\sum_i(\pi_i^{(\alpha)})'u_i
+   +\sum_i\pi_i^{(\alpha)}u_i'
+ \notag\\
+ &=\alpha\left(
+   \mathbb E_\alpha[u^2]
+   -\bigl(\mathbb E_\alpha[u]\bigr)^2
+   \right)
+   -\mathbb E_\alpha[u^2],
+ \label{eq:app-ell-second-derivation}
+\end{align}
+which is \eqref{eq:app-ell-second}; rearrangement gives \eqref{eq:app-ell-second-alternative}.
+\end{proof}
+
+For $\alpha\neq1$, the normalised R\'enyi entropy can be written without separating its cancelling terms:
+\begin{align}
+ H_\alpha(\widehat{x(\lambda)})
+ &=\frac1{1-\alpha}
+   \left(
+    \log\sum_ix_i(\lambda)^\alpha
+    -\alpha\log\sum_ix_i(\lambda)
+   \right)
+ \notag\\
+ &=\omega(\alpha)
+   \bigl(\ell_\alpha(\lambda)-\ell_1(\lambda)\bigr),
+ \label{eq:app-cancelled-entropy}
+\end{align}
+where $\ell_1(\lambda)=\log\|\vec x(\lambda)\|_1$.
+
+\begin{lemma}[Cancellation and continuity through the Shannon point]
+\label{lem:app-Shannon-cancellation}
+For $r=0,1,2$, the map
+\begin{equation}
+ (\alpha,\lambda)\longmapsto
+ \frac{\mathrm d^r}{\mathrm d\lambda^r}
+ H_\alpha(\widehat{x(\lambda)})
+ \label{eq:app-H-r-map}
+\end{equation}
+extends continuously through $\alpha=1$.  More precisely, for $\alpha$ close to $1$,
+\begin{align}
+ &\omega(\alpha)
+ \left(
+  \ell_\alpha^{(r)}(\lambda)-\ell_1^{(r)}(\lambda)
+ \right)
+ \notag\\
+ &\qquad=-\alpha\int_0^1
+ \partial_\beta
+ \ell_\beta^{(r)}(\lambda)\bigg|_{\beta=1+s(\alpha-1)}
+ \,\mathrm ds.
+ \label{eq:app-pole-cancellation}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Because every coordinate $x_i(\lambda)$ is strictly positive on the compact interval, the finite sum
+\begin{equation}
+ (\alpha,\lambda)\longmapsto
+ \sum_i\exp\bigl(\alpha\log x_i(\lambda)\bigr)
+ \label{eq:app-smooth-power-sum}
+\end{equation}
+is smooth and strictly positive on a neighbourhood of
+$[1-\eta,1+\eta]\times[-\lambda_0,\lambda_0]$ for sufficiently small $\eta>0$.  The factor $1/\alpha$ is smooth there.  Hence $\ell_\alpha^{(r)}(\lambda)$ is continuously differentiable in $\alpha$ for $r=0,1,2$.
+
+The fundamental theorem of calculus in the $\alpha$ variable yields
+\begin{align}
+ \ell_\alpha^{(r)}(\lambda)-\ell_1^{(r)}(\lambda)
+ &=(\alpha-1)\int_0^1
+ \partial_\beta\ell_\beta^{(r)}(\lambda)\bigg|_{\beta=1+s(\alpha-1)}
+ \,\mathrm ds.
+ \label{eq:app-alpha-FTC}
+\end{align}
+Since $\omega(\alpha)(\alpha-1)=-\alpha$, multiplication gives \eqref{eq:app-pole-cancellation}.  The right-hand side is jointly continuous at $\alpha=1$.  It therefore defines the continuous Shannon value of the $r$th $\lambda$ derivative.  Notice that no bound involving $1/|1-\alpha|$ has been introduced.
+\end{proof}
+
+The parameter endpoints $0$ and $+\infty$ are also needed because the representing measure may have atoms there.
+
+\begin{lemma}[Continuity of the differentiated entropy at the parameter endpoints]
+\label{lem:app-endpoint-differentiability}
+For the strictly positive affine path above, the first two $\lambda$ derivatives of $H_\alpha(\widehat{x(\lambda)})$ extend continuously to $\alpha=0$.  They vanish at $\alpha=0$.
+
+Assume, in addition, that there is a nonempty set $I$ of coordinates, a positive $C^2$ function $m(\lambda)$, and a constant $\rho<1$ such that, for all $|\lambda|\leq\lambda_0$,
+\begin{equation}
+ x_i(\lambda)=m(\lambda)\quad(i\in I),
+ \qquad
+ \max_{i\notin I}\frac{x_i(\lambda)}{m(\lambda)}\leq\rho.
+ \label{eq:app-stable-max}
+\end{equation}
+Then the first two derivatives also extend continuously to $\alpha=+\infty$, with limiting entropy
+\begin{equation}
+ H_\infty(\widehat{x(\lambda)})
+ =\ell_1(\lambda)-\log m(\lambda).
+ \label{eq:app-H-infinity-path}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For the endpoint $0$, put $p_i(\lambda):=x_i(\lambda)/\|\vec x(\lambda)\|_1$.  Compactness and strict positivity imply $p_i(\lambda)\geq m_0>0$.  Hence
+\begin{equation}
+ Z(\alpha,\lambda):=\sum_i
+ \exp\bigl(\alpha\log p_i(\lambda)\bigr)
+ \label{eq:app-Z-zero-endpoint}
+\end{equation}
+is smooth jointly in $(\alpha,\lambda)$ on a neighbourhood of
+$[0,\eta]\times[-\lambda_0,\lambda_0]$.  Since $1-\alpha$ does not vanish there,
+\begin{equation}
+ H_\alpha(p(\lambda))=\frac{\log Z(\alpha,\lambda)}{1-\alpha}
+ \label{eq:app-H-near-zero}
+\end{equation}
+is smooth up to $\alpha=0$.  At $\alpha=0$, $Z(0,\lambda)=d$, independently of $\lambda$, so $H_0=\log d$ and its first two $\lambda$ derivatives vanish.
+
+For $+\infty$, write $q:=|I|$ and
+\begin{equation}
+ r_i(\lambda):=\frac{x_i(\lambda)}{m(\lambda)}
+ \quad(i\notin I),
+ \qquad
+ R_\alpha(\lambda):=\sum_{i\notin I}r_i(\lambda)^\alpha.
+ \label{eq:app-R-infinity}
+\end{equation}
+Then
+\begin{equation}
+ \ell_\alpha(\lambda)
+ =\log m(\lambda)
+ +\frac1\alpha\log\bigl(q+R_\alpha(\lambda)\bigr).
+ \label{eq:app-ell-infinity-expansion}
+\end{equation}
+On the compact $\lambda$ interval, the functions $r_i$, $r_i'/r_i$, and their first derivatives are bounded, while $0<r_i\leq\rho$.  Therefore, for constants independent of $\alpha$ and $\lambda$,
+\begin{align}
+ |R_\alpha(\lambda)|&\leq C\rho^\alpha,
+ \label{eq:app-R0-bound}\\
+ |R_\alpha'(\lambda)|&\leq C\alpha\rho^\alpha,
+ \label{eq:app-R1-bound}\\
+ |R_\alpha''(\lambda)|&\leq C\alpha^2\rho^\alpha.
+ \label{eq:app-R2-bound}
+\end{align}
+Since $q+R_\alpha\geq q$, differentiation of \eqref{eq:app-ell-infinity-expansion} gives
+\begin{align}
+ \sup_{|\lambda|\leq\lambda_0}
+ \left|\ell_\alpha'(\lambda)-(\log m)'(\lambda)\right|
+ &\leq C\rho^\alpha,
+ \label{eq:app-infinity-first-bound}\\
+ \sup_{|\lambda|\leq\lambda_0}
+ \left|\ell_\alpha''(\lambda)-(\log m)''(\lambda)\right|
+ &\leq C(1+\alpha)\rho^\alpha.
+ \label{eq:app-infinity-second-bound}
+\end{align}
+At order zero, the additional term $(\log q)/\alpha$ tends to zero.  Since $\omega(\alpha)\to-1$ and is bounded for $\alpha\geq2$, insertion into the cancelled identity \eqref{eq:app-cancelled-entropy} proves uniform convergence of the first two entropy derivatives to those of \eqref{eq:app-H-infinity-path}.
+\end{proof}
+
+Every block path in Section~\ref{sec:necessary-conditions} has a stable largest-coordinate block, so the hypothesis \eqref{eq:app-stable-max} is satisfied.
+
+\begin{proposition}[Differentiation under the R\'enyi-parameter integral at fixed dimension]
+\label{prop:app-fixed-d-interchange}
+Let $\mu$ be a finite signed measure on $[0,+\infty]$, and let $\vec x(\lambda)$ be a strictly positive affine path on $[-\lambda_0,\lambda_0]$ satisfying the stable-maximum condition \eqref{eq:app-stable-max}.  Then
+\begin{equation}
+ F(\lambda):=
+ \int_{[0,+\infty]}
+ H_\alpha(\widehat{x(\lambda)})\,\mathrm d\mu(\alpha)
+ \label{eq:app-F-lambda-integral}
+\end{equation}
+is twice continuously differentiable and
+\begin{equation}
+ F^{(r)}(\lambda)
+ =\int_{[0,+\infty]}
+ \frac{\mathrm d^r}{\mathrm d\lambda^r}
+ H_\alpha(\widehat{x(\lambda)})\,\mathrm d\mu(\alpha),
+ \qquad r=1,2.
+ \label{eq:app-fixed-d-interchange-final}
+\end{equation}
+No weighted moment condition at $\alpha=1$ is required.
+\end{proposition}
+
+\begin{proof}
+By Lemmas~\ref{lem:app-Shannon-cancellation} and~\ref{lem:app-endpoint-differentiability}, for $r=0,1,2$ the map
+\begin{equation}
+ f_r(\alpha,\lambda):=
+ \frac{\mathrm d^r}{\mathrm d\lambda^r}
+ H_\alpha(\widehat{x(\lambda)})
+ \label{eq:app-f-r}
+\end{equation}
+is continuous on the compact set
+$[0,+\infty]\times[-\lambda_0,\lambda_0]$.  In particular, $f_1$ and $f_2$ are bounded and uniformly continuous.
+
+Fix $\lambda$ in the interior and take $h\neq0$ small enough that $\lambda+sh$ remains in the interval for every $s\in[0,1]$.  The fundamental theorem of calculus gives, pointwise in $\alpha$,
+\begin{equation}
+ \frac{f_0(\alpha,\lambda+h)-f_0(\alpha,\lambda)}h
+ =\int_0^1 f_1(\alpha,\lambda+sh)\,\mathrm ds.
+ \label{eq:app-FTC-difference-quotient}
+\end{equation}
+The right-hand side is bounded by $\sup|f_1|$, which is integrable with respect to the finite measure $|\mu|$.  Fubini's theorem therefore permits integration in either order.  Subtracting the proposed derivative gives
+\begin{align}
+ &\frac{F(\lambda+h)-F(\lambda)}h
+ -\int f_1(\alpha,\lambda)\,\mathrm d\mu(\alpha)
+ \notag\\
+ &\quad=
+ \int\!\int_0^1
+ \left[f_1(\alpha,\lambda+sh)-f_1(\alpha,\lambda)\right]
+ \,\mathrm ds\,\mathrm d\mu(\alpha).
+ \label{eq:app-fixed-d-difference}
+\end{align}
+Its absolute value is at most
+\begin{equation}
+ |\mu|([0,+\infty])
+ \sup_{\substack{\alpha\in[0,+\infty]\\s\in[0,1]}}
+ \left|f_1(\alpha,\lambda+sh)-f_1(\alpha,\lambda)\right|,
+ \label{eq:app-fixed-d-modulus}
+\end{equation}
+which tends to zero by uniform continuity of $f_1$.  This proves the case $r=1$.  Applying the same argument with $f_1$ in place of $f_0$ and $f_2$ in place of $f_1$ proves the case $r=2$.  Continuity of the resulting derivatives follows from the same uniform-continuity estimate.
+\end{proof}
+
+\subsection{Uniform block localisation and the high-dimensional limit}
+\label{app:block-localisation}
+
+We next prove the high-dimensional formulas used in Section~\ref{sec:necessary-conditions}. The exact finite-dimensional derivatives are always taken first, according to Proposition~\ref{prop:app-fixed-d-interchange}. Only then do we send $d$ to infinity.
+
+\subsubsection{General block estimates}
+
+Consider a vector divided into finitely many coordinate blocks.  At $\lambda=0$, assume that block $j$ has a common relative velocity $u_j$ and aggregate power weight
+\begin{equation}
+ \Pi_{j,d}^{(\alpha)}
+ :=\frac{\sum_{i\in j}x_i^\alpha}{\sum_ix_i^\alpha}.
+ \label{eq:app-aggregate-power-weight}
+\end{equation}
+Then Lemma~\ref{lem:app-ell-derivatives} becomes
+\begin{align}
+ \ell_{\alpha,d}'(0)
+ &=\sum_j\Pi_{j,d}^{(\alpha)}u_j,
+ \label{eq:app-block-ell-first}\\
+ \ell_{\alpha,d}''(0)
+ &=-\sum_j\Pi_{j,d}^{(\alpha)}u_j^2
+ +\alpha\operatorname{Var}_{\Pi_d^{(\alpha)}}(u).
+ \label{eq:app-block-ell-second}
+\end{align}
+
+\begin{lemma}[Dominant-block remainder]
+\label{lem:app-dominant-block}
+Let $M:=\max_j|u_j|$.  If block $j_*$ has power weight at least $1-\delta$, then
+\begin{align}
+ \left|\ell_{\alpha,d}'(0)-u_{j_*}\right|
+ &\leq2M\delta,
+ \label{eq:app-dominant-first}\\
+ \left|\ell_{\alpha,d}''(0)+u_{j_*}^2\right|
+ &\leq2M^2(1+2\alpha)\delta.
+ \label{eq:app-dominant-second}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Since the total off-block weight is at most $\delta$,
+\begin{align}
+ \left|\mathbb E[u]-u_{j_*}\right|
+ &\leq\sum_{j\neq j_*}\Pi_j|u_j-u_{j_*}|
+ \leq2M\delta,
+ \label{eq:app-dominant-mean-proof}\\
+ \left|\mathbb E[u^2]-u_{j_*}^2\right|
+ &\leq\sum_{j\neq j_*}\Pi_j|u_j^2-u_{j_*}^2|
+ \leq2M^2\delta.
+ \label{eq:app-dominant-square-proof}
+\end{align}
+Moreover,
+\begin{equation}
+ \operatorname{Var}(u)
+ \leq\mathbb E[(u-u_{j_*})^2]
+ \leq4M^2\delta.
+ \label{eq:app-dominant-var-proof}
+\end{equation}
+Substitution into \eqref{eq:app-block-ell-second} proves \eqref{eq:app-dominant-second}.
+\end{proof}
+
+The estimates near $\alpha=1$ use differentiation of power weights in the R\'enyi parameter.  If $f$ is constant on each block, then
+\begin{equation}
+ \partial_\alpha\mathbb E_\alpha[f]
+ =\operatorname{Cov}_\alpha(f,\log x).
+ \label{eq:app-alpha-covariance}
+\end{equation}
+Indeed,
+\begin{equation}
+ \partial_\alpha\pi_i^{(\alpha)}
+ =\pi_i^{(\alpha)}
+ \left(\log x_i-\mathbb E_\alpha[\log x]\right),
+ \label{eq:app-pi-alpha-derivative}
+\end{equation}
+and summation against $f_i$ yields \eqref{eq:app-alpha-covariance}.
+
+If $f$ and $g$ are constant on the dominant block, with values $f_*$ and $g_*$ there, then
+\begin{align}
+ |\operatorname{Cov}(f,g)|
+ &=\left|
+ \mathbb E[(f-f_*)(g-g_*)]
+ -\mathbb E[f-f_*]\mathbb E[g-g_*]
+ \right|
+ \notag\\
+ &\leq2\|f-f_*\|_\infty
+       \|g-g_*\|_\infty\delta.
+ \label{eq:app-covariance-concentration}
+\end{align}
+This estimate is the source of the factor $(\log d)d^{-g}$ below.
+
+\subsubsection{The two-block localiser}
+\label{app:two-block-localisation}
+
+We prove the formulas \eqref{eq:two-block-log-first-r-above}--\eqref{eq:two-block-log-second-r-below}.  At $\lambda=0$, write
+\begin{equation}
+ n_{0,d}=\theta_{0,d}d^R,
+ \qquad
+ n_{1,d}=\theta_{1,d}d^{R-r},
+ \qquad
+ 1\leq\theta_{j,d}\leq2.
+ \label{eq:app-two-ceiling-factors}
+\end{equation}
+The power sum of \eqref{eq:two-block-path-main} is
+\begin{align}
+ \sum_i x_i(\lambda)^\alpha
+ =d^R\bigl[&\theta_{0,d}(1+u_0\lambda)^\alpha
+ +\theta_{1,d}d^{\alpha-r}(1+u_1\lambda)^\alpha\bigr].
+ \label{eq:app-two-power-sum}
+\end{align}
+Thus the exponent gap between the two blocks is $|\alpha-r|$.  On every compact set $K\subset[0,r)$, the off-dominant weight satisfies
+\begin{equation}
+ \Pi_{1,d}^{(\alpha)}\leq C_Kd^{-g_K},
+ \qquad
+ g_K:=\inf_{\alpha\in K}(r-\alpha)>0,
+ \label{eq:app-two-left-gap}
+\end{equation}
+and on every compact $K\subset(r,+\infty)$,
+\begin{equation}
+ \Pi_{0,d}^{(\alpha)}\leq C_Kd^{-g_K},
+ \qquad
+ g_K:=\inf_{\alpha\in K}(\alpha-r)>0.
+ \label{eq:app-two-right-gap}
+\end{equation}
+Consequently, Lemma~\ref{lem:app-dominant-block} gives
+\begin{align}
+ \ell_{\alpha,d}'(0)&\longrightarrow u_0,
+ &\ell_{\alpha,d}''(0)&\longrightarrow-u_0^2
+ &&(\alpha<r),
+ \label{eq:app-two-ell-left}\\
+ \ell_{\alpha,d}'(0)&\longrightarrow u_1,
+ &\ell_{\alpha,d}''(0)&\longrightarrow-u_1^2
+ &&(\alpha>r).
+ \label{eq:app-two-ell-right}
+\end{align}
+Let $k=0$ if $r>1$ and $k=1$ if $r<1$; this is the block which dominates at $\alpha=1$.  Combining \eqref{eq:app-two-ell-left}--\eqref{eq:app-two-ell-right} with the cancelled identity \eqref{eq:app-cancelled-entropy} gives, for $j\neq k$ and for $\alpha$ in the cell where block $j$ dominates,
+\begin{align}
+ H_\alpha'(0)&\longrightarrow\omega(\alpha)(u_j-u_k),
+ \label{eq:app-two-H-first-pointwise}\\
+ H_\alpha''(0)&\longrightarrow\omega(\alpha)(u_k^2-u_j^2),
+ \label{eq:app-two-H-second-pointwise}
+\end{align}
+whereas both limits are zero in the cell containing $1$.
+
+We now justify integration of these limits.  Choose $\eta>0$ such that $[1-\eta,1+\eta]$ is contained in the cell containing $1$.  The exponent gap on this interval has a positive lower bound $g$.  At $\lambda=0$, the range of $\log x_i$ is at most $\log d$, and \eqref{eq:app-covariance-concentration} gives
+\begin{equation}
+ |\partial_\alpha\ell_{\alpha,d}'(0)|
+ =|\operatorname{Cov}_\alpha(u,\log x)|
+ \leq C M(\log d)d^{-g}.
+ \label{eq:app-two-alpha-first}
+\end{equation}
+Using \eqref{eq:app-ell-second-alternative}, differentiation in $\alpha$ gives the exact identity
+\begin{align}
+ \partial_\alpha\ell_{\alpha,d}''(0)
+ ={}&\operatorname{Var}_\alpha(u)
+ +(\alpha-1)\operatorname{Cov}_\alpha(u^2,\log x)
+ \notag\\
+ &-2\alpha\mathbb E_\alpha[u]
+  \operatorname{Cov}_\alpha(u,\log x).
+ \label{eq:app-alpha-ell-second-exact}
+\end{align}
+The variance is $O(M^2d^{-g})$ by \eqref{eq:app-dominant-var-proof}, and both covariances are $O(M^2(\log d)d^{-g})$.  Since $\alpha$ stays in a compact neighbourhood of $1$,
+\begin{equation}
+ |\partial_\alpha\ell_{\alpha,d}''(0)|
+ \leq C M^2(\log d)d^{-g}.
+ \label{eq:app-two-alpha-second}
+\end{equation}
+Applying the cancellation formula \eqref{eq:app-pole-cancellation} with $r=1,2$ yields
+\begin{equation}
+ \sup_{|\alpha-1|\leq\eta}|H_\alpha^{(s)}(0)|
+ \leq C_s(\log d)d^{-g},
+ \qquad s=1,2.
+ \label{eq:app-two-near-one}
+\end{equation}
+
+On any fixed compact subset separated from $1$, the elementary estimates
+\begin{equation}
+ |\ell_{\alpha,d}'(0)|\leq M,
+ \qquad
+ |\ell_{\alpha,d}''(0)|\leq(1+4\alpha)M^2
+ \label{eq:app-rough-ell-bounds}
+\end{equation}
+combine with boundedness of $\omega$ to give a constant independent of $d$.  This covers a neighbourhood of the crossing point $r$, because $r\neq1$.
+
+For the unbounded tail, take $\alpha\geq\max\{r+1,2\}$.  Directly from \eqref{eq:app-two-power-sum},
+\begin{equation}
+ \Pi_{0,d}^{(\alpha)}
+ \leq C d^{r-\alpha}
+ \leq C2^{-(\alpha-r)}.
+ \label{eq:app-two-tail-weight}
+\end{equation}
+The dominant-block estimate then bounds the apparently growing quantity
+$\alpha\operatorname{Var}(u)$ by
+\begin{equation}
+ C M^2\alpha2^{-(\alpha-r)},
+ \label{eq:app-two-tail-alpha-var}
+\end{equation}
+which is uniformly bounded.  Since $|\omega(\alpha)|\leq2$ for $\alpha\geq2$, both $H_\alpha'(0)$ and $H_\alpha''(0)$ are bounded by one constant, independently of $d$ and $\alpha$.
+
+Together, \eqref{eq:app-two-near-one}, the compact-set bound, and the tail bound provide a constant $C_M$ such that
+\begin{equation}
+ |H_\alpha'(0)|+|H_\alpha''(0)|\leq C_M
+ \quad\text{for all }d\geq2,\ \alpha\in[0,+\infty].
+ \label{eq:app-two-global-dominator}
+\end{equation}
+The constant is integrable against the finite measure $|\mu|$.  The only point where the pointwise limit can fail is $r$, and $r$ was chosen $|\mu|$-null.  Dominated convergence therefore permits the $d\to\infty$ limit to pass through the parameter integral.
+
+If $r>1$, the off-Shannon cell is $(r,+\infty]$ and its coefficient is $A_r$.  Since
+\begin{equation}
+ \frac{\mathrm d}{\mathrm d\lambda}\log\|\vec x_r^{(d)}(\lambda)\|_1\bigg|_{0}
+ =\ell_{1,d}'(0)\longrightarrow u_0,
+ \qquad
+ \ell_{1,d}''(0)\longrightarrow-u_0^2,
+ \label{eq:app-two-norm-r-above}
+\end{equation}
+we obtain
+\begin{align}
+ \Lambda_d'(0)
+ &\longrightarrow u_0+A_r(u_1-u_0)
+ =(1-A_r)u_0+A_ru_1,
+ \label{eq:app-two-final-first-above}\\
+ \Lambda_d''(0)
+ &\longrightarrow-u_0^2+A_r(u_0^2-u_1^2)
+ =-(1-A_r)u_0^2-A_ru_1^2.
+ \label{eq:app-two-final-second-above}
+\end{align}
+This proves \eqref{eq:two-block-log-first-r-above}--\eqref{eq:two-block-log-second-r-above}.  If $r<1$, the off-Shannon cell is $[0,r)$ and the same calculation with $B_r$ and $u_1$ as the norm-dominant velocity gives
+\begin{align}
+ \Lambda_d'(0)&\longrightarrow B_ru_0+(1-B_r)u_1,
+ \label{eq:app-two-final-first-below}\\
+ \Lambda_d''(0)&\longrightarrow-B_ru_0^2-(1-B_r)u_1^2,
+ \label{eq:app-two-final-second-below}
+\end{align}
+which proves \eqref{eq:two-block-log-first-r-below}--\eqref{eq:two-block-log-second-r-below}.  Every estimate depends on the velocities only through $M$, so the convergence is locally uniform in $(u_0,u_1)$.
+
+For the tropical function $G_\mu$, the norm term is absent.  Thus the corresponding limits are obtained from the preceding formulas by subtracting the limiting norm derivatives.
+
+\subsubsection{The three-block localiser}
+
+We now prove \eqref{eq:three-block-log-first-main}--\eqref{eq:three-block-log-second-main}.  Write
+\begin{equation}
+ \lceil d^R\rceil=\theta_{0,d}d^R,
+ \quad
+ \lceil d^{R-a}\rceil=\theta_{1,d}d^{R-a},
+ \quad
+ \lceil d^{R-a-b}\rceil=\theta_{2,d}d^{R-a-b},
+ \qquad1\leq\theta_{j,d}\leq2.
+ \label{eq:app-three-ceiling}
+\end{equation}
+The power sum of \eqref{eq:three-block-path-main} is
+\begin{align}
+ \sum_i x_i(\lambda)^\alpha
+ =d^R\bigl[&\theta_{0,d}(1+u_0\lambda)^\alpha
+ +\theta_{1,d}d^{\alpha-a}(1+u_1\lambda)^\alpha
+ \notag\\
+ &+\theta_{2,d}d^{2\alpha-a-b}(1+u_2\lambda)^\alpha\bigr].
+ \label{eq:app-three-power-sum}
+\end{align}
+The pairwise differences of the exponents in \eqref{eq:three-block-exponents-main} are
+\begin{equation}
+ q_1-q_0=\alpha-a,
+ \qquad
+ q_2-q_1=\alpha-b,
+ \qquad
+ q_2-q_0=2\alpha-a-b.
+ \label{eq:app-three-exponent-differences}
+\end{equation}
+It follows directly that block $0$ is uniquely dominant on $J_0=[0,a)$, block $1$ on $J_1=(a,b)$, and block $2$ on $J_2=(b,+\infty]$.
+
+On a compact set $K$ contained in one open cell, let
+\begin{equation}
+ g_K:=\min_{\alpha\in K}
+ \left(q_{j_*}(\alpha)-\max_{j\neq j_*}q_j(\alpha)\right)>0.
+ \label{eq:app-three-gap-def}
+\end{equation}
+Equation \eqref{eq:app-three-power-sum} then implies that the total off-dominant power weight is at most
+\begin{equation}
+ \delta_{\alpha,d}\leq C_Kd^{-g_K}.
+ \label{eq:app-three-cell-gap}
+\end{equation}
+Lemma~\ref{lem:app-dominant-block} therefore gives, pointwise away from $a$ and $b$,
+\begin{equation}
+ \ell_{\alpha,d}'(0)\longrightarrow u_j,
+ \qquad
+ \ell_{\alpha,d}''(0)\longrightarrow-u_j^2
+ \quad(\alpha\in J_j).
+ \label{eq:app-three-ell-cell-limit}
+\end{equation}
+Let $k$ be the unique cell containing $1$.  The norm derivatives satisfy
+\begin{equation}
+ \ell_{1,d}'(0)\longrightarrow u_k,
+ \qquad
+ \ell_{1,d}''(0)\longrightarrow-u_k^2.
+ \label{eq:app-three-norm-limit}
+\end{equation}
+Inserting these limits into \eqref{eq:app-cancelled-entropy} gives
+\begin{align}
+ H_\alpha'(0)&\longrightarrow
+ \omega(\alpha)(u_j-u_k),
+ \label{eq:app-three-H-first-pointwise}\\
+ H_\alpha''(0)&\longrightarrow
+ \omega(\alpha)(u_k^2-u_j^2)
+ \label{eq:app-three-H-second-pointwise}
+\end{align}
+for $\alpha\in J_j$, $j\neq k$, and zero limits in $J_k$.
+
+The domination argument is the same in structure as for two blocks, but we spell out the changes.  Choose $\eta>0$ such that $[1-\eta,1+\eta]\subset J_k$.  The exponent gap from the dominant block is then bounded below by some $g>0$.  At $\lambda=0$, the coordinate logarithms are $0$, $\log d$, and $2\log d$, up to no additional $d$-dependent term.  Equations \eqref{eq:app-alpha-covariance}, \eqref{eq:app-covariance-concentration}, and \eqref{eq:app-alpha-ell-second-exact} give
+\begin{align}
+ |\partial_\alpha\ell_{\alpha,d}'(0)|
+ &\leq C M(\log d)d^{-g},
+ \label{eq:app-three-alpha-first}\\
+ |\partial_\alpha\ell_{\alpha,d}''(0)|
+ &\leq C M^2(\log d)d^{-g}.
+ \label{eq:app-three-alpha-second}
+\end{align}
+The cancellation formula yields
+\begin{equation}
+ \sup_{|\alpha-1|\leq\eta}|H_\alpha^{(s)}(0)|
+ \leq C_s(\log d)d^{-g},
+ \qquad s=1,2.
+ \label{eq:app-three-near-one}
+\end{equation}
+On compact sets separated from $1$, the rough bounds \eqref{eq:app-rough-ell-bounds} apply and $\omega$ is bounded.  This includes fixed neighbourhoods of $a$ and $b$.
+
+For the unbounded tail, take $\alpha\geq\max\{b+1,2\}$.  Dividing the first two terms of \eqref{eq:app-three-power-sum} by the third gives
+\begin{align}
+ \frac{\theta_{1,d}d^{\alpha-a}}
+      {\theta_{2,d}d^{2\alpha-a-b}}
+ &\leq C d^{b-\alpha}
+ \leq C2^{-(\alpha-b)},
+ \label{eq:app-three-tail-ratio-one}\\
+ \frac{\theta_{0,d}}
+      {\theta_{2,d}d^{2\alpha-a-b}}
+ &\leq C d^{-(2\alpha-a-b)}
+ \leq C2^{-(\alpha-b)}.
+ \label{eq:app-three-tail-ratio-zero}
+\end{align}
+Thus
+\begin{equation}
+ 1-\Pi_{2,d}^{(\alpha)}
+ \leq C2^{-(\alpha-b)}.
+ \label{eq:app-three-tail-weight}
+\end{equation}
+As before, $\alpha\operatorname{Var}(u)$ is bounded by a constant multiple of $\alpha2^{-(\alpha-b)}$, and $|\omega|\leq2$ on this tail.  Hence the two differentiated entropy functions admit a constant dominator independent of both $d$ and $\alpha$.
+
+Since $a$ and $b$ are $|\mu|$-null, dominated convergence gives
+\begin{align}
+ \lim_{d\to\infty}\int H_\alpha'(0)\,\mathrm d\mu(\alpha)
+ &=\sum_{j\neq k}A_j(u_j-u_k),
+ \label{eq:app-three-integrated-first}\\
+ \lim_{d\to\infty}\int H_\alpha''(0)\,\mathrm d\mu(\alpha)
+ &=\sum_{j\neq k}A_j(u_k^2-u_j^2).
+ \label{eq:app-three-integrated-second}
+\end{align}
+Adding the norm limits \eqref{eq:app-three-norm-limit} yields
+\begin{align}
+ \Lambda_d'(0)
+ &\longrightarrow
+ \left(1-\sum_{j\neq k}A_j\right)u_k
+ +\sum_{j\neq k}A_ju_j,
+ \label{eq:app-three-final-first}\\
+ \Lambda_d''(0)
+ &\longrightarrow
+ -\left(1-\sum_{j\neq k}A_j\right)u_k^2
+ -\sum_{j\neq k}A_ju_j^2,
+ \label{eq:app-three-final-second}
+\end{align}
+which are \eqref{eq:three-block-log-first-main}--\eqref{eq:three-block-log-second-main}.  Omitting the norm term gives
+\begin{align}
+ G_d'(0)&\longrightarrow
+ -\left(\sum_{j\neq k}A_j\right)u_k
+ +\sum_{j\neq k}A_ju_j,
+ \label{eq:app-three-tropical-first}\\
+ G_d''(0)&\longrightarrow
+ \left(\sum_{j\neq k}A_j\right)u_k^2
+ -\sum_{j\neq k}A_ju_j^2,
+ \label{eq:app-three-tropical-second}
+\end{align}
+which are \eqref{eq:tropical-three-first-main}--\eqref{eq:tropical-three-second-main}.  The constants in all bounds depend on the velocities only through $M$, so the convergence is locally uniform.
+
+The preceding proof establishes the precise order
+\begin{equation}
+ \boxed{
+ \text{differentiate at fixed finite }d
+ \ \longrightarrow\ 
+ \text{integrate in }\alpha
+ \ \longrightarrow\ 
+ d\to+\infty.}
+ \label{eq:app-order-operations}
+\end{equation}
+No derivative of the limiting piecewise-affine exponent envelope is taken.
+
+\subsection{The separate perturbation at the Shannon point}
+\label{app:Shannon-localisation}
+
+The block localisers of Appendix~\ref{app:block-localisation} deliberately suppress the entire cell containing $\alpha=1$.  They therefore cannot distinguish an atom at $1$ from nonatomic mass near $1$.  The perturbation \eqref{eq:Shannon-path-main} is designed to make the Shannon first derivative converge to a prescribed finite number, while the derivatives at every fixed $\alpha\neq1$ below the second crossing converge to zero.
+
+Put
+\begin{equation}
+ L_d:=\log d,
+ \qquad
+ r_d:=\frac d{N_d}.
+ \label{eq:app-Shannon-L-r}
+\end{equation}
+Since $N_d=\lceil d^c\rceil$ and $c>1$,
+\begin{equation}
+ 0<r_d\leq d^{1-c},
+ \qquad
+ r_dL_d\longrightarrow0.
+ \label{eq:app-Shannon-r-limit}
+\end{equation}
+The total mass of the first two blocks in \eqref{eq:Shannon-path-main} is exactly $dN_d$, because their first derivatives cancel.  The third block has mass $d^2(1+v\lambda)$.  Hence
+\begin{equation}
+ \|\vec x_{\mathrm{Sh}}^{(d)}(\lambda)\|_1
+ =dN_d+d^2(1+v\lambda),
+ \label{eq:app-Shannon-total-mass}
+\end{equation}
+and
+\begin{align}
+ \ell_{1,d}'(0)
+ &=\frac{r_dv}{1+r_d},
+ \label{eq:app-Shannon-norm-first}\\
+ \ell_{1,d}''(0)
+ &=-\left(\frac{r_dv}{1+r_d}\right)^2.
+ \label{eq:app-Shannon-norm-second}
+\end{align}
+Both converge to zero, locally uniformly in $v$.
+
+We next calculate the Shannon derivative exactly enough to identify its limit.  For any strictly positive affine path, let
+\begin{equation}
+ p_i(\lambda):=\frac{x_i(\lambda)}{\sum_jx_j(\lambda)},
+ \qquad
+ w_i(\lambda):=\frac{x_i'(\lambda)}{x_i(\lambda)}.
+ \label{eq:app-Shannon-p-w}
+\end{equation}
+Then
+\begin{equation}
+ p_i'=p_i\bigl(w_i-\mathbb E_p[w]\bigr),
+ \qquad
+ w_i'=-w_i^2.
+ \label{eq:app-Shannon-pw-primes}
+\end{equation}
+
+\begin{lemma}[First two derivatives of Shannon entropy along an affine path]
+\label{lem:app-Shannon-covariance}
+With the notation above,
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}H_1(p(\lambda))
+ &=-\operatorname{Cov}_{p(\lambda)}
+   \bigl(w(\lambda),\log x(\lambda)\bigr),
+ \label{eq:app-Shannon-first-cov}\\
+ \frac{\mathrm d^2}{\mathrm d\lambda^2}H_1(p(\lambda))
+ &=-\operatorname{Var}_{p(\lambda)}(w(\lambda))
+ +2\mathbb E_{p(\lambda)}[w(\lambda)]
+  \operatorname{Cov}_{p(\lambda)}
+  \bigl(w(\lambda),\log x(\lambda)\bigr).
+ \label{eq:app-Shannon-second-cov}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Since $\log p_i=\log x_i-\log\sum_jx_j$, covariance with $\log p$ equals covariance with $\log x$.  Differentiating
+\begin{equation}
+ H_1(p)=-\sum_ip_i\log p_i
+ \label{eq:app-Shannon-definition}
+\end{equation}
+and using $\sum_ip_i'=0$ gives
+\begin{align}
+ H_1'
+ &=-\sum_ip_i'\log p_i
+ =-\sum_ip_i\bigl(w_i-\mathbb E_p[w]\bigr)\log p_i
+ \notag\\
+ &=-\operatorname{Cov}_p(w,\log p)
+ =-\operatorname{Cov}_p(w,\log x),
+ \label{eq:app-Shannon-first-proof}
+\end{align}
+which proves \eqref{eq:app-Shannon-first-cov}.
+
+For any differentiable observable $f_i(\lambda)$,
+\begin{align}
+ \frac{\mathrm d}{\mathrm d\lambda}\mathbb E_p[f]
+ &=\sum_ip_i'f_i+\sum_ip_if_i'
+ \notag\\
+ &=\operatorname{Cov}_p(f,w)+\mathbb E_p[f'].
+ \label{eq:app-expectation-derivative}
+\end{align}
+Applying this identity to the covariance in \eqref{eq:app-Shannon-first-cov}, using $(\log x_i)'=w_i$ and $w_i'=-w_i^2$, gives
+\begin{equation}
+ \frac{\mathrm d}{\mathrm d\lambda}
+ \operatorname{Cov}_p(w,\log x)
+ =\operatorname{Var}_p(w)
+ -2\mathbb E_p[w]\operatorname{Cov}_p(w,\log x).
+ \label{eq:app-covariance-derivative-Shannon}
+\end{equation}
+Negating this identity proves \eqref{eq:app-Shannon-second-cov}.
+\end{proof}
+
+At $\lambda=0$, the relative velocities in the three blocks are
+\begin{equation}
+ w_{0,d}=\frac h{qL_d},
+ \qquad
+ w_{1,d}=-\frac h{pL_d},
+ \qquad
+ w_{2,d}=v.
+ \label{eq:app-Shannon-block-velocities}
+\end{equation}
+The normalised masses of the three blocks are
+\begin{equation}
+ P_{0,d}=\frac q{1+r_d},
+ \qquad
+ P_{1,d}=\frac p{1+r_d},
+ \qquad
+ P_{2,d}=\frac{r_d}{1+r_d}.
+ \label{eq:app-Shannon-block-masses}
+\end{equation}
+If the third block is temporarily omitted, the mean velocity is zero and a direct substitution into \eqref{eq:app-Shannon-first-cov} gives
+\begin{align}
+ H_1'(0)
+ &=-\left[
+ q\frac h{qL_d}\log q
+ +p\left(-\frac h{pL_d}\right)(L_d+\log p)
+ \right]
+ \notag\\
+ &=h+\frac h{L_d}\log\frac pq.
+ \label{eq:app-Shannon-first-two-block-exact}
+\end{align}
+Likewise, \eqref{eq:app-Shannon-second-cov} reduces to the negative variance,
+\begin{equation}
+ H_1''(0)
+ =-\frac{h^2}{L_d^2}
+ \left(\frac1p+\frac1q\right).
+ \label{eq:app-Shannon-second-two-block-exact}
+\end{equation}
+The third block has normalised mass $O(r_d)$, its relative velocity is bounded on compact $(h,v)$ sets, and its logarithmic coordinate differs from those of the first two blocks by $O(L_d)$.  Equations \eqref{eq:app-Shannon-first-cov}--\eqref{eq:app-Shannon-second-cov} therefore give the uniform error estimates
+\begin{align}
+ H_1'(0)
+ &=h+\frac h{L_d}\log\frac pq+O(r_dL_d),
+ \label{eq:app-Shannon-first-full}\\
+ H_1''(0)
+ &=-\frac{h^2}{L_d^2}
+ \left(\frac1p+\frac1q\right)+O(r_dL_d).
+ \label{eq:app-Shannon-second-full}
+\end{align}
+In view of \eqref{eq:app-Shannon-r-limit},
+\begin{equation}
+ H_1'(0)\longrightarrow h,
+ \qquad
+ H_1''(0)\longrightarrow0.
+ \label{eq:app-Shannon-at-one-limit}
+\end{equation}
+
+The power-sum exponents are those in \eqref{eq:Shannon-exponents-main}.  Therefore, for every fixed $\alpha\neq1,c$, the dominant-block estimate gives
+\begin{align}
+ H_\alpha'(0)&\longrightarrow0,
+ &H_\alpha''(0)&\longrightarrow0
+ &&(\alpha<c),
+ \label{eq:app-Shannon-pointwise-below}\\
+ H_\alpha'(0)&\longrightarrow\omega(\alpha)v,
+ &H_\alpha''(0)&\longrightarrow-\omega(\alpha)v^2
+ &&(\alpha>c).
+ \label{eq:app-Shannon-pointwise-above}
+\end{align}
+We now prove the uniform bounds needed for dominated convergence.
+
+Choose $0<\eta<(c-1)/2$.  On $|\alpha-1|\leq\eta$, the third block's power weight is at most $Cd^{-\kappa}$ for some $\kappa>0$, because its exponent is uniformly below the maximum of the first two exponents.  The first two velocities differ by $O(L_d^{-1})$, while their logarithmic coordinates differ by $L_d+O(1)$.  Let
+\begin{equation}
+ E_{\alpha,d}:=\mathbb E_{\pi^{(\alpha)}}[w].
+ \label{eq:app-Shannon-E}
+\end{equation}
+Using \eqref{eq:app-alpha-covariance}, we obtain
+\begin{equation}
+ |\partial_\alpha E_{\alpha,d}|
+ =|\operatorname{Cov}_\alpha(w,\log x)|
+ \leq C\bigl(1+L_dd^{-\kappa}\bigr).
+ \label{eq:app-Shannon-E-alpha-bound}
+\end{equation}
+The cancellation identity \eqref{eq:app-pole-cancellation} with $r=1$ therefore implies
+\begin{equation}
+ \sup_{|\alpha-1|\leq\eta}|H_\alpha'(0)|\leq C.
+ \label{eq:app-Shannon-first-uniform}
+\end{equation}
+
+For the second derivative, put
+\begin{equation}
+ F_{\alpha,d}:=\ell_{\alpha,d}''(0)
+ =(\alpha-1)\mathbb E_\alpha[w^2]
+ -\alpha E_{\alpha,d}^2.
+ \label{eq:app-Shannon-F}
+\end{equation}
+The exact derivative \eqref{eq:app-alpha-ell-second-exact} gives
+\begin{align}
+ \partial_\alpha F_{\alpha,d}
+ ={}&\operatorname{Var}_\alpha(w)
+ +(\alpha-1)\operatorname{Cov}_\alpha(w^2,\log x)
+ \notag\\
+ &-2\alpha E_{\alpha,d}
+ \operatorname{Cov}_\alpha(w,\log x).
+ \label{eq:app-Shannon-F-alpha-exact}
+\end{align}
+For the first two blocks, the three terms on the right are respectively
+$O(L_d^{-2})$, $O(L_d^{-1})$, and $O(L_d^{-1})$.  Terms involving the third block are $O(L_dd^{-\kappa})$.  Thus
+\begin{equation}
+ \sup_{|\alpha-1|\leq\eta}
+ |\partial_\alpha F_{\alpha,d}|
+ \leq C\left(L_d^{-1}+L_dd^{-\kappa}\right).
+ \label{eq:app-Shannon-F-alpha-bound}
+\end{equation}
+Applying \eqref{eq:app-pole-cancellation} with $r=2$ gives
+\begin{equation}
+ \sup_{|\alpha-1|\leq\eta}|H_\alpha''(0)|
+ \leq C\left(L_d^{-1}+L_dd^{-\kappa}\right)
+ \longrightarrow0.
+ \label{eq:app-Shannon-second-uniform}
+\end{equation}
+This estimate is the precise reason why the nonatomic measure in a whole neighbourhood of $1$ contributes nothing to the limiting second derivative.
+
+On compact sets separated from $1$, the velocities \eqref{eq:app-Shannon-block-velocities} are uniformly bounded and the rough estimates \eqref{eq:app-rough-ell-bounds} apply.  Since $\omega$ is bounded there, this gives a constant dominator, including on a neighbourhood of the second crossing point $c$.
+
+For $\alpha\geq\max\{c+1,2\}$, comparison with the third power-sum block gives
+\begin{align}
+ 1-\Pi_{2,d}^{(\alpha)}
+ &\leq C\left(d^{c-\alpha}+d^{c+1-2\alpha}\right)
+ \notag\\
+ &\leq C2^{-(\alpha-c)}.
+ \label{eq:app-Shannon-tail-weight}
+\end{align}
+The factor $\alpha$ in the variance term is consequently bounded by a multiple of $\alpha2^{-(\alpha-c)}$.  Since $|\omega(\alpha)|\leq2$ on this tail, the first two differentiated entropies are bounded by a constant independent of $d$ and $\alpha$.
+
+We have therefore constructed one constant $C_{h,v}$, locally uniform in $(h,v)$, such that
+\begin{equation}
+ |H_\alpha'(0)|+|H_\alpha''(0)|\leq C_{h,v}
+ \quad\text{for all }\alpha\in[0,+\infty],\ d\geq2.
+ \label{eq:app-Shannon-global-dominator}
+\end{equation}
+The only point where the pointwise limit may fail is $c$, which was chosen $|\mu|$-null.  Dominated convergence, together with \eqref{eq:app-Shannon-at-one-limit}, \eqref{eq:app-Shannon-pointwise-below}, and \eqref{eq:app-Shannon-pointwise-above}, gives
+\begin{align}
+ \int H_\alpha'(0)\,\mathrm d\mu(\alpha)
+ &\longrightarrow mh+A_cv,
+ \label{eq:app-Shannon-integrated-first}\\
+ \int H_\alpha''(0)\,\mathrm d\mu(\alpha)
+ &\longrightarrow-A_cv^2.
+ \label{eq:app-Shannon-integrated-second}
+\end{align}
+Finally, the norm derivatives \eqref{eq:app-Shannon-norm-first}--\eqref{eq:app-Shannon-norm-second} vanish.  This proves \eqref{eq:Shannon-log-first-main}--\eqref{eq:Shannon-log-second-main}, as well as the identical limits for the tropical function $G_\mu$.  All estimates are uniform when $(h,v)$ ranges over a compact set.
+
+\subsection{Exact stationarity and the tropical second-order argument}
+\label{app:tropical-stationarity}
+
+The negative tropical homomorphism is controlled by quasi-convexity.  It is important that quasi-convexity does not imply convexity and does not impose a sign on the second derivative at a nonstationary point.
+
+\begin{lemma}[Second-order condition for a one-dimensional quasi-convex function]
+\label{lem:app-quasiconvex-stationary}
+Let $g$ be twice differentiable in a neighbourhood of $0$.  If $g$ is quasi-convex and $g'(0)=0$, then
+\begin{equation}
+ g''(0)\geq0.
+ \label{eq:app-quasiconvex-second-condition}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Suppose, to the contrary, that $g''(0)<0$.  Taylor's theorem gives
+\begin{equation}
+ g(\pm h)=g(0)+\frac{h^2}{2}g''(0)+o(h^2),
+ \label{eq:app-quasiconvex-Taylor}
+\end{equation}
+because the linear term vanishes.  Hence $g(h)<g(0)$ and $g(-h)<g(0)$ for all sufficiently small $h>0$.  Quasi-convexity at the midpoint gives
+\begin{equation}
+ g(0)=g\left(\frac{-h+h}{2}\right)
+ \leq\max\{g(-h),g(h)\}<g(0),
+ \label{eq:app-quasiconvex-contradiction}
+\end{equation}
+a contradiction.
+\end{proof}
+
+The limiting counterexample velocities in Section~\ref{sec:necessary-conditions} make the limiting first derivative zero. This alone is not sufficient: the derivative must be exactly zero at the same finite $d$ at which Lemma~\ref{lem:app-quasiconvex-stationary} is applied. The following elementary correction supplies exact stationarity.
+
+\begin{lemma}[Exact finite-dimensional stationarity correction]
+\label{lem:app-exact-stationarity}
+Let $z\in\mathbb R^m$ denote the vector of block velocities.  Suppose that, for every $d$, the first derivative is exactly linear in $z$,
+\begin{equation}
+ g_{d,z}'(0)=c_d\cdot z,
+ \label{eq:app-linear-first-derivative}
+\end{equation}
+where $c_d\to c$.  Suppose also that
+\begin{equation}
+ g_{d,z}''(0)\longrightarrow Q(z)
+ \label{eq:app-second-local-uniform}
+\end{equation}
+locally uniformly in $z$.  Let $z$ satisfy $c\cdot z=0$ and choose an index $k$ with $c_k\neq0$.  Define
+\begin{equation}
+ (z_d)_j:=z_j\quad(j\neq k),
+ \qquad
+ (z_d)_k:=z_k-\frac{c_d\cdot z}{(c_d)_k}.
+ \label{eq:app-stationarity-correction}
+\end{equation}
+Then, for every sufficiently large $d$,
+\begin{equation}
+ g_{d,z_d}'(0)=0,
+ \qquad
+ z_d\longrightarrow z,
+ \qquad
+ g_{d,z_d}''(0)\longrightarrow Q(z).
+ \label{eq:app-stationarity-correction-result}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since $(c_d)_k\to c_k\neq0$, the denominator in \eqref{eq:app-stationarity-correction} is nonzero for all sufficiently large $d$.  By construction,
+\begin{align}
+ c_d\cdot z_d
+ &=c_d\cdot z
+ +(c_d)_k\left(-\frac{c_d\cdot z}{(c_d)_k}\right)=0,
+ \label{eq:app-stationarity-exact-proof}
+\end{align}
+which proves exact stationarity.  Moreover, $c_d\cdot z\to c\cdot z=0$, so the correction tends to zero and $z_d\to z$.  Local uniform convergence of the second derivatives then gives the final statement.
+\end{proof}
+
+For all block paths used in Section~\ref{sec:necessary-conditions}, the base point at $\lambda=0$ is independent of the velocity vector. Directional differentiation is therefore exactly linear in the velocities, as required in \eqref{eq:app-linear-first-derivative}. The locally uniform convergence was proved in Appendices~\ref{app:block-localisation} and~\ref{app:Shannon-localisation}. Since $z_d$ remains bounded, the corrected affine paths remain strictly positive on a common neighbourhood of zero.
+
+At exact stationarity, the exponential does not introduce an additional second-order term:
+\begin{equation}
+ \frac{(e^{g_d})''(0)}{e^{g_d(0)}}
+ =g_d''(0)+(g_d'(0))^2
+ =g_d''(0).
+ \label{eq:app-exponential-at-stationarity}
+\end{equation}
+This simplification is used only after \eqref{eq:app-stationarity-correction-result} has been imposed.
+
+\subsection{From a strict curvature sign to finite semiring counterexamples}
+\label{app:finite-counterexamples}
+
+The high-dimensional calculations produce a strict limiting sign.  We conclude by explaining why this yields genuine finite-dimensional counterexamples, rather than merely formal tangent obstructions.
+
+Let $f_d(\lambda)$ be the restriction of the relevant one-column function to one of the affine paths.  If
+\begin{equation}
+ f_d''(0)>0,
+ \label{eq:app-positive-second}
+\end{equation}
+then Taylor's theorem gives
+\begin{equation}
+ \frac{f_d(\varepsilon)+f_d(-\varepsilon)}2-f_d(0)
+ =\frac{\varepsilon^2}{2}f_d''(0)+o(\varepsilon^2)>0
+ \label{eq:app-concavity-endpoints}
+\end{equation}
+for every sufficiently small $\varepsilon>0$.  Since
+\begin{equation}
+ \vec x^{(d)}(0)
+ =\frac12\vec x^{(d)}(\varepsilon)
+ +\frac12\vec x^{(d)}(-\varepsilon),
+ \label{eq:app-affine-midpoint}
+\end{equation}
+this is a direct violation of concavity.  Similarly, $f_d''(0)<0$ gives a direct violation of convexity.
+
+In the tropical case, let $g_d$ be the logarithmic tropical function after the exact stationarity correction of Lemma~\ref{lem:app-exact-stationarity}.  If $g_d''(0)<0$, then
+\begin{equation}
+ g_d(\varepsilon)<g_d(0),
+ \qquad
+ g_d(-\varepsilon)<g_d(0)
+ \label{eq:app-tropical-endpoint-values}
+\end{equation}
+for every sufficiently small $\varepsilon>0$.  Hence
+\begin{equation}
+ g_d(0)>
+ \max\{g_d(-\varepsilon),g_d(\varepsilon)\},
+ \label{eq:app-tropical-midpoint-violation}
+\end{equation}
+which is exactly the midpoint violation of quasi-convexity.
+
+Finally, the endpoints are admissible semiring elements. Every base vector used in Section~\ref{sec:necessary-conditions} is strictly positive. For any fixed finite $d$ and bounded velocity vector, there exists $\varepsilon_d>0$ such that all coordinates of $\vec x^{(d)}(\lambda)$ are positive for $|\lambda|<\varepsilon_d$. Thus the two endpoints in \eqref{eq:app-affine-midpoint} are positive one-column matrices in the original semiring. The notation $\operatorname{col}$ denotes vertical concatenation inside that one column; no semiring direct sum is involved.
+
+\bibliographystyle{ultimate}
+\bibliography{bibliography}
+
+\end{document}
