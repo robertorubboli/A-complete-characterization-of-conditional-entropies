@@ -51,7 +51,7 @@ that declarations in \(B\) use declarations from \(A\).
 
 The editable \emph{Lean implementation dependency graph}, including module
 names inside every group, is \texttt{paper/dependency-graph.dot}; its SVG and
-PNG files are renderings of that one DOT source. The four-document Lean note
+PNG files are renderings of that one DOT source. The Lean formalization supplement
 contains the third view, a \emph{theorem-facing proof map} whose arrows instead
 run from a conclusion to its proof ingredients. The declaration-level index is
 \texttt{paper/DECLARATION\_INDEX.md}.

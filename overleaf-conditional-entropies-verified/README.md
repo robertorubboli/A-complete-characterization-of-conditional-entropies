@@ -18,7 +18,7 @@ This bundle contains two distinct graph views. The appendix draws the
 SVG, and PNG files in `paper/` are three formats of the more detailed **Lean
 implementation dependency graph** at module-group level; they are reference
 artifacts and are not needed by TeX during compilation. Both views use arrows
-from prerequisite to dependent. The separate four-document Lean note contains
+from prerequisite to dependent. The Lean formalization supplement contains
 the **theorem-facing proof map**, whose arrows deliberately run from result to
 proof ingredient.
 

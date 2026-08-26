@@ -80,15 +80,13 @@ classification.
 
 ## Paper hierarchy and correspondence
 
-- [`paper/four-document-release/main-paper.tex`](paper/four-document-release/main-paper.tex)
-  is the canonical 46-page journal manuscript. Its concise Sections 4 and
-  5 are part of the paper and determine the statement numbering.
-- [`paper/four-document-release/sections-4-5-concise.tex`](paper/four-document-release/sections-4-5-concise.tex)
-  is a standalone extract of those two sections.
-- [`paper/four-document-release/sections-4-5-full-details.tex`](paper/four-document-release/sections-4-5-full-details.tex)
+- [`paper/three-document-release/main-paper.tex`](paper/three-document-release/main-paper.tex)
+  is the canonical 46-page journal manuscript. Its Sections 4 and 5 are part
+  of the paper and determine the statement numbering.
+- [`paper/three-document-release/sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
   is the complete proof supplement and mirrors the manuscript's 4.x/5.x
   numbering.
-- [`paper/four-document-release/lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex)
+- [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
   is the Lean supplement, with its theorem-facing proof map, trust audit, and
   statement table through 5.10.
 

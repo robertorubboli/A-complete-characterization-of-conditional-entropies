@@ -4,8 +4,8 @@ This repository contains the journal manuscript, its proof and formalization
 supplements, and the accompanying Lean 4 development. The document hierarchy
 was reorganized on 26 August 2026 so that the journal paper is the canonical,
 46-page presentation: the definitions needed for the results are introduced
-in the flow of its introduction, Sections 4 and 5 contain the concise
-sufficiency and necessity arguments, and omitted technical steps point to the
+in the flow of its introduction, Sections 4 and 5 present the sufficiency and
+necessity arguments, and omitted technical steps point to the
 complete-proof and Lean supplements.
 
 The two terminal Lean declarations are:
@@ -21,36 +21,31 @@ standard logical foundations.
 
 ## Paper and supplements
 
-The four compile targets use the same bibliography and
+The three compile targets use the same bibliography and
 `ultimate.bst` style:
 
 1. **Canonical journal manuscript.**
-   [`main-paper.tex`](paper/four-document-release/main-paper.tex) integrates the
-   concise Sections 4 and 5 into the paper and fixes the statement numbering
+   [`main-paper.tex`](paper/three-document-release/main-paper.tex) contains
+   Sections 4 and 5 directly and fixes the statement numbering
    used by every supplement. A compile-verified copy is available as
-   [`main-paper.pdf`](paper/four-document-release/pdf/main-paper.pdf).
-2. **Standalone concise extract.**
-   [`sections-4-5-concise.tex`](paper/four-document-release/sections-4-5-concise.tex)
-   is an independently compilable extract of the manuscript's Sections 4 and
-   5, with the same statements and concise proof presentation. Its PDF is
-   [`sections-4-5-concise.pdf`](paper/four-document-release/pdf/sections-4-5-concise.pdf).
-3. **Complete proof supplement.**
-   [`sections-4-5-full-details.tex`](paper/four-document-release/sections-4-5-full-details.tex)
+   [`main-paper.pdf`](paper/three-document-release/pdf/main-paper.pdf).
+2. **Complete proof supplement.**
+   [`sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
    gives the endpoint calculus, signed-measure arguments, discretization,
    localized counterexamples, tropical corrections, and semiring/channel lift
    omitted from the journal manuscript. It mirrors the manuscript's 4.x/5.x
    numbering. Download the compile-verified
-   [`sections-4-5-full-details.pdf`](paper/four-document-release/pdf/sections-4-5-full-details.pdf).
-4. **Lean formalization supplement.**
-   [`lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex)
+   [`sections-4-5-full-details.pdf`](paper/three-document-release/pdf/sections-4-5-full-details.pdf).
+3. **Lean formalization supplement.**
+   [`lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
    contains the theorem-facing proof map, trust audit, and statement-by-statement
    correspondence table through manuscript statement 5.10. Download the
    compile-verified
-   [`lean-formalization-note.pdf`](paper/four-document-release/pdf/lean-formalization-note.pdf).
+   [`lean-formalization-note.pdf`](paper/three-document-release/pdf/lean-formalization-note.pdf).
 
 The complete Overleaf-ready package is
-[`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip),
-and [`paper/four-document-release/README.md`](paper/four-document-release/README.md)
+[`paper/three-document-latex-release.zip`](paper/three-document-latex-release.zip),
+and [`paper/three-document-release/README.md`](paper/three-document-release/README.md)
 explains how to compile each document.
 
 ## Lean development
@@ -91,7 +86,7 @@ candidate-law packages consumed by `allConditionalEntropyAxioms`.
   [`PNG`](paper/dependency-graph.png). It groups concrete Lean modules, uses
   prerequisite-to-dependent arrows, and colors boxes by technical subsystem.
 - The **theorem-facing proof map** in the
-  [Lean formalization supplement](paper/four-document-release/lean-formalization-note.tex)
+  [Lean formalization supplement](paper/three-document-release/lean-formalization-note.tex)
   connects the public conclusions and the manuscript's numbered 4.x/5.x
   statements to reusable proof ingredients. Its arrows run from a result to
   the ingredients used to establish it.
