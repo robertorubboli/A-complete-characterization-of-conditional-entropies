@@ -8,12 +8,14 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
 \usepackage{xurl}
 \usepackage{natbib}
 
 \newcommand{\LeanDecl}[1]{\path{#1}}
 \newcommand{\Formalized}{\textup{Formalized}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \renewcommand{\thesection}{\arabic{section}}
 
 \begin{document}
@@ -22,9 +24,10 @@
 
 \begin{abstract}
 This note records the Lean formalization of the necessary-and-sufficient
-parameter classification for the concrete conditional-entropy candidates of
-Refs.~\cite{rubboli2026complete,rubboli2026parametersConcise,
-rubboli2026parametersFull}. It gives a compact theorem-facing proof map, a
+parameter classification for the concrete conditional-entropy candidates in
+Sections~4 and~5 of Ref.~\cite{rubboli2026complete}, with complete analytic
+proofs in Ref.~\cite{rubboli2026parametersFull}. It gives a compact
+theorem-facing proof map, a
 statement-by-statement correspondence table, and the precise trust and scope
 boundary. The presentation is deliberately theorem-facing: it separates the
 public conclusions, their paper-level ingredients, and the proved reusable
@@ -43,21 +46,22 @@ infrastructure.
 \section{Lean correspondence}
 \label{sec:lean-correspondence}
 
-The formal development follows the mathematical proof in the concise and
-full-detail companion papers. It covers the endpoint-aware R\'enyi parameter,
+The formal development follows Sections~4 and~5 of the main paper and the
+full analytic proofs in Ref.~\cite{rubboli2026parametersFull}. It covers the endpoint-aware R\'enyi parameter,
 real-power and entropy differentiation, signed integration, common
 discretization, the two-block, three-block, and Shannon localizers, exact
 tropical stationarity, all sufficiency and necessity branches, and the
 original finite semiring and conditionally mixing channel lift. The source is
 available at
 \url{https://github.com/robertorubboli/A-complete-characterization-of-conditional-entropies}
-under the release tag \texttt{four-document-release-2026-08-25}.
+on the repository's main branch.
 
 Throughout this note, every numbered reference to a lemma, proposition, or
-remark is the number in the full-details Sections~4 and~5 paper,
-Ref.~\cite{rubboli2026parametersFull}. The concise companion,
-Ref.~\cite{rubboli2026parametersConcise}, uses the identical statement order and
-numbering, so the same label locates the corresponding concise statement.
+remark is the number in Sections~4 and~5 of the main paper,
+Ref.~\cite{rubboli2026complete}. The full-proof paper,
+Ref.~\cite{rubboli2026parametersFull}, mirrors their order, notation, and
+numbering, using strengthened formulations where endpoint or closure details
+are made explicit.
 
 There are two public conclusions. The declaration
 \LeanDecl{mainClassification} says that, for every probability measure on the
@@ -69,16 +73,14 @@ zero-embedding invariance, tensor additivity, fair-bit normalization, and
 embedded channel monotonicity for every admissible candidate. Neither theorem
 assumes a project-specific axiom.
 
-The repository contains three complementary diagrams at different levels of
-detail. Figure~\ref{fig:lean-dependencies} is the \emph{theorem-facing proof
+The repository contains two complementary dependency diagrams at different
+levels of detail. Figure~\ref{fig:lean-dependencies} is the \emph{theorem-facing proof
 map}: it connects public conclusions to numbered manuscript results and
 reusable proof ingredients. It is not a module-import graph. The standalone
 files \path{paper/dependency-graph.dot}, \path{paper/dependency-graph.svg}, and
 \path{paper/dependency-graph.png} are three formats of one detailed
 \emph{Lean implementation dependency graph}; their arrows run from prerequisite
-to dependent. The main-paper Lean appendix contains a third, coarser
-\emph{condensed two-branch architecture overview} using that same source-level
-arrow direction.
+to dependent.
 
 In Figure~\ref{fig:lean-dependencies}, arrows deliberately point in the reverse
 direction, from a conclusion to ingredients used in its proof. Pale green boxes
@@ -111,14 +113,14 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
   {\texttt{allConditionalEntropy}\\\texttt{Axioms}\\five-law candidate package};
 
 \node[paper] (suff) at (-4.1,-1.8)
-  {Sufficiency\\Statements~1.4--1.8};
+  {Sufficiency\\Statements~4.4--4.8};
 \node[paper] (necess) at (0,-1.8)
-  {Necessity\\Statements~2.1--2.10};
+  {Necessity\\Statements~5.1--5.10};
 \node[paper] (candidate) at (4.1,-1.8)
   {Candidate algebra,\\semiring laws, and\\channel laws};
 
 \node[papercompact] (finite) at (-5.1,-3.6)
-  {Finite-support\\factorization\\Lemmas~1.1--1.3};
+  {Finite-support\\factorization\\Lemmas~4.1--4.3};
 \node[infra] (endpoint) at (-1.7,-3.6)
   {Endpoint calculus\\and signed\\differentiation};
 \node[infra] (local) at (1.7,-3.6)
@@ -156,11 +158,12 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \draw (local) -- (stationary);
 \draw[dashed] (necess) -- (upstream);
 \end{tikzpicture}
-\caption{Theorem-facing proof map for the four-document release. Every displayed
-statement number is the number in the full-details Sections~4 and~5 paper,
-Ref.~\cite{rubboli2026parametersFull}; the concise companion uses the same
+\caption{Theorem-facing proof map for the parameter classification. Every
+displayed statement number is the number in Sections~4 and~5 of the main paper,
+Ref.~\cite{rubboli2026complete}; the full-proof paper reproduces the same
 numbering. Arrows point from a result to ingredients used in its proof, the
-reverse of the source-dependency convention in the module-group graph. Color
+reverse of the prerequisite-to-dependent convention in the detailed Lean
+implementation dependency graph. Color
 records proof role, not confidence: green means public conclusion, blue means
 internally proved infrastructure, white means a paper-facing result, and dashed
 gray marks the explicitly excluded upstream representation theorem. The dashed
@@ -169,12 +172,12 @@ connector records manuscript context, not a Lean axiom or dependency.}
 \end{figure}
 
 Table~\ref{tab:lean-correspondence} follows, statement by statement, the
-numbering of the full-details Sections~4 and~5 paper,
-Ref.~\cite{rubboli2026parametersFull}. The concise companion uses the same
+numbering of Sections~4 and~5 of the main paper,
+Ref.~\cite{rubboli2026complete}. The full-proof paper uses the same
 numbers. All Lean names are in the namespace \LeanDecl{ConditionalEntropy}. A
 split API means that one manuscript statement is intentionally proved by
 several smaller declarations. The last row is worded differently because
-Proposition~2.10 combines the formalized parameter restriction with the
+Proposition~5.10 combines the formalized parameter restriction with the
 upstream representation theorem identified above.
 
 \renewcommand{\arraystretch}{1.12}
@@ -182,32 +185,31 @@ upstream representation theorem identified above.
 \centering
 \small
 \caption{Statement-by-statement correspondence. All lemma, proposition, and
-remark numbers are those of the full-details Sections~4 and~5 paper,
-Ref.~\cite{rubboli2026parametersFull}; the concise companion uses the same
-numbering.}
+remark numbers are those of Sections~4 and~5 of the main paper,
+Ref.~\cite{rubboli2026complete}; the full-proof paper uses the same numbering.}
 \label{tab:lean-correspondence}
-\begin{tabular}{p{0.25\textwidth}p{0.49\textwidth}p{0.18\textwidth}}
+\begin{tabular}{L{0.25\textwidth}L{0.49\textwidth}L{0.18\textwidth}}
 \toprule
 Manuscript statement & Lean declaration & Status\\
 \midrule
-Lemma~1.1: power-mean curvature &
+Lemma~4.1: power-mean curvature &
 \LeanDecl{finiteHolder}; \LeanDecl{powerCurvature};
 \LeanDecl{parameterPowerCurvature} & \Formalized\\
 \addlinespace
-Lemma~1.2: monomial curvature &
+Lemma~4.2: monomial curvature &
 \LeanDecl{affineMonomialCurvaturePackage} & \Formalized\\
 \addlinespace
-Lemma~1.3: finite-support sufficiency &
+Lemma~4.3: finite-support sufficiency &
 \LeanDecl{finiteSufficiency} & \Formalized\\
 \addlinespace
-Proposition~1.4: general temperate sufficiency &
+Proposition~4.4: general temperate sufficiency &
 \LeanDecl{generalSufficiency}; \LeanDecl{finiteTSufficiency} &
 \Formalized\ (split API)\\
 \addlinespace
-Proposition~1.5: negative-tropical sufficiency &
+Proposition~4.5: negative-tropical sufficiency &
 \LeanDecl{negativeTropicalSufficiency} & \Formalized\\
 \addlinespace
-Proposition~1.6: positive-tropical sufficiency &
+Proposition~4.6: positive-tropical sufficiency &
 \LeanDecl{positiveTropicalComponent};
 \LeanDecl{positiveTropicalSufficiency} & \Formalized\ (split API)\\
 \bottomrule
@@ -218,27 +220,27 @@ Proposition~1.6: positive-tropical sufficiency &
 \centering
 \small
 \textbf{Table~\ref{tab:lean-correspondence} (continued; statement numbers are
-from the full-details Sections~4 and~5 paper).}\par\smallskip
-\begin{tabular}{p{0.25\textwidth}p{0.49\textwidth}p{0.18\textwidth}}
+from Sections~4 and~5 of the main paper).}\par\smallskip
+\begin{tabular}{L{0.25\textwidth}L{0.49\textwidth}L{0.18\textwidth}}
 \toprule
 Manuscript statement & Lean declaration & Status\\
 \midrule
-Remark~1.7: exact tropical endpoint families &
+Remark~4.7: exact tropical endpoint families &
 Tropical fields of \LeanDecl{mainClassification} &
 \Formalized\ (split API)\\
 \addlinespace
-Proposition~1.8: derivation sufficiency &
+Proposition~4.8: derivation sufficiency &
 \LeanDecl{derivationSufficiency} & \Formalized\\
 \addlinespace
-Proposition~2.1: positive necessity &
+Proposition~5.1: positive necessity &
 \LeanDecl{positiveNecessity};
 \LeanDecl{positiveTemperateProbabilityNecessity} &
 \Formalized\ (split API)\\
 \addlinespace
-Proposition~2.2: negative Shannon atom with upper support &
+Proposition~5.2: negative Shannon atom with upper support &
 \LeanDecl{negativeShannonObstruction} & \Formalized\\
 \addlinespace
-Proposition~2.3: truncated exceptional-moment bound &
+Proposition~5.3: truncated exceptional-moment bound &
 \LeanDecl{truncatedMoment};
 \LeanDecl{exceptionalUpperMeasurePackage};
 \LeanDecl{MLower_le_of_truncated_difference} &
@@ -251,25 +253,26 @@ Proposition~2.3: truncated exceptional-moment bound &
 \centering
 \small
 \textbf{Table~\ref{tab:lean-correspondence} (continued; statement numbers are
-from the full-details Sections~4 and~5 paper).}\par\smallskip
-\begin{tabular}{p{0.25\textwidth}p{0.49\textwidth}p{0.18\textwidth}}
+from Sections~4 and~5 of the main paper).}\par\smallskip
+\begin{tabular}{L{0.25\textwidth}L{0.49\textwidth}L{0.18\textwidth}}
 \toprule
 Manuscript statement & Lean declaration & Status\\
 \midrule
-Remark~2.4: homogeneity and channel lift &
+Remark~5.4: homogeneity and channel lift &
 \LeanDecl{columnPhi_posHomOne};
 \LeanDecl{columnDeriv_posHomOne};
 \LeanDecl{conditionalSemiringOfJointProb_le};
 \LeanDecl{embeddingLift} & \Formalized\ (split API)\\
 \addlinespace
-Remark~2.5: compensated two-column witness &
+Remark~5.5: compensated two-column witness &
 \LeanDecl{normalizedTwoColumn};
 \LeanDecl{normalizedTwoColumn_column_zero};
 \LeanDecl{normalizedTwoColumn_column_one};
 \LeanDecl{mergeTwoChannel_output_column};
 \LeanDecl{sum_normalizedTwoColumn} & \Formalized\ (split API)\\
 \addlinespace
-Proposition~2.6: at most one upper support point &
+Proposition~5.6: complete exceptional negative branch (unique upper point,
+one-sided finiteness, and moment bound) &
 \LeanDecl{oneUpperPoint};
 \LeanDecl{negativeTemperateNecessity_of_atom_zero} &
 \Formalized\ (split API)\\
@@ -281,28 +284,28 @@ Proposition~2.6: at most one upper support point &
 \centering
 \small
 \textbf{Table~\ref{tab:lean-correspondence} (continued; statement numbers are
-from the full-details Sections~4 and~5 paper).}\par\smallskip
-\begin{tabular}{p{0.25\textwidth}p{0.49\textwidth}p{0.18\textwidth}}
+from Sections~4 and~5 of the main paper).}\par\smallskip
+\begin{tabular}{L{0.25\textwidth}L{0.49\textwidth}L{0.18\textwidth}}
 \toprule
 Manuscript statement & Lean declaration & Status\\
 \midrule
-Proposition~2.7: negative-tropical necessity &
+Proposition~5.7: negative-tropical necessity &
 \LeanDecl{negativeTropicalUpperAtomZero};
 \LeanDecl{twoUpperSupportPointsTropicalObstruction};
 \LeanDecl{tropicalTruncatedMoment_of_exceptional};
 \LeanDecl{negativeTropicalNecessity} &
 \Formalized\ (split API)\\
 \addlinespace
-Proposition~2.8: positive-tropical necessity &
+Proposition~5.8: positive-tropical necessity &
 \LeanDecl{sameSupportDecomposition};
 \LeanDecl{probabilityEqDiracZero};
 \LeanDecl{positiveTropicalNecessity} &
 \Formalized\ (split API)\\
 \addlinespace
-Proposition~2.9: derivation necessity &
+Proposition~5.9: derivation necessity &
 \LeanDecl{derivationNecessity} & \Formalized\\
 \addlinespace
-Proposition~2.10: represented derivations &
+Proposition~5.10: represented derivations &
 \LeanDecl{derivationSufficiency};
 \LeanDecl{derivationNecessity}; derivation field of
 \LeanDecl{mainClassification} &
@@ -333,9 +336,8 @@ runs the forbidden-token scan, a warning-as-error build of the integrated
 \LeanDecl{CompleteCharacterization} target, the axiom audit, and the exact
 correspondence audit. The formalization proves the classification and law
 package for the four concrete candidate families. The upstream representation
-of every abstract homomorphism or derivation, the later barycentric
-classification of every abstract conditional entropy, and the large-sample,
-catalytic, and application results remain results of
+of every abstract homomorphism or derivation and the later barycentric
+classification of every abstract conditional entropy remain results of
 Ref.~\cite{rubboli2026complete}, not hidden assumptions of the Lean terminal
 theorems.
 

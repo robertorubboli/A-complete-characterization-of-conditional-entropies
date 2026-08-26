@@ -18,6 +18,7 @@
 \usepackage[shortlabels]{enumitem}
 
 \setlength{\jot}{9pt}
+\allowdisplaybreaks
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -93,9 +94,6 @@
 \newcommand{\mf}[1]{\mathfrak{#1}}
 \newcommand{\mb}[1]{\mathbb{#1}}
 %\newcommand{\<}{\langle}
-\newcommand{\ketbra}[2]{\left|#1\middle\rangle\middle\langle #2\right|}
-\newcommand{\ptr}[2]{{\rm Tr}_{#1}\left[#2\right]}
-
 % Semiring preorders
 \newcommand{\rleq}{\trianglelefteq}
 \newcommand{\rgeq}{\trianglerighteq}
@@ -108,27 +106,22 @@
 \title{\Large A complete characterisation of conditional entropies}
 
 \begin{abstract}
-Entropies are fundamental measures of uncertainty with central importance in information theory and statistics and applications across all the quantitative sciences. Under a natural set of operational axioms, the most general form of entropy is captured by the family of Rényi entropies, parameterized by a real number $\alpha$.
-%
-Conditional entropy extends the notion of entropy by quantifying uncertainty from the viewpoint of an observer with access to potentially correlated side information. However, despite their significance and the emergence of various useful definitions, a complete characterization of measures of conditional entropy that satisfy a natural set of operational axioms has remained elusive.
-%
-In this work, we provide a complete characterization of conditional entropy, defined through a set of axioms that are essential for any operationally meaningful definition: additivity for independent random variables, invariance under relabeling, and monotonicity under conditional mixing channels.
-%
-We prove that the most general form of conditional entropy is captured by a family of measures that are exponential averages of Rényi entropies of the conditioned distribution and parameterized by a real parameter and a probability measure on the positive reals. Finally, we show that these quantities determine the rate of transformation under conditional mixing and provide a set of second laws of quantum thermodynamics with side information for states diagonal in the energy eigenbasis.
+Entropies are fundamental measures of uncertainty.  Under natural operational
+axioms, ordinary entropy is a barycentre of R\'enyi entropies.  Conditional
+entropy asks for the uncertainty seen by an observer with correlated side
+information, but its complete axiomatic form has remained open.
 
-
-%\RR{I included the applications because the large-sample and catalytic results are generally nontrivial, and we invested significant effort in developing Fritz’s theory (power universal, etc.) to prove them. I believe they have independent value beyond finding the full set of necessary conditions. For example, it is easy to see that Renyi entropies are monotone, but Klimesh took some time to prove the catalytic result.}
-
-\bigskip
+We characterize every finite-alphabet conditional entropy that is invariant
+under relabeling and embedding, additive on independent systems, normalized on
+a fair bit, and monotone under conditionally mixing channels.  Its extremal
+members are exponential averages of conditional R\'enyi entropies, together
+with their tropical and derivation limits.  We determine the exact admissible
+parameter ranges, including the endpoint $\alpha=1$, without imposing a
+separate finiteness assumption on the singular weighted moment.
 
 \noindent\textbf{Keywords:} Conditional Entropy, Axiomatic characterization, Resource Theories.
 
 \end{abstract}
-
-\medskip
-
-
-
 
 \author{Roberto Rubboli$^{*,\dagger,\ddagger}$}
 \author{Erkka Haapasalo$^{*}$}
@@ -150,328 +143,203 @@ National University of Singapore, Singapore 117583, Singapore}                  
 
 \endgroup
 
-\tableofcontents
+% A journal submission goes directly to the mathematical content.
 
 \section{Introduction}
 
-Entropies are measures of uncertainty about the outcome of a random experiment. Given a discrete random variable $X$ on $\mc{X}$ governed by a probability mass function (pmf) $P(x)$, the Shannon entropy~\cite{shannon1948mathematical} is its expectation\footnote{Unless stated otherwise, all sums are understood to run over the full domain.},
+For a finite random variable $X$ with probability mass function $P_X$, the
+Shannon entropy~\cite{shannon1948mathematical} is
 \begin{equation}
-    H(X) = \sum_{x} P(x) \log \frac{1}{P(x)} \,.
+ H_1(P_X):=\sum_x P_X(x)\log\frac{1}{P_X(x)}.
+ \label{eq:shannon-introduction}
 \end{equation}
-
-While Shannon entropy plays a central role in information processing by characterizing the ultimate performance limits for a range of tasks, most notably data compression~\cite{shannon1948mathematical}, it is evident that a more fine-grained specification of the surprisal is necessary to understand tail events. Notable examples are the min-entropy, $H_{\min}(X) = \min_{x \in \mc{X}} S(x)$, which plays a pivotal role in cryptography, and the Hartley entropy~\cite{hartley28}, $H_{\max}(X) = \log \sum_{x \in \mc{X}} \mathbf{1}\{ P(x) > 0\}$. Both quantities belong to the more general family of R\'enyi entropies~\cite{renyi61}, which, for $\alpha\in[0,\infty]$, are defined as
-\begin{align}
-    H_{\alpha}(X)  = \frac{1}{1-\alpha} \log \left( \sum_{x} P(x)^{\alpha} \right) \,,
-\end{align}
-The Hartley, Shannon, and min-entropy emerge as point-wise limits when $\alpha \to \{0, 1, \infty\}$, respectively. Their ubiquity in information theory leads to the question of whether Rényi entropies are complete under some set of well-motivated information-theoretic axioms. Axiomatic approaches to entropy have a rich history, surveyed in the books by Acz\'el-Dar\'oczy~\cite{aczel75} and Ebanks-Sahoo-Sander~\cite{ebanks98}, as well as the review by Csisz\'ar~\cite{csiszar08}. All these approaches have in common that at least one of the axioms is chosen for mathematical convenience and does not have an operational justification. As such, they fail to fully explain the role Rényi entropies play in information theory.
-
-In contrast, recent work~\cite{gour21_axiomatic} proposes a set of axioms that
-any operationally meaningful measure of entropy should satisfy: monotonicity under mixing channels, invariance under embedding, additivity for independent variables, and normalization. We shall soon explain the meaning of these concepts.
-%
-%Monotonicity under doubly stochastic channels---also known as mixing channels---ensures that entropy does not decrease when additional randomness is introduced through a random permutation. Invariance under embedding guarantees that entropy is independent of the size of the alphabet of the underlying random variable. Additivity captures the desire that the total uncertainty of two independent random variables equals the sum of their individual uncertainties. Finally, normalization ensures that a fair coin toss is assigned one unit of entropy.
-%
-Any quantity $\H(X)$ satisfying these axioms can be expressed as a convex combination of Rényi entropies~\cite{mu21_renyi,gour21_axiomatic}.\footnote{More precisely, a one-to-one relationship between entropy and relative entropy is established in~\cite{gour21_axiomatic} and \cite{mu21_renyi} gives a complete characterization of relative entropy. The statement is also a special case of our main theorem.} Namely,
-\begin{align}\label{eq:EntropyBarycentre}
-    \H(X) = \int_{[0,\infty]} \d\mu(\alpha) \, H_{\alpha}(X)
-\end{align}
-for some probability measure $\mu$ on the extended positive reals. Our goal here is to derive a similar complete characterization for conditional entropy.
-
-Conditional entropies extend the notion of entropy to settings where additional information, known as side information, is available, quantifying uncertainty from the perspective of an observer with access to it.
-Consider thus two discrete random variables $X$ on $\mc{X}$ and $Y$ on $\mc{Y}$ governed by a joint pmf $P(x,y) = P(x|y)P(y)$ that we decomposed in terms of the conditional pmf $P(x|y)$ and marginal $P(y)$. The conditional Shannon entropy of $X$ given $Y$ is
-\begin{align}
-    H(X|Y) = \sum_{x, y} P(x,y) \log \frac{1}{P(x|y)}  \,,
-\end{align}
-
-Several definitions of conditional Rényi entropies have been proposed and found operational significance (see, e.g., \cite{teixeira2012conditional} and \cite{fehr14conditional} for reviews that cover some aspects of conditional entropy). We introduce some of the most widely used definitions here, and will later show that they are all special cases of a general class. Two prominent examples are $H_{\alpha}^{\mathrm{H}}$, due to Hayashi and Skorić \emph{et al.}~\cite{hayashi2011exponential,vskoric2011sharp}, and $H_{\alpha}^{\mathrm{A}}$, due to Arimoto~\cite{arimoto1977information}. They are defined as
-\begin{align}
-H_{\alpha}^{\text{H}}(X|Y) = \frac{1}{1-\alpha}\log \bigg(\sum_{x,y} P(y) P(x|y)^\alpha\bigg),\,
-H_{\alpha}^{\text{A}}(X|Y)  = \frac{\alpha}{1-\alpha}\log{\bigg(\sum_y P(y)\bigg(\sum_x P(x|y)^\alpha\bigg)^\frac{1}{\alpha}\bigg)} \,.
-\end{align}
-A two-parameter family interpolating between them has been introduced by Hayashi and Tan~\cite{hayashi2016equivocations}.
-As part of a study of quantum conditional entropy, its properties were studied in detail by some of the present authors~\cite%[Eq. (309)]
-{rubboli2024quantum}.
-This quantity possesses desirable properties if $(\alpha,\beta)$ are either in $(0,1)^{\times 2}$ or $(1,\infty)^{\times 2}$ and reduce to $H_{\alpha}^{\mathrm{H}}$ and $H_{\alpha}^{\mathrm{A}}$ for $\beta = \alpha$ and $\beta = 1$, respectively. The fact that these quantities have desirable properties for a large range of parameters shows that $\alpha$ and $\beta$ can be chosen largely independently. In another line of work, Cachin~\cite{cachin1997entropy} and Renner and Wolf~\cite{renner2005simple} introduced the conditional entropies, which can be seen as limiting cases of the above family.
-Another two-parameter conditional entropy was proposed by Tan and Hayashi~\cite%[Eq.~(20)]
-{tan2018conditional}. Convex combinations of these definitions have been considered in~\cite{hayashi2016uniform}.
-This indicates an even larger parameter space of operationally significant conditional entropies.
-
-%Another two-parameter conditional entropy was proposed by Hayashi and Watanabe~\cite%[Eq.~(15)]
-%{hayashi2016uniform}, namely $\frac{1}{\alpha} H^T_{\alpha,\beta}(X|Y) + \frac{\alpha-1}{\alpha}H^A_\alpha(X|Y)$.
-
- %In particular, the conditional Shannon entropy is recovered when the measure $\tau$ is concentrated at the point $\alpha=1$, and we consider the limit $t \rightarrow 0$. Moreover, the Arimoto and Hayashi R\'{e}nyi conditional entropies are recovered in the case of a point measure $\tau$ concentrated at $\alpha$ and $t= (1-\alpha)/\alpha$ and $t= 1-\alpha$, respectively.
-
-% Consider two discrete random variables $X$ on $\mc{X}$ and $Y$ on $\mc{Y}$.
-% Without loss of generality (see our first axiom below), we can fix $\mc{X} = \{1, 2, \ldots, m\}$ and $\mc{Y} = \{1, 2, \ldots, n\}$. In the following, we represent the bipartite probability distribution $P(x,y)$ on $\mc{X} \times \mc{Y}$ as a matrix $P$ with $(P)_{x,y} = P(x,y)$. We define the set of such matrices by $\mathcal{P}_{m,n}$, i.e., $m \times n$ matrices with entries in $[0,1]$ for which the sum of all entries is $1$. A generic conditional entropy is then a functional
-% \begin{align}
-%     \H: \bigcup_{m , n \in \mathbb{N}} \mathcal{P}_{m,n} \to \mathbb{R}_{0}^{+} . \label{eq:general-condent}
-% \end{align}
-% For a joint distribution \(P\) on \(X\) (target variable) and \(Y\) (side information), a generic conditional entropy is written in the standard form \(\H(X|Y)_P\).
-\medskip
-\paragraph*{An axiomatic approach.}
-We consider the following four axioms (see also~\cite{gour2018conditional,gour2024inevitability}), which are motivated by our desire to interpret conditional entropy as a measure of uncertainty from the perspective of an observer with side information. Below, we view any joint probabilities $P$ on $\mc{X}\times\mc Y$ as matrices with rows and columns labeled by $x$ and $y$, respectively, i.e.,
-$(P)_{x,y} = P(x,y)$.
-\begin{enumerate}
-    \item \textbf{Invariance under relabeling.} We require that relabeling outcomes or embedding them into a larger alphabet will not change the conditional entropy.
-
-    \smallskip
-
-    Formally, consider two injective functions $f: \mc{X} \to \mc{X}'$ and $g: \mc{Y} \to \mc{Y}'$ and $Q$ with $Q\big(f(x),g(y)\big) = P(x,y)$ for all $x \in \mc{X}, y \in \mc{Y}$ and zero elsewhere. We require that
-    \begin{align}
-        \H(X|Y)_P = \H(X'|Y')_Q \,.
-    \end{align}
-
-\label{it: relabeling and embedding}
-    \item \textbf{Monotonicity under conditional mixing.} We expect that the entropy is non-decreasing when we apply a mixing (doubly stochastic) channel acting on $X$. For example, if $X$ is the value of the top card of a deck, shuffling (i.e., applying a more or less random permutation) should never decrease the uncertainty of $X$ from the perspective of an observer.
-    %
-    Moreover, we also want to account for conditional operations where the mixing channel depends on the side information. This accounts for the possibility that an observer is correlated with the randomness used in the mixing channel, e.g., the observer might know which shuffling technique is used, reducing the randomness introduced in the process compared to an observer without such information. Such conditional mixing channels can signal from $Y$ to $X$ but do not leak information about $X$ to the observer, and thus ought not reduce uncertainty.
-    Finally, we require monotonicity under arbitrary channels applied to the side information $Y$ since local processing of the side information can never reduce our uncertainty of $X$.
-    The closure under composition of such operations gives us conditionally mixing channels.
-
-    \smallskip
-
-   When representing a joint probability mass function as a matrix, mixing channels acting on the system $X$ can be described by left multiplication with a doubly stochastic matrix $S$. In addition, channels acting on the side information correspond to right multiplication by a row-stochastic matrix $D$. Finally, conditional operations can be represented by a family of row sub-stochastic matrices $D_i$ acting on the right, whose sum $\sum_i D_i$ is row-stochastic, together with a corresponding family of doubly stochastic matrices $S_i$ acting on the left (see~\cite{gour2018conditional} for more details).
-    Explicitly, conditionally mixing channels from $m \times n$ matrices $P$ to $m \times n'$ matrices $Q$ act as
-    \begin{align}
-        P \mapsto Q = \sum_{i=1}^k S_i P D_i \,, \label{eq:intro/mixing}
-    \end{align}
-    where $S_i$ are doubly stochastic $m \times m$ matrices for all $i$ and $D_i$ are sub-stochastic $n \times n'$ matrices such that their sum $\sum_{i=1}^k D_i$ is row-stochastic.   We require that for any conditionally mixing channel, any $P$, and $Q$ as defined in~\eqref{eq:intro/mixing}, it holds that
-    \begin{align}
-        \H(X|Y)_P \leq \H(X|Y')_Q \,.
-    \end{align}
-\label{it: conditionally mixing channels}
-    \item \textbf{Additivity.} We require that entropies for independent random variables are additive. This axiom expresses the principle that the uncertainty of two independent random variables is the sum of their individual uncertainties, and it admits a natural extension to scenarios with side information.
-
-    \smallskip
-
-    Formally, for any joint pmf $P$ and $Q$, we require that their Kronecker product, $P \otimes Q$, satisfies
-    \begin{align}
-        \H(XX'|YY')_{P\otimes Q} = \H(X|Y)_P + \H(X'|Y')_Q \,.
-    \end{align}
-
-    \item \textbf{Normalization}: We fix the entropy of a fair coin toss to be $\H(X)_P = \log 2$ for $P = (1/2,1/2)^T$.
-
-\end{enumerate}
-
-% \bigskip
-
-% It is useful to combine the methods of comparing joint distributions presented in Conditions~\ref{it: relabeling and embedding}) and~\ref{it: conditionally mixing channels}) above.
-% For joint probability distributions $P$ and $Q$, we write $P \succeq Q$ if there exist $P'$ and $Q'$, obtained from $P$ and $Q$, respectively, by relabeling and embedding, such that $Q'$ can then be obtained from $P'$ through conditional mixing.
-% In this case, we say that $P$ conditionally majorizes $Q$.
-
-% A particular consequence of~\ref{it: relabeling and embedding}) and~\ref{it: conditionally mixing channels}) is that $\H(XY|Z)_P \geq \H(X|Z)_P$ for any joint distribution $P$ over three random variables, i.e., the property that entropy is non-increasing under coarse-graining. This can be verified since the channel $W_{Y|XZ}$ satisfying $P_{XYZ} = W_{Y|XZ} P_{XZ}$ can be implemented using such channels.
-
-In this work, we establish the most general form of conditional entropy satisfying the axioms above. In particular, we prove that the most general conditional entropy satisfying the four axioms can be expressed as a convex combination of conditional entropies $H_{t,\tau}$, along with their pointwise limits (see Theorem~\ref{th:barycenter conditional entropies}), defined as
-\begin{align}
-    H_{t,\tau}(X|Y) = \frac{1}{t}\log \sum_{y} P(y)\exp\!\left( t \int_{[0,\infty]} H_\alpha(X|Y\!=\!y)\, \mathrm{d}\tau(\alpha) \right).
-    \label{eq:General}
-\end{align}
-Here, $t$ is a real parameter and $\tau$ is a probability measure.
-In particular, all the entropies listed above are recovered as special cases for suitable choices of the parameters (see Section~\ref{sec: literature}).
-
-
-
-
-While this result determines the most general form of a conditional entropy, some choices of the parameters \(t\) and \(\tau\) should be excluded if the resulting \(H_{t,\tau}\) does not satisfy all required axioms.
-We fully characterize the parameters $t$ and $\tau$ for which $H_{t,\tau}$ satisfies all axioms.
-These conditions are as follows:
-\begin{enumerate}
-    \item $t> 0$, $\;\text{supp}(\tau) \subseteq [0,1]$, $\tau(\{1\})=0$ and
-    \begin{equation}\label{eq:integralcond}
-    \int_{[0,\infty]\setminus\{1\}}\frac{\alpha}{1-\alpha}\,\mathrm{d}\tau(\alpha)\leq \frac{1}{t}
-    \end{equation}
-    %$\;\displaystyle\int_{[0,1)} \frac{\alpha}{1 - \alpha} \, \mathrm{d}\tau(\alpha) \leq 1/t$.
-    \item $t < 0$ and
-    \begin{itemize}
-    \item[(a)] $\;\text{supp}(\tau) \subseteq [0,1]$ or
-    \item[(b)] $\;\operatorname{supp}(\tau) \subseteq [0,1] \cup \{\alpha_*\}$, $\tau(\{1\})=0$ for some $\;\alpha_* \in (1, +\infty]$ so that   \eqref{eq:integralcond} is satisfied.
-    %\item $t \leq 0$, $\;\operatorname{supp}(\tau) \subseteq [0,1] \cup \{\alpha_k\}$, $\;\alpha_k \in (1, +\infty]$, $\;\displaystyle\int_{[0,+\infty]} \frac{\alpha}{1 - \alpha} \, \mathrm{d}\tau(\alpha) \leq 1/t$.
-    \end{itemize}
-\end{enumerate}
-
-
-\paragraph*{Applications.}
-
-Majorization is a well-studied concept with applications across many fields, including probability theory and statistics~\cite{marshall1979inequalities}, mathematics~\cite{bhatia1997matrix}, and quantum information~\cite{nielsen1999conditions,horodecki2013fundamental}. Conditional majorization provides a natural extension of majorization to scenarios involving side information. Recalling the definitions introduced above, given two joint probability mass functions $P$ and $Q$, we say that $P$ conditionally majorizes $Q$ if there exists a conditionally mixing channel that maps $P$ to $Q$. When the underlying dimensions of the distributions do not coincide, suitable embeddings are implicitly understood (see Definition~\ref{def:cond-maj-cond-mix}).
-Conditional majorization has found applications in areas such as conditional uncertainty relations in quantum information~\cite{gour2018conditional} and the study of games of chance~\cite{brandsen2022entropy}.
-In this work, we provide an operational interpretation of the newly defined conditional entropies $H_{t,\tau}$ as the quantities that determine the optimal rate $R$ for the multi-copy transformation $Q_{X'Y'}^{\otimes R n} \;\longrightarrow\;P_{XY}^{\otimes n}$
-under conditional majorization, for a sufficiently large number of copies $n$. Specifically, we show that (see Theorem~\ref{thm: rate})
+The logarithm base only fixes the unit; our normalization assigns value one to
+a fair bit.  Tail-sensitive uncertainty measures are supplied by the
+R\'enyi family~\cite{renyi61}.  For a probability vector $p=(p_i)_{i=1}^d$,
 \begin{equation}
-R(Q_{X'Y'} \rightarrow  P_{XY}) = \inf_{(t,\tau) \in \D_{\rm{bulk}}} \frac{H_{t,\tau}(X|Y)_P }{H_{t,\tau}(X'|Y')_Q} \,.
+ H_\alpha(p):=\frac{1}{1-\alpha}
+ \log\!\left(\sum_{i:p_i>0}p_i^\alpha\right),
+ \qquad \alpha\in(0,+\infty)\setminus\{1\},
+ \label{eq:renyi-introduction}
 \end{equation}
-Here, \(\D_{\rm{bulk}}\) denotes the above set of parameters for which \(H_{t,\tau}\) is monotone under conditionally mixing channels.
-This establishes a direct link between conditional entropies and asymptotic transformation rates.
-
-\medskip
-
-Our final result addresses transformations with a conditionally preserved probability distribution. We derive sufficient conditions for the existence of such a conditionally preserving map that, given an input distribution together with another probability distribution acting as a catalyst, produces an output distribution arbitrarily close to the desired target, while leaving the catalyst unchanged at the end of the transformation (see Theorem~\ref{thm:ConservedClassical}).
-We further apply this result to derive a set of second laws of thermodynamics in the presence of side information, a setting that has been investigated in several works~\cite{sagawa2008second,morris2019assisted,rio2011thermodynamic,bera2017generalized,ji2025fundamental,narasimhachar2017resource}.
-In the absence of side information, a complete set of necessary and sufficient conditions for transforming states that are diagonal in the energy eigenbasis under thermal operations—assisted by a catalyst that is returned unchanged at the end of the process—was established in~\cite{Brandao}.
- These conditions are commonly referred to as the second laws of quantum thermodynamics. In the absence of side information, these laws can be expressed in terms of certain free energies, which are connected to the Rényi relative entropies between a state and its Gibbs state.
- In our work, we find that for states that are diagonal in the energy eigenbasis, certain quantities, denoted by $F_{t,\tau}$,  can be used to provide a set of sufficient conditions for transformations under conditioned thermal operations assisted by a catalyst. In particular,
- \(F_{t,\tau}\) can be constructed from \(H_{t,\tau}\) in~\eqref{eq:General} by replacing the entropies of the conditioned distribution in the exponential expectation with the R\'enyi relative entropies between the state and the Gibbs state. These quantities provide a set of sufficient conditions for state transformations under conditioned thermal operations assisted by a catalyst (see Corollary~\ref{cor:secondlaws} for more details).
-This partially solves the open problem posed in \cite[Section V.B]{ji2025fundamental}.
-This result shows that even for states that are diagonal in the energy eigenbasis, the presence of side information significantly complicates the second laws. Nevertheless, for the specific case we consider, the problem admits a partial solution, whereas the fully quantum case remains an open challenge, even in the absence of side information.
-
-
-\paragraph*{Methods.}
-To derive the general form of conditional entropy, we establish sufficient conditions under which, in the limit of a large number of copies, one joint distribution can be transformed into another joint distribution using conditionally mixing channels. This is because, by known arguments~\cite{mu21_renyi} (see also~\cite{haapasalo_inprep} for a general statement), this problem can be shown to be equivalent to the axiomatic characterization.
-To derive these conditions, we apply the general results on preordered semirings developed in~\cite{fritz2023abstract,fritz2023abstractII}.
-In particular, we construct a specific semiring where the conditional entropies \( H_{t,\tau} \) arise as the relevant functions of the theory.
-
-\bigskip
-
-The remainder of this manuscript is structured as follows. In Section~\ref{sec: formal definitions}, we introduce the formal definitions adopted in the manuscript. In Subsection~\ref{sec: set of entropies}, we derive the general form of entropies as convex combinations of R\'enyi entropies. In Section~\ref{sec: semiring of conditional entropies}, we define the semiring of conditional majorization and determine the general form of the extremal conditional entropies $H_{t,\tau}$. The exact parameter classification used subsequently is summarized in a concise companion note~\cite{rubboli2026parametersConcise}, proved in full in Ref.~\cite{rubboli2026parametersFull}, and machine-checked in the standalone Lean formalization note~\cite{rubboli2026parametersLean}. In Section~\ref{sec: large sample}, we derive large-sample and catalytic results that form the basis for our applications. In Section~\ref{sec: set of conditional entropies}, we prove the general form of conditional entropies. In Section~\ref{sec: Applications}, we discuss applications to rates and the second laws of quantum thermodynamics with side information.
-
-\section{Definitions and preliminary results}
-\label{sec: formal definitions}
-This section provides the formal definitions that serve as the foundation for the remainder of the manuscript. We also present and prove an exhaustive characterization of unconditional entropies serving as a stepping stone towards the characterization of conditional entropies.
-
-\subsection{Definitions relevant for entropies}
-
-We denote the (always finite) set of possible values of a random variable $X$ by $\mc X$. The probability mass function of $X$ is denoted by $P_X$ and often if there is no risk of confusion, we may drop the subscript. To avoid confusion, we also use other names for the probability mass functions like $Q_X$, $R_X$, and the like. We use similar notational conventions for other random variables like $Y$, $Z$, and so forth. We also usually call probability mass functions probability distributions for brevity.
-
-\begin{definition}[Embedding and relabeling of probability distributions]
-Given two probability distributions \(P_{X}\) and \(\widetilde{P}_{\widetilde{X}}\), we say that \(\widetilde{P}_{\widetilde{X}}\) is obtained from \(P_{X}\) through embedding into a larger space and relabeling of outcomes if there exists an injective function \( f : \mathcal{X} \to \widetilde{\mathcal{X}} \) such that  $\widetilde{P}_{\widetilde{X}}(f(x)) = P_X(x)$
-for all $x \in \mathcal{X}$
-and zero elsewhere.
-\end{definition}
-
-\begin{definition}[Mixing channel]
-A channel is called \emph{mixing} if, when acting on a probability vector, it can be represented by left multiplication with a doubly stochastic matrix, that is, a matrix with nonnegative entries whose rows and columns each sum to one.
-\end{definition}
-
-
-\begin{definition}[Majorization]
-Given two probability distributions $P_X$ and $Q_{X'}$, we say that $P_X$ majorizes $Q_{X'}$, written as
+with endpoint conventions
 \begin{equation}
-    P_X \succeq Q_{X'}
+ H_0(p):=\log|\operatorname{supp}(p)|,\qquad
+ H_1(p):=-\sum_{i:p_i>0}p_i\log p_i,\qquad
+ H_\infty(p):=-\log\max_i p_i .
+ \label{eq:renyi-endpoints-introduction}
 \end{equation}
-if there exist probability distributions \(\widetilde{P}_{\widetilde{X}}\) and \(\widetilde{Q}_{\widetilde{X}'}\), obtained from \(P_X\) and \(Q_{X'}\) via embedding and relabeling, and a mixing channel represented by a doubly stochastic matrix \(D\) such that $D \widetilde{P}_{\widetilde{X}} = \widetilde{Q}_{\widetilde{X}'}$.
-\end{definition}
+Here $\operatorname{supp}(p):=\{i:p_i>0\}$ and $0\log0:=0$.  The
+parameter interval $[0,+\infty]$ is the one-point compactification of the
+nonnegative half-line.
 
-\begin{remark}
-    It is known that it suffices to consider embeddings into a space whose dimension equals the maximum of the supports of the input and output probability distributions. Accordingly, in the following, we assume that the probability distributions $P_X$ and $Q_X$ are defined on a common underlying space.
-\end{remark}
-It is well known that the existence of a mixing channel is equivalent to the following condition on the entries of the probability distributions, often referred to as the initial sum condition~\cite{birkhoff1946tres} (see also~\cite{marshall1979inequalities}).
+Operational axioms single out barycentres of these entropies.  In particular,
+every ordinary entropy considered below has the form
+\begin{equation}
+ \H(P_X)=\int_{[0,+\infty]}H_\alpha(P_X)\,\d\mu(\alpha)
+ \label{eq:EntropyBarycentre}
+\end{equation}
+for a probability measure $\mu$; Section~\ref{sec: set of entropies} gives the
+short proof.  Conditional entropy asks for the remaining uncertainty about
+$X$ when a correlated register $Y$ is available.  If
+$P_{XY}(x,y)=P_Y(y)P_{X|Y=y}(x)$, then
+\begin{equation}
+ H_1(X|Y)_P=\sum_yP_Y(y)H_1(P_{X|Y=y}).
+\end{equation}
+Representative conditional R\'enyi entropies include the Hayashi and Arimoto
+families and their interpolations
+\cite{arimoto1977information,hayashi2011exponential,hayashi2016equivocations}.
+Their variety motivates an axiomatic classification rather than the selection
+of one formula.
+
+\subsection*{Formal setup and axioms}
+
+All alphabets are finite.  We identify a joint distribution with its
+nonnegative matrix
+$P_{XY}=(P_{XY}(x,y))_{x\in\X,y\in\Y}$ and write
+\begin{equation}
+ P_X(x):=\sum_yP_{XY}(x,y),\qquad
+ P_Y(y):=\sum_xP_{XY}(x,y),\qquad
+ P_{X|Y=y}(x):=\frac{P_{XY}(x,y)}{P_Y(y)}
+ \label{eq:joint-marginal-conditional}
+\end{equation}
+when $P_Y(y)>0$.  A conditional distribution at a zero-mass value of $y$ is
+irrelevant and may be chosen arbitrarily.  Relabeling and embedding mean
+applying injective maps to the alphabets and assigning zero mass outside their
+images.
+
+A mixing channel acts on a probability vector by a doubly stochastic matrix,
+namely a nonnegative square matrix whose rows and columns sum to one.  After
+embedding two vectors into a common dimension, we write $P_X\succeq Q_X$ when
+a mixing channel maps $P_X$ to $Q_X$.  Equivalently, majorization is determined
+by the following initial-sum criterion.
+
 \begin{lemma}[Initial sum condition]
 \label{lem: Initial sum condition}
-Let \( P_X \) and \( Q_X \) be two $d$-dimensional vectors with nonnegative entries. Moreover, let \( P_X^{\downarrow} \) and \( Q_X^{\downarrow} \) denote the vectors obtained by rearranging the components of \( P_X \) and \( Q_X \), respectively, in non-increasing order. Then \( P_X \succeq Q_X \) if and only if
+Let $P_X,Q_X\in\R^d_{\geq0}$, and let $P_X^\downarrow,Q_X^\downarrow$ denote
+their entries in nonincreasing order.  Then $P_X\succeq Q_X$ if and only if
 \begin{equation}
-    \sum_{i=1}^{k} P_X^{\downarrow}(i) \geq \sum_{i=1}^{k} Q_X^{\downarrow}(i) \qquad \text{for all } k = 1, \ldots, d-1,
+ \sum_{i=1}^kP_X^\downarrow(i)\geq
+ \sum_{i=1}^kQ_X^\downarrow(i)\qquad(1\leq k<d)
 \end{equation}
-and equality holds for \( k = d \), that is, $\sum_{i=1}^{d} P_X^{\downarrow}(i) = \sum_{i=1}^{d} Q_X^{\downarrow}(i)$.
+and the total sums agree.
 \end{lemma}
-
-
 
 \begin{definition}[Entropy]
 \label{def: Entropy}
-Let us denote, for any finite random variable $X$, the set of probability distributions on $X$ by $\mc P_X$. A function
-\begin{equation}
-\H : \bigcup_{X} \mc P_{X} \rightarrow \mathbb{R}_+
-\label{eq:ent-gen-def-1st}
-\end{equation}
-is called entropy if it satisfies the following postulates for all systems $X$, $X'$, and probability vectors $P_{X}$ and $Q_{X'}$:
-\begin{enumerate}
-    \item Invariance under relabeling and embedding: If $P_X$ can be relabeled and embedded into $Q_{X'}$, then $\H(X)_P=\H(X')_Q$.
-     \label{eq:E-2nd-postulate-iso}
-    \item Monotonicity under mixing channels: if $Q_{X'}$ is obtained from $P_{X}$ using a mixing channel, then $ \H(X)_{P} \leq \H(X')_{Q}$.
-    \label{eq:E-1st-postulate-mono}
-    \item Additivity: $  \H(XX')_{P \otimes Q} = \H(X)_{P} + \H(X')_{Q}$
-     \label{eq:E-2nd-postulate-add}
-    \item Normalization: $ \H(X)_{(1/2,1/2)} = 1$
-    \label{eq:E-4-postulate-normalization}
+An entropy is a function
+$\H:\bigcup_X\mc P_X\to\R_+$ satisfying:
+\begin{enumerate}[itemsep=1pt]
+ \item invariance under relabeling and embedding;
+ \label{eq:E-2nd-postulate-iso}
+ \item monotonicity under mixing:
+ $P_X\succeq Q_{X'}\Rightarrow\H(P_X)\leq\H(Q_{X'})$;
+ \label{eq:E-1st-postulate-mono}
+ \item additivity:
+ $\H(P_X\otimes Q_{X'})=\H(P_X)+\H(Q_{X'})$;
+ \label{eq:E-2nd-postulate-add}
+ \item normalization: $\H((1/2,1/2)^T)=1$.
+ \label{eq:E-4-postulate-normalization}
 \end{enumerate}
 \end{definition}
-Note that the first two properties imply that if \(P_{X} \succeq Q_{X'}\) (i.e., \(P_X\) majorizes \(Q_{X'}\)), then \(\H(X)_P \leq \H(X')_Q\). In other words, any entropy is monotone under majorization. In the following, we will
-also often use the notation $\H(X)_P=\H(P_X)$. Taking into account condition~\ref{eq:E-2nd-postulate-iso} above, we may effectively consider an entropy $\H$ as a map on the union of $\mc P_n$ over $n\in\mathbb{N}$ where $\mc P_n$ is the set of probability distributions over $\{1,\ldots,n\}$.
 
-\subsection{Definitions relevant for conditional entropies}
+The conditional operation must allow the mixing applied to $X$ to depend on
+side information while permitting arbitrary stochastic processing of $Y$.
 
-In the sequel, we shall discuss joint probability distributions $P_{XY}:\X\times\Y\to[0,1]$. We may often again drop the subscripts.
-The marginals of \(P_{XY}\) are denoted by \(P_X\) and \(P_Y\), and are defined as
-\begin{equation}
-P_X(x) = \sum_{y \in \mathcal{Y}} P_{XY}(x,y), \quad \forall x \in \mathcal{X}, \qquad
-P_Y(y) = \sum_{x \in \mathcal{X}} P_{XY}(x,y), \quad \forall y \in \mathcal{Y}.
-\end{equation}
-We will always identify a joint probability distribution $P_{XY}$ with the matrix
-\begin{equation}
-P_{XY}=\big(P_{XY}(x,y)\big)_{(x,y)\in\X\times\Y}.
-\end{equation}
-This makes many of our future notation and definitions, including the next one, simpler.
-
-\begin{definition}[Conditionally mixing channel]
-A \emph{conditionally mixing channel} is a channel of the form
-\begin{equation}
-P_{XY} \longmapsto Q_{XY'} = \sum_{i=1}^k S^{(i)} P_{XY} D^{(i)}, \footnote{We chose the letters $S$ and $D$ to reflect the Latin terms for left and right, namely sinister and dexter, respectively.}
-\end{equation}
-where the following conditions hold:
-\begin{enumerate}
-    \item The matrices \( S^{(i)} \) are doubly stochastic for all $i=1,\dots,k$.
-
-    \item The matrices \( D^{(i)} \) are sub-stochastic for all \( i = 1, \ldots, k \).
-    \item The sum $\sum_{i=1}^k D^{(i)}$ is row-stochastic.
-\end{enumerate}
-\end{definition}
-For clarity of notation and to facilitate the understanding of matrix dimensions in the arguments that follow, we note that if \( Q_{XY'} \) is a \( d \times n' \) matrix and \( P_{XY} \) is a \( d \times n \) matrix, then the matrices \( S^{(i)} \) have dimensions \( d \times d \), while the selection matrices \( D^{(i)} \) have dimensions \( n \times n' \).
-
-
-\begin{definition}[Embedding and relabeling of joint probability distributions]
-Given two joint probability distributions \(P_{XY}\) and \(\widetilde{P}_{\widetilde{X}\widetilde{Y}}\), we say that \(\widetilde{P}_{\widetilde{X}\widetilde{Y}}\) is obtained from \(P_{XY}\) through embedding into a larger space and relabeling of outcomes if there exist two injective functions
-$f:\X\to\widetilde{\X}$ and $g:\Y\to\widetilde{\Y}$ such that $\widetilde{P}_{\widetilde{X}\widetilde{Y}}(f(x),g(y))=P_{XY}\big(x,y\big)$ for all $x\in\X$ and $y\in\Y$ and zero elsewhere.
-\end{definition}
-
-
-
-\begin{definition}[Conditional majorization]
+\begin{definition}[Conditionally mixing channel and conditional majorization]
 \label{def:cond-maj-cond-mix}
-Given two probability distributions $P=P_{XY}$ and $Q=Q_{X'Y'}$, we say that $P_{XY}$ conditionally majorizes $Q _{X'Y'}$, and write
+A conditionally mixing channel has the matrix form
 \begin{equation}
-    P_{XY}\succeq Q_{X'Y'}
-        \label{eq:cond-maj-def-1}
+ P_{XY}\longmapsto Q_{XY'}=\sum_{i=1}^kS^{(i)}P_{XY}D^{(i)},
+ \label{eq:intro/mixing}
 \end{equation}
-if there exist probability distributions $\widetilde{P}_{\widetilde{X}\widetilde{Y}}$ and $\widetilde{Q}_{\widetilde{X}'\widetilde{Y}'}$, obtained from \(P_{XY}\) and \(Q_{X'Y'}\) via embedding and relabeling, and a conditionally mixing channel that maps $\widetilde{P}_{\widetilde{X}\widetilde{Y}}$ into $\widetilde{Q}_{\widetilde{X}'\widetilde{Y}'}$.
-This means that, up to relabeling and embedding, $P_{XY}$ can be transformed into $Q_{X'Y'}$ using a conditional mixing channel.
+where every $S^{(i)}$ is doubly stochastic, every $D^{(i)}$ is
+sub-stochastic, and $\sum_iD^{(i)}$ is row-stochastic.  We write
+$P_{XY}\succeq Q_{X'Y'}$ when, after relabeling and zero-padding both
+distributions, such a channel maps the first into the second.
 \end{definition}
-
-
-\begin{remark}
-\label{remark: no isometries}
-We observe that when considering transformations between two probability distributions \(P_{XY}\) and \(Q_{XY'}\) that have the same number of rows, no relabeling or embedding beyond the conditionally mixing channel is required. In other words, if \(P_{XY} \succeq Q_{XY'}\) according to Definition~\ref{def:cond-maj-cond-mix}, then there exists a conditionally mixing channel that maps \(P_{XY}\) to \(Q_{XY'}\).
-
-To see this, consider embeddings \(P_{\widetilde{X}Y}\) and \(Q_{\widetilde{X}Y'}\) obtained by padding \(P_{XY}\) and \(Q_{XY'}\) with additional rows of zeros. Since the sum of positive elements can vanish only if all elements are zero, it follows that the rows with index \(j > |\mathcal{X}|\) of $S^{(i)} P_{\widetilde{X}Y} D^{(i)}$
-must be zero. Moreover, \(P_{\widetilde{X}Y} D^{(i)}\) acts solely on the columns, leaving the additional rows \(j > |\mathcal{X}|\) unchanged at zero. By Birkhoff's theorem, each \(S^{(i)}\) can be expressed as a convex combination of permutations. Any permutation that acts only on the zero elements can be replaced by the identity, while permutations transferring mass from \(j \leq |\mathcal{X}|\) to \(j > |\mathcal{X}|\) are forbidden since the latter rows must remain zero. Therefore, it suffices to consider only permutations acting within the subspace spanned by rows \(j \leq |\mathcal{X}|\).
-\end{remark}
 
 \begin{definition}[Conditional entropy]
 \label{def: conditional entropy}
-For any finite random variables $X$ and $Y$, we denote the set of probability distributions $P_{XY}$ by $\mc P_{XY}$. A function
-\begin{equation}
-\H : \bigcup_{X, Y} \mc P_{XY} \rightarrow \mathbb{R}_+
-\label{eq:cond-ent-gen-def-1st}
-\end{equation}
-is called a conditional entropy if it satisfies the following postulates for all systems $X$, $Y$, $X'$, $Y'$, and joint probability distributions $P_{XY}$ and $Q_{X'Y'}$:
-\begin{enumerate}
-    \item Invariance under relabeling and embedding: if $Q_{X'Y'}$ is obtained from $P_{XY}$ through relabeling and embedding, then $\H(X|Y)_P=\H(X'|Y')_Q$.
+A conditional entropy is a function
+$\H:\bigcup_{X,Y}\mc P_{XY}\to\R_+$ satisfying:
+\begin{enumerate}[itemsep=1pt]
+ \item invariance under relabeling and embedding;
  \label{eq:QCE-2nd-postulate-iso}
-    \item Monotonicity under conditionally mixing channels: if $Q_{X'Y'}$ is obtained from $P_{XY}$ using a conditionally mixing channel, then $\H(X|Y)_P\leq\H(X'|Y')_Q.$
-\label{eq:QCE-1st-postulate-mono}
-    \item Additivity: $\H(XX'|YY')_{P \otimes Q} = \H(X|Y)_{P} + \H(X'|Y')_{Q}$.
-  \label{eq:QCE-3rd-postulate-add}
-    \item Normalization: $\H(X|Y)_{(1/2,1/2) \otimes Q_Y} = 1$
-     \label{eq:QCE-4-postulate-normalization}
+ \item monotonicity under conditional majorization:
+ $P_{XY}\succeq Q_{X'Y'}\Rightarrow
+ \H(X|Y)_P\leq\H(X'|Y')_Q$;
+ \label{eq:QCE-1st-postulate-mono}
+ \item additivity:
+ $\H(XX'|YY')_{P\otimes Q}
+ =\H(X|Y)_P+\H(X'|Y')_Q$;
+ \label{eq:QCE-3rd-postulate-add}
+ \item normalization:
+ $\H(X|Y)_{(1/2,1/2)^T\otimes Q_Y}=1$.
+ \label{eq:QCE-4-postulate-normalization}
 \end{enumerate}
 \end{definition}
-Note that the first two properties imply that if \(P_{XY} \succeq Q_{X'Y'}\) (i.e., \(P_{XY}\) conditionally majorizes \(Q_{X'Y'}\)), then \(\H(X|Y)_P \leq \H(X'|Y')_Q\). In other words, any conditional entropy is monotone under conditional majorization. In the following, we will
-also often use the notation $\H(X|Y)_P=\H(P_{XY})$.
+We use $\H(P_{XY})$ and $\H(X|Y)_P$ interchangeably.
 
-\subsection{The set of entropies}
+\subsection*{Main result and proof strategy}
+
+We prove that the extremal conditional entropies are
+\begin{equation}
+ H_{t,\tau}(X|Y)_P
+ =\frac1t\log\sum_{y:P_Y(y)>0}P_Y(y)
+ \exp\!\left(t\int_{[0,+\infty]}
+ H_\alpha(P_{X|Y=y})\,\d\tau(\alpha)\right),
+ \qquad t\neq0,
+ \label{eq:General}
+\end{equation}
+together with the tropical limits $t\to\pm\infty$ and the derivation limit
+$t\to0$.  Here $\tau$ is a probability measure on $[0,+\infty]$.  The
+finite-temperature ranges are exact.  For $t>0$, monotonicity holds precisely
+when
+\begin{equation}
+ \operatorname{supp}(\tau)\subseteq[0,1],\qquad
+ \tau(\{1\})=0,\qquad
+ \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)\leq\frac1t.
+ \label{eq:intro-positive-range}
+\end{equation}
+For $t<0$, either $\operatorname{supp}(\tau)\subseteq[0,1]$, with no
+moment-finiteness condition, or there is a single
+$\alpha_*\in(1,+\infty]$ such that
+$\operatorname{supp}(\tau)\subseteq[0,1]\cup\{\alpha_*\}$,
+$\tau(\{1\})=0$, both one-sided integrals
+\begin{equation}
+ \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha),
+ \qquad
+ \int_{(1,+\infty]}\frac{\alpha}{1-\alpha}\,\d\tau(\alpha)
+ \label{eq:intro-one-sided-moments}
+\end{equation}
+are finite, and their sum is at most $1/t$.  The two terms are formed
+separately, so no undefined $+\infty-(+\infty)$ cancellation is permitted.
+Sections~\ref{sec:sufficient-conditions-measure}
+and~\ref{sec:necessary-conditions-measures} give the tropical and derivation ranges as
+well as the proof sketches for every direction.  Complete analytic proofs are
+in Ref.~\cite{rubboli2026parametersFull}; the matching Lean declarations,
+dependency map, and statement table are in
+Ref.~\cite{rubboli2026parametersLean}.
+
+The proof uses the preordered-semiring framework of
+Refs.~\cite{fritz2023abstract,fritz2023abstractII}.  Section~\ref{sec: set of entropies}
+first records the unconditional barycentric argument.
+Section~\ref{sec: semiring of conditional entropies} constructs the conditional
+majorization semiring and determines its homomorphisms and derivations.
+Sections~4 and~5 then impose the exact monotonicity ranges: sufficiency follows
+from finite-support factorization and common discretization, while necessity
+uses two-block, three-block, Shannon-point, and tropical witnesses.
+Section~\ref{sec: large sample} converts the resulting spectrum into the
+barycentric classification of conditional entropies.
+
+\section{The set of entropies}
 \label{sec: set of entropies}
-In this section, we discuss the general form of an entropy, defined as a quantity that satisfies the axioms of Definition~\ref{def: Entropy}.
-In particular, we show that any such entropy can be written as a convex combination of Rényi entropies. We refer to this representation as the \emph{barycentric decomposition} of an entropy.
-
-This result can be understood as a consequence of the characterization of Rényi divergences given in~\cite[Theorem~2]{mu21_renyi}, together with the equivalence between entropies and relative entropies discussed in~\cite{gour21_axiomatic}. Alternatively, it can be viewed as a consequence of~\cite[Proposition~3.7]{Jensen_Kjaerulf_2019}, which establishes sufficient conditions for transforming multiple copies of one probability distribution into another under mixing channels.
-Indeed, the proof strategy underlying~\cite[Theorem~2]{mu21_renyi} is quite general, as emphasized in~\cite{haapasalo_inprep}, and shows that the problem of characterizing conditions for transformations between multiple copies of probability distributions is equivalent to an axiomatic characterization of monotone and additive quantities. Since we will later follow this latter approach in the setting of conditional entropies, we first discuss in detail here for the case without side information. This simpler scenario is illustrative and serves as the foundation for our general result.
+We now prove the barycentric representation~\eqref{eq:EntropyBarycentre} for an
+entropy satisfying Definition~\ref{def: Entropy}.  The proof uses the following
+large-sample majorization criterion; it is the no-side-information model for
+the conditional argument developed later
+\cite{mu21_renyi,gour21_axiomatic,haapasalo_inprep}.
 \begin{lemma}[{\cite[Proposition 3.7]{Jensen_Kjaerulf_2019}}]\label{lemma:Jensen}
 Let $P_X,Q_X$ be two probability distributions and assume that
 \begin{equation}
@@ -480,10 +348,12 @@ Let $P_X,Q_X$ be two probability distributions and assume that
 Then, for sufficiently large $n \in \mathbb{N}$ it holds that
 $P_X^{\otimes n} \succeq Q_X^{\otimes n}$.
 \end{lemma}
-The latter result implies a barycentric decomposition for entropies as we state next.
-In particular, this yields a barycentric decomposition with respect to a positive measure, which must be normalized if the additional normalization axiom is imposed (see Proposition~\ref{proposition:barycenter entropies} below).
- Notably, this result will subsequently serve as a key ingredient in deriving the general form of a conditional entropy.  Note that, as we discuss in Remark~\ref{remark: negative alpha dilemma}, only the Rényi entropies with
-$\alpha \geq 0$ appear in the decomposition. Indeed, as shown formally in Remark~\ref{remark: negative alpha dilemma}, entropies with $\alpha<0$ cannot simultaneously be monotone under mixing and invariant under relabeling and embedding.
+This criterion yields a barycentric decomposition against a positive measure,
+which normalization makes a probability measure, as stated next.
+This result will subsequently serve as a key ingredient in deriving the general
+form of a conditional entropy.  Only nonnegative R\'enyi orders occur: negative
+orders are incompatible with invariance under embeddings that append zero
+coordinates.
 
 
 
@@ -536,40 +406,6 @@ Furthermore, if the normalization axiom~\ref{eq:E-4-postulate-normalization} is 
     i.e., $\mu$ is a probability measure.
 \end{proof}
 
-\begin{remark}
-\label{remark: negative alpha dilemma}
-  One might wonder why Rényi entropies for $\alpha < 0$ are excluded from Proposition~\ref{proposition:barycenter entropies}. The reason lies in the requirement of invariance under isometries stated in Definition~\ref{def: Entropy}. Intuitively, when a full-rank probability distribution is embedded into a larger space—effectively appending zeros to the distribution—the Rényi entropy for $\alpha < 0$ diverges, since raising zero to a negative power yields infinity. As a result, the entropy changes from a finite to an infinite value under such an embedding, violating the isometric invariance axiom~\ref{eq:E-2nd-postulate-iso}.
-
-To formalize this argument, suppose there exists an entropy function that coincides with the Rényi entropy of order $\alpha < 0$ on full-rank probability distributions, is invariant under embeddings, and satisfies monotonicity under mixing—namely, $H_\alpha(X')_P \geq H_\alpha(X')_Q$ whenever $Q_{X'} = S P_{X'}$ for some doubly stochastic matrix $S$. For $\alpha < 0$, such monotonicity is expected due to the Schur concavity of the function $\left( \sum_i x_i^\alpha \right)^{1/\alpha}$. In particular, for negative orders $\alpha<0$, the entropies $H_\alpha$ are expected to be monotone non-increasing, rather than non-decreasing, under mixing channels.
- Let us define
-    \begin{align}
-    P_X=\begin{pmatrix}
-        \frac{1}{2} \\
-        \frac{1}{2}
-    \end{pmatrix} \,, \quad
-    P_{X'}=\begin{pmatrix}
-        \frac{1}{2} \\
-        \frac{1}{2}  \\
-        0
-    \end{pmatrix}
-\,,\quad S=\begin{pmatrix}
-            1-\varepsilon & 0 & \varepsilon \\
-            0& 1 & 0\\
-            \varepsilon & 0 & 1-\varepsilon \\
-        \end{pmatrix} \,, \quad
-       Q_{X'} = SP_{X'} = \frac{1}{2}
-       \begin{pmatrix}
-           1-\varepsilon\\
-           1\\
-           \varepsilon
-       \end{pmatrix} \,.
-    \end{align}
-Here, $P_{X'}$ represents $P_X$ embedded into a larger space, and $Q_{X'}$ is the output of the doubly stochastic matrix $S$ applied to $P_X'$. Then, invariance under isometries and monotonicity under mixing channels would imply the chain of inequalities
-    \begin{align}
-        1= H_\alpha(X)_P = H_\alpha(X')_P \geq H_\alpha(X')_Q = \frac{1}{1-\alpha}\log{\left(\frac{1}{2^\alpha}\left((1-\varepsilon)^{\alpha}+1+\varepsilon^\alpha\right)\right)} \xrightarrow[\varepsilon \to 0]{} +\infty.
-    \end{align}
-However, since $1 \neq  +\infty$, this leads to a contradiction. Therefore, no entropy function can simultaneously coincide with the Rényi entropy of order $\alpha < 0$ on full-rank probability distributions, be invariant under embeddings, and satisfy monotonicity under mixing channels.
-\end{remark}
 
 \section{The semiring of conditional majorization}
 \label{sec: semiring of conditional entropies}
@@ -1040,7 +876,9 @@ Finally, the case \(\mathbb{TR}_+\) gives rise to \(H_{+\infty,0}\), which corre
 
 \begin{proposition}
 \label{prop: monotone homomorphisms}
-Let \( S\) be the semiring of conditional majorization. The monotone nondegenerate monotone homomorphisms with trivial kernel $\Phi:\mc S\to\mb K\in\{\R_+,\R_+^{\rm op},\T\R_+,\T\R_+^{\rm op}\}$ are of the form
+Let \(S\) be the semiring of conditional majorization. The nondegenerate
+monotone homomorphisms with trivial kernel
+$\Phi:\mc S\to\mb K\in\{\R_+,\R_+^{\rm op},\T\R_+,\T\R_+^{\rm op}\}$ are of the form
 \begin{equation}
 \label{eq:FinalForm}
 \Phi(P_{XY}) =
@@ -1156,22 +994,19 @@ where $\mu$ is a positive measure in cases $\mathbb{R}_+$ and $\mathbb{TR}_+$, a
 \bigskip
 \bigskip
 
-\noindent \textbf{Step 4: Simplifying $\mathbb{TR}_+$} In the case of $\mathbb{TR}_+$, the form of the homomorphisms can be further restricted. Specifically, only the case $\alpha = 0$ for the inner barycenter is admissible. To show this, let us first prove that for elements of the semiring that are column vectors, the tropical homomorphisms in $\mathbb{TR}_+$ depend only on the support of the vector. Given $P\neq Q$ with the same support, we have that there exists $s,t \in (0,1)$ and $P',Q'$ such that
-\begin{align}
-   tQ+(1-t)Q'=P\,, \quad  sP+(1-s)P'=Q
-\end{align}
-We only need to consider monotone homomorphisms. In \(\mathbb{TR}_+\), Proposition~\ref{prop:convconc} shows that this is equivalent to the homomorphisms being strongly quasi-concave, with the latter property defined in equation~\eqref{eq: def strongly quasi-conc}.
-Then, we use the strong quasi-concavity to get
-\begin{align}
-    \Phi(P) \geq \max \{\Phi(Q),\Phi(Q')\} \geq \Phi(Q) \geq \max \{\Phi(P),\Phi(P')\} \geq \Phi(P) \,.
-\end{align}
-Hence, $\Phi(P) = \Phi(Q)$, which implies that $\Phi$ depends only on the support of the distribution. Since the only Rényi entropy that depends solely on the support, and not on the specific probabilities, is $H_0$, we can further restrict the monotone homomorphisms in $\mathbb{TR}_+$ to
+\noindent \textbf{Step 4: Simplifying $\mathbb{TR}_+$.}
+For two probability vectors with the same support, each can be written as a
+nontrivial mixture containing the other. Strong quasi-concavity therefore
+forces a tropical monotone to take the same value on both vectors. It depends
+only on support, so its inner entropy is $H_0$. Consequently,
 \begin{equation}
     \Phi(P_{XY}) = \max \limits_{\substack{y \in \mathcal{Y} \\ P_Y( y) > 0}}
-    \exp(kH_0(P_{X|Y=y}))
+    \exp\!\bigl(kH_0(P_{X|Y=y})\bigr), \qquad k>0.
 \end{equation}
-for some positive constant $k>0$.
-All the results together prove the proposition.
+Propositions~\ref{prop:sufficient-tropical-positive} and
+\ref{prop:positive-tropical-necessary} below provide, respectively, the
+direct monotonicity proof and the sharp exclusion of every other Rényi
+parameter. This completes the proof.
 \end{proof}
 
 % \subsection{The degenerate homomorphisms}
@@ -1224,19 +1059,25 @@ All the results together prove the proposition.
 
 \subsection{The derivations}
 \label{sec: derivations}
-In the previous sections, we examined the monotone homomorphisms, which (up to a constant and a log factor) form a subset of the extremal conditional entropies—those that, through convex combinations, generate the entire set of conditional entropies. However, to obtain a complete characterization of this set, it is also necessary to consider derivations at $\|\cdot\|$, which we prove to arise as limiting cases of homomorphisms. In particular, we show that these derivations coincide with generalized convex combinations of the conditional entropies \(H_{0,\alpha}\) (see Definition~\ref{def: extremal entropies}), corresponding to the limiting form of \(H_{t,\tau}\) as \(t \to 0\).
+Besides nondegenerate homomorphisms, the spectral theorem requires monotone
+derivations at $\|\cdot\|$. Algebraically these arise from the limiting family
+$H_{0,\alpha}$ as $t\to0$; monotonicity restricts the initially available
+Rényi orders to the sharp interval $[0,1]$.
 
 
 
 \begin{proposition}
 \label{prop: monotone derivations}
-Let \( S\) be the semiring of conditional majorization. Then, the extremal monotone derivations at \(\|\cdot\|\), as defined in Lemma~\ref{lem: degenerate and zig-zag}, are of the form
+Let \(S\) be the semiring of conditional majorization. The normalized
+extremal monotone derivations at \(\|\cdot\|\), as defined in
+Lemma~\ref{lem: degenerate and zig-zag}, are precisely
 \begin{equation}
 \label{eq:ExtDerivation}
 H_{0,\alpha}(P)
 = \sum_{y \in \mathcal{Y}} P_Y(y) \, H_\alpha\!\big(P_{X|Y = y}\big)\,,
 \end{equation}
-for some \(\alpha \in [0,+\infty]\).
+for \(\alpha\in[0,1]\). Every normalized monotone derivation is a barycentre
+of this family.
 \end{proposition}
 \begin{proof}
 We need to study monotone derivations at $\|\cdot\|$. These are additive maps \(\Delta \colon S \to \mathbb{R}\) that preserve the order, in the sense that \([P] \rgeq [Q]\)—and hence \(P \preceq Q\) for representatives of the corresponding equivalence classes—implies \(\Delta(P) \geq \Delta(Q)\). Moreover, they satisfy the Leibniz rule with respect to the semiring product,
@@ -1310,7 +1151,10 @@ Thus, $\Delta'$ is also a monotone derivation, and we may replace $\Delta$ with 
 
 \medskip
 \noindent \noindent\textbf{Step 2: General form.}
-Next, we derive the general form of the monotone derivations. First, we derive the action of $\Delta$ on individual normalized columns. Since $\Delta$ satisfies the axioms of an entropy functional, Proposition~\ref{proposition:barycenter entropies} implies the existence of a finite positive measure $\tau \colon \mathcal{B}([0, +\infty]) \to\R_+$ such that for a probability vector $P_X$
+Next, we derive the algebraic candidate form. On normalized columns,
+Proposition~\ref{proposition:barycenter entropies} first gives a finite positive
+measure $\tau \colon \mathcal{B}([0,+\infty])\to\R_+$ such that, for a
+probability vector $P_X$,
 \begin{equation}
 \Delta(P_X)=\int_{[0,+\infty]}H_\alpha(P_X)\d\tau(\alpha)\,.
 \end{equation}
@@ -1342,7 +1186,8 @@ Finally, note that the normalization condition $\Delta\big(P_X\otimes(1/2,1/2)\b
 
 
 \medskip
-\noindent \noindent\textbf{Step 3: Extremal derivations.} Finally, we identify the extremal derivations that generate the entire set of derivations via convex combinations. For $\alpha\in[0,+\infty]$, let us consider the derivations (or conditional entropies)
+\noindent \noindent\textbf{Step 3: Extremal derivations.}
+The algebraic extreme candidates are, for $\alpha\in[0,+\infty]$,
 \begin{equation}\label{eq:ExtDerivation proof}
 H_{0,\alpha}(P)=\sum_{y\in\mc Y} P_Y(y)H_\alpha(P_{X|Y=y})\,.
 \end{equation}
@@ -1350,43 +1195,28 @@ From equation~\eqref{eq:derivFinalForm}, we observe that any derivation \(\Delta
 \begin{equation}
     \Delta(P) = \int_{[0,+\infty]} H_{0,\alpha}(P)\, d\tau(\alpha)
 \end{equation}
-for some probability measure \(\tau\). Hence, each derivation is a convex combination (or, rather, a barycentre) of the extremal derivations \(H_{0,\alpha}(P)\).
-Consequently, since our goal is to characterize the extremal elements of the set—in order to express the general form of conditional entropies through barycentric (i.e., convex) decompositions—it suffices to consider the derivations
-\(H_{0,\alpha}\) with \(\alpha \in [0,+\infty]\).
+for some probability measure \(\tau\). Thus every algebraic candidate is a
+barycentre of the $H_{0,\alpha}$. Proposition~\ref{prop:sufficient-derivations}
+proves monotonicity for $\alpha\in[0,1]$, while
+Proposition~\ref{prop:Derivations} gives an explicit witness for
+every $\alpha>1$. The representing measure of a monotone derivation is
+therefore supported on $[0,1]$, which proves the statement. Complete
+calculations are in Ref.~\cite{rubboli2026parametersFull}; the semiring/channel
+lift is checked in Ref.~\cite{rubboli2026parametersLean}.
 \end{proof}
 
 
-\section{Sufficient conditions for the parameters}
-\label{sec:sufficient-parameter-placeholder}
+% The same source is compiled separately as the standalone Sections 4--5 extract.
+\def\IntegratedParameterSections{1}
+\input{sections-4-5-concise.tex}
 
-The exact sufficient parameter conditions for the temperate homomorphisms,
-the two tropical endpoints, and the derivations are stated with their main
-proof ideas in Ref.~\cite{rubboli2026parametersConcise} and proved in full
-analytic detail in Ref.~\cite{rubboli2026parametersFull}.  The latter includes
-the common-discretization argument for arbitrary measures, endpoint-aware
-differentiation under the parameter integral, and the lift from the one-column
-curvature statements to the original semiring and channel preorder.  A
-statement-by-statement machine-checked correspondence is given in
-Ref.~\cite{rubboli2026parametersLean}.  This section is intentionally retained
-as a placeholder so that the numbering of the present paper remains stable.
 
-\section{Necessary conditions for the parameters}
-\label{sec:necessary-parameter-placeholder}
-
-The matching necessity results and their counterexamples are given in
-Ref.~\cite{rubboli2026parametersConcise}; complete proofs appear in
-Ref.~\cite{rubboli2026parametersFull}.  Those proofs use the same two-block,
-three-block, Shannon, and tropical witnesses as the Lean development in
-Ref.~\cite{rubboli2026parametersLean}.  They establish the parameter ranges
-without assuming in advance that the singular weighted integral at
-$\alpha=1$ is finite: one first proves truncated inequalities and derives the
-needed one-sided finiteness only in the exceptional branch.  The resulting
-admissible sets are the ones recorded in Definitions~\ref{def: D}
-and~\ref{def: D_infty}.  This section is likewise a numbered placeholder.
 
 \section{Large sample and catalytic conditional majorization}
 \label{sec: large sample}
-In this section, we present the large-sample and catalytic results, which serve as the main tools for proving the general form of a conditional entropy in Theorem~\ref{th:barycenter conditional entropies} and will also underpin the applications discussed in Section~\ref{sec: Applications}.
+In this section, we present the large-sample and catalytic results that provide
+the ordering input for the general form of a conditional entropy in
+Theorem~\ref{th:barycenter conditional entropies}.
 In particular, these results follow directly from Theorem~\ref{thm:Fritz2022} on large-sample and catalytic transformations for general semirings, applied to the semiring of conditional majorization, together with the characterization of monotone homomorphisms and derivations established in Section~\ref{sec: semiring of conditional entropies}.
 As shown in the following section (see Theorem~\ref{th:barycenter conditional entropies}), these homomorphisms and derivations coincide, up to a constant and a logarithmic factor, with the extremal conditional entropies that generate the entire family of conditional entropies through convex combinations.
 Since conditional entropies, according to Definition~\ref{def: conditional entropy}, require proper normalization and additivity under tensor products, we reformulate the monotone homomorphisms from Proposition~\ref{prop: monotone homomorphisms} and the derivations from Proposition~\ref{prop: monotone derivations} as follows.
@@ -1407,7 +1237,7 @@ Throughout this manuscript, we refer to \(H_{t,\tau}\) as the bulk conditional e
 
 
 
-As we prove later in Theorem~\ref{th:barycenter conditional entropies}, the above quantities encompass all extremal conditional entropies for appropriate values of $t$ and $\tau$. Not every parameter choice is admissible: for some choices the resulting quantity violates the axioms of Definition~\ref{def: conditional entropy}, in particular monotonicity under conditionally mixing channels. The exact admissible regimes are stated concisely in Ref.~\cite{rubboli2026parametersConcise}, proved in full in Ref.~\cite{rubboli2026parametersFull}, and formally verified in Ref.~\cite{rubboli2026parametersLean}. Consequently, we introduce the following sets of parameters and measures.
+As we prove later in Theorem~\ref{th:barycenter conditional entropies}, the above quantities encompass all extremal conditional entropies for appropriate values of $t$ and $\tau$. Not every parameter choice is admissible: for some choices the resulting quantity violates the axioms of Definition~\ref{def: conditional entropy}, in particular monotonicity under conditionally mixing channels. The exact admissible regimes are established in Sections~4 and~5, proved in full analytic detail in Ref.~\cite{rubboli2026parametersFull}, and formally verified in Ref.~\cite{rubboli2026parametersLean}. Consequently, we introduce the following sets of parameters and measures.
 
 
 
@@ -1566,7 +1396,7 @@ More exotic quantities have appeared in the literature. In~\cite{tan2018conditio
     H_{1+a|1+b}(X|Y)_P=-\frac{1+b}{a}\log{\bigg(\sum_{y \in \Y} P_Y(y)\Big(\sum_{x \in \X} P_{X|Y}(x|y)^{1+a}\Big)\Big(\sum_{x \in \X} P_{X|Y}(x|y)^{1+b}\Big)^{-\frac{a}{1+b}}\bigg)} \,.
 \end{equation}
 This corresponds to $H_{t,\tau}$ for $\tau=(1+b)\delta_{1+a}-b\delta_{1+b}$ and $t=-a/(1+b)$.
-An alternative conditional entropy was introduced in~\cite{hayashi2016uniform}\footnote{Note that the definition in~\cite[Equation (14)]{hayashi2016uniform} contains a typo. The correct exponent for the term $\sum_{x \in \X} P_{X|Y}(x|y)^{1+\theta'}$ is $-\theta/(1+\theta')$. This corrected formulation, which includes the minus sign, is used consistently throughout the remainder of their paper (see, e.g.,~\cite[Lemma 3, Property (11)]{hayashi2016uniform}).}
+An alternative conditional entropy was introduced in~\cite{hayashi2016uniform}\footnote{Equation (14) of Ref.~\cite{hayashi2016uniform} appears to omit a minus sign.  We use the exponent $-\theta/(1+\theta')$, as the later arguments in that reference do.}
 \begin{align}
     H_{1+\theta,1+\theta'}(X|Y)_P=&-\frac{1}{\theta}\log{\bigg(\sum_{y \in \Y} P_Y(y)\Big(\sum_{x \in \X} P_{X|Y}(x|y)^{1+\theta}\Big)\Big(\sum_{x \in \X} P_{X|Y}(x|y)^{1+\theta'}\Big)^{-\frac{\theta}{1+\theta'}}\bigg)} \\
     &\qquad + \frac{\theta'}{1+\theta'}H^{\text{A}}_{1+\theta'}(P_{XY}) \\
@@ -1595,285 +1425,27 @@ $H_{\alpha,\beta}$~\eqref{eq: H alpha beta} in~\cite{li2025two} and~\cite{rubbol
 
 
 
-\section{Applications}
-\label{sec: Applications}
-\subsection{Rate of transformation under conditional majorization}
-As a first application of our result, we show that the conditional entropies $H_{t,\tau}$ determine the optimal transformation rate under conditionally mixing operations and isometries, thereby providing them with an operational interpretation as characterizing the number of output copies obtainable per input copy within this class of operations.
-
-Specifically, given two joint probability distributions $P_{XY}$ and $Q_{X'Y'}$, we seek the largest $r \in \mathbb{R}$ for which $  Q_{X'Y'}^{\otimes \lfloor r n \rfloor} \succeq  P_{XY}^{\otimes n}$ holds for all sufficiently large $n$, i.e., we want to determine the value
-\begin{equation}
-    R(P_{XY} \rightarrow Q_{XY}) =\; \sup\left\{ r \ge 0 \;\middle|\; Q_{X'Y'}^{\otimes \lfloor r n \rfloor} \succeq  P_{XY}^{\otimes n} \;\; \text{for large } n \right\}.
-\end{equation}
-It is known that this problem is equivalent to the large sample problem (see e.g.~\cite[Theorem 3.11]{Jensen_Kjaerulf_2019}). In particular, we use the necessary and sufficient conditions for large sample of Theorem~\ref{th: large sample and catalytic} to obtain
-\begin{theorem}
-\label{thm: rate}
-    Let $P_{XY}$ and $Q_{XY}$ be two joint probability distributions. Then,
-    \begin{equation}
-    \label{eq: rate}
-R(Q_{X'Y'}\rightarrow P_{XY}) = \inf_{(t,\tau) \in \D_{\rm{bulk}}} \frac{H_{t,\tau}(X|Y)_P}{H_{t,\tau}(X'|Y')_Q} \,.
-\end{equation}
-In the case where $H_{t,\tau}(X|Y)_Q=0$ for all $(t,\tau) \in \D_{\rm{bulk}}$, we have that $R(P_{XY}\rightarrow Q_{X'Y'})=+\infty$.
-\end{theorem}
-\begin{proof}
-   The proof follows a similar argument to that of~\cite[Theorem 3.11]{Jensen_Kjaerulf_2019}, with the additional observation that the derivations $H_{0,\alpha}$ and the tropical homomorphism $H_{+\infty,0}$ and $H_{-\infty,\tau}$ in their respective parameters regions can be excluded by taking the infimum in equation~\eqref{eq: rate}, since they are limits of $H_{t,\tau}$. Finally, in the case where the denominators vanish, an inspection of the closed forms reveals that for each $y$, the distribution $Q$ has only a single non-zero outcome, even when considering tensor products. Consequently, one can easily construct a doubly stochastic map that transforms this into any arbitrary output distribution, which implies that the rate is infinite.
-\end{proof}
-
-
-
-\subsection{Conditional channels under conservation conditions and an application to second laws of thermodynamics with side information}
-\label{sec: second laws of thermo}
-In this section, we generalize the above results for conditionally mixing channels to the case in which mixing channels are replaced by channels that leave a fixed probability distribution invariant. In particular, we derive a set of necessary and sufficient conditions for transformations assisted by a catalyst, namely a probability distribution that enables the desired transformation while remaining unchanged under the action of the channel.
-Finally, we apply these results to obtain necessary and sufficient conditions in quantum thermodynamics.
-
-
-Mixing channels are precisely those channels that can be represented by a doubly stochastic matrix $S$ which leaves a suitably large uniform distribution $U$ invariant, i.e., $S U = U$.
-Conditionally mixing channels are thus conditionally uniformity-preserving channels. It is thus quite natural to consider a generalization of our results where the conserved primary distribution is not uniform $U$ but some other fixed distribution $R$. For this purpose, let us introduce the following set of operations that generalize conditionally mixing channels.
-
-\begin{definition}
-Let us fix a finite random variable $X$ together with the probability distribution $R_X$. A \textit{conditioned $R_X$-preserving channel} has the form
-\begin{equation}
-P_{XY}\mapsto Q_{XY'}=\sum_{i=1}^k G^{(i)}P_{XY}D^{(i)}
-\end{equation}
-where
-\begin{enumerate}
-\item the matrices $G^{(i)}$ are column-stochastic and $G^{(i)}R_X=R_X$ for $i=1,\ldots,k$,
-\item the matrices $D^{(i)}$ are substochastic for $i=1,\ldots,k$, and
-\item the sum $\sum_{i=1}^k D^{(i)}$ is row-stochastic.
-\end{enumerate}
-\end{definition}
-
-We are interested in conditions under which \(P_{XY}\) can be transformed into \(Q_{XY'}\) catalytically by a conditionally \(R_X\)-preserving channel, with arbitrarily small error $\varepsilon$.
-The error here is quantified with the total variation distance defined between joint probabilities $S_{XY}$ and $T_{XY}$ through
-\begin{equation}
-d(S_{XY},T_{XY})=\frac{1}{2}\sum_{x\in X}\sum_{y\in Y}\big|S_{XY}(x,y)-T_{XY}(x,y)\big|.
-\end{equation}
-We introduce the quantities $I_{t,\tau}$,
-\begin{equation}
-I_{t,\tau}(P_{XY}\|R_X)=-\frac{1}{t}\log{\left(\sum_{y\in Y}P_Y(y)\exp{\left(-t\int_{[0,+\infty]}D_\alpha(P_{X|Y=y}\|R_X)\,\mathrm{d}\tau(\alpha)\right)}\right)} \,.
-\end{equation}
-Here, $t\in\R\setminus\{0\}$ and $\tau$ is a Borel probability measure on $[0,\infty]$. Moreover, the R\'enyi relative entropy for $\alpha \in [0,+\infty]$ is defined as
-\begin{equation}
-    D_\alpha(P_X\|R_X)=
-\frac{1}{\alpha-1}\log{\sum_{x\in X}P_X(x)^\alpha R_X(x)^{1-\alpha}}\,,
-\end{equation}
-with the cases \(\alpha=1\) and \(\alpha=+\infty\) defined by the corresponding limits.
-In the following, we provide a set of sufficient conditions under which a joint distribution can be transformed into another using $ R_X$-preserving channels  and the assistance of a catalyst. We also denote the uniform distribution of any system $Z$ by $U_Z$.
-In the following, we provide a set of sufficient conditions under which a joint distribution can be transformed into another using $ R_X$-conditionally preserving channels and the assistance of a catalyst. We also denote the uniform distribution of any system $Z$ by $U_Z$.
-\begin{theorem}\label{thm:ConservedClassical}
-Let $R_X$ be a full-rank probability distribution with rational entries. Let $Q_{XY'}$ be a joint probability distribution such that $Q_{X|Y'=y'}\neq R_X\ $ and $|{\rm supp}(Q_{X|Y'=y'})|=|{\rm supp}(R_X)|$ for all $y'\in \mc Y'$. Let $P_{XY}$ be a joint probability distributions such that
-\begin{equation}
-\max \limits_{\substack{y \in \mathcal{Y} \\ P_Y( y) > 0}} |{\rm supp}(P_{X|Y=y})|<|{\rm supp}(R_X)|.
-\end{equation}
-Then, for all $\varepsilon>0$, there exist joint probability distributions $Q^\varepsilon_{XY'}$ and $S^\varepsilon_{X_\varepsilon Y_\varepsilon}$ with $d(Q_{XY'},Q^\varepsilon_{XY'})<\varepsilon$ and a conditionally $R_X\otimes U_{X_\varepsilon}$-preserving channel that maps $P_{XY}\otimes S^\varepsilon_{X\varepsilon Y\varepsilon}$ into $Q^\varepsilon_{XY'}\otimes S^\varepsilon_{X\varepsilon Y\varepsilon}$ if and only if for all $(t,\tau)\in\mc D_{\rm bulk}$,
-\begin{align}
-I_{t,\tau}(P_{XY}\|R_X)&\geq I_{t,\tau}(Q_{XY'}\|R_X)\,.
-\end{align}
-\end{theorem}
-
-\begin{proof}
-   The proof follows a standard argument based on the so-called embedding map. Specifically, the conditions $I_{t,\tau}(P_{XY},R_X) \geq I_{t,\tau}(Q_{XY'},R_X)$ are equivalent to the inequalities $H_{t,\tau}(\widetilde{P}_{\widetilde{X}Y}) \leq H_{t,\tau}(\widetilde{Q}_{\widetilde{X}Y'})$, where $\widetilde{P}_{\widetilde{X}Y}$ and $\widetilde{Q}_{\widetilde{X}Y'}$ are the embedded versions of $P_{XY}$ and $Q_{XY'}$, respectively, obtained via the application of the embedding map (see below for the formal definition).
-   This entropy inequality guarantees the existence of a catalyst and a conditionally mixing channel
-   that transforms $\widetilde{P}_{XY}$ into $\widetilde{Q}_{XY'}$ according to Theorem~\ref{th: large sample and catalytic}. We then construct the desired overall channel by composing the embedding map, the conditionally mixing channel, and the (left) inverse of the embedding map. By construction, as we argue later, this overall transformation is $R_X$ preserving.
-
-\bigskip
-
-Let us denote the support size of $R_X$ by $d$. By assumption, $R_X$ has rational entries. Hence, there exists $D \in \mathbb{N}$ and $g_i \in \mathbb{N}$ with $D= \sum_{i=1}^d g_i$ such that
-\begin{equation}
-R_X = \left( \frac{g_1}{D}, \ldots, \frac{g_d}{D} \right)
-\end{equation}
-up to eliminating possible zero entries from $R_X$. The embedding map $\Gamma : \mathbb{R}^d \to \mathbb{R}^D$ is defined as follows
-\begin{align}
-\Gamma(p) := \Big( \underbrace{\frac{p_1}{g_1}, \ldots, \frac{p_1}{g_1}}_{g_1 \ \text{times}}, \ldots, \underbrace{\frac{p_d}{g_d}, \ldots, \frac{p_d}{g_d}}_{g_d \ \text{times}} \Big)\,.
-\end{align}
-This map has the crucial property of sending $R_X$ to the uniform distribution $U_D := \big(\tfrac{1}{D}, \ldots, \tfrac{1}{D}\big)$. This allows us to apply the results from Section~\ref{sec: large sample} on conditional majorization.
-The left inverse $\Gamma^{-1} : \mathbb{R}^D \to \mathbb{R}^d$ is
-\begin{equation}
-\label{PsInvEmbed}
-\Gamma^{-1}(q) := \left( \sum_{i=1}^{g_1} q_i,\ \sum_{i=g_1+1}^{g_1 + g_2} q_i,\ \ldots,\ \sum_{i = g_1 + \cdots + g_{d-1} + 1}^{D} q_i \right),
-\end{equation}
-It is straightforward to verify that (see e.g.,~\cite[Lemma 13]{Brandao})
-\begin{align}
-    D_{\alpha}(P_X \| R_X) = D_{\alpha}(\Gamma(P_X) \| U_D) = \log{D} - H_\alpha (\Gamma(P_X))\,.
-\end{align}
-The properties of the embedding map applied to the system $X$ imply that
-\begin{align}
-    I_{t,\tau}(P_{XY} \| R_X) &=  -\frac{1}{t} \log \Bigg( \sum_{y \in \mc Y} P_Y(y) \exp \Big( -t\int_{[0,+\infty]}D_\alpha(P_{X|Y=y} \| R_{X}) \, \mathrm{d} \tau(\alpha) \Big) \Bigg) \\
-    & =-\frac{1}{t} \log \Bigg( \sum_{y \in\mc Y} P_Y(y) \exp \Big( -t\int_{[0,+\infty]} D_\alpha(\Gamma_X(P_{X|Y=y}) \| U_D) \, \mathrm{d} \tau(\alpha) \Big) \Bigg) \\
-    & = -\frac{1}{t} \log \Bigg( \sum_{y \in\mc Y} P_Y(y) \exp \Big( -t \log{D} +t\int_{[0,+\infty]} H_\alpha(\Gamma_X(P_{X|Y=y})) \, \mathrm{d} \tau(\alpha) \Big) \Bigg)\\
-    & = -\frac{1}{t} \log \Bigg( \sum_{y \in\mc Y} P_Y(y) \exp \Big(t\int_{[0,+\infty]} H_\alpha(\Gamma_X(P_{X|Y=y})) \, \mathrm{d} \tau(\alpha) \Big) \Bigg) + \log{D}
-\end{align}
-Hence, we obtain that
-\begin{align}
-    I_{t,\tau}(P_{XY} \| R_X) = -H_{t,\tau}(X|Y)_{\Gamma_X(P_{XY})} + \log{D}
-\end{align}
-
-We note that the inequalities assumed in the theorem for \(I_{t,\tau}\) extend naturally to the limiting cases \(t\to 0,\pm\infty\), within their respective monotonicity regions.
-To apply Theorem~\ref{th: large sample and catalytic}, we need to make the inequalities strict. Since these functions are defined in terms of convex combinations of Rényi relative entropies, it suffices to establish the strict inequality for each Rényi relative entropy individually, for all \(\alpha \ge 0\). Indeed, taking convex combinations preserves strict order, and the subsequent operations—namely summation, addition of constants, exponentiation, and application of the logarithm—are all strictly monotone. Consequently, the overall functions inherit the strict ordering. To make the inequalities strict, we construct the approximation
-\begin{equation}
-    Q^\varepsilon_{XY'} = \left(1-\varepsilon\right) Q_{XY'} + \varepsilon (R_X \otimes Q_{Y'}) \,.
-\end{equation}
-This distribution is an $\varepsilon$-approximation of $Q_{XY'}$:
-\begin{align}
-d(Q_{XY'},Q^\varepsilon_{XY'})&=\frac{1}{2}\sum_{x\in\mc X}\sum_{y'\in\mc Y'}\left|Q_{XY'}(x,y')-(1-\varepsilon)Q_{XY'}(x,y')-\varepsilon R_X(x)Q_{Y'}(y')\right|\\
-&\leq\frac{\varepsilon}{2}\sum_{x\in\mc X}\sum_{y'\in\mc Y'}Q_{XY'}(x,y')+\frac{\varepsilon}{2}\sum_{x\in\mc X}R_X(x)\sum_{y'\in\mc Y'}Q_{Y'}(y')=\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon.
-\end{align}
-The condition $Q_{X|Y'=y'}\neq R_X$ in the assumption of the claim guarantees that the inequalities between R\'{e}nyi relative entropies are strict for all $\alpha>0$. Indeed, for any $\alpha>0$ and $ y'\in \Y'$ we obtain
-\begin{equation}
-    D_\alpha\!\left(Q_{X|Y'=y'} \middle\| R_X \right)
-    >
-    D_\alpha\!\left(Q^\varepsilon_{X|Y'=y'} \middle\| R_X \right) .
-\end{equation}
-This follows from the joint concavity of the map $Q_\alpha(P_X\|R_X) = \exp\!\bigl((\alpha-1)D_\alpha(P_X\|R_X)\bigr)$ for $\alpha<1$ and its joint convexity for $\alpha>1$, together with the assumption that
-$Q_{X|Y'=y'}\neq R_X$.
-To illustrate this explicitly, consider the case $\alpha>1$. Then
-\begin{align}
-    Q_\alpha\!\left(Q^\varepsilon_{X|Y'=y'} \middle\| R_X \right)
-    &\leq
-    \left(1-\varepsilon\right)
-    Q_\alpha\!\left(Q_{X|Y'=y'} \middle\| R_X \right)
-    + \varepsilon <
-    Q_\alpha\!\left(Q_{X|Y'=y'} \middle\| R_X \right) ,
-\end{align}
-where we used that the assumption $Q_{X|Y'=y'}\neq R_X$ implies $Q_\alpha\!\left(Q_{X|Y'=y'} \middle\| R_X \right)
->
-Q_\alpha\!\left(R_X \middle\| R_X \right)
-=1$.
-By taking the logarithm, we obtain the desired strict inequality. Since the approximation decreases the value of $D_0$, and in particular satisfies $D_0(Q^{\varepsilon}_{X\mid Y'=y'} \| R_X)=0$, it follows that all $I_{t,\tau}$ are strictly ordered if the intersection of the support of $\tau$ and $(0,\infty]$ is non-empty. It therefore remains to consider the case in which the measure is supported entirely at $\alpha=0$.
-In this case, the assumption that the support sizes of $P_{X|Y=y}$ are all strictly smaller than that of $R_X$ guarantees that the inequalities are also strict for $\alpha=0$. Indeed, for all $y\in\mc Y$ and $y'\in\mc Y'$ it holds that
- \begin{align}
-     D_0 (P_{X|Y=y} \| R_X) >D_0(Q^\varepsilon_{X|Y'=y'} \| R_X )  = 0 \,.
-\end{align}
-Here, the last inequality follows from the fact that $Q^\varepsilon_{X|Y'=y'} = (1-\varepsilon )Q_{X|Y'=y'} + \varepsilon R_X$ and hence has the same support of $R_X$. The assumption of the theorem on the support of $P_{XY}$ implies that $D_0(P_{X|Y=y}\|R_X)> 0$ for all $y\in \Y$.
- The preceding observations imply that
-\begin{align}
-    & H_{t,\tau}(X|Y)_{\Gamma_X(P_{XY})} < H_{t,\tau}(X|Y')_{\Gamma_X(Q^\varepsilon_{XY'})}, \qquad\qquad\qquad \forall (t,\tau) \in \D_{\rm{bulk}}, \\
-    &H_{-\infty,\tau}(X|Y)_{\Gamma_X(P_{XY})} < H_{-\infty,\tau}(X|Y')_{\Gamma_X(Q^\varepsilon_{XY'})}, \quad\quad \quad  \;\;\; \forall \tau \in \D_{-\infty}, \\
-    &H_{0,\alpha}(X|Y)_{\Gamma_X(P_{XY})} < H_{0,\alpha}(X|Y')_{\Gamma_X(Q^\varepsilon_{XY'})}, \quad\,\qquad \quad\quad\;\; \forall \alpha \in [0,1] \,,\\
-    &H_{+\infty,0}(X|Y)_{\Gamma_X(P_{XY})} < H_{+\infty,0}(X|Y')_{\Gamma_X(Q^\varepsilon_{XY'})}.
-\end{align}
-Theorem~\ref{th: large sample and catalytic} implies the existence of a catalyst $S^\varepsilon_{X\varepsilon Y\varepsilon}$ and a conditionally mixing channel $\Upsilon$ such that
-\begin{equation}
-    \Upsilon(\Gamma_X (P_{XY}) \otimes S^\varepsilon_{X\varepsilon Y\varepsilon})= \Gamma_X (Q^\varepsilon_{XY'}) \otimes S^\varepsilon_{X\varepsilon Y\varepsilon} \,.
-\end{equation}
-Note that no additional embedding is required, since $P_{XY}$ and $Q^\varepsilon_{XY'}$ have the same number of rows, as discussed in Remark~\ref{remark: no isometries}.
-Therefore, we construct the channel
-\begin{equation}
-	\Lambda := (\Gamma^{-1}_X \otimes I_{Y'}\otimes I_{X\varepsilon Y\varepsilon}) \circ \Upsilon_{XY'X\varepsilon Y\varepsilon} \circ (\Gamma_X \otimes I_{Y}\otimes I_{X\varepsilon Y\varepsilon})
-\end{equation}
-so that
-\begin{align}
-	&\Lambda (P_{XY} \otimes S^\varepsilon_{X\varepsilon Y\varepsilon})  = Q^\varepsilon_{XY'} \otimes S^\varepsilon_{X\varepsilon Y\varepsilon}%\\
-    %&\Lambda (R_{X}\otimes \eta_Y \otimes \pi_{X''Y''})  = \gamma_{X}\otimes \tau_Y \otimes \pi_{X''Y''} \,,
-\end{align}
-%where the last inequality holds for any state $\eta_Y$ and $\tau_Y$ is a state on $Y$.
-Finally, to show that this map is a conditionally $R_X\otimes U_{X_\varepsilon}$-preserving operation, one can verify its structure directly. Another way is to observe that, for any distribution $T_{YY_\varepsilon}$, there is a distribution $T'_{Y'Y_\varepsilon}$ such that
-\begin{equation}
-\Upsilon\big(U_D\otimes U_{X_\varepsilon}\otimes T_{YY_\varepsilon}\big)=U_D\otimes U_{X_\varepsilon}\otimes T'_{Y'Y_\varepsilon}
-\end{equation}
-which immediately follows from the fact that $\Upsilon$ is conditionally mixing and implies that
-\begin{equation}
-\Lambda(R_{X}\otimes U_{X_\varepsilon}\otimes T_{YY_\varepsilon})=R_X\otimes U_{X_\varepsilon
-}\otimes T'_{Y'Y_\varepsilon}.
-\end{equation}
-Moreover, $\Lambda$ does not signal from $XX_\varepsilon$ to $Y'Y_\varepsilon$ meaning that ignoring the $XX_\varepsilon$ information after performing $\Lambda$ results in a legitimate stochastic map $YY_\varepsilon\to Y'Y_\varepsilon$ as one easily verifies using the fact that $\Upsilon$ is conditionally mixing. These two properties together are equivalent to $\Lambda$ being a conditionally $R_X\otimes U_{X_\varepsilon}$-preserving channel, by an argument analogous to that in~\cite[Section C]{gour2024inevitability}.
-
-
-
-
-
-We now prove the opposite direction. First, note that $I_{t,\tau}$ is monotone under maps that preserve the fixed reference distribution. This follows by adapting the same argument used to establish the monotonicity of $H_{t,\tau}$ under conditionally mixing channels. For each fixed outcome $Y$, one replaces the monotonicity of the Rényi entropy appearing in the exponential term with the monotonicity of the Rényi relative entropy under maps preserving the reference distribution. The latter is an immediate consequence of the standard data-processing inequality for R\'enyi relative entropies. Additivity under tensor products follows directly from the definition.
-
-Consequently, monotonicity and additivity imply that, for every $(t,\tau)\in\mc D_{\rm bulk}$,
-\begin{align}
-I_{t,\tau}(P_{XY}\|R_X)
-+I_{t,\tau}(S^\varepsilon_{X_\varepsilon Y_\varepsilon}\|U_{X_\varepsilon})
-&=
-I_{t,\tau}\bigl(
-P_{XY}\otimes S^\varepsilon_{X_\varepsilon Y_\varepsilon}
-\big\|
-R_X\otimes U_{X_\varepsilon}
-\bigr)
-\\
-&\geq
-I_{t,\tau}\bigl(
-Q^\varepsilon_{XY'}\otimes S^\varepsilon_{X_\varepsilon Y_\varepsilon}
-\big\|
-R_X\otimes U_{X_\varepsilon}
-\bigr)
-\\
-&=
-I_{t,\tau}(Q^\varepsilon_{XY'}\|R_X)
-+
-I_{t,\tau}(S^\varepsilon_{X_\varepsilon Y_\varepsilon}\|U_{X_\varepsilon})\,.
-\end{align}
-Simplifying the catalyst on both sides and noting that all quantities are continuous, since the support of $R_X$ contains those of $P_{X\vert Y}$ and $Q_{X\vert Y}$, we obtain the result by taking $\varepsilon \to 0$. Note that the condition $|{\rm supp}(P_{X|Y=y})|=|{\rm supp}(R_X)|$ ensures continuity of $I_{t,\tau}$ whenever its support contains $\alpha=0$.
-\end{proof}
-
-Let us present a direct physical application of the above result. Let us fix a finite-dimensional quantum system $A$ with the Hamiltonian
-\begin{equation}
-H_A=\sum_a E_a\ketbra{a}{a}
-\end{equation}
-where $\{|a\rangle\}_a$ is the energy eigenbasis of the Hilbert space $\mc H_A$ of the system. If all $E_a$ coincide, we say that the Hamiltonian is trivial. In the inverse temperature $\beta$ the Hamiltonian defines the partition function $Z_A$ and the Gibbs state $\gamma_A$ through
-\begin{equation}
-Z_A=\sum_a e^{-\beta E_a},\qquad \gamma_A=\frac{1}{Z_A}e^{-\beta H_A}.
-\end{equation}
-In the following, we always assume that $\beta>0$ and hence $\gamma_A$ is full-rank. A quantum channel $G$, i.e., a completely positive trace-preserving linear map on the operators on $\mc H_A$, is Gibbs-preserving if $G(\gamma_A)=\gamma_A$. Thermal operations are defined as those that allow one to borrow an ancillary system in a Gibbs state, apply a unitary that commutes with the total Hamiltonian, and then discard a subsystem via the partial trace. For classical states, i.e.,\ those that commute with $\gamma_A$, however, thermal operations are equivalent to Gibbs-preserving maps~\cite{janzing2000thermodynamic,horodecki2013fundamental}. Accordingly, in the following, we will use the term Gibbs-preserving maps interchangeably with thermal operations.
-
-Conditioned thermal operations generalize this concept in the setting where side information is available and were introduced in~\cite{narasimhachar2017resource}. We say that a channel $G$ from a bipartite quantum system $AB$ to another bipartite system $AB'$ is conditionally Gibbs-preserving if there exists a channel $G_{B\to B'}$ such that
-\begin{equation}
-\ptr{A}{G(\rho_{AB})}=G_{B\to B'}(\rho_B),\quad G(\gamma_A\otimes\rho_B)=\gamma_A\otimes G_{B\to B'}(\rho_B)
-\end{equation}
-for all quantum states $\rho_{AB}$ on $AB$ with the reduced state $\rho_B$ on $B$.
-
-We say that a state $\rho_{AB}$ is classical if there is a joint probability distribution $P_{AB}$ and an orthonormal basis $\{|b\rangle\}_b$ for the Hilbert space $\mc H_B$ of $B$ such that
-\begin{equation}
-\rho_{AB}=\sum_{a\in\mc A}\sum_{b\in\mc B}P_{AB}(a,b)\ketbra{a}{a}\otimes\ketbra{b}{b}.
-\end{equation}
-It follows immediately that, if $\rho_{AB}$ and $\sigma_{AB'}$ are classical states, where $\rho_{AB}$ is associated with the joint probability $P_{AB}$ and $\sigma_{AB'}$ with the joint probability $Q_{AB'}$, and there is a conditionally Gibbs-preserving channel $G$ such that $G(\rho_{AB})=\sigma_{AB'}$, then there is a classical conditionally $R_A$-preserving channel $\Lambda$, where $R_A(a)=e^{-\beta E_a}/Z_A$, such that $\Lambda(P_{AB})=Q_{AB'}$. Naturally, with this observation, we obtain a necessary and sufficient condition for conditionally Gibbs-preserving transformability between classical states in the catalytic regime as a direct corollary of Theorem \ref{thm:ConservedClassical}. However, before stating this result, let us introduce the free energies
-\begin{equation}
-F_{t,\tau}(\rho_{AB},\gamma_A)=\frac{1}{\beta}\big(I_{t,\tau}(P_{AB}\|R_A)-\log{Z_A}\big)
-\end{equation}
-for any classical state $\rho_{AB}$ associated with the joint probability $P_{AB}$ where $R_A(a)=e^{-\beta E_a}/Z_A$.
-
-\begin{corollary}[Second laws of thermodynamics with side information]\label{cor:secondlaws}
-Let us assume that the Gibbs-spectrum is rational, i.e., $e^{-\beta E_a}$ is a rational number for all $a$. Suppose that
-\begin{equation}
-\rho_{AB}=\sum_{a,b}P_{AB}(a,b)\ketbra{a}{a}\otimes\ketbra{b}{b},\quad\sigma_{AB'}=\sum_{a,b'}Q_{AB'}(a,b')\ketbra{a}{a}\otimes\ketbra{b'}{b'}
-\end{equation}
-are classical states such that
-\begin{equation}
-\max_{b,\ P_B(b)>0}\big|{\rm supp}(P_{A|B=b})\big| <d_A=\big|{\rm supp}(Q_{A|B'=b'})\big|,\qquad Q_{A=a|B'=b'}\neq\frac{e^{-\beta E_a}}{Z_A}\ \forall(a,b'),
-\end{equation}
-where $d_A$ is the dimension of the Hilbert space $\mc H_A$. For all $\varepsilon>0$, there exist finite quantum systems $A_\varepsilon$ and $B_\varepsilon$, a classical state $\sigma^\varepsilon_{AB'}$, a state $\omega^\varepsilon_{A_\varepsilon B_\varepsilon}$ and a conditionally Gibbs-preserving channel $G_\varepsilon:AA_\varepsilon BB_\varepsilon\to AA_\varepsilon B'B_\varepsilon$ (where $A_\varepsilon$ carries the maximally mixed state, the Gibbs state of a trivial Hamiltonian of $A_\varepsilon$) such that $\|\sigma_{AB'}-\sigma^\varepsilon_{AB'}\|_1<\varepsilon$ and $G_\varepsilon(\rho_{AB}\otimes\omega^\varepsilon_{A_\varepsilon B_\varepsilon})=\sigma^\varepsilon_{AB'}\otimes\omega^\varepsilon_{A_\varepsilon B_\varepsilon}$ if and only if
-\begin{align}
-F_{t,\tau}(\rho_{AB},\gamma_A)&\geq F_{t,\tau}(\sigma_{AB'},\gamma_A)\qquad\forall(t,\tau)\in\mc D_{\rm bulk}.
-\end{align}
-\end{corollary}
 
 \section{Conclusion}
-We derived the general form of conditional entropy and showed that any quantity satisfying operationally relevant axioms admits a representation as an exponential average of R\'enyi entropies of the conditioned distribution, parameterized by a real parameter and a probability measure.
-These results reveal an underlying structure common to the various conditional entropies introduced in the literature and clarify the relationships among them.
+
+We characterized conditional entropy from four operational requirements:
+invariance under relabeling and embedding, monotonicity under conditionally
+mixing channels, additivity, and normalization.  Every such entropy is a
+barycentre of the extremal families $H_{t,\tau}$ and their tropical and
+derivation limits.  The preordered-semiring spectrum supplies the candidate
+families, while Sections~4 and~5 determine exactly which parameters are
+monotone.
+
+The parameter proof treats arbitrary probability measures on the compactified
+R\'enyi interval and does not assume finiteness of the singular moment at the
+Shannon point.  In the exceptional negative branch, truncated localization
+first forces the support restriction and only then proves the required
+one-sided finiteness.  The complete analytic calculations and the
+machine-checked statement correspondence are available in
+Refs.~\cite{rubboli2026parametersFull,rubboli2026parametersLean},
+respectively.
 
 
-
-
-We derived conditions for the transformation of joint probability distributions under conditionally mixing channels, both in the many-copy regime and in the presence of a catalyst that may be borrowed during the process and returned unchanged. We showed that these conditions can be expressed in terms of conditional entropies
-and that they can be used to characterize the optimal conversion rate under conditionally mixing channels and to derive a set of second laws of quantum thermodynamics with side information.
-
-
-In Theorem~\ref{th: large sample and catalytic}, we provided a set of sufficient conditions for many-copy and catalytic transformations, which include the condition
-\begin{align}
-\label{eq: support restriction}
-    H_{+\infty,0}(P_{XY}) < H_{+\infty,0}(Q_{X'Y'}) .
-\end{align}
-This condition requires the maximal support of the columns of $P_{XY}$ to be strictly smaller than that of $Q_{X'Y'}$ and therefore excludes the special case in which the two distributions have equal support.
-As a consequence, the applicability of this result is restricted to certain classes of distributions.
- This restriction likely stems from the fact that we do not consider conditional R\'enyi entropies with negative $\alpha$. This is a well-known fact, which also holds in the absence of side information (see~\cite{Jensen_Kjaerulf_2019,farooq2024matrix}).
- Informally, this can be understood by considering the case of a single $Y$ outcome and observing that, under the support assumption~\eqref{eq: support restriction}, the R\'enyi entropies of $P_{XY}$ with negative $\alpha$ take the value $+\infty$ (note that monotoncity is reversed for $\alpha<0$), whereas they remain finite for $Q_{XY}$, since $P_{XY}$ must be embedded into the space of $Q_{XY}$.
-Consequently, the support condition already enforces a strict ordering for all negative values of $\alpha$, and these entropies therefore do not need to be included among the sufficient conditions.
-This fact is reflected later when deriving sufficient conditions for catalytic conditionally (gibbs-)preserving operations in Section~\ref{sec: second laws of thermo}, where we imposed the support-size separation in Theorem \ref{thm:ConservedClassical} and Corollary \ref{cor:secondlaws}.
-Hence, an open question is to extend these results to a more general setting without relying on the support-size assumption.
-Another open question is whether the assumption that the Gibbs state has rational entries can be dropped. We believe this to be possible, similarly to what is known in the unconditional case~\cite{farooq2024matrix}. However, since the methods of this manuscript rely on the embedding map, our current construction does not cover the case of irrational entries.
 
 
 \section{Acknowledgements}
@@ -1914,7 +1486,7 @@ We say that $F$ is strongly quasi-concave if the inequality above is reversed, i
     F\big(tP+(1-t)Q\big)\geq\max\{F(P),F(Q)\}.
 \end{equation}
 
- In the following, we show that the required convexity properties depend on the output space of the homomorphism. As used in the parameter-classification arguments of Refs.~\cite{rubboli2026parametersConcise,rubboli2026parametersFull}, the key monotonicity is monotonicity under maps acting on the conditioning subsystem of a joint distribution, which form the key subclass of conditionally mixing channels. In matrix form, for a positive joint distribution $P_{XY}$, such an action is represented as $P_{XY}\rightarrow P_{XY}D$, where $D$ is row stochastic.
+ In the following, we show that the required convexity properties depend on the output space of the homomorphism. As used in Sections~4 and~5 and detailed in Ref.~\cite{rubboli2026parametersFull}, the key monotonicity is monotonicity under maps acting on the conditioning subsystem of a joint distribution, which form the key subclass of conditionally mixing channels. In matrix form, for a positive joint distribution $P_{XY}$, such an action is represented as $P_{XY}\rightarrow P_{XY}D$, where $D$ is row stochastic.
 
 \begin{proposition}\label{prop:convconc}
 Let $S$ be the semiring of conditional majorization of Section~\ref{sec: semiring of conditional entropies}. Let
@@ -2063,13 +1635,15 @@ Putting all this together and noting that $(D^{(1)}\,\cdots D^{(n)})$ is row-sto
 \end{align}
 showing the monotonicity in case $\mathbb{R}_+$. The other cases are essentially the same; the sums in \eqref{eq:apuconv} turn into maxima in the tropical cases $\mathbb{TR}_+$ and $\mathbb{TR}^{\mathrm{op}}_+$, and the inequalities are reversed in cases $\mathbb{R}^{\mathrm{op}}_+$ and $\mathbb{TR}^{\mathrm{op}}_+$.
 \end{proof}
-The same implication is also true for the derivations.
 \begin{lemma}
-Let $S$ be the semiring of conditional majorization of Section~\ref{sec: semiring of conditional entropies}. Let $\Delta: \mathcal{S} \to \mathbb{R}$ be an extremal monotone derivation at $\|\cdot\|$, and hence of the form in Proposition~\ref{prop: monotone derivations}.
-If $\Delta$ is monotone under row stochastic maps acting on the conditioning system, then it is monotone under conditionally mixing operations.
+\label{lem:extension-to-general-channels-derivations}
+An extremal derivation at $\|\cdot\|$ that is monotone under row-stochastic
+maps on the conditioning system is monotone under conditionally mixing
+operations.
 \end{lemma}
 \begin{proof}
-    The proof is analogous to that of Lemma~\ref{lem: extension to general channels} for the homomorphisms.
+Repeat the proof of Lemma~\ref{lem: extension to general channels}, using
+additivity of the derivation in place of additivity of the homomorphism.
 \end{proof}
 
 \end{document}

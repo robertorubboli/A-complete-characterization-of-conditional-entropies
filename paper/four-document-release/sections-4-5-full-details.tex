@@ -32,14 +32,15 @@
 
 \begin{abstract}
 This standalone companion gives the complete analytic proofs of the exact
-parameter ranges for the conditional-entropy candidates introduced in
-Ref.~\cite{rubboli2026complete}. It follows the order and notation of the
-concise companion~\cite{rubboli2026parametersConcise}, but includes the real-power
+parameter ranges stated in Sections~4 and~5 of
+Ref.~\cite{rubboli2026complete}. It mirrors the order, notation, and numbering
+used there; where useful, a statement is given in a strengthened form that
+implies its concise main-paper version. It also supplies the real-power
 calculus, common discretization, signed-measure differentiation, two-block and
 three-block localization, the separate Shannon argument, tropical stationarity,
 and the lift from one-column shape inequalities to the original semiring and
-conditionally mixing channels. No global finiteness assumption is placed on the
-parameter measure. In the exceptional branches, the required one-sided moment
+conditionally mixing channels. No finiteness assumption is placed on the
+singular weighted moment at $\alpha=1$. In the exceptional branches, the required one-sided moment
 finiteness is derived from monotonicity before the signed moment is formed.
 \end{abstract}
 
@@ -53,13 +54,15 @@ finiteness is derived from monotonicity before the signed moment is formed.
 \maketitle
 \tableofcontents
 
-\section*{Relation to the concise companion}
-\addcontentsline{toc}{section}{Relation to the concise companion}
+\section*{Relation to the main paper}
 
-Ref.~\cite{rubboli2026parametersConcise} is the statement-and-main-ideas layer
-of this paper.  The present paper proves the same numbered statements in the
-same order.  Sections~\ref{sec:sufficient-conditions}
-and~\ref{sec:necessary-conditions} keep the logical obstruction and the witness
+Sections~4 and~5 of Ref.~\cite{rubboli2026complete} state the classification
+and give the principal proof ideas.  The present paper reproduces those
+statements in the same order, notation, and numbering.  A few are stated in a
+stronger endpoint-aware form that directly implies the concise version.  The
+present paper supplies their complete analytic proofs.
+Sections~\ref{sec:sufficient-conditions}
+and~\ref{sec:necessary-conditions} keep the logical obstructions and witness
 choices visible; Appendix~\ref{app:technical-sections45} supplies the analytic
 infrastructure behind them.  In particular, the finite counterexamples used
 here are the same Shannon, two-block, three-block, and binary-face witnesses
@@ -189,6 +192,7 @@ branch requires it.  Exact finite-dimensional stationarity is needed only for
 the negative tropical branch.  Finally, Section~\ref{sec:channel-lift} converts
 the one-column shape result into the original channel preorder.
 
+\setcounter{section}{3}
 \section{Sufficient conditions for the parameters}
 \label{sec:sufficient-conditions}
 
@@ -332,7 +336,7 @@ paper without adding an axiom or an extra regularity hypothesis.
 
 \subsection{Sufficient conditions for the discrete case}
 
-This subsection proves Lemmas~1.1--1.3 of the concise companion.
+This subsection proves Lemmas~4.1--4.3 of the main paper.
 
 The discrete proof is based on two elementary curvature results. We state them in the form needed here. Complete Hessian calculations are given in Appendix~\ref{app:technical-sections45}.
 
@@ -551,8 +555,7 @@ Thus $t_nI_n\leq1$ in the positive case and $t_nI_n\geq1$ in the negative except
 \subsection{Sufficient conditions for the temperate homomorphisms -- general measure}
 \label{sec:common-discretisation}
 
-This subsection supplies the full proof of Proposition~1.4 of the concise
-companion.
+This subsection supplies the full proof of Proposition~4.4 of the main paper.
 
 We now extend the previous result to an arbitrary probability measure. The main point is to construct a finitely supported approximation on the parameter space which is independent of the vector $\vec x$. This permits us to use the same approximating function at $\vec x$, $\vec z$, and $\lambda\vec x+(1-\lambda)\vec z$. The required approximation and the associated dominated-convergence argument are recorded in Appendix~\ref{app:measure-approximation}; we include the complete calculation below because it is central to the passage from the discrete to the general case.
 
@@ -698,8 +701,7 @@ The second inequality has precisely the required orientation in the oppositely o
 
 \subsection{Sufficient conditions for tropical homomorphisms}
 
-This subsection proves Propositions~1.5--1.6 and Remark~1.7 of the concise
-companion.
+This subsection proves Propositions~4.5--4.6 and Remark~4.7 of the main paper.
 
 We next consider the tropical homomorphisms. The negative tropical quantity is obtained from the temperate one through the limit $t\to-\infty$. The only scalar fact needed is the following finite log-sum-exp limit. If $p_y\geq0$, $\sum_yp_y=1$, and $a_y\in\mathbb R$, then, with
 \begin{equation}
@@ -803,16 +805,20 @@ Taking the limit in the monotonicity inequality proves the claim.
 \end{proof}
 
 \begin{remark}
+\label{rem:positive-tropical-endpoint}
 If one fixed $\tau$ satisfies all conditions in Proposition~\ref{prop:general-sufficient}, item 1, for arbitrarily large $t$, then
 \begin{equation}
  \int_{[0,1)}\frac{\alpha}{1-\alpha}\,\mathrm d\tau(\alpha)=0.
 \end{equation}
 The same conditions include $\tau(\{1\})=0$. Since the displayed integrand is strictly positive on $(0,1)$, they force $\tau=\delta_0$.
+Thus the positive tropical family contains only the point mass at $\alpha=0$.
+In contrast, every point mass belongs to the negative tropical family, under
+the alternatives of Proposition~\ref{prop:negative-tropical-sufficient}.
 \end{remark}
 
 \subsection{Sufficient conditions for derivations}
 
-This subsection proves Proposition~1.8 of the concise companion.
+This subsection proves Proposition~4.8 of the main paper.
 
 We finally consider the derivations. Although they can be obtained as first-order limits of the temperate homomorphisms, a direct proof is both shorter and more transparent.
 Here a positive integral mixture means an integral against a finite positive
@@ -1218,6 +1224,10 @@ Thus a positive value in \eqref{eq:Phi-second-log-main} contradicts concavity, w
 \subsection{Necessary conditions; temperate case}
 \label{sec:temperate-necessity}
 
+The next propositions and remarks are the complete, mathematically strengthened
+versions of Statements~5.1--5.6 of the main paper, in the same order and with
+the same parameter notation.
+
 \begin{proposition}
 \label{prop:positive-necessary}
 Let $\mu$ be an arbitrary finite positive measure. The function in \eqref{eq:Phi-mu-necessary} can be concave only if
@@ -1413,23 +1423,44 @@ If the two one-sided moments are finite and their sum is smaller than $1$, choos
 \end{proof}
 
 \begin{remark}
+\label{rem:normalizing-witnesses}
 The point and directions in the preceding propositions are not required to be normalised or traceless. Here normalised means that the coordinates sum to one, and a traceless direction satisfies $\sum_i v_i=0$, so that it preserves mass to first order. This is not an enlargement of the semiring problem: the semiring is defined on unnormalised nonnegative matrices, and Section~\ref{sec:channel-lift} tests the curvature property on the whole cone. Positive homogeneity also shows that rescaling a counterexample does not change the sign of the relevant curvature. Thus the one-column perturbations above are directly admissible.
 \end{remark}
 
 \begin{remark}
-If one nevertheless wishes to realise the same calculation on a fixed-mass affine hyperplane, one may append a second positive column and vary its total mass by the negative of the mass variation of the first column. Additivity of the homomorphism separates the two columns, and the second column contributes only a linear correction. This optional construction leads to the same second-order obstruction, but it is not needed for the semiring argument.
+\label{rem:trace-preserving-witnesses}
+If one nevertheless wishes to realise the same calculation on a fixed-mass
+affine hyperplane, one may append a second positive column.  Let
+$\vec x'>0$, put $\widehat{x'}:=\vec x'/\|\vec x'\|_1$, and suppose that the
+first column changes as $\vec x+\lambda\vec v$.  Change the second column as
+\begin{equation}
+ \vec x'-\lambda\widehat{x'}\sum_i v_i.
+ \label{eq:compensated-second-column}
+\end{equation}
+The opposite sign keeps the total mass fixed.  Additivity of the homomorphism
+separates the two columns, and the second column contributes only a linear
+correction.  This optional construction gives the same second-order
+obstruction, but it is not needed for the semiring argument.
 \end{remark}
 
 It remains to show that a convex negative-measure homomorphism cannot have two different support points above $1$. This is where the three-block perturbation is essential.
 
 \begin{proposition}
 \label{prop:negative-single-point}
-Let $\mu$ be an arbitrary finite negative measure. If the function in \eqref{eq:Phi-mu-necessary} is convex, then
+Let $\mu$ be a finite negative measure with $\mu(\{1\})=0$. If the function
+in \eqref{eq:Phi-mu-necessary} is convex, then either
+$\operatorname{supp}(\mu)\subseteq[0,1]$, or there is a unique
+$\alpha_*\in(1,+\infty]$ such that
 \begin{equation}
- \operatorname{supp}(\mu)\cap(1,+\infty]
+ \operatorname{supp}(\mu)\subseteq[0,1]\cup\{\alpha_*\}.
  \label{eq:support-above-one-set}
 \end{equation}
-contains at most one point.
+In the second case, the two one-sided moments are finite and
+\begin{equation}
+ \int_{[0,+\infty]\setminus\{1\}}
+ \omega(\alpha)\,\mathrm d\mu(\alpha)\geq1.
+ \label{eq:negative-single-point-statement-moment}
+\end{equation}
 \end{proposition}
 
 \begin{proof}
@@ -1473,9 +1504,8 @@ whereas the limiting second derivative is
  \label{eq:two-tail-second-negative}
 \end{equation}
 This gives a finite-dimensional violation of convexity at every sufficiently large finite scale $d$. Hence there can be at most one support point above $1$.
-\end{proof}
 
-We now combine the preceding results. If a convex negative-measure homomorphism has no support above $1$, no moment condition is required and an atom at $1$ is allowed. Suppose instead that there is support above $1$. Proposition~\ref{prop:negative-single-point} shows that the restriction of $\mu$ to $(1,+\infty]$ is a single atom at some $\alpha_*\in(1,+\infty]$. Proposition~\ref{prop:negative-atom-necessary} gives $\mu(\{1\})=0$.
+We now combine the preceding results. If there is no support above $1$, the first alternative holds. Otherwise, the argument above shows that the restriction of $\mu$ to $(1,+\infty]$ is a single atom at some $\alpha_*\in(1,+\infty]$. The hypothesis already gives $\mu(\{1\})=0$.
 
 Choose $b\in(1,\alpha_*)$ with $|\mu|(\{b\})=0$. Then $A_b=\omega(\alpha_*)\mu(\{\alpha_*\})$ is a finite positive number, so the upper one-sided moment is finite. Proposition~\ref{prop:negative-truncated-moment} gives
 \begin{equation}
@@ -1491,6 +1521,7 @@ As $a\uparrow1$, the quantities $B_a$ form a decreasing family because the integ
  \label{eq:negative-full-moment-mu}
 \end{equation}
 Thus finiteness of the weighted integral is a consequence of convexity in the exceptional branch, rather than an assumption.
+\end{proof}
 
 Returning to $\mu=t\tau$, we obtain the exact temperate parameter conditions
 \begin{align}
@@ -1523,7 +1554,7 @@ In \eqref{eq:negative-final-parameter-region}, division of \eqref{eq:negative-fu
 \subsection{Necessary conditions for tropical homomorphisms}
 \label{sec:tropical-necessity}
 
-We now prove Propositions~2.7--2.8 of the concise companion.  The negative
+We now prove Propositions~5.7--5.8 of the main paper.  The negative
 branch uses the same Shannon and three-block witnesses as the temperate case,
 with an additional exact stationarity correction.  The positive branch uses a
 separate binary fixed-face witness.
@@ -1732,7 +1763,7 @@ Proposition~\ref{prop:positive-tropical-sufficient}, this proves the equivalence
 \subsection{Necessary conditions for derivations}
 \label{sec:derivation-necessity}
 
-We finally prove Propositions~2.9--2.10 of the concise companion.  It is useful
+We finally prove Propositions~5.9--5.10 of the main paper.  It is useful
 to treat the full barycentre at once. Let $\nu$ be a finite positive measure and define on an unnormalised column
 \begin{equation}
  D_\nu(\vec x)
@@ -1815,14 +1846,14 @@ where $\tau$ is a finite positive measure. Under the normalization adopted in Se
 \end{proposition}
 
 \begin{proof}
-The representation theorem of Section~3 in Ref.~\cite{rubboli2026complete} is the imported starting point: it represents every derivation at $\|\cdot\|$ as a positive integral mixture of the quantities $H_{0,\alpha}$ with $\alpha\in[0,+\infty]$. Proposition~\ref{prop:derivation-necessary} shows that monotonicity forces the representing measure to be supported on $[0,1]$. Conversely, Proposition~\ref{prop:derivation-sufficient} proves monotonicity for every positive measure supported on $[0,1]$. This establishes \eqref{eq:derivation-final-classification}. The representation theorem itself is not reproved in this companion.
+The representation theorem of Section~3 in Ref.~\cite{rubboli2026complete} is the imported starting point: it represents every derivation at $\|\cdot\|$ as a positive integral mixture of the quantities $H_{0,\alpha}$ with $\alpha\in[0,+\infty]$. Proposition~\ref{prop:derivation-necessary} shows that monotonicity forces the representing measure to be supported on $[0,1]$. Conversely, Proposition~\ref{prop:derivation-sufficient} proves monotonicity for every positive measure supported on $[0,1]$. This establishes \eqref{eq:derivation-final-classification}. The representation theorem itself is not reproved here.
 \end{proof}
 
 The counterexamples above are deliberately chosen to be as simple as possible. A two-block vector is sufficient whenever only one forbidden coefficient must be isolated; three blocks are needed only when two independent positive coefficients must be exposed; and the separate Shannon perturbation is used only to detect an atom at $\alpha=1$. In every case, the limiting curvature is strict. Appendix~\ref{app:finite-counterexamples} explains how Taylor's theorem converts the strict limiting sign into an explicit pair of finite-dimensional semiring elements violating concavity, convexity, or quasi-convexity.
 
 \clearpage
 \appendix
-\section{Technical foundations for the concise classification}
+\section{Technical foundations for Sections 4 and 5}
 \label{app:technical-sections45}
 
 This appendix collects the analytic statements used in Sections~\ref{sec:sufficient-conditions} and~\ref{sec:necessary-conditions}.  The purpose of separating them from the main text is twofold.  First, it keeps the counterexamples in Section~\ref{sec:necessary-conditions} visible: the main argument is a finite-dimensional curvature test with explicitly chosen velocities.  Second, it makes precise every operation which involves a parameter integral, a derivative, or a high-dimensional limit.  In particular, no appeal is made to an informal interchange of operations.

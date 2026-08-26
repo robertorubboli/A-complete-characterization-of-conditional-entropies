@@ -1,15 +1,20 @@
 # Formalization status
 
-The repository contains a verified vertical formalization of the
-characterization in Sections 4 and 5, including the original
-semiring/channel realization. The terminal declarations and their exact
-paper-facing signatures are present. The integrated warning-as-error build,
-axiom audit, forbidden-token scan, and correspondence audit all pass.
+The repository contains a verified vertical formalization of the parameter
+classification in Sections 4 and 5 of the canonical journal manuscript,
+including the original semiring/channel realization. The terminal declarations
+and their paper-facing signatures are present, and the integrated
+warning-as-error build, axiom audit, forbidden-token scan, and correspondence
+audit pass on the current release state.
+
+The paper hierarchy described here was revised on 26 August 2026. Statement
+numbers in the complete-proof and Lean supplements now refer to the canonical
+manuscript's Sections 4 and 5; the Lean correspondence runs through statement
+5.10.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
-whose imports transitively cover the complete declaration-bearing release
-dependency tree.
+whose imports transitively cover the declaration-bearing dependency tree.
 
 ## Status at a glance
 
@@ -21,13 +26,13 @@ dependency tree.
 | `uniformShannonExpansion`, `shannonNeighbourhood`, and `shannonLogMass` | Strict root build passed |
 | `shannonLocalization` | Exact four-limit declaration; strict root build passed |
 | Temperate, tropical, and derivation necessity | Strict root build passed |
-| Human-readable counterexample correspondence | Exact Shannon, rounded block, tropical correction, binary-face, and derivation witnesses audited against Lean |
+| Human-readable counterexample correspondence | Shannon, rounded block, tropical correction, binary-face, and derivation witnesses audited against Lean |
 | `necessityBundle` | Exact four-part declaration; axiom audit passed |
 | `mainClassification` | Assumption-free declaration; axiom audit passed |
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
-| 152-row, three-column manuscript correspondence ledger | Correspondence audit passed |
-| Final `scripts/check.ps1` release audit | Passed on 25 August 2026 |
+| Three-column manuscript correspondence ledger | Correspondence audit passed |
+| `scripts/check.ps1` | Passes on the current release state |
 
 ## Classification branch
 
@@ -37,8 +42,8 @@ The source tree formalizes:
    parameter measures, endpoint-aware Rényi entropy, and extended-real moment
    predicates;
 2. positive-base real-power differentiation, the exact first and second
-   entropy-line derivatives, the removable Shannon quotient, and continuity
-   at the top endpoint;
+   entropy-line derivatives, the removable Shannon quotient, and continuity at
+   the top endpoint;
 3. signed differentiation through parameter integrals, compact-uniform
    dominated convergence, finite-support approximation, and discretization;
 4. exact two-block and three-block logarithmic and G-kernel localization;
@@ -50,15 +55,15 @@ The source tree formalizes:
 7. `necessityBundle` and the closed theorem
    `mainClassification (tau : ProbabilityMeasure Param) : Classifies tau`.
 
-The four-document paper release uses these same finite witnesses. In
+The journal manuscript and its supplements use the same finite witnesses. In
 particular, negative tropical necessity records the three formal correction
-directions, positive tropical necessity uses the binary pair
-`(1/3, 2/3)` and `(1/2, 1/2)`, and derivation necessity uses the formalized
-upper-tail two-block direction `(0, 1)`.
+directions, positive tropical necessity uses the binary pair `(1/3, 2/3)` and
+`(1/2, 1/2)`, and derivation necessity uses the formalized upper-tail two-block
+direction `(0, 1)`.
 
 The final declaration has no auxiliary theorem hypothesis. Unfolding
-`Classifies` gives the four manuscript equivalences for finite nonzero
-temperature, negative tropical, positive tropical, and derivation candidates.
+`Classifies` gives the four equivalences for finite nonzero temperature,
+negative tropical, positive tropical, and derivation candidates.
 
 ## Semiring/channel and candidate-law branch
 
@@ -70,34 +75,46 @@ assembled with the four sufficiency branches in
 `allConditionalEntropyAxioms`.
 
 This theorem is separate from `mainClassification`: it verifies the original
-five-law package for admissible candidates and does not serve as an assumed
-premise of the classification.
+five-law package for admissible candidates and is not an assumed premise of the
+classification.
 
-## Correspondence and paper artifacts
+## Paper hierarchy and correspondence
+
+- [`paper/four-document-release/main-paper.tex`](paper/four-document-release/main-paper.tex)
+  is the canonical 46-page journal manuscript. Its concise Sections 4 and
+  5 are part of the paper and determine the statement numbering.
+- [`paper/four-document-release/sections-4-5-concise.tex`](paper/four-document-release/sections-4-5-concise.tex)
+  is a standalone extract of those two sections.
+- [`paper/four-document-release/sections-4-5-full-details.tex`](paper/four-document-release/sections-4-5-full-details.tex)
+  is the complete proof supplement and mirrors the manuscript's 4.x/5.x
+  numbering.
+- [`paper/four-document-release/lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex)
+  is the Lean supplement, with its theorem-facing proof map, trust audit, and
+  statement table through 5.10.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-contains exactly one source-ordered row for each of the 152 labeled manuscript
-statements. Its columns are exactly **Manuscript statement**, **Lean
-declaration**, and **Status**. Every row is marked **Formalized** or
-**Formalized (split API)** and is covered by the strict root build.
-
-The matching LaTeX table is
+contains one source-ordered row for every audited labeled manuscript statement.
+Its columns are exactly **Manuscript statement**, **Lean declaration**, and
+**Status**. Each row is marked **Formalized** or **Formalized (split API)** and
+is covered by the strict root build. The matching LaTeX table is
 [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
-The detailed module-group dependency architecture is recorded in
-[`paper/dependency-graph.dot`](paper/dependency-graph.dot),
-[`DEPENDENCIES.md`](DEPENDENCIES.md), and
-[`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md). The paper appendix
-contains a separate condensed two-branch architecture overview in
-[`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex),
-while the four-document Lean note contains the theorem-facing proof map.
 
-## Trust boundary and release audit
+The detailed module-group implementation architecture is recorded in
+[`paper/dependency-graph.dot`](paper/dependency-graph.dot), its
+[`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png)
+renderings, [`DEPENDENCIES.md`](DEPENDENCIES.md), and
+[`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md). This implementation
+graph is distinct from the theorem-facing proof map in the Lean supplement:
+the first uses prerequisite-to-dependent arrows between module groups, while
+the second uses result-to-ingredient arrows between manuscript conclusions and
+proof ingredients.
 
-The project trust boundary excludes `sorry`, `admit`,
-project-defined `axiom`, and project-defined `opaque` declarations. Standard
-logical dependencies reported by Lean or Mathlib, such as propositional
-extensionality, classical choice, and quotient soundness, remain part of the
-trusted foundation.
+## Trust boundary and reproducibility
+
+The project trust boundary excludes `sorry`, `admit`, project-defined `axiom`,
+and project-defined `opaque` declarations. Standard logical dependencies
+reported by Lean or Mathlib, such as propositional extensionality, classical
+choice, and quotient soundness, remain part of the trusted foundation.
 
 Run the complete Windows audit from the repository root:
 
@@ -107,8 +124,5 @@ powershell -File scripts/check.ps1
 
 The script performs the forbidden-token scan, builds
 `CompleteCharacterization` with warnings treated as errors, runs
-[`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean), and validates the exact
-152-row correspondence invariant. All four steps pass on the audited release
-state. The strict build checked 2,864 jobs; the 21 declarations in the axiom
-audit depend exactly on `propext`, `Classical.choice`, and `Quot.sound`, with no
-project-defined axiom.
+[`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean), and validates the
+three-column correspondence invariant.

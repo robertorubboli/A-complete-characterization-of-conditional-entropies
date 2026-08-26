@@ -1,3 +1,18 @@
+% This file has two modes.  It compiles as a standalone extract by default.
+% If the host manuscript defines \IntegratedParameterSections before inputting
+% it, only the body of Sections 4 and 5 is emitted.
+\ifdefined\IntegratedParameterSections
+\newcommand{\ParameterMainForms}{the candidate families derived above}
+\newcommand{\ParameterMainTemperateForm}{the temperate representation derived above}
+\newcommand{\ParameterMainLift}{the convexity-to-monotonicity and semiring-lift results proved in the appendix}
+\newcommand{\ParameterMainDerivationLift}{the corresponding derivation results proved in the appendix}
+\newcommand{\ParameterMainDerivationRepresentation}{the representation of derivations obtained above}
+\newcommand{\ParameterMainSemiring}{the conditional-majorization semiring defined above}
+\newcommand{\ParameterMainNormalization}{the normalization fixed above}
+\newcommand{\ParameterMainDerivationDefinition}{defined above}
+\newcommand{\ParameterMainFinalFamilies}{the temperate, tropical, and derivation candidate families introduced above}
+\newcommand{\ParameterSpanOrigin}{is the representation result established above}
+\else
 \documentclass[aps,pra,11pt,onecolumn,nofootinbib,tightenlines]{revtex4-2}
 
 \usepackage{mathrsfs}
@@ -30,20 +45,33 @@
 \renewcommand\@pnumwidth{2.5em}
 \makeatother
 
+\newcommand{\ParameterMainForms}{the candidate families of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainTemperateForm}{Eq.~(67) and Proposition~3.6 of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainLift}{Proposition~A.1 and Lemma~A.3 of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainDerivationLift}{Lemmas~A.2 and~A.4 of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainDerivationRepresentation}{Eq.~(78) and Proposition~3.7 of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainSemiring}{the conditional-majorization semiring of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainNormalization}{the normalization of Definition~6.1 in Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainDerivationDefinition}{of Definition~6.1 in Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterMainFinalFamilies}{the candidate families in Eqs.~(173)--(176) of Ref.~\cite{rubboli2026complete}}
+\newcommand{\ParameterSpanOrigin}{is imported from \ParameterMainDerivationRepresentation}
+
 \begin{document}
 
 \title{Sufficient and Necessary Conditions for the Parameters of Conditional Entropies}
 
 \begin{abstract}
-This standalone note gives the sufficient and necessary parameter conditions for the
-conditional entropies introduced in Ref.~\cite{rubboli2026complete}.  It is a concise,
-human-readable replacement for Sections~4 and~5 of that paper.  The statements cover
-finite and general measures, both tropical endpoints, and derivations.  In particular,
-no global finiteness assumption is imposed on the measure.  The proofs retain the main
-ideas---finite-support factorization, common discretization, and localized
-high-dimensional counterexamples---while omitting the lengthy analytic calculations.
-A statement-by-statement machine-checked formalization of the two sections is
-given in Ref.~\cite{rubboli2026parametersLean}.
+This standalone document compiles Sections~4 and~5 of the main manuscript as a
+concise, human-readable extract.  It gives the sufficient and necessary parameter
+conditions for the conditional entropies introduced in
+Ref.~\cite{rubboli2026complete}, covering general measures, both tropical endpoints,
+and derivations without assuming finiteness of the singular weighted moment at
+$\alpha=1$.
+The proof sketches retain the central ideas---finite-support factorization, common
+discretization, and localized high-dimensional counterexamples---while omitting the
+long analytic calculations.  Complete analytic proofs are given in
+Ref.~\cite{rubboli2026parametersFull}, and their formal counterparts are documented in
+Ref.~\cite{rubboli2026parametersLean}.
 \end{abstract}
 
 \author{Roberto Rubboli}
@@ -57,6 +85,9 @@ given in Ref.~\cite{rubboli2026parametersLean}.
 
 \tableofcontents
 
+\setcounter{section}{3}
+\fi
+
 \section{Sufficient conditions for the parameters}
 \label{sec:sufficient-conditions-measure}
 
@@ -66,6 +97,22 @@ are monotone under conditional majorization.  In the following section, we show 
 these conditions are also necessary, without imposing a separate regularity assumption
 on the measure.
 
+Throughout Sections~\ref{sec:sufficient-conditions-measure}
+and~\ref{sec:necessary-conditions-measures}, every argument headed ``Proof sketch''
+is completed analytically in Ref.~\cite{rubboli2026parametersFull}; the corresponding
+formal statements and their dependencies are documented in
+Ref.~\cite{rubboli2026parametersLean}.  The sketches below record the mathematical
+mechanism and the parameter restriction, while those references supply the omitted
+estimates and formal verification.
+
+\ifdefined\IntegratedParameterSections
+\paragraph{One-column reduction and terminology.}
+The semiring, channel preorder, joint-distribution notation, homomorphisms, and
+derivations have been defined above.  The remaining parameter question reduces to
+the convexity or concavity of a positively homogeneous one-column functional.  We
+recall only the endpoint, support, tropical, and discretization terminology used in
+the proofs.
+\else
 \paragraph{Basic terminology and notation.}
 A \emph{register} is one component of the joint system: $X$ is the first
 register and $Y$ is the conditioning register.  We write $P_{XY}$ for their
@@ -93,8 +140,9 @@ Ref.~\cite{rubboli2026complete}.  A \emph{homomorphism} preserves those
 operations and their units.  A \emph{derivation} is additive and obeys the
 product rule relative to a chosen homomorphism.
 
-In Ref.~\cite{rubboli2026complete}, the general forms of the homomorphisms and
-derivations depend on a finite measure: in the temperate case one may write it as
+The general forms of the homomorphisms and derivations in
+Ref.~\cite{rubboli2026complete} depend on a finite measure: in the temperate case
+one may write it as
 $\mu=t\tau$, with $\tau$ a probability measure and its sign encoded by $t$.
 However, not all such choices are valid, as some lead to violations of monotonicity
 under conditionally mixing channels.
@@ -105,10 +153,10 @@ as a function of the joint probability matrix.  Proposition~A.1 and Lemma~A.3 of
 Ref.~\cite{rubboli2026complete} identify these convexity properties with the required
 monotonicity and lift the columnwise result to the original semiring and channel
 preorder of Eqs.~(43) and~(49) therein.
+\fi
 
-Let us first identify the function for which we need to establish convexity or
-concavity properties.  In the temperate case, Eq.~(78) and Proposition~3.6 of
-Ref.~\cite{rubboli2026complete} give
+The one-column functional for which we need to establish convexity or concavity is
+obtained from \ParameterMainTemperateForm:
 \begin{align}
 \label{eq:TemperateForm}
 \Phi(P_{XY})&=\Phi_{t,\tau}(P_{XY})
@@ -144,8 +192,8 @@ H_1(s)=-\sum_i s_i\log s_i,
 \qquad
 H_\infty(s)=-\log\max_i s_i,
 \]
-where $0\log0:=0$.  These are the conventions of Eq.~(2) and the sentence
-following it in Ref.~\cite{rubboli2026complete}.  The \emph{support} of a
+where $0\log0:=0$.  We use these endpoint conventions throughout.  The
+\emph{support} of a
 vector is its set of nonzero coordinates.  For a positive measure $\nu$, its
 closed support $\operatorname{supp}(\nu)$ is the set of points every
 neighbourhood of which has positive $\nu$-measure.  A point $a$ is an
@@ -241,7 +289,7 @@ on $\R^d_{\geq0}\setminus\{0\}$ is
 \end{enumerate}
 \end{lemma}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 First assume that every atom satisfies
 $0<\alpha_\ell<+\infty$ and $\alpha_\ell\neq1$, and set
 \begin{equation}
@@ -307,7 +355,7 @@ $\operatorname{supp}(\tau)\subseteq[0,1]$, $\tau(\{1\})=0$, and
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 Use one partition of $[0,+\infty]$ for every vector appearing in the convexity
 inequality and push the mass of each cell to a common representative.  On
 $[0,1)$ the representatives are chosen from below, so the discrete moment bound
@@ -341,12 +389,10 @@ $H_\alpha(P_X)$ and hence the integrated entropy.  Consequently
 $\Phi_{t,\tau}$ increases for $t>0$ and decreases for $t<0$; after applying
 $(1/t)\log$, the associated conditional entropy increases in both cases.  This
 gives the appropriate positive- and negative-homomorphism order directions.
-Proposition~A.1 and
-Lemma~A.3 of Ref.~\cite{rubboli2026complete} then convert the columnwise
-concavity or convexity established above into monotonicity under the conditioning
-operation and lift the two components to the original conditionally mixing
-channels.  For derivations, the corresponding statements are Lemmas~A.2 and~A.4
-of that reference.
+Using \ParameterMainLift, the columnwise concavity or convexity established above
+is converted into monotonicity under the conditioning operation and then lifted to
+the original conditionally mixing channels.  The derivation case follows from
+\ParameterMainDerivationLift.
 
 \subsection{Sufficient conditions for tropical homomorphisms}
 
@@ -377,7 +423,7 @@ $\tau(\{1\})=0$, both one-sided integrals are finite, and
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 Use
 \begin{align}
 \label{eq:limit-tropical}
@@ -406,7 +452,7 @@ P_{XY}\longmapsto
 is monotone under conditionally mixing channels.
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 This is the $t\to+\infty$ limit of the positive temperate branch with
 $\tau$ concentrated at $\alpha=0$:
 \begin{equation}
@@ -417,6 +463,7 @@ $\tau$ concentrated at $\alpha=0$:
 \end{proof}
 
 \begin{remark}
+\label{rem:positive-tropical-endpoint}
 Unless $\alpha=0$, the positive temperate moment bound is eventually violated as
 $t\to+\infty$.  Thus the positive tropical family contains only the
 $\alpha=0$ point mass.  In contrast, every point mass is allowed in the negative
@@ -438,7 +485,7 @@ P_{XY}\longmapsto
 is monotone under conditionally mixing channels if $\alpha\in[0,1]$.
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 For the point mass at the actual parameter $\alpha$, take $t\to0^-$ in the
 all-lower branch of Proposition~\ref{prop:sufficient-conditions}.  The finite
 log-sum-exp identity
@@ -448,16 +495,15 @@ log-sum-exp identity
 =\sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y})
 \end{equation}
 passes monotonicity to the limit.  Equivalently, this is the concavity of the
-perspective $\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ used in Lemma~A.2
-of Ref.~\cite{rubboli2026complete}.
+perspective $\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ used in the
+derivation lift.
 The word \emph{perspective} means precisely this positively homogeneous
 extension from normalized probability vectors to nonzero nonnegative vectors;
 positive homogeneity is the identity $F(s\vec{x})=sF(\vec{x})$ for $s>0$.
 \end{proof}
 
-These results identify the admissible homomorphisms and derivations.  With the
-normalizations of Definition~6.1 in Ref.~\cite{rubboli2026complete}, they give
-the families in Eqs.~(122)--(125) of that reference.
+These results identify the admissible homomorphisms and derivations.  With
+\ParameterMainNormalization, they give exactly \ParameterMainFinalFamilies.
 
 \section{Necessary conditions for the parameters}
 \label{sec:necessary-conditions-measures}
@@ -617,7 +663,7 @@ Its initial point and direction are
 \end{align}
 Finally, fix a cutoff $c>1$.  It separates the middle parameter range
 $1<\alpha<c$ from the upper tail $\alpha>c$ and is not a universal constant.
-In each application, $c$ is chosen null for the relevant measure, so no atom
+In each use, $c$ is chosen null for the relevant measure, so no atom
 lies on this boundary.  The first two blocks cross at the Shannon point $1$,
 and the second and third cross at $c$.  For the rounded Shannon family put
 $p=q:=1/2$, $R:=c+2$, and
@@ -655,9 +701,9 @@ The velocities will be specified separately for each obstruction.
 
 \subsection{Necessary conditions; temperate case}
 
-The temperate case corresponds to the bulk entropies $H_{t,\tau}$ in Eq.~(122) of
-Ref.~\cite{rubboli2026complete}; ``bulk'' here means the finite-temperature,
-or temperate, family.  As above, it is sufficient to study
+The temperate case corresponds to the bulk entropies $H_{t,\tau}$ among
+\ParameterMainForms; ``bulk'' here means the finite-temperature, or temperate,
+family.  As above, it is sufficient to study
 Eq.~\eqref{eq:conditionfunct}.  For notational convenience, combine the weight
 $t$ with the probability measure $\tau$ and write
 \begin{equation}
@@ -706,7 +752,7 @@ $\operatorname{supp}(\mu)\subseteq[0,1]$, $\mu(\{1\})=0$, and
 \end{equation}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 The three exclusions use the finite-dimensional witness families, or
 localizers, displayed above.  An atom
 $m=\mu(\{1\})>0$ is detected by choosing a $\mu$-null point $c>1$ and using
@@ -772,7 +818,7 @@ Let $\mu$ be a negative finite measure with $\mu(\{1\})\neq0$.  Then the functio
 is convex only if $\operatorname{supp}(\mu)\subseteq[0,1]$.
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 Assume that both the Shannon atom and upper support are present.  If
 $m:=\mu(\{1\})<0$, choose a $|\mu|$-null point $c>1$ such that
 $\mu((c,+\infty])<0$, and define the localized upper contribution
@@ -820,7 +866,7 @@ A_b+B_a\geq1.
 \end{equation}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 If Eq.~\eqref{eq:negative-truncated-moment-necessary} failed, then
 $C:=1-A_b-B_a>0$.  This $C$ is the remaining coefficient of the middle
 block, which contains $\alpha=1$.  Use the three-block pair
@@ -845,17 +891,18 @@ its two one-sided parts are known to be finite.
 \end{proof}
 
 \begin{remark}
+\label{rem:normalizing-witnesses}
 The points used in these counterexamples need not initially be normalized.  The
 function is positively homogeneous on the whole semiring domain, so rescaling by
 a positive constant does not change the curvature sign.  Here normalized means
 that the coordinates sum to one, and positively homogeneous means
 $F(s\vec{x})=sF(\vec{x})$ for $s>0$.  Equivalently, the
-counterexample can be embedded into a normalized joint probability matrix and
-then interpreted in the semiring of Section~3B and lifted using
-Proposition~A.1 and Lemma~A.3 of Ref.~\cite{rubboli2026complete}.
+counterexample can be embedded into a normalized joint probability matrix,
+interpreted in \ParameterMainSemiring, and lifted using \ParameterMainLift.
 \end{remark}
 
 \begin{remark}
+\label{rem:trace-preserving-witnesses}
 A nontraceless direction can likewise be embedded into a trace-preserving
 two-column perturbation.  A direction is traceless when $\sum_i v_i=0$;
 trace-preserving means that the total mass of all columns remains constant.
@@ -894,7 +941,7 @@ In the second case the two one-sided moments are finite and satisfy
 \end{equation}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 Suppose that $1<\alpha_1<\alpha_2\leq+\infty$ are two support points.  Choose
 $|\mu|$-null thresholds
 $1<a<\alpha_1<b<\alpha_2$; when $\alpha_2=+\infty$, take any finite null
@@ -974,7 +1021,7 @@ are finite, and
 \end{enumerate}
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 A Shannon localizer first excludes $\tau(\{1\})>0$ whenever upper support is
 present.  Set $\mu:=-\tau$.  Then the signed Shannon atom is
 $m:=\mu(\{1\})=-\tau(\{1\})<0$.  Choose a $|\mu|$-null point $c>1$ with
@@ -1106,7 +1153,7 @@ Consequently, Eq.~\eqref{eq:general-positive-tropical-candidate} is precisely
 the function in Proposition~\ref{prop:sufficient-tropical-positive}.
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 For a finite probability vector $s$, write
 \begin{equation}
 A_\tau(s)=\int_{[0,+\infty]}H_\alpha(s)\,\d\tau(\alpha).
@@ -1147,8 +1194,8 @@ $(0,+\infty]$, so $\tau((0,+\infty])=0$ and $\tau=\delta_0$.
 \subsection{Necessary conditions for derivations}
 \label{sec:necessary-derivations}
 
-Next, we turn to the necessary conditions for the extremal derivations.  According
-to Eq.~(91) and Proposition~3.7 of Ref.~\cite{rubboli2026complete}, these are
+Next, we turn to the necessary conditions for the extremal derivations.  Under
+\ParameterMainDerivationRepresentation, these are
 \begin{equation}
 H_{0,\alpha}(P_{XY})=
 \sum_{y\in\Y}P_Y(y)H_\alpha(P_{X|Y=y}).
@@ -1159,7 +1206,7 @@ It is enough to work directly at the measure level.  Thus consider
 \int_{[0,+\infty]}H_\alpha(\hat{x})\,\d\tau(\alpha),
 \end{equation}
 for a finite positive measure $\tau$.  Point masses recover the extremal
-derivations required by Lemma~A.2 of Ref.~\cite{rubboli2026complete}.
+derivations used in \ParameterMainDerivationLift.
 Here \emph{extremal} means the point-mass case $\tau=\delta_\alpha$; a general
 represented derivation is a positive integral mixture of these cases.
 
@@ -1176,7 +1223,7 @@ $\vec{x}\mapsto\|\vec{x}\|_1H_\alpha(\hat{x})$ is concave only if
 $\alpha\in[0,1]$.
 \end{proposition}
 
-\begin{proof}[Proof idea]
+\begin{proof}[Proof sketch]
 If the support meets $(1,+\infty]$, choose a $\tau$-null threshold $r>1$ with
 $\tau((r,+\infty])>0$, put $R=r+1$, and define afresh
 \[
@@ -1198,13 +1245,12 @@ and contradicts concavity, including when the upper support point is
 $+\infty$.
 \end{proof}
 
-Importing the upstream representation of derivations from Proposition~3.7 and
-Eq.~(91) of Ref.~\cite{rubboli2026complete}, and combining it with
+Combining \ParameterMainDerivationRepresentation\ with
 Proposition~\ref{prop:sufficient-derivations} and the semiring lift, gives the
 final statement.
 
-For clarity, $S$ is the conditional-majorization semiring of unnormalized
-joint probability matrices from Ref.~\cite{rubboli2026complete}; its addition
+For clarity, $S$ is \ParameterMainSemiring; its elements are represented by
+unnormalized joint probability matrices, and its addition
 and multiplication are direct sum and tensor product.  The distinguished norm
 $\|P\|$ is the total weight, namely the sum of all entries of $P$.  A
 derivation $\Delta$ at this norm is additive and satisfies
@@ -1216,27 +1262,26 @@ derivation $\Delta$ at this norm is additive and satisfies
 \begin{proposition}
 \label{prop:Derivations}
 The set of derivations of the conditional majorization semiring $S$ at
-$\|\cdot\|$ is spanned by the quantities $H_{0,\alpha}$ of Definition~6.1 in
-Ref.~\cite{rubboli2026complete}, with $\alpha\in[0,1]$.
+$\|\cdot\|$ is spanned by the quantities $H_{0,\alpha}$
+\ParameterMainDerivationDefinition, with $\alpha\in[0,1]$.
 \end{proposition}
 
-The span assertion in Proposition~\ref{prop:Derivations} is imported from that
-upstream representation.  Here ``spanned'' means generated by positive
+The span assertion in Proposition~\ref{prop:Derivations} \ParameterSpanOrigin.
+Here ``spanned'' means generated by positive
 barycentres: a represented derivation has the form
 $\int H_{0,\alpha}\,\d\tau(\alpha)$ for a finite positive measure $\tau$;
-under the normalization of the cited paper, $\tau$ is a probability measure.
-The sufficiency and curvature arguments in this note supply the exact
+under \ParameterMainNormalization, $\tau$ is a probability measure.
+The sufficiency and curvature arguments in this section supply the exact
 restriction $\alpha\in[0,1]$ for its extremal candidates.
 
 Together, the temperate, tropical, and derivation statements give the exact
-parameter ranges for the concrete candidate families in Eqs.~(122)--(125) of
-Ref.~\cite{rubboli2026complete}; see also Definitions~6.2 and~6.3 there for the
-parameter sets.  They supply the parameter-classification input used in
-Theorem~7.1 of that paper.  The upstream representation theorem and the later
-operational applications remain results of the cited paper rather than claims of
-this standalone note.
+parameter ranges for \ParameterMainFinalFamilies.  Together with the preceding
+representation results, this completes the parameter classification.
 
+\ifdefined\IntegratedParameterSections
+\else
 \bibliographystyle{ultimate}
 \bibliography{bibliography}
 
 \end{document}
+\fi

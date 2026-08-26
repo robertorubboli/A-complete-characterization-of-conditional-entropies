@@ -1,42 +1,62 @@
 # A complete characterization of conditional entropies
 
-This repository contains the Lean 4 development accompanying Sections 4 and
-5 of the manuscript. The current source tree contains the complete vertical
-architecture: endpoint-aware Rényi parameters and integrals, positive-base
-real-power calculus, signed-measure differentiation and discretization,
-two-block, three-block, and Shannon localization, all necessity and
-sufficiency branches, and the original conditional-semiring/channel lift.
+This repository contains the journal manuscript, its proof and formalization
+supplements, and the accompanying Lean 4 development. The document hierarchy
+was reorganized on 26 August 2026 so that the journal paper is the canonical,
+46-page presentation: the definitions needed for the results are introduced
+in the flow of its introduction, Sections 4 and 5 contain the concise
+sufficiency and necessity arguments, and omitted technical steps point to the
+complete-proof and Lean supplements.
 
-The two terminal source declarations are:
+The two terminal Lean declarations are:
 
 - `ConditionalEntropy.mainClassification`, the assumption-free four-branch
   necessary-and-sufficient parameter classification; and
-- `ConditionalEntropy.allConditionalEntropyAxioms`, the literal five-law
-  package for every admissible candidate family.
+- `ConditionalEntropy.allConditionalEntropyAxioms`, the five-law package for
+  every admissible candidate family.
 
-The complete release audit passed on 25 August 2026. The root target built with
-warnings treated as errors (2,864 jobs), the forbidden-token and exact
-152-row correspondence scans passed, and the 21 audited public declarations
-depend only on Lean's standard `propext`, `Classical.choice`, and `Quot.sound`
-foundations. No project-specific axiom is used.
+The development contains no `sorry`, `admit`, project-defined `axiom`, or
+project-defined `opaque`. Its public declarations use only Lean and Mathlib's
+standard logical foundations.
 
-## Repository contents
+## Paper and supplements
 
-- [`paper/four-document-release`](paper/four-document-release) is the
-  self-contained four-paper LaTeX/Overleaf release. The main paper has numbered
-  placeholders for Sections 4 and 5; the concise and full-detail companions use
-  the same explicit finite counterexamples (including both tropical branches);
-  and the Lean note contains the matching theorem-facing proof map and
-  correspondence table through Proposition 2.10. Every number in that map and table is the
-  number in the full-details paper, while the concise paper deliberately uses
-  the identical numbering. The upload-ready archive is
-  [`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip).
+The four compile targets use the same bibliography and
+`ultimate.bst` style:
+
+1. **Canonical journal manuscript.**
+   [`main-paper.tex`](paper/four-document-release/main-paper.tex) integrates the
+   concise Sections 4 and 5 into the paper and fixes the statement numbering
+   used by every supplement. A compile-verified copy is available as
+   [`main-paper.pdf`](paper/four-document-release/pdf/main-paper.pdf).
+2. **Standalone concise extract.**
+   [`sections-4-5-concise.tex`](paper/four-document-release/sections-4-5-concise.tex)
+   is an independently compilable extract of the manuscript's Sections 4 and
+   5, with the same statements and concise proof presentation. Its PDF is
+   [`sections-4-5-concise.pdf`](paper/four-document-release/pdf/sections-4-5-concise.pdf).
+3. **Complete proof supplement.**
+   [`sections-4-5-full-details.tex`](paper/four-document-release/sections-4-5-full-details.tex)
+   gives the endpoint calculus, signed-measure arguments, discretization,
+   localized counterexamples, tropical corrections, and semiring/channel lift
+   omitted from the journal manuscript. It mirrors the manuscript's 4.x/5.x
+   numbering. Download the compile-verified
+   [`sections-4-5-full-details.pdf`](paper/four-document-release/pdf/sections-4-5-full-details.pdf).
+4. **Lean formalization supplement.**
+   [`lean-formalization-note.tex`](paper/four-document-release/lean-formalization-note.tex)
+   contains the theorem-facing proof map, trust audit, and statement-by-statement
+   correspondence table through manuscript statement 5.10. Download the
+   compile-verified
+   [`lean-formalization-note.pdf`](paper/four-document-release/pdf/lean-formalization-note.pdf).
+
+The complete Overleaf-ready package is
+[`paper/four-document-latex-release.zip`](paper/four-document-latex-release.zip),
+and [`paper/four-document-release/README.md`](paper/four-document-release/README.md)
+explains how to compile each document.
+
+## Lean development
+
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
-  project entry point. It imports `mainClassification`,
-  `allConditionalEntropyAxioms`, the conditional-semiring order, and the
-  independently checked boundary-kernel bundle. It also imports the standalone
-  Hessian criterion and parameterized removable-Shannon quotient, so the root
-  build checks the complete declaration-bearing release dependency tree.
+  integrated project entry point.
 - [`ConditionalEntropy/MainClassification.lean`](ConditionalEntropy/MainClassification.lean)
   assembles `necessityBundle` with the four sufficiency directions into the
   closed predicate `Classifies tau`.
@@ -44,72 +64,41 @@ foundations. No project-specific axiom is used.
   assembles nonnegativity, embedding invariance, tensor additivity, fair-bit
   normalization, and monotonicity under embedded conditional majorization.
 - [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-  is the exhaustive 152-row correspondence table with exactly the columns
-  **Manuscript statement**, **Lean declaration**, and **Status**. Its LaTeX
-  counterpart is
+  is the exhaustive three-column ledger: **Manuscript statement**, **Lean
+  declaration**, and **Status**. Its LaTeX counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
-- [`paper/dependency-graph.dot`](paper/dependency-graph.dot) is the authoritative
-  Lean implementation dependency graph at module-group level.
-  [`DEPENDENCIES.md`](DEPENDENCIES.md) explains its layers, and
-  [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) records
-  paper-facing declaration dependencies. The checked-in SVG and PNG are two
-  renderings of the same DOT graph.
-- [`paper/lean-formalization-appendix.tex`](paper/lean-formalization-appendix.tex)
-  is the LaTeX appendix containing the condensed two-branch architecture
-  overview, exact terminal
-  signatures, trust-boundary protocol, and three-column correspondence table.
-  [`paper/main-with-lean-appendix.tex`](paper/main-with-lean-appendix.tex) is the
-  supplied main paper with that appendix included.
-- [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
-  repository copy of the supplied self-contained blueprint used to order the
-  statement audit.
 
-### Three complementary graph views
-
-- The **Lean implementation dependency graph** in
-  [`paper/dependency-graph.svg`](paper/dependency-graph.svg) is the detailed
-  module-group view. Its arrows run from prerequisite to dependent, and its
-  colors distinguish technical subsystems.
-- The **theorem-facing proof map** in the four-document Lean note connects
-  public conclusions to numbered manuscript results and reusable proof
-  ingredients. Its arrows deliberately run from result to ingredient, and its
-  colors distinguish proof roles.
-- The **condensed two-branch architecture overview** in the main-paper Lean
-  appendix suppresses most module and statement detail so that the
-  classification and candidate-law branches can be seen at a glance. It uses
-  prerequisite-to-dependent arrows.
-
-These are three distinct levels of description. The DOT, SVG, and PNG files
-are only three formats of the first graph; copies in release archives do not
-constitute additional diagrams.
-
-## Main proof layers
-
-The classification branch follows this dependency path:
+The classification branch has the following high-level dependency path:
 
 ```text
 finite data and endpoint-aware parameter measures
-  → Rényi/real-power calculus and signed integration
-  → two-block and three-block localization
-  → Shannon log-mass, expansion, and localization
-  → temperate, tropical, and derivation necessity
-  → necessityBundle
-  → mainClassification
+  -> Renyi/real-power calculus and signed integration
+  -> two-block, three-block, and Shannon localization
+  -> temperate, tropical, and derivation necessity
+  -> necessityBundle
+  -> mainClassification
 ```
 
-In parallel, the channel-law branch formalizes the finite conditional
-semiring, its quotient order, concrete channel comparison, `embeddingLift`,
-and the normalization/tensor/embedding packages consumed by
-`allConditionalEntropyAxioms`.
+In parallel, the channel-law branch formalizes the finite conditional semiring,
+its quotient order, concrete channel comparison, `embeddingLift`, and the
+candidate-law packages consumed by `allConditionalEntropyAxioms`.
 
-## Reading the correspondence table
+## Two complementary dependency views
 
-The ledger uses two status forms:
+- The detailed **Lean implementation dependency graph** is maintained in
+  [`paper/dependency-graph.dot`](paper/dependency-graph.dot) and rendered as
+  [`SVG`](paper/dependency-graph.svg) and
+  [`PNG`](paper/dependency-graph.png). It groups concrete Lean modules, uses
+  prerequisite-to-dependent arrows, and colors boxes by technical subsystem.
+- The **theorem-facing proof map** in the
+  [Lean formalization supplement](paper/four-document-release/lean-formalization-note.tex)
+  connects the public conclusions and the manuscript's numbered 4.x/5.x
+  statements to reusable proof ingredients. Its arrows run from a result to
+  the ingredients used to establish it.
 
-- **Formalized**: a matching declaration is present and covered by the strict
-  root build.
-- **Formalized (split API)**: the manuscript package is represented by the
-  listed smaller declarations, all covered by the strict root build.
+These diagrams answer different questions and intentionally use opposite arrow
+conventions. [`DEPENDENCIES.md`](DEPENDENCIES.md) documents the distinction and
+the module groups in the implementation graph.
 
 ## Reproduce the checks
 
@@ -121,15 +110,13 @@ The project is pinned to **Lean 4.32.2** by
 powershell -File scripts/check.ps1
 ```
 
-The script scans project Lean sources for `sorry`, `admit`, project-defined
-`axiom`, and project-defined `opaque`; builds `CompleteCharacterization` with
-warnings treated as errors; runs the kernel dependency audit in
-[`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean); and checks the exact
-152-row, three-column correspondence invariant. Standard Lean and Mathlib
-logical dependencies reported by `#print axioms` are part of the trusted
-foundation, not project-specific axioms.
+The script scans the project Lean sources for forbidden proof-gap tokens,
+builds `CompleteCharacterization` with warnings treated as errors, runs the
+kernel dependency audit in [`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean),
+and validates the three-column correspondence ledger. See
+[`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md) for the audited scope.
 
-To refresh the graph renderings after editing the DOT source:
+To refresh the detailed implementation graph after editing its DOT source:
 
 ```powershell
 npm install
