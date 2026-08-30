@@ -7,7 +7,7 @@ of one graph.
 | Diagram | What it represents | Arrow convention | Source |
 |---|---|---|---|
 | **Lean implementation dependency graph (module-group view)** | The detailed source architecture. Each box groups concrete Lean modules. | Prerequisite to dependent: `A -> B` means declarations in `B` use declarations in `A`. | [`paper/dependency-graph.dot`](paper/dependency-graph.dot), rendered as [`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png) |
-| **Theorem-facing proof map (Lean supplement)** | The two public conclusions, the canonical arXiv manuscript's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex), with a compiled [`PDF`](paper/three-document-release/pdf/lean-formalization-note.pdf) |
+| **Theorem-facing proof map (Lean auxiliary document)** | The two public conclusions, the canonical arXiv manuscript's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex), with a compiled [`PDF`](paper/auxiliary-files/pdf/lean-formalization-note.pdf) |
 
 The editable source of the detailed implementation graph is
 [`paper/dependency-graph.dot`](paper/dependency-graph.dot). It records the
@@ -23,7 +23,7 @@ candidate-law assembly.
 
 The checked-in SVG and PNG previews are generated from the DOT source. After
 editing the graph, run `npm install` and `npm run render:graph` to refresh both
-previews. The proof map is maintained in the Lean formalization supplement;
+previews. The proof map is maintained in the Lean-formalization auxiliary document;
 changing the DOT graph does not regenerate or alter it.
 
 ## Vertical module groups
@@ -82,9 +82,9 @@ For manuscript statement correspondence, see
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) and the larger
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
 The theorem-facing proof map and three-column correspondence table are in
-[`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex).
+[`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex).
 Their statement numbers are those of the canonical arXiv manuscript's
-Sections 4 and 5, through statement 5.10. The complete-proof supplement mirrors
+Sections 4 and 5, through statement 5.10. The complete-proof auxiliary document mirrors
 the same 4.x/5.x numbering.
 Build and forbidden-token audit results are tracked separately; this document
 describes dependencies and does not by itself assert compilation status.

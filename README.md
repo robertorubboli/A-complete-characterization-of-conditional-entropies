@@ -18,32 +18,32 @@ The development contains no `sorry`, `admit`, project-defined `axiom`, or
 project-defined `opaque`. Its public declarations use only Lean and Mathlib's
 standard logical foundations.
 
-## Paper supplements
+## Auxiliary documents
 
 The manuscript on arXiv determines the statement numbering. GitHub hosts the
-following two supplements:
+following two auxiliary documents:
 
-1. **Complete proof supplement.**
-   [`sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
+1. **Complete-proof auxiliary document.**
+   [`sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
    supplies the endpoint calculus, signed-measure arguments, common
    discretization, localized counterexamples, tropical corrections, and
    semiring/channel lift supporting Sections 4 and 5. Download the
    compile-verified
-   [`sections-4-5-full-details.pdf`](paper/three-document-release/pdf/sections-4-5-full-details.pdf).
-2. **Lean formalization supplement.**
-   [`lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
+   [`sections-4-5-full-details.pdf`](paper/auxiliary-files/pdf/sections-4-5-full-details.pdf).
+2. **Lean-formalization auxiliary document.**
+   [`lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
    contains the theorem-facing proof map, trust audit, reproducibility
    instructions, and statement-by-statement correspondence table through
    manuscript statement 5.10. Download the compile-verified
-   [`lean-formalization-note.pdf`](paper/three-document-release/pdf/lean-formalization-note.pdf).
+   [`lean-formalization-note.pdf`](paper/auxiliary-files/pdf/lean-formalization-note.pdf).
 
 Both sources use the shared
-[`bibliography.bib`](paper/three-document-release/bibliography.bib) and
-[`ultimate.bst`](paper/three-document-release/ultimate.bst) files. The
+[`bibliography.bib`](paper/auxiliary-files/bibliography.bib) and
+[`ultimate.bst`](paper/auxiliary-files/ultimate.bst) files. The
 self-contained
-[`conditional-entropies-supplements.zip`](paper/conditional-entropies-supplements.zip)
+[`conditional-entropies-auxiliary-files.zip`](paper/conditional-entropies-auxiliary-files.zip)
 contains both sources, both PDFs, and their compile dependencies. See the
-supplements [`README`](paper/three-document-release/README.md) for build
+auxiliary-files [`README`](paper/auxiliary-files/README.md) for build
 instructions.
 
 ## Lean development
@@ -62,7 +62,7 @@ instructions.
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
 - [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
   dependency-closed specification consumed by the correspondence audit. It is
-  an internal formalization artifact, not a separate concise paper supplement.
+  an internal formalization artifact, not a separate concise auxiliary document.
 
 The classification branch has the following high-level dependency path:
 
@@ -87,7 +87,7 @@ and the candidate-law packages consumed by `allConditionalEntropyAxioms`.
   [`PNG`](paper/dependency-graph.png). It groups concrete Lean modules, uses
   prerequisite-to-dependent arrows, and colors boxes by technical subsystem.
 - The **theorem-facing proof map** in the
-  [Lean formalization supplement](paper/three-document-release/lean-formalization-note.tex)
+  [Lean-formalization auxiliary document](paper/auxiliary-files/lean-formalization-note.tex)
   connects the public conclusions and the manuscript's numbered 4.x/5.x
   statements to reusable proof ingredients. Its arrows run from a result to
   the ingredients used to establish it.

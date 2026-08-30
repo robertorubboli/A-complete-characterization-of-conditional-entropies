@@ -10,7 +10,12 @@
 *.hash
 *.log
 *.aux
+*.bbl
+*.blg
 *.fdb_latexmk
 *.fls
 *.out
+*.toc
+*Notes.bib
 *.synctex.gz
+/paper/auxiliary-files/*.pdf

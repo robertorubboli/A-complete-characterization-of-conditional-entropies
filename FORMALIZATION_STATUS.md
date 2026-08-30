@@ -1,7 +1,7 @@
 # Formalization status
 
 The repository contains a verified vertical formalization of the parameter
-classification in Sections 4 and 5 of the canonical journal manuscript,
+classification in Sections 4 and 5 of the canonical arXiv manuscript,
 including the original semiring/channel realization. The terminal declarations
 and their paper-facing signatures are present, and the integrated
 warning-as-error build, axiom audit, forbidden-token scan, and correspondence
@@ -9,7 +9,7 @@ audit pass on the current release state.
 
 The paper hierarchy described here was revised on 30 August 2026. The canonical
 manuscript is maintained on arXiv and is not duplicated in this repository.
-GitHub hosts only the complete-proof and Lean supplements; their statement
+GitHub hosts only the complete-proof and Lean auxiliary documents; their statement
 numbers refer to the manuscript's Sections 4 and 5, and the Lean
 correspondence runs through statement 5.10.
 
@@ -56,7 +56,7 @@ The source tree formalizes:
 7. `necessityBundle` and the closed theorem
    `mainClassification (tau : ProbabilityMeasure Param) : Classifies tau`.
 
-The canonical manuscript and its supplements use the same finite witnesses. In
+The canonical manuscript and its auxiliary documents use the same finite witnesses. In
 particular, negative tropical necessity records the three formal correction
 directions, positive tropical necessity uses the binary pair `(1/3, 2/3)` and
 `(1/2, 1/2)`, and derivation necessity uses the formalized upper-tail two-block
@@ -85,11 +85,11 @@ classification.
   Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. Its
   Sections 4 and 5 determine the statement numbering; no main-manuscript copy
   or separate concise Sections 4--5 note is hosted here.
-- [`paper/three-document-release/sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
-  is the complete proof supplement and follows the manuscript's 4.x/5.x
+- [`paper/auxiliary-files/sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
+  is the complete-proof auxiliary document and follows the manuscript's 4.x/5.x
   numbering and theorem-level content.
-- [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
-  is the Lean supplement, with its theorem-facing proof map, trust audit, and
+- [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
+  is the Lean auxiliary document, with its theorem-facing proof map, trust audit, and
   statement table through 5.10.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
@@ -104,7 +104,7 @@ The detailed module-group implementation architecture is recorded in
 [`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png)
 renderings, [`DEPENDENCIES.md`](DEPENDENCIES.md), and
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md). This implementation
-graph is distinct from the theorem-facing proof map in the Lean supplement:
+graph is distinct from the theorem-facing proof map in the Lean auxiliary document:
 the first uses prerequisite-to-dependent arrows between module groups, while
 the second uses result-to-ingredient arrows between manuscript conclusions and
 proof ingredients.
