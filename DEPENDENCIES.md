@@ -7,7 +7,7 @@ of one graph.
 | Diagram | What it represents | Arrow convention | Source |
 |---|---|---|---|
 | **Lean implementation dependency graph (module-group view)** | The detailed source architecture. Each box groups concrete Lean modules. | Prerequisite to dependent: `A -> B` means declarations in `B` use declarations in `A`. | [`paper/dependency-graph.dot`](paper/dependency-graph.dot), rendered as [`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png) |
-| **Theorem-facing proof map (Lean supplement)** | The two public conclusions, the canonical manuscript's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex), with a compiled [`PDF`](paper/three-document-release/pdf/lean-formalization-note.pdf) |
+| **Theorem-facing proof map (Lean supplement)** | The two public conclusions, the canonical arXiv manuscript's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex), with a compiled [`PDF`](paper/three-document-release/pdf/lean-formalization-note.pdf) |
 
 The editable source of the detailed implementation graph is
 [`paper/dependency-graph.dot`](paper/dependency-graph.dot). It records the
@@ -83,7 +83,7 @@ For manuscript statement correspondence, see
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
 The theorem-facing proof map and three-column correspondence table are in
 [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex).
-Their statement numbers are those of the canonical journal manuscript's
+Their statement numbers are those of the canonical arXiv manuscript's
 Sections 4 and 5, through statement 5.10. The complete-proof supplement mirrors
 the same 4.x/5.x numbering.
 Build and forbidden-token audit results are tracked separately; this document

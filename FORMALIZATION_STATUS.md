@@ -7,10 +7,11 @@ and their paper-facing signatures are present, and the integrated
 warning-as-error build, axiom audit, forbidden-token scan, and correspondence
 audit pass on the current release state.
 
-The paper hierarchy described here was revised on 26 August 2026. Statement
-numbers in the complete-proof and Lean supplements now refer to the canonical
-manuscript's Sections 4 and 5; the Lean correspondence runs through statement
-5.10.
+The paper hierarchy described here was revised on 30 August 2026. The canonical
+manuscript is maintained on arXiv and is not duplicated in this repository.
+GitHub hosts only the complete-proof and Lean supplements; their statement
+numbers refer to the manuscript's Sections 4 and 5, and the Lean
+correspondence runs through statement 5.10.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
@@ -55,7 +56,7 @@ The source tree formalizes:
 7. `necessityBundle` and the closed theorem
    `mainClassification (tau : ProbabilityMeasure Param) : Classifies tau`.
 
-The journal manuscript and its supplements use the same finite witnesses. In
+The canonical manuscript and its supplements use the same finite witnesses. In
 particular, negative tropical necessity records the three formal correction
 directions, positive tropical necessity uses the binary pair `(1/3, 2/3)` and
 `(1/2, 1/2)`, and derivation necessity uses the formalized upper-tail two-block
@@ -80,12 +81,13 @@ classification.
 
 ## Paper hierarchy and correspondence
 
-- [`paper/three-document-release/main-paper.tex`](paper/three-document-release/main-paper.tex)
-  is the canonical 46-page journal manuscript. Its Sections 4 and 5 are part
-  of the paper and determine the statement numbering.
+- The canonical manuscript, [*A Complete Characterisation of Conditional
+  Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. Its
+  Sections 4 and 5 determine the statement numbering; no main-manuscript copy
+  or separate concise Sections 4--5 note is hosted here.
 - [`paper/three-document-release/sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
-  is the complete proof supplement and mirrors the manuscript's 4.x/5.x
-  numbering.
+  is the complete proof supplement and follows the manuscript's 4.x/5.x
+  numbering and theorem-level content.
 - [`paper/three-document-release/lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
   is the Lean supplement, with its theorem-facing proof map, trust audit, and
   statement table through 5.10.

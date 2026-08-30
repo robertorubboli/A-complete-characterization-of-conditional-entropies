@@ -1,12 +1,11 @@
 # A complete characterization of conditional entropies
 
-This repository contains the journal manuscript, its proof and formalization
-supplements, and the accompanying Lean 4 development. The document hierarchy
-was reorganized on 26 August 2026 so that the journal paper is the canonical,
-46-page presentation: the definitions needed for the results are introduced
-in the flow of its introduction, Sections 4 and 5 present the sufficiency and
-necessity arguments, and omitted technical steps point to the
-complete-proof and Lean supplements.
+This repository contains the two auxiliary documents for the canonical
+manuscript [*A Complete Characterisation of Conditional
+Entropies*](https://arxiv.org/abs/2601.23213), together with the accompanying
+Lean 4 development. The main manuscript is maintained on arXiv and its source
+and PDF are intentionally not duplicated here. Sections 4 and 5 now appear
+directly in that manuscript; there is no separate concise Sections 4--5 note.
 
 The two terminal Lean declarations are:
 
@@ -19,34 +18,33 @@ The development contains no `sorry`, `admit`, project-defined `axiom`, or
 project-defined `opaque`. Its public declarations use only Lean and Mathlib's
 standard logical foundations.
 
-## Paper and supplements
+## Paper supplements
 
-The three compile targets use the same bibliography and
-`ultimate.bst` style:
+The manuscript on arXiv determines the statement numbering. GitHub hosts the
+following two supplements:
 
-1. **Canonical journal manuscript.**
-   [`main-paper.tex`](paper/three-document-release/main-paper.tex) contains
-   Sections 4 and 5 directly and fixes the statement numbering
-   used by every supplement. A compile-verified copy is available as
-   [`main-paper.pdf`](paper/three-document-release/pdf/main-paper.pdf).
-2. **Complete proof supplement.**
+1. **Complete proof supplement.**
    [`sections-4-5-full-details.tex`](paper/three-document-release/sections-4-5-full-details.tex)
-   gives the endpoint calculus, signed-measure arguments, discretization,
-   localized counterexamples, tropical corrections, and semiring/channel lift
-   omitted from the journal manuscript. It mirrors the manuscript's 4.x/5.x
-   numbering. Download the compile-verified
-   [`sections-4-5-full-details.pdf`](paper/three-document-release/pdf/sections-4-5-full-details.pdf).
-3. **Lean formalization supplement.**
-   [`lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
-   contains the theorem-facing proof map, trust audit, and statement-by-statement
-   correspondence table through manuscript statement 5.10. Download the
+   supplies the endpoint calculus, signed-measure arguments, common
+   discretization, localized counterexamples, tropical corrections, and
+   semiring/channel lift supporting Sections 4 and 5. Download the
    compile-verified
+   [`sections-4-5-full-details.pdf`](paper/three-document-release/pdf/sections-4-5-full-details.pdf).
+2. **Lean formalization supplement.**
+   [`lean-formalization-note.tex`](paper/three-document-release/lean-formalization-note.tex)
+   contains the theorem-facing proof map, trust audit, reproducibility
+   instructions, and statement-by-statement correspondence table through
+   manuscript statement 5.10. Download the compile-verified
    [`lean-formalization-note.pdf`](paper/three-document-release/pdf/lean-formalization-note.pdf).
 
-The complete Overleaf-ready package is
-[`paper/three-document-latex-release.zip`](paper/three-document-latex-release.zip),
-and [`paper/three-document-release/README.md`](paper/three-document-release/README.md)
-explains how to compile each document.
+Both sources use the shared
+[`bibliography.bib`](paper/three-document-release/bibliography.bib) and
+[`ultimate.bst`](paper/three-document-release/ultimate.bst) files. The
+self-contained
+[`conditional-entropies-supplements.zip`](paper/conditional-entropies-supplements.zip)
+contains both sources, both PDFs, and their compile dependencies. See the
+supplements [`README`](paper/three-document-release/README.md) for build
+instructions.
 
 ## Lean development
 
@@ -59,9 +57,12 @@ explains how to compile each document.
   assembles nonnegativity, embedding invariance, tensor additivity, fair-bit
   normalization, and monotonicity under embedded conditional majorization.
 - [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-  is the exhaustive three-column ledger: **Manuscript statement**, **Lean
-  declaration**, and **Status**. Its LaTeX counterpart is
+  is the exhaustive three-column formalization ledger: **Manuscript
+  statement**, **Lean declaration**, and **Status**. Its LaTeX counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
+- [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
+  dependency-closed specification consumed by the correspondence audit. It is
+  an internal formalization artifact, not a separate concise paper supplement.
 
 The classification branch has the following high-level dependency path:
 
@@ -74,9 +75,9 @@ finite data and endpoint-aware parameter measures
   -> mainClassification
 ```
 
-In parallel, the channel-law branch formalizes the finite conditional semiring,
-its quotient order, concrete channel comparison, `embeddingLift`, and the
-candidate-law packages consumed by `allConditionalEntropyAxioms`.
+In parallel, the channel-law branch formalizes the finite conditional
+semiring, its quotient order, concrete channel comparison, `embeddingLift`,
+and the candidate-law packages consumed by `allConditionalEntropyAxioms`.
 
 ## Two complementary dependency views
 
@@ -91,9 +92,9 @@ candidate-law packages consumed by `allConditionalEntropyAxioms`.
   statements to reusable proof ingredients. Its arrows run from a result to
   the ingredients used to establish it.
 
-These diagrams answer different questions and intentionally use opposite arrow
-conventions. [`DEPENDENCIES.md`](DEPENDENCIES.md) documents the distinction and
-the module groups in the implementation graph.
+These diagrams answer different questions and intentionally use opposite
+arrow conventions. [`DEPENDENCIES.md`](DEPENDENCIES.md) documents the
+distinction and the module groups in the implementation graph.
 
 ## Reproduce the checks
 
