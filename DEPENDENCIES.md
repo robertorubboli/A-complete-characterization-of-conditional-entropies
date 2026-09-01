@@ -7,7 +7,7 @@ of one graph.
 | Diagram | What it represents | Arrow convention | Source |
 |---|---|---|---|
 | **Lean implementation dependency graph (module-group view)** | The detailed source architecture. Each box groups concrete Lean modules. | Prerequisite to dependent: `A -> B` means declarations in `B` use declarations in `A`. | [`paper/dependency-graph.dot`](paper/dependency-graph.dot), rendered as [`SVG`](paper/dependency-graph.svg) and [`PNG`](paper/dependency-graph.png) |
-| **Theorem-facing proof map (Lean auxiliary document)** | The two public conclusions, the canonical arXiv manuscript's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex), with a compiled [`PDF`](paper/auxiliary-files/pdf/lean-formalization-note.pdf) |
+| **Theorem-facing proof map (Lean auxiliary document)** | The two public conclusions, the complete-proof paper's numbered 4.x/5.x statements, and their reusable proof ingredients. | Result to ingredient, deliberately the reverse of the implementation graph. | [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex), with a compiled [`PDF`](paper/auxiliary-files/pdf/lean-formalization-note.pdf) |
 
 The editable source of the detailed implementation graph is
 [`paper/dependency-graph.dot`](paper/dependency-graph.dot). It records the
@@ -78,13 +78,12 @@ separate terminal declarations: the former is the necessary-and-sufficient
 parameter classification, while the latter verifies the original law package
 for each admissible candidate and uses the semiring/channel lift.
 
-For manuscript statement correspondence, see
+For the internal-blueprint statement correspondence, see
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) and the larger
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
 The theorem-facing proof map and three-column correspondence table are in
 [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex).
-Their statement numbers are those of the canonical arXiv manuscript's
-Sections 4 and 5, through statement 5.10. The complete-proof auxiliary document mirrors
-the same 4.x/5.x numbering.
+The displayed 4.1--5.10 numbers belong to the complete-proof auxiliary
+document, which also fixes the natural-log convention used throughout Lean.
 Build and forbidden-token audit results are tracked separately; this document
 describes dependencies and does not by itself assert compilation status.

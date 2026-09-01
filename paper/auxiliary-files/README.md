@@ -17,7 +17,10 @@ The two auxiliary documents have distinct roles:
    semiring/channel lift.
 2. `lean-formalization-note.tex` records the theorem-facing proof map, trust
    boundary, reproducibility instructions, and statement-by-statement Lean
-   correspondence through manuscript statement 5.10.
+   correspondence through complete-proof statement 5.10.
+
+The complete-proof paper's 4.1--5.10 numbering and natural-log convention are
+the sole specification for the organization of the Lean correspondence.
 
 There is no separate concise Sections 4--5 document. Both auxiliary documents
 use the shared `bibliography.bib` database and `ultimate.bst` bibliography

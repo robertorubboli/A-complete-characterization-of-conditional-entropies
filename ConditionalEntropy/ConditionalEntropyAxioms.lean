@@ -3,9 +3,8 @@ import ConditionalEntropy.ClassificationTarget
 /-!
 # Complete conditional-entropy axiom bundle
 
-The paper uses natural-log normalization, so an independent fair bit has value
-`Real.log 2`.  The alternative normalization to one is obtained afterwards by
-positive scalar rescaling and is not mixed into the parameter classification.
+The complete-proof paper uses natural-log normalization, so an independent
+fair bit has value `Real.log 2`.
 -/
 
 noncomputable section

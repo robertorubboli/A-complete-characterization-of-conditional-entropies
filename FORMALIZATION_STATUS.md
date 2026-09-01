@@ -1,7 +1,7 @@
 # Formalization status
 
 The repository contains a verified vertical formalization of the parameter
-classification in Sections 4 and 5 of the canonical arXiv manuscript,
+classification in the complete-proof Sections 4--5 auxiliary paper,
 including the original semiring/channel realization. The terminal declarations
 and their paper-facing signatures are present, and the integrated
 warning-as-error build, axiom audit, forbidden-token scan, and correspondence
@@ -9,13 +9,18 @@ audit pass on the current release state.
 
 The paper hierarchy described here was revised on 30 August 2026. The canonical
 manuscript is maintained on arXiv and is not duplicated in this repository.
-GitHub hosts only the complete-proof and Lean auxiliary documents; their statement
-numbers refer to the manuscript's Sections 4 and 5, and the Lean
-correspondence runs through statement 5.10.
+GitHub hosts only the complete-proof and Lean auxiliary documents. The
+complete-proof paper's statements 4.1--5.10 and natural-log convention are the
+specification used by the Lean note and declaration correspondence.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
 whose imports transitively cover the declaration-bearing dependency tree.
+
+The verified terminal theorem classifies the four concrete candidate families.
+It does not formalize the upstream universal representation theorem asserting
+that every abstract conditional entropy has that candidate representation.
+That scope boundary is explicit in the Lean auxiliary document.
 
 ## Status at a glance
 
@@ -32,7 +37,7 @@ whose imports transitively cover the declaration-bearing dependency tree.
 | `mainClassification` | Assumption-free declaration; axiom audit passed |
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
-| Three-column manuscript correspondence ledger | Correspondence audit passed |
+| Three-column internal-blueprint ledger | Structural correspondence audit passed |
 | `scripts/check.ps1` | Passes on the current release state |
 
 ## Classification branch
@@ -53,7 +58,7 @@ The source tree formalizes:
    localization;
 6. positive and negative temperate necessity, positive and negative tropical
    necessity, and derivation necessity; and
-7. `necessityBundle` and the closed theorem
+7. `necessityBundle` and the closed natural-log theorem
    `mainClassification (tau : ProbabilityMeasure Param) : Classifies tau`.
 
 The canonical manuscript and its auxiliary documents use the same finite witnesses. In
@@ -82,19 +87,19 @@ classification.
 ## Paper hierarchy and correspondence
 
 - The canonical manuscript, [*A Complete Characterisation of Conditional
-  Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. Its
-  Sections 4 and 5 determine the statement numbering; no main-manuscript copy
-  or separate concise Sections 4--5 note is hosted here.
+  Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. No
+  main-manuscript copy or separate concise Sections 4--5 note is hosted here.
 - [`paper/auxiliary-files/sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
-  is the complete-proof auxiliary document and follows the manuscript's 4.x/5.x
-  numbering and theorem-level content.
+  is the complete-proof auxiliary document. Its 4.1--5.10 numbering and
+  natural-log convention determine the Lean correspondence.
 - [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
   is the Lean auxiliary document, with its theorem-facing proof map, trust audit, and
-  statement table through 5.10.
+  statement table through complete-proof statement 5.10.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-contains one source-ordered row for every audited labeled manuscript statement.
-Its columns are exactly **Manuscript statement**, **Lean declaration**, and
+contains one source-ordered row for every audited labeled internal-blueprint
+statement. It retains the requested column headings **Manuscript statement**,
+**Lean declaration**, and
 **Status**. Each row is marked **Formalized** or **Formalized (split API)** and
 is covered by the strict root build. The matching LaTeX table is
 [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
@@ -106,7 +111,7 @@ renderings, [`DEPENDENCIES.md`](DEPENDENCIES.md), and
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md). This implementation
 graph is distinct from the theorem-facing proof map in the Lean auxiliary document:
 the first uses prerequisite-to-dependent arrows between module groups, while
-the second uses result-to-ingredient arrows between manuscript conclusions and
+the second uses result-to-ingredient arrows between complete-proof conclusions and
 proof ingredients.
 
 ## Trust boundary and reproducibility

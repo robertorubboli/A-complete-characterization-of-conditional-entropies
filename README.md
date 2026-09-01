@@ -14,14 +14,22 @@ The two terminal Lean declarations are:
 - `ConditionalEntropy.allConditionalEntropyAxioms`, the five-law package for
   every admissible candidate family.
 
+Both use the natural-log convention of the complete-proof paper; an
+independent fair bit therefore has value `Real.log 2`.
+
+These theorems classify the four already-defined concrete candidate families.
+They do not formalize the upstream representation theorem saying that every
+abstract conditional entropy has this candidate representation; that theorem
+remains a cited input in the paper, not a hidden Lean assumption.
+
 The development contains no `sorry`, `admit`, project-defined `axiom`, or
 project-defined `opaque`. Its public declarations use only Lean and Mathlib's
 standard logical foundations.
 
 ## Auxiliary documents
 
-The manuscript on arXiv determines the statement numbering. GitHub hosts the
-following two auxiliary documents:
+The complete-proof auxiliary document determines the numbering used by the
+Lean correspondence. GitHub hosts the following two auxiliary documents:
 
 1. **Complete-proof auxiliary document.**
    [`sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
@@ -34,7 +42,7 @@ following two auxiliary documents:
    [`lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
    contains the theorem-facing proof map, trust audit, reproducibility
    instructions, and statement-by-statement correspondence table through
-   manuscript statement 5.10. Download the compile-verified
+   complete-proof statement 5.10. Download the compile-verified
    [`lean-formalization-note.pdf`](paper/auxiliary-files/pdf/lean-formalization-note.pdf).
 
 Both sources use the shared
@@ -57,11 +65,12 @@ instructions.
   assembles nonnegativity, embedding invariance, tensor additivity, fair-bit
   normalization, and monotonicity under embedded conditional majorization.
 - [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-  is the exhaustive three-column formalization ledger: **Manuscript
-  statement**, **Lean declaration**, and **Status**. Its LaTeX counterpart is
+  is the exhaustive three-column internal-blueprint ledger. It retains the
+  requested headings **Manuscript statement**, **Lean declaration**, and
+  **Status**. Its LaTeX counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
 - [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
-  dependency-closed specification consumed by the correspondence audit. It is
+  dependency-closed specification consumed by the structural ledger audit. It is
   an internal formalization artifact, not a separate concise auxiliary document.
 
 The classification branch has the following high-level dependency path:
@@ -88,9 +97,9 @@ and the candidate-law packages consumed by `allConditionalEntropyAxioms`.
   prerequisite-to-dependent arrows, and colors boxes by technical subsystem.
 - The **theorem-facing proof map** in the
   [Lean-formalization auxiliary document](paper/auxiliary-files/lean-formalization-note.tex)
-  connects the public conclusions and the manuscript's numbered 4.x/5.x
-  statements to reusable proof ingredients. Its arrows run from a result to
-  the ingredients used to establish it.
+  connects the public conclusions and the complete-proof paper's numbered
+  4.x/5.x statements to reusable proof ingredients. Its arrows run from a
+  result to the ingredients used to establish it.
 
 These diagrams answer different questions and intentionally use opposite
 arrow conventions. [`DEPENDENCIES.md`](DEPENDENCIES.md) documents the

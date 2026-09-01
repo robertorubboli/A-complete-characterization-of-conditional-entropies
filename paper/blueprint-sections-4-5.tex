@@ -64,8 +64,8 @@ of the Classical Conditional R\'enyi-Entropy Classification\\
 \maketitle
 
 \begin{abstract}
-This document is a fully dependency-closed specification for a Lean formalization
-of Sections~4 and~5 of the main manuscript.  It proves the exact parameter
+This document is a fully dependency-closed internal specification for the Lean
+formalization accompanying the complete-proof Sections~4--5 paper.  It proves the exact parameter
 ranges for which conditional entropy functionals obtained as exponential
 averages of R\'enyi entropies are monotone under conditionally mixing
 channels.  No definition or theorem from the preceding sections of the paper
@@ -110,7 +110,7 @@ decompositions, pushforwards, monotone convergence, dominated convergence,
 and differentiation under a finite measure.  These foundational results are
 not claims of the paper.
 
-No result from another section of the manuscript may be imported.  In
+No result from another paper section may be imported.  In
 particular, the formalization must not assume the semiring classification,
 the earlier characterization of homomorphisms or derivations, the appendix on
 convexity, or an unproved statement that a candidate functional is monotone.
@@ -1580,7 +1580,7 @@ Jordan decomposition.
 
 \subsection{Exact target and dependency discipline}
 
-The formal target is the final theorem \texttt{mainClassification}.  Its four clauses are
+The formal target is the final theorem \texttt{mainClassification}. Its four clauses are
 to be represented as four Lean theorems and then bundled into one final
 theorem.  Each theorem is universally quantified over finite nonempty
 alphabets and over all conditional mixing data of compatible sizes.
@@ -1605,20 +1605,11 @@ conditions that the Lean proof must expose.
 \subsection{Logarithm and normalization convention}
 
 Throughout this document, $\log$ is the natural logarithm and $\exp$ is its
-inverse.  The resulting fair-bit value is $\log2$; this is proved only after
+inverse. The resulting fair-bit value is $\log2$; this is proved only after
 the total R\'enyi definition, by the subsequently declared uniform-distribution
-lemma and fair-bit corollary.  This is the
-normalization stated in the introduction of the main manuscript.
-An isolated later occurrence of the normalization value $1$ in the attached
-main file is incompatible with its displayed natural-log formula and is not
-used here.  If one instead defines bit-valued entropies
-$\overline H_\alpha=H_\alpha/\log2$ while retaining the natural exponential
-$\exp(t\overline H)$, then the present parameter $t$ is replaced by
-$t/\log2$ and the bound $M(\tau)\leq1/t$ becomes
-$M(\tau)\leq\log2/t$.  If one uses $2^{t\overline H}$, the bounds in this
-document remain literally unchanged.  A Lean development must select one of
-these conventions globally; this blueprint uses the natural-log normalization
-declared in the fair-bit corollary below.
+lemma and fair-bit corollary. This is exactly the convention of the
+complete-proof Sections~4--5 paper, which is the specification for this Lean
+development.
 
 \section{Closed R\'enyi and parameter-measure library}
 \label{sec:renyi-foundations}
@@ -11264,9 +11255,7 @@ Well-definedness and nonnegativity are
 normalization are \cref{prop:fnd-easy-axioms}.  Fixed-row monotonicity follows
 from
 \cref{cor:finite-t-sufficiency,prop:negative-tropical-sufficiency,prop:positive-tropical-sufficiency,prop:derivation-sufficiency};
-apply \cref{lem:embedding-lift}.  If the formal main-body axiom is instead
-normalized to $1$, divide every final functional by the positive constant
-$\log2$; the order, additivity, and parameter classification are unchanged.
+apply \cref{lem:embedding-lift}.
 \end{proof}
 
 By \cref{thm:main-classification}, no parameter outside these sets satisfies

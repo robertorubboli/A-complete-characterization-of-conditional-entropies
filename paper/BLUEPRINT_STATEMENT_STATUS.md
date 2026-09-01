@@ -1,9 +1,9 @@
 # Blueprint statement correspondence (Sections 4--5 and final assembly)
 
-Scope: the 152 labeled manuscript statements from `lem:origin-extension` through
+Scope: the 152 labeled statements in the internal formalization blueprint from `lem:origin-extension` through
 `cor:all-conditional-entropy-axioms`, in exact source order. “Formalized” means a
 matching Lean declaration is present and covered by the strict root build;
-“Formalized (split API)” means the manuscript package is represented by the listed
+“Formalized (split API)” means the blueprint package is represented by the listed
 declarations, all of which are covered by that build.
 
 | Manuscript statement | Lean declaration | Status |
