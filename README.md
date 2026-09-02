@@ -41,8 +41,9 @@ Lean correspondence. GitHub hosts the following two auxiliary documents:
 2. **Lean-formalization auxiliary document.**
    [`lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
    contains the theorem-facing proof map, trust audit, reproducibility
-   instructions, and statement-by-statement correspondence table through
-   complete-proof statement 5.10. Download the compile-verified
+   instructions, a one-to-one public-declaration table for the seventeen
+   numbered main-text statements 4.1--5.10, and a separate Appendix A audit.
+   Download the compile-verified
    [`lean-formalization-note.pdf`](paper/auxiliary-files/pdf/lean-formalization-note.pdf).
 
 Both sources use the shared
@@ -58,6 +59,11 @@ instructions.
 
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
   integrated project entry point.
+- [`ConditionalEntropy/FullDetailsStatements.lean`](ConditionalEntropy/FullDetailsStatements.lean)
+  is the stable paper-facing interface: each of the seventeen numbered
+  main-text environments 4.1--5.10 has one distinct canonical Lean theorem.
+  Lower-level implementation lemmas remain many-to-many dependencies beneath
+  that interface.
 - [`ConditionalEntropy/MainClassification.lean`](ConditionalEntropy/MainClassification.lean)
   assembles `necessityBundle` with the four sufficiency directions into the
   closed predicate `Classifies tau`.
@@ -72,6 +78,13 @@ instructions.
 - [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
   dependency-closed specification consumed by the structural ledger audit. It is
   an internal formalization artifact, not a separate concise auxiliary document.
+- [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
+  is the machine-readable 32-row audit for all numbered main-text and Appendix
+  environments in the complete-proof document. It records one canonical
+  declaration per row: 30 are exact facades and two carry explicit scope
+  qualifications (Proposition 5.10 and Lemma A.9).
+- [`paper/FULL_DETAILS_CORRESPONDENCE.md`](paper/FULL_DETAILS_CORRESPONDENCE.md)
+  is the GitHub-readable three-column rendering of that one-to-one index.
 
 The classification branch has the following high-level dependency path:
 
@@ -118,7 +131,10 @@ powershell -File scripts/check.ps1
 The script scans the project Lean sources for forbidden proof-gap tokens,
 builds `CompleteCharacterization` with warnings treated as errors, runs the
 kernel dependency audit in [`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean),
-and validates the three-column correspondence ledger. See
+validates the separate 152-row internal-blueprint ledger, and runs the
+full-details numbering/declaration audit in
+[`scripts/check-full-details-correspondence.ps1`](scripts/check-full-details-correspondence.ps1).
+See
 [`FORMALIZATION_STATUS.md`](FORMALIZATION_STATUS.md) for the audited scope.
 
 To refresh the detailed implementation graph after editing its DOT source:

@@ -16,4 +16,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Lean build failed.' }
 if ($LASTEXITCODE -ne 0) { throw 'Kernel axiom audit failed.' }
 
 & powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-correspondence.ps1
-if ($LASTEXITCODE -ne 0) { throw 'Statement correspondence audit failed.' }
+if ($LASTEXITCODE -ne 0) { throw 'Internal blueprint correspondence audit failed.' }
+
+& powershell -NoProfile -ExecutionPolicy Bypass -File `
+  scripts/check-full-details-correspondence.ps1
+if ($LASTEXITCODE -ne 0) { throw 'Full-details correspondence audit failed.' }

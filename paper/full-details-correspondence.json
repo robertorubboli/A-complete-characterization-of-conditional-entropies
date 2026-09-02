@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "source": "paper/auxiliary-files/sections-4-5-full-details.tex",
+  "scope": "All numbered lemma, proposition, and remark environments in Sections 4--5 and Appendix A.",
+  "rows": [
+    {
+      "number": "4.1",
+      "kind": "lemma",
+      "label": "lem:power-mean-curvature",
+      "title": "Power-mean curvature",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsLemma4_1",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.2",
+      "kind": "lemma",
+      "label": "lem:monomial-curvature",
+      "title": "Monomial curvature",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsLemma4_2",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.3",
+      "kind": "lemma",
+      "label": "lem:discrete-sufficient",
+      "title": "Finite-support sufficiency",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsLemma4_3",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.4",
+      "kind": "proposition",
+      "label": "prop:general-sufficient",
+      "title": "General temperate sufficiency",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition4_4",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.5",
+      "kind": "proposition",
+      "label": "prop:negative-tropical-sufficient",
+      "title": "Negative-tropical sufficiency",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition4_5",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.6",
+      "kind": "proposition",
+      "label": "prop:positive-tropical-sufficient",
+      "title": "Positive-tropical sufficiency",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition4_6",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "4.7",
+      "kind": "proposition",
+      "label": "prop:derivation-sufficient",
+      "title": "Derivation sufficiency",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition4_7",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.1",
+      "kind": "proposition",
+      "label": "prop:positive-necessary",
+      "title": "Positive necessity",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_1",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.2",
+      "kind": "proposition",
+      "label": "prop:negative-atom-necessary",
+      "title": "Negative Shannon-atom obstruction",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_2",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.3",
+      "kind": "proposition",
+      "label": "prop:negative-truncated-moment",
+      "title": "Truncated exceptional-moment bound",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_3",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.4",
+      "kind": "remark",
+      "label": "rem:normalizing-witnesses",
+      "title": "Homogeneous cone witnesses",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsRemark5_4",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade formalizes the homogeneity content of the remark."
+    },
+    {
+      "number": "5.5",
+      "kind": "remark",
+      "label": "rem:trace-preserving-witnesses",
+      "title": "Compensated two-column witness",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsRemark5_5",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade formalizes the compensated fixed-mass construction."
+    },
+    {
+      "number": "5.6",
+      "kind": "proposition",
+      "label": "prop:negative-single-point",
+      "title": "Complete exceptional negative branch",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_6",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.7",
+      "kind": "proposition",
+      "label": "prop:negative-tropical-necessary",
+      "title": "Negative-tropical necessity",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_7",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.8",
+      "kind": "proposition",
+      "label": "prop:positive-tropical-necessary",
+      "title": "Positive-tropical necessity",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_8",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.9",
+      "kind": "proposition",
+      "label": "prop:derivation-necessary",
+      "title": "Derivation necessity",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_9",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade restates the paper-facing formal content."
+    },
+    {
+      "number": "5.10",
+      "kind": "proposition",
+      "label": "prop:derivation-classification",
+      "title": "Classification within the represented derivation family",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_10",
+      "coverage": "qualified",
+      "statusDetail": "Exact for every supplied representing finite positive measure; the upstream universal representation theorem and normalization-to-probability clause remain external."
+    },
+    {
+      "number": "A.1",
+      "kind": "lemma",
+      "label": "lem:app-power-mean-hessian",
+      "title": "Hessian of the power mean",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_1",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves the line-Hessian identity, nonnegative bracket, and curvature classification."
+    },
+    {
+      "number": "A.2",
+      "kind": "lemma",
+      "label": "lem:app-monomial-hessian",
+      "title": "Hessian and sign classification of a monomial",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_2",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves the line-Hessian identity and both iff sign classifications."
+    },
+    {
+      "number": "A.3",
+      "kind": "lemma",
+      "label": "lem:app-renyi-continuity",
+      "title": "Continuity and uniform bound for finite-dimensional Renyi entropy",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_3",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves global endpoint-aware continuity and the sharp support-cardinality bound."
+    },
+    {
+      "number": "A.4",
+      "kind": "lemma",
+      "label": "lem:app-renyi-shape",
+      "title": "Concavity and Schur concavity in the sufficient ranges",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_4",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade packages simplex concavity and endpoint-aware Schur concavity."
+    },
+    {
+      "number": "A.5",
+      "kind": "lemma",
+      "label": "lem:app-measure-tools",
+      "title": "Measure-theoretic tools",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_5",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade packages Mathlib's dominated convergence, monotone convergence, and Fubini theorems."
+    },
+    {
+      "number": "A.6",
+      "kind": "lemma",
+      "label": "lem:app-common-discretisation",
+      "title": "Common discrete approximation of the Renyi parameter",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_6",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves the pushforward identity and dominated-convergence limit for arbitrary measurable finite-range maps."
+    },
+    {
+      "number": "A.7",
+      "kind": "lemma",
+      "label": "lem:app-pointwise-shape",
+      "title": "Pointwise limits preserve shape inequalities",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_7",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves closure of concavity, convexity, and quasiconvexity on an arbitrary convex set."
+    },
+    {
+      "number": "A.8",
+      "kind": "lemma",
+      "label": "lem:app-ell-derivatives",
+      "title": "First and second derivatives of the logarithmic power mean",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_8",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves the escort mean, second-moment, and variance derivative formulas."
+    },
+    {
+      "number": "A.9",
+      "kind": "lemma",
+      "label": "lem:app-Shannon-cancellation",
+      "title": "Cancellation and continuity through the Shannon point",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_9",
+      "coverage": "qualified",
+      "statusDetail": "Canonical declaration is the generic removable-quotient cancellation and continuity theorem; the entropy-line specialization is proved through the endpoint bundle but is not restated in this single declaration."
+    },
+    {
+      "number": "A.10",
+      "kind": "lemma",
+      "label": "lem:app-endpoint-differentiability",
+      "title": "Continuity of differentiated entropy at the parameter endpoints",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_10",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade is the endpoint-aware derivative and joint-continuity bundle under the stable-max hypothesis."
+    },
+    {
+      "number": "A.11",
+      "kind": "proposition",
+      "label": "prop:app-fixed-d-interchange",
+      "title": "Differentiation under the Renyi-parameter integral",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_11",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves C2 regularity and both signed-integral derivative identities without a moment hypothesis."
+    },
+    {
+      "number": "A.12",
+      "kind": "lemma",
+      "label": "lem:app-dominant-block",
+      "title": "Dominant-block remainder",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_12",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves both first- and second-derivative dominant-block remainder bounds."
+    },
+    {
+      "number": "A.13",
+      "kind": "lemma",
+      "label": "lem:app-Shannon-covariance",
+      "title": "First two derivatives of Shannon entropy along an affine path",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_13",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade states the first covariance sum explicitly and the equivalent variance-covariance second derivative."
+    },
+    {
+      "number": "A.14",
+      "kind": "lemma",
+      "label": "lem:app-quasiconvex-stationary",
+      "title": "Stationary second-order condition for a quasiconvex function",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_14",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves the stationary second-order condition for a twice differentiable quasiconvex curve."
+    },
+    {
+      "number": "A.15",
+      "kind": "lemma",
+      "label": "lem:app-exact-stationarity",
+      "title": "Exact finite-dimensional stationarity correction",
+      "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_15",
+      "coverage": "exact",
+      "statusDetail": "Canonical facade constructs exactly stationary corrected directions and proves direction and curvature convergence."
+    }
+  ]
+}

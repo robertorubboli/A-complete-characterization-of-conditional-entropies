@@ -4,7 +4,7 @@ digraph ConditionalEntropyDependencies {
          fontname="Arial", fontsize=18,
          label=<<FONT POINT-SIZE="18"><B>Lean implementation dependency graph (module-group view)</B></FONT><BR/>
                 <FONT POINT-SIZE="11">Arrows point from prerequisite to dependent. Colors identify module families, not proof status.</FONT><BR/>
-                <FONT POINT-SIZE="10">Blue: foundation; cyan: algebra/channels; teal: analysis; green: sufficiency; purple: block localization; orange: Shannon; red: necessity/classification; gray: candidate laws.</FONT>>,
+                <FONT POINT-SIZE="10">Blue: foundation; cyan: algebra/channels; teal: analysis; green: sufficiency; purple: block localization; orange: Shannon; red: necessity/classification; gray: candidate laws; gold: paper-facing facades.</FONT>>,
          labelloc=t];
   node [shape=box, style="rounded,filled", penwidth=1.2,
         fontname="Arial", fontsize=10.5, margin="0.15,0.09"];
@@ -57,10 +57,16 @@ digraph ConditionalEntropyDependencies {
   all_axioms [label="AllConditionalEntropyAxioms\nallConditionalEntropyAxioms",
               fillcolor="#f8fafc", color="#334155", penwidth=1.8];
 
+  main_facades [label="FullDetailsStatements\n17 unique facades for 4.1--5.10",
+                fillcolor="#fffbeb", color="#b45309", penwidth=1.7];
+  appendix_facades [label="FullDetailsAppendixStatements · FullDetailsAppendixA3A6\nFullDetailsAppendixA11\n15 unique facades for A.1--A.15",
+                    fillcolor="#fffbeb", color="#b45309", penwidth=1.7];
+
   { rank=same; semiring; endpoint }
   { rank=same; sufficiency; block_interface; shannon_asymptotics }
   { rank=same; temperate; tropical; derivation }
   { rank=same; classification; all_axioms }
+  { rank=same; main_facades; appendix_facades }
 
   foundation -> semiring;
   foundation -> endpoint;
@@ -113,4 +119,10 @@ digraph ConditionalEntropyDependencies {
   candidate_axioms -> all_axioms;
   sufficiency -> all_axioms;
   channels -> all_axioms [label="embeddingLift", fontsize=9];
+
+  classification -> main_facades;
+  channels -> main_facades;
+  endpoint -> appendix_facades;
+  block_interface -> appendix_facades;
+  shannon_localization -> appendix_facades;
 }

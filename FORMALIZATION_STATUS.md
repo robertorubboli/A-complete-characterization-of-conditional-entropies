@@ -11,7 +11,12 @@ The paper hierarchy described here was revised on 30 August 2026. The canonical
 manuscript is maintained on arXiv and is not duplicated in this repository.
 GitHub hosts only the complete-proof and Lean auxiliary documents. The
 complete-proof paper's statements 4.1--5.10 and natural-log convention are the
-specification used by the Lean note and declaration correspondence.
+specification used by the Lean note and declaration correspondence. The public
+facade in `ConditionalEntropy/FullDetailsStatements.lean` assigns one unique
+Lean declaration to each of the seventeen numbered main-text environments.
+Appendix A is tracked separately in the 32-row correspondence manifest so that
+technical results are not silently conflated with the main classification
+statements.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
@@ -37,6 +42,8 @@ That scope boundary is explicit in the Lean auxiliary document.
 | `mainClassification` | Assumption-free declaration; axiom audit passed |
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
+| Main-text 4.1--5.10 correspondence | One unique paper-facing facade per numbered environment; Proposition 5.10 is explicitly scoped to supplied representations |
+| Full-details 32-row manifest | 32 unique canonical names: 30 exact rows and 2 explicit scope qualifications (5.10 and A.9) |
 | Three-column internal-blueprint ledger | Structural correspondence audit passed |
 | `scripts/check.ps1` | Passes on the current release state |
 
@@ -93,8 +100,14 @@ classification.
   is the complete-proof auxiliary document. Its 4.1--5.10 numbering and
   natural-log convention determine the Lean correspondence.
 - [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
-  is the Lean auxiliary document, with its theorem-facing proof map, trust audit, and
-  statement table through complete-proof statement 5.10.
+  is the Lean auxiliary document, with its theorem-facing proof map, trust audit,
+  one-to-one main-text statement table, and separate Appendix audit.
+
+[`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
+is the single machine-readable inventory of all 32 numbered environments
+(4.1--5.10 and A.1--A.15). Its companion checker reconstructs the numbering
+from the LaTeX source, verifies the ordered labels and unique canonical names,
+and asks Lean to elaborate every row marked exact or qualified.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
 contains one source-ordered row for every audited labeled internal-blueprint
@@ -130,4 +143,4 @@ powershell -File scripts/check.ps1
 The script performs the forbidden-token scan, builds
 `CompleteCharacterization` with warnings treated as errors, runs
 [`scripts/AxiomAudit.lean`](scripts/AxiomAudit.lean), and validates the
-three-column correspondence invariant.
+internal-blueprint and full-details correspondence invariants.

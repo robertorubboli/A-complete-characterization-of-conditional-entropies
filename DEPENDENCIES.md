@@ -20,6 +20,8 @@ the foundation; cyan is semiring and channel algebra; teal is analysis and
 shape reduction; green is sufficiency; purple is block localization; orange is
 Shannon localization; rose/red is necessity and classification; and gray is
 candidate-law assembly.
+Gold boxes are the stable paper-facing facade modules used by the one-to-one
+correspondence table.
 
 The checked-in SVG and PNG previews are generated from the DOT source. After
 editing the graph, run `npm install` and `npm run render:graph` to refresh both
@@ -49,6 +51,8 @@ changing the DOT graph does not regenerate or alter it.
 | Classification | `MainClassification` | `mainClassification`, combining `necessityBundle` with `Section4Sufficiency`. |
 | Candidate law packages | `ConditionalEntropyAxioms`, `CandidateNormalization`, `JointTensorCandidates`, `CandidateEmbeddingInvariance` | Normalization, embedding invariance, tensor additivity, and conditional-monotonicity records for the four candidate families. |
 | Full candidate-law assembly | `AllConditionalEntropyAxioms` | `allConditionalEntropyAxioms`, combining the candidate packages, sufficiency, and the original channel lift `embeddingLift`. |
+| Paper-facing correspondence | `FullDetailsStatements` | Seventeen unique canonical facades `fullDetailsLemma4_1` through `fullDetailsProposition5_10`, one for each numbered main-text environment in the complete-proof document. |
+| Appendix-facing correspondence | `FullDetailsAppendixStatements`, `FullDetailsAppendixA3A6`, `FullDetailsAppendixA11` | Fifteen unique canonical facades for A.1--A.15; A.9 is explicitly the qualified generic cancellation theorem. |
 
 ## Critical paths
 
@@ -85,5 +89,9 @@ The theorem-facing proof map and three-column correspondence table are in
 [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex).
 The displayed 4.1--5.10 numbers belong to the complete-proof auxiliary
 document, which also fixes the natural-log convention used throughout Lean.
+The ordered 32-row source/declaration inventory, including Appendix A, is
+[`paper/full-details-correspondence.json`](paper/full-details-correspondence.json);
+its checker distinguishes the one-to-one public facade from the many-to-many
+implementation graph described here.
 Build and forbidden-token audit results are tracked separately; this document
 describes dependencies and does not by itself assert compilation status.

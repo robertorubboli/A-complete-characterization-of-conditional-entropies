@@ -30,10 +30,13 @@ This note records the Lean formalization of the necessary-and-sufficient
 parameter classification for the concrete conditional-entropy candidates in
 the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}. It gives a compact
 theorem-facing proof map, a
-statement-by-statement correspondence table, and the precise trust and scope
-boundary. The presentation is deliberately theorem-facing: it separates the
-public conclusions, their paper-level ingredients, and the proved reusable
-infrastructure.
+statement-by-statement correspondence table for all thirty-two numbered
+environments in the complete-proof document, and the precise trust and scope
+boundary.  The public index is one-to-one: every manuscript row has a distinct
+canonical Lean name.  Thirty rows directly package the stated formal content;
+the status column identifies the two qualified rows.  The presentation is
+deliberately theorem-facing: it separates public conclusions, paper-level
+ingredients, and proved reusable infrastructure.
 \end{abstract}
 
 \author{Roberto Rubboli}
@@ -172,11 +175,23 @@ connector records manuscript context, not a Lean axiom or dependency.}
 \end{figure}
 
 Table~\ref{tab:lean-correspondence} follows the numbering of the complete-proof
-paper, Ref.~\cite{rubboli2026parametersFull}. All Lean names are in the namespace \LeanDecl{ConditionalEntropy}. A
-split API means that one complete-proof statement is intentionally proved by
-several smaller declarations. The last row is worded differently because
-Proposition~5.10 combines the formalized parameter restriction with the
-upstream representation theorem identified above.
+paper, Ref.~\cite{rubboli2026parametersFull}.  It is a one-to-one index at the
+paper-facing interface: each of the seventeen numbered environments in the
+main text, including Remarks~5.4--5.5, has exactly one distinct canonical Lean
+declaration, and no declaration in the table represents two manuscript
+environments.  All names are in the namespace
+\LeanDecl{ConditionalEntropy} and are defined in
+\path{ConditionalEntropy/FullDetailsStatements.lean}.  A canonical declaration
+may use several smaller lemmas internally.  Those implementation dependencies
+are not additional entries in the correspondence and are recorded separately
+in the source and dependency graph.
+
+This interface-level bijection says exactly which Lean theorem a reader should
+inspect for each manuscript result; it does not claim that the internal proof
+graph is one-to-one.  Proposition~5.10 is indexed by a theorem about a supplied
+represented derivation.  The separate upstream theorem that every abstract
+derivation has such a representation remains the cited result identified
+above, rather than a Lean assumption.
 
 \renewcommand{\arraystretch}{1.12}
 \begin{table}[htbp]
@@ -187,29 +202,32 @@ complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \label{tab:lean-correspondence}
 \begin{tabular}{@{}lll@{}}
 \toprule
-\StatementCell{\textbf{Complete-proof statement}} &
+\StatementCell{\textbf{Manuscript statement}} &
 \LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
 \midrule
 \StatementCell{Lemma~4.1: power-mean curvature} &
-\LeanCell{\LeanDecl{finiteHolder}; \LeanDecl{powerCurvature};
-\LeanDecl{parameterPowerCurvature}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsLemma4_1}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Lemma~4.2: monomial curvature} &
-\LeanCell{\LeanDecl{affineMonomialCurvaturePackage}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsLemma4_2}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Lemma~4.3: finite-support sufficiency} &
-\LeanCell{\LeanDecl{finiteSufficiency}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsLemma4_3}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~4.4: general temperate sufficiency} &
-\LeanCell{\LeanDecl{generalSufficiency}; \LeanDecl{finiteTSufficiency}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition4_4}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~4.5: negative-tropical sufficiency} &
-\LeanCell{\LeanDecl{negativeTropicalSufficiency}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsProposition4_5}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~4.6: positive-tropical sufficiency} &
-\LeanCell{\LeanDecl{positiveTropicalComponent};
-\LeanDecl{positiveTropicalSufficiency}} & \StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition4_6}} &
+\StatusCell{Exact facade}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -220,25 +238,24 @@ complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \textbf{Table~\ref{tab:lean-correspondence} (continued; complete-proof numbering).}\par\smallskip
 \begin{tabular}{@{}lll@{}}
 \toprule
-\StatementCell{\textbf{Complete-proof statement}} &
+\StatementCell{\textbf{Manuscript statement}} &
 \LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
 \midrule
 \StatementCell{Proposition~4.7: derivation sufficiency} &
-\LeanCell{\LeanDecl{derivationSufficiency}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsProposition4_7}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.1: positive necessity} &
-\LeanCell{\LeanDecl{positiveNecessity};
-\LeanDecl{positiveTemperateProbabilityNecessity}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_1}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.2: negative Shannon atom with upper support} &
-\LeanCell{\LeanDecl{negativeShannonObstruction}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_2}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.3: truncated exceptional-moment bound} &
-\LeanCell{\LeanDecl{truncatedMoment};
-\LeanDecl{exceptionalUpperMeasurePackage};
-\LeanDecl{MLower_le_of_truncated_difference}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_3}} &
+\StatusCell{Exact facade}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -249,27 +266,21 @@ complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \textbf{Table~\ref{tab:lean-correspondence} (continued; complete-proof numbering).}\par\smallskip
 \begin{tabular}{@{}lll@{}}
 \toprule
-\StatementCell{\textbf{Complete-proof statement}} &
+\StatementCell{\textbf{Manuscript statement}} &
 \LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
 \midrule
 \StatementCell{Remark~5.4: homogeneity and channel lift} &
-\LeanCell{\LeanDecl{columnPhi_posHomOne};
-\LeanDecl{columnDeriv_posHomOne};
-\LeanDecl{conditionalSemiringOfJointProb_le};
-\LeanDecl{embeddingLift}} & \StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsRemark5_4}} &
+\StatusCell{Exact formal content}\\
 \addlinespace
 \StatementCell{Remark~5.5: compensated two-column witness} &
-\LeanCell{\LeanDecl{normalizedTwoColumn};
-\LeanDecl{normalizedTwoColumn_column_zero};
-\LeanDecl{normalizedTwoColumn_column_one};
-\LeanDecl{mergeTwoChannel_output_column};
-\LeanDecl{sum_normalizedTwoColumn}} & \StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsRemark5_5}} &
+\StatusCell{Exact formal content}\\
 \addlinespace
 \StatementCell{Proposition~5.6: complete exceptional negative branch
 (unique upper point, one-sided finiteness, and moment bound)} &
-\LeanCell{\LeanDecl{oneUpperPoint};
-\LeanDecl{negativeTemperateNecessity_of_atom_zero}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_6}} &
+\StatusCell{Exact facade}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -280,39 +291,165 @@ complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \textbf{Table~\ref{tab:lean-correspondence} (continued; complete-proof numbering).}\par\smallskip
 \begin{tabular}{@{}lll@{}}
 \toprule
-\StatementCell{\textbf{Complete-proof statement}} &
+\StatementCell{\textbf{Manuscript statement}} &
 \LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
 \midrule
 \StatementCell{Proposition~5.7: negative-tropical necessity} &
-\LeanCell{\LeanDecl{negativeTropicalUpperAtomZero};
-\LeanDecl{twoUpperSupportPointsTropicalObstruction};
-\LeanDecl{tropicalTruncatedMoment_of_exceptional};
-\LeanDecl{negativeTropicalNecessity}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_7}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.8: positive-tropical necessity} &
-\LeanCell{\LeanDecl{sameSupportDecomposition};
-\LeanDecl{probabilityEqDiracZero};
-\LeanDecl{positiveTropicalNecessity}} &
-\StatusCell{\Formalized\ (split API)}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_8}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.9: derivation necessity} &
-\LeanCell{\LeanDecl{derivationNecessity}} & \StatusCell{\Formalized}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_9}} &
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Proposition~5.10: represented derivations} &
-\LeanCell{\LeanDecl{derivationSufficiency};
-\LeanDecl{derivationNecessity}; derivation field of
-\LeanDecl{mainClassification}} &
-\StatusCell{Range proved; representation cited}\\
+\LeanCell{\LeanDecl{fullDetailsProposition5_10}} &
+\StatusCell{Qualified: exact for represented family}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The table records the human-facing correspondence. The repository also keeps
-an internal formalization-blueprint ledger with 152 source-ordered rows, together with
-the declaration index and editable Lean implementation dependency graph. Those longer
-audits are kept out of this note so that the main proof route remains readable.
+The canonical declarations in Table~\ref{tab:lean-correspondence} are the
+stable reader-facing interface.  For example, the proof of
+\LeanDecl{fullDetailsProposition5_7} calls the lower-level theorem
+\LeanDecl{negativeTropicalNecessity}, which in turn uses the Shannon,
+two-upper-point, truncated-moment, and stationarity-correction lemmas.  Those
+dependencies explain the proof; they do not create extra correspondences for
+Proposition~5.7.
 
+The repository also keeps a machine-readable 32-row audit of every numbered
+environment in the complete-proof document, including Appendix~A, in
+\path{paper/full-details-correspondence.json}.  Appendix statements are
+listed separately below because they provide technical ingredients rather
+than the main Section~4--5 conclusions.  The much larger 152-row internal
+formalization-blueprint ledger and the editable Lean implementation dependency
+graph serve still different purposes and are not part of this bijection.
+
+Table~\ref{tab:lean-appendix-correspondence} completes the index for the
+fifteen numbered Appendix statements.  Fourteen rows have a declaration that
+directly packages the stated result.  Row~A.9 is deliberately marked
+qualified: its canonical declaration is the more general removable-quotient
+cancellation theorem used for the Shannon-point argument, while the
+entropy-line specialization is distributed across the endpoint-calculus
+bundle rather than repeated as one theorem.  Thus all thirty-two manuscript
+environments have unique canonical names, but the status column preserves the
+two genuine scope qualifications at Proposition~5.10 and Lemma~A.9.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Appendix statement correspondence.  All numbers are from Appendix~A
+of the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
+\label{tab:lean-appendix-correspondence}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\StatementCell{\textbf{Manuscript statement}} &
+\LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
+\midrule
+\StatementCell{Lemma~A.1: Hessian of the power mean} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_1}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.2: Hessian and sign classification of a monomial} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_2}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.3: R\'enyi continuity and support bound} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_3}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.4: concavity and Schur concavity} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_4}} &
+\StatusCell{Exact facade}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\textbf{Table~\ref{tab:lean-appendix-correspondence} (continued).}\par\smallskip
+\begin{tabular}{@{}lll@{}}
+\toprule
+\StatementCell{\textbf{Manuscript statement}} &
+\LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
+\midrule
+\StatementCell{Lemma~A.5: measure-theoretic tools} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_5}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.6: common discrete approximation} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_6}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.7: pointwise preservation of shape} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_7}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.8: logarithmic power-mean derivatives} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_8}} &
+\StatusCell{Exact facade}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\textbf{Table~\ref{tab:lean-appendix-correspondence} (continued).}\par\smallskip
+\begin{tabular}{@{}lll@{}}
+\toprule
+\StatementCell{\textbf{Manuscript statement}} &
+\LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
+\midrule
+\StatementCell{Lemma~A.9: Shannon cancellation} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_9}} &
+\StatusCell{Qualified: generic cancellation theorem}\\
+\addlinespace
+\StatementCell{Lemma~A.10: endpoint differentiability} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_10}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Proposition~A.11: differentiation under the parameter integral} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_11}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.12: dominant-block remainder} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_12}} &
+\StatusCell{Exact facade}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\textbf{Table~\ref{tab:lean-appendix-correspondence} (continued).}\par\smallskip
+\begin{tabular}{@{}lll@{}}
+\toprule
+\StatementCell{\textbf{Manuscript statement}} &
+\LeanCell{\textbf{Lean declaration}} & \StatusCell{\textbf{Status}}\\
+\midrule
+\StatementCell{Lemma~A.13: Shannon derivatives in covariance form} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_13}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.14: quasiconvex stationary second-order condition} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_14}} &
+\StatusCell{Exact facade}\\
+\addlinespace
+\StatementCell{Lemma~A.15: exact finite-dimensional stationarity correction} &
+\LeanCell{\LeanDecl{fullDetailsAppendixA_15}} &
+\StatusCell{Exact facade}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
 \subsection{Trust boundary and reproducibility}
 
 The project is pinned to Lean~4.32.2 and Mathlib~4.32.2. The release source
@@ -328,9 +465,12 @@ powershell -File scripts/check.ps1
 \end{verbatim}
 runs the forbidden-token scan, a warning-as-error build of the integrated
 \LeanDecl{CompleteCharacterization} target, the axiom audit, and a structural
-audit of the internal 152-row blueprint ledger. The latter checks row order,
-labels, and table shape; the human-facing 4.1--5.10 correspondence above was
-reviewed separately against the theorem statements. The formalization proves the classification and law
+audit of the internal 152-row blueprint ledger.  It also runs the independent
+full-details audit, which reconstructs all thirty-two numbers and labels from
+the LaTeX source, checks that canonical names are unique and in the recorded
+order, and asks Lean to elaborate every exact or qualified declaration.  The
+semantic status of the two qualified rows is stated explicitly above.  The
+formalization proves the classification and law
 package for the four concrete candidate families in the complete-proof
 paper's natural-log convention. The upstream representation
 of every abstract homomorphism or derivation and the later barycentric
