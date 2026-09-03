@@ -33,10 +33,10 @@ theorem-facing proof map, a
 statement-by-statement correspondence table for all thirty-two numbered
 environments in the complete-proof document, and the precise trust and scope
 boundary.  The public index is one-to-one: every manuscript row has a distinct
-canonical Lean name.  Thirty rows directly package the stated formal content;
-the status column identifies the two qualified rows.  The presentation is
-deliberately theorem-facing: it separates public conclusions, paper-level
-ingredients, and proved reusable infrastructure.
+canonical Lean name.  Thirty-one rows directly package the stated formal
+content; the status column identifies the single qualified row.  The
+presentation is deliberately theorem-facing: it separates public conclusions,
+paper-level ingredients, and proved reusable infrastructure.
 \end{abstract}
 
 \author{Roberto Rubboli}
@@ -330,14 +330,10 @@ formalization-blueprint ledger and the editable Lean implementation dependency
 graph serve still different purposes and are not part of this bijection.
 
 Table~\ref{tab:lean-appendix-correspondence} completes the index for the
-fifteen numbered Appendix statements.  Fourteen rows have a declaration that
-directly packages the stated result.  Row~A.9 is deliberately marked
-qualified: its canonical declaration is the more general removable-quotient
-cancellation theorem used for the Shannon-point argument, while the
-entropy-line specialization is distributed across the endpoint-calculus
-bundle rather than repeated as one theorem.  Thus all thirty-two manuscript
-environments have unique canonical names, but the status column preserves the
-two genuine scope qualifications at Proposition~5.10 and Lemma~A.9.
+fifteen numbered Appendix statements, all of which have exact facades.
+Row~A.9 bundles joint entropy-line continuity with the exact cancellation
+integral for orders zero, one, and two; hence only Proposition~5.10 remains
+qualified.
 
 \begin{table}[htbp]
 \centering
@@ -408,7 +404,7 @@ of the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \midrule
 \StatementCell{Lemma~A.9: Shannon cancellation} &
 \LeanCell{\LeanDecl{fullDetailsAppendixA_9}} &
-\StatusCell{Qualified: generic cancellation theorem}\\
+\StatusCell{Exact facade}\\
 \addlinespace
 \StatementCell{Lemma~A.10: endpoint differentiability} &
 \LeanCell{\LeanDecl{fullDetailsAppendixA_10}} &
@@ -469,7 +465,7 @@ audit of the internal 152-row blueprint ledger.  It also runs the independent
 full-details audit, which reconstructs all thirty-two numbers and labels from
 the LaTeX source, checks that canonical names are unique and in the recorded
 order, and asks Lean to elaborate every exact or qualified declaration.  The
-semantic status of the two qualified rows is stated explicitly above.  The
+semantic status of the single qualified row is stated explicitly above.  The
 formalization proves the classification and law
 package for the four concrete candidate families in the complete-proof
 paper's natural-log convention. The upstream representation

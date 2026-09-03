@@ -234,8 +234,8 @@
       "label": "lem:app-Shannon-cancellation",
       "title": "Cancellation and continuity through the Shannon point",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_9",
-      "coverage": "qualified",
-      "statusDetail": "Canonical declaration is the generic removable-quotient cancellation and continuity theorem; the entropy-line specialization is proved through the endpoint bundle but is not restated in this single declaration."
+      "coverage": "exact",
+      "statusDetail": "Canonical facade proves joint entropy-line continuity through the Shannon order and the exact pole-cancellation integral identity for derivative orders zero, one, and two."
     },
     {
       "number": "A.10",

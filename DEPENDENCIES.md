@@ -52,7 +52,7 @@ changing the DOT graph does not regenerate or alter it.
 | Candidate law packages | `ConditionalEntropyAxioms`, `CandidateNormalization`, `JointTensorCandidates`, `CandidateEmbeddingInvariance` | Normalization, embedding invariance, tensor additivity, and conditional-monotonicity records for the four candidate families. |
 | Full candidate-law assembly | `AllConditionalEntropyAxioms` | `allConditionalEntropyAxioms`, combining the candidate packages, sufficiency, and the original channel lift `embeddingLift`. |
 | Paper-facing correspondence | `FullDetailsStatements` | Seventeen unique canonical facades `fullDetailsLemma4_1` through `fullDetailsProposition5_10`, one for each numbered main-text environment in the complete-proof document. |
-| Appendix-facing correspondence | `FullDetailsAppendixStatements`, `FullDetailsAppendixA3A6`, `FullDetailsAppendixA11` | Fifteen unique canonical facades for A.1--A.15; A.9 is explicitly the qualified generic cancellation theorem. |
+| Appendix-facing correspondence | `FullDetailsAppendixStatements`, `FullDetailsAppendixA3A6`, `FullDetailsAppendixA11` | Fifteen unique exact canonical facades for A.1--A.15, including the entropy-specific Shannon cancellation theorem A.9. |
 
 ## Critical paths
 

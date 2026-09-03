@@ -43,7 +43,7 @@ That scope boundary is explicit in the Lean auxiliary document.
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
 | Main-text 4.1--5.10 correspondence | One unique paper-facing facade per numbered environment; Proposition 5.10 is explicitly scoped to supplied representations |
-| Full-details 32-row manifest | 32 unique canonical names: 30 exact rows and 2 explicit scope qualifications (5.10 and A.9) |
+| Full-details 32-row manifest | 32 unique canonical names: 31 exact rows and 1 explicit scope qualification (5.10) |
 | Three-column internal-blueprint ledger | Structural correspondence audit passed |
 | `scripts/check.ps1` | Passes on the current release state |
 

@@ -9,12 +9,12 @@ call several lower-level implementation lemmas, so the underlying dependency
 graph remains many-to-many.
 
 “Exact” means that the facade directly packages the formal content of the
-numbered result. Two rows are explicitly qualified. Proposition 5.10 is exact
+numbered result. One row is explicitly qualified. Proposition 5.10 is exact
 for a supplied representing finite positive measure, while the paper’s cited
 universal representation and normalization theorem remains external. Lemma
-A.9 is represented by the proved generic removable-quotient cancellation
-theorem; its entropy-line specialization is distributed across the endpoint
-calculus rather than bundled into that single declaration.
+A.9 now directly packages the entropy-line continuity and the exact
+Shannon-point pole-cancellation formula for derivative orders zero, one, and
+two.
 
 The machine-readable source of this table is
 [`full-details-correspondence.json`](full-details-correspondence.json), and
@@ -50,7 +50,7 @@ this Markdown rendering remains reader-facing documentation.
 | Lemma A.6 — common discrete approximation | `ConditionalEntropy.fullDetailsAppendixA_6` | Exact |
 | Lemma A.7 — pointwise preservation of shape | `ConditionalEntropy.fullDetailsAppendixA_7` | Exact |
 | Lemma A.8 — logarithmic power-mean derivatives | `ConditionalEntropy.fullDetailsAppendixA_8` | Exact |
-| Lemma A.9 — cancellation through the Shannon point | `ConditionalEntropy.fullDetailsAppendixA_9` | Qualified: generic cancellation/continuity theorem; specialization is not bundled |
+| Lemma A.9 — cancellation through the Shannon point | `ConditionalEntropy.fullDetailsAppendixA_9` | Exact |
 | Lemma A.10 — endpoint differentiability | `ConditionalEntropy.fullDetailsAppendixA_10` | Exact |
 | Proposition A.11 — differentiation under the parameter integral | `ConditionalEntropy.fullDetailsAppendixA_11` | Exact |
 | Lemma A.12 — dominant-block remainder | `ConditionalEntropy.fullDetailsAppendixA_12` | Exact |

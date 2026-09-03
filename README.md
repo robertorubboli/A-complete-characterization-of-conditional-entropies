@@ -81,8 +81,8 @@ instructions.
 - [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
   is the machine-readable 32-row audit for all numbered main-text and Appendix
   environments in the complete-proof document. It records one canonical
-  declaration per row: 30 are exact facades and two carry explicit scope
-  qualifications (Proposition 5.10 and Lemma A.9).
+  declaration per row: 31 are exact facades and one carries an explicit scope
+  qualification (Proposition 5.10).
 - [`paper/FULL_DETAILS_CORRESPONDENCE.md`](paper/FULL_DETAILS_CORRESPONDENCE.md)
   is the GitHub-readable three-column rendering of that one-to-one index.
 

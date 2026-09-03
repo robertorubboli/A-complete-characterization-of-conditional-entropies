@@ -15,16 +15,15 @@ import Mathlib.MeasureTheory.Integral.Prod
 
 This module provides the main group of stable paper-facing declarations for
 Appendix A.  The A.3/A.6 continuity-discretization pair and the larger A.11
-signed-interchange theorem live in their own companion modules.  A.9 is a
-deliberately qualified facade for the generic removable-quotient theorem used
-by the entropy specialization.  Together the three Appendix modules provide
-one unique canonical name for every numbered Appendix result.
+signed-interchange theorem live in their own companion modules.  Together the
+three Appendix modules provide one unique canonical name for every numbered
+Appendix result.
 -/
 
 noncomputable section
 
 open Filter MeasureTheory Set SignType
-open scoped BigOperators ENNReal NNReal Topology ContDiff
+open scoped BigOperators ENNReal NNReal Topology ContDiff Interval
 
 namespace ConditionalEntropy
 
@@ -259,7 +258,8 @@ theorem fullDetailsAppendixA_7
 
 /-! ## A.8: logarithmic power-mean derivatives -/
 
-private def appendixLogPowerMeanLine {I : Type u} [Fintype I]
+/-- The logarithmic power mean `ell_a(lambda)` used in Appendix A.8--A.9. -/
+def appendixLogPowerMeanLine {I : Type u} [Fintype I]
     (a : ℝ) (L : PositiveLineData I) (lambda : ℝ) : ℝ :=
   (1 / a) * Real.log (linePowerSum L a lambda)
 
@@ -313,10 +313,335 @@ theorem fullDetailsAppendixA_8
 
 /-! ## A.9--A.10: Shannon cancellation and endpoint continuity -/
 
-/-- Appendix A.9 (qualified facade): this is the generic removable-quotient
-cancellation and continuity engine.  Instantiating its hypotheses with the
-specific entropy line is a separate, currently unbundled step. -/
-alias fullDetailsAppendixA_9 := parameterizedRemovableShannonQuotient_of_mixed
+private def appendixLogPowerMeanAlpha {I : Type u} [Fintype I]
+    (r : ℕ) (L : PositiveLineData I) (a lambda : ℝ) : ℝ :=
+  match r with
+  | 0 =>
+      (-1 / a ^ 2) * Real.log (linePowerSum L a lambda) +
+        (1 / a) * (lineLogPowerSum L a lambda / linePowerSum L a lambda)
+  | 1 => escortMeanAlpha L a lambda
+  | 2 =>
+      -escortSecondAlpha L a lambda + escortVar L a lambda +
+        a * escortVarAlpha L a lambda
+  | _ => 0
+
+private theorem continuousAt_lineLogPowerSum_pair
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) (a lambda : ℝ) (h : LinePositive L lambda) :
+    ContinuousAt (fun p : ℝ × ℝ => lineLogPowerSum L p.1 p.2)
+      (a, lambda) := by
+  unfold lineLogPowerSum
+  apply tendsto_finsetSum Finset.univ
+  intro i _hi
+  have hraw : ContinuousAt (fun p : ℝ × ℝ => lineRaw L p.2 i)
+      (a, lambda) := by
+    unfold lineRaw
+    fun_prop
+  exact (continuousAt_lineRaw_rpow_pair L i a lambda h).mul
+    (hraw.log (h i).ne')
+
+private theorem hasDerivAt_appendixLogPowerMean_order
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) {r : ℕ} (hr : r ≤ 2)
+    {a lambda : ℝ} (ha : 0 < a) (h : LinePositive L lambda) :
+    HasDerivAt
+      (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        r b lambda)
+      (alphaLambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        r a lambda) a := by
+  apply DifferentiableAt.hasDerivAt
+  interval_cases r
+  · have hlog := (hasDerivAt_linePowerSum_order L a lambda h).log
+      (linePowerSum_pos_all L a h).ne'
+    have hquot := hlog.div (hasDerivAt_id a) ha.ne'
+    have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        0 b lambda) =ᶠ[nhds a]
+        (fun b => Real.log (linePowerSum L b lambda) / b) := by
+      filter_upwards [] with b
+      simp [lambdaDeriv, appendixLogPowerMeanLine, div_eq_mul_inv, mul_comm]
+    exact hquot.differentiableAt.congr_of_eventuallyEq heq
+  · have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        1 b lambda) =ᶠ[nhds a] (fun b => escortMean L b lambda) := by
+      filter_upwards [Ioi_mem_nhds ha] with b hb
+      simpa [lambdaDeriv, iteratedDeriv] using
+        (fullDetailsAppendixA_8 b hb L h).1.deriv
+    exact (hasDerivAt_escortMean_order L a lambda h).differentiableAt
+      |>.congr_of_eventuallyEq heq
+  · have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        2 b lambda) =ᶠ[nhds a]
+        fun b => -escortSecond L b lambda + b * escortVar L b lambda := by
+      filter_upwards [Ioi_mem_nhds ha] with b hb
+      simpa [lambdaDeriv, iteratedDeriv, secondDeriv] using
+        (fullDetailsAppendixA_8 b hb L h).2.2.1
+    have hd := (hasDerivAt_escortSecond_order L a lambda h).neg.add
+      ((hasDerivAt_id a).mul (hasDerivAt_escortVar_order L a lambda h))
+    exact hd.differentiableAt.congr_of_eventuallyEq heq
+
+private theorem continuousAt_appendixLogPowerMeanAlpha_pair
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) {r : ℕ} (hr : r ≤ 2)
+    {a lambda : ℝ} (ha : 0 < a) (h : LinePositive L lambda) :
+    ContinuousAt (fun p : ℝ × ℝ =>
+      appendixLogPowerMeanAlpha r L p.1 p.2) (a, lambda) := by
+  interval_cases r
+  · have hP := continuousAt_linePowerSum_pair L a lambda h
+    have hLP := continuousAt_lineLogPowerSum_pair L a lambda h
+    have ha0 : (a : ℝ) ≠ 0 := ha.ne'
+    have hInv : ContinuousAt (fun p : ℝ × ℝ => 1 / p.1) (a, lambda) :=
+      continuousAt_const.div continuousAt_fst ha0
+    have hInvSq : ContinuousAt (fun p : ℝ × ℝ => -1 / p.1 ^ 2)
+        (a, lambda) :=
+      continuousAt_const.div (continuousAt_fst.pow 2) (pow_ne_zero 2 ha0)
+    change ContinuousAt
+      (((fun p : ℝ × ℝ => -1 / p.1 ^ 2) *
+          fun p => Real.log (linePowerSum L p.1 p.2)) +
+        (fun p : ℝ × ℝ => 1 / p.1) *
+          ((fun p => lineLogPowerSum L p.1 p.2) /
+            fun p => linePowerSum L p.1 p.2)) (a, lambda)
+    exact (hInvSq.mul (hP.log (linePowerSum_pos_all L a h).ne')).add
+      (hInv.mul (hLP.div hP (linePowerSum_pos_all L a h).ne'))
+  · simpa [appendixLogPowerMeanAlpha] using
+      continuousAt_escortMeanAlpha_pair L a lambda h
+  · change ContinuousAt
+      (((-fun p : ℝ × ℝ => escortSecondAlpha L p.1 p.2) +
+          fun p => escortVar L p.1 p.2) +
+        Prod.fst * fun p => escortVarAlpha L p.1 p.2) (a, lambda)
+    exact ((continuousAt_escortSecondAlpha_pair L a lambda h).neg.add
+      (continuousAt_escortVar_pair L a lambda h)).add
+        (continuousAt_fst.mul (continuousAt_escortVarAlpha_pair L a lambda h))
+
+private theorem alphaLambdaDeriv_appendixLogPowerMeanLine
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) {r : ℕ} (hr : r ≤ 2)
+    {a lambda : ℝ} (ha : 0 < a) (h : LinePositive L lambda) :
+    alphaLambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        r a lambda = appendixLogPowerMeanAlpha r L a lambda := by
+  interval_cases r
+  · have hinv := (hasDerivAt_id a).inv ha.ne'
+    have hlog := (hasDerivAt_linePowerSum_order L a lambda h).log
+      (linePowerSum_pos_all L a h).ne'
+    have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        0 b lambda) =ᶠ[nhds a]
+        (id⁻¹ * fun b => Real.log (linePowerSum L b lambda)) := by
+      filter_upwards [] with b
+      simp [lambdaDeriv, appendixLogPowerMeanLine]
+    unfold alphaLambdaDeriv
+    rw [heq.deriv_eq, (hinv.mul hlog).deriv]
+    simp [appendixLogPowerMeanAlpha]
+  · have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        1 b lambda) =ᶠ[nhds a] (fun b => escortMean L b lambda) := by
+      filter_upwards [Ioi_mem_nhds ha] with b hb
+      simpa [lambdaDeriv, iteratedDeriv] using
+        (fullDetailsAppendixA_8 b hb L h).1.deriv
+    unfold alphaLambdaDeriv
+    rw [heq.deriv_eq, (hasDerivAt_escortMean_order L a lambda h).deriv]
+    rfl
+  · have heq : (fun b => lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+        2 b lambda) =ᶠ[nhds a]
+        fun b => -escortSecond L b lambda + b * escortVar L b lambda := by
+      filter_upwards [Ioi_mem_nhds ha] with b hb
+      simpa [lambdaDeriv, iteratedDeriv, secondDeriv] using
+        (fullDetailsAppendixA_8 b hb L h).2.2.1
+    have hd := (hasDerivAt_escortSecond_order L a lambda h).neg.add
+      ((hasDerivAt_id a).mul (hasDerivAt_escortVar_order L a lambda h))
+    have hop : (fun b => -escortSecond L b lambda + b * escortVar L b lambda) =ᶠ[
+        nhds a] ((-fun b => escortSecond L b lambda) +
+          id * fun b => escortVar L b lambda) := by
+      filter_upwards [] with b
+      simp
+    unfold alphaLambdaDeriv
+    rw [heq.deriv_eq, hop.deriv_eq, hd.deriv]
+    simp [appendixLogPowerMeanAlpha]
+    ring
+
+private theorem appendixPoleCancellation
+    (g : ℝ → ℝ) {a : ℝ} (ha : a ≠ 1)
+    (hcont : ContinuousOn (fun b => deriv g b) (uIcc 1 a))
+    (hderiv : ∀ b ∈ uIcc (1 : ℝ) a, HasDerivAt g (deriv g b) b) :
+    a / (1 - a) * (g a - g 1) =
+      -a * ∫ s in (0 : ℝ)..1, deriv g (1 + s * (a - 1)) := by
+  have hFTC : (∫ b in (1 : ℝ)..a, deriv g b) = g a - g 1 := by
+    exact intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
+      hcont.intervalIntegrable
+  have haffine : ∀ s ∈ uIcc (0 : ℝ) 1,
+      HasDerivAt (fun t : ℝ => 1 + t * (a - 1)) (a - 1) s := by
+    intro s _hs
+    simpa only [id_eq, one_mul, mul_comm] using
+      ((hasDerivAt_id s).const_mul (a - 1)).const_add 1
+  have himage : (fun s : ℝ => 1 + s * (a - 1)) '' uIcc (0 : ℝ) 1 ⊆
+      uIcc (1 : ℝ) a := by
+    rintro _ ⟨s, hs, rfl⟩
+    have hs' : s ∈ Icc (0 : ℝ) 1 := by
+      simpa [uIcc_of_le zero_le_one] using hs
+    exact (convex_uIcc (1 : ℝ) a).add_smul_sub_mem
+      left_mem_uIcc right_mem_uIcc hs'
+  have hchange := intervalIntegral.integral_comp_mul_deriv'
+    (a := (0 : ℝ)) (b := 1)
+    (f := fun s : ℝ => 1 + s * (a - 1))
+    (f' := fun _ => a - 1) (g := fun b => deriv g b)
+    haffine continuous_const.continuousOn (hcont.mono himage)
+  have hchange' : (∫ s in (0 : ℝ)..1,
+      deriv g (1 + s * (a - 1)) * (a - 1)) =
+      ∫ b in (1 : ℝ)..a, deriv g b := by
+    simp only [Function.comp_apply, zero_mul, add_zero, one_mul] at hchange
+    have hone : 1 + (a - 1) = a := by ring
+    rw [hone] at hchange
+    exact hchange
+  have hfactor : (a - 1) *
+      (∫ s in (0 : ℝ)..1, deriv g (1 + s * (a - 1))) = g a - g 1 := by
+    rw [mul_comm, ← intervalIntegral.integral_mul_const]
+    exact hchange'.trans hFTC
+  rw [← hfactor]
+  have hden : 1 - a ≠ 0 := sub_ne_zero.mpr ha.symm
+  field_simp [hden]
+  ring
+
+private theorem appendixEntropyLineOrder_eq_weighted_logPowerMean
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) {r : ℕ} (hr : r ≤ 2)
+    {a lambda : ℝ} (ha : 0 < a) (ha1 : a ≠ 1)
+    (h : LinePositive L lambda) :
+    lambdaDeriv
+        (fun p : ℝ × ℝ => entropyLine L (finiteParam p.1) p.2)
+        r a lambda =
+      singularWeight (finiteParam a) *
+        (lambdaDeriv
+            (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+            r a lambda -
+          lambdaDeriv
+            (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+            r 1 lambda) := by
+  interval_cases r
+  · simp only [lambdaDeriv, iteratedDeriv]
+    rw [entropyLine_finite_eq_formula L ha ha1 h,
+      singularWeight_finite ha.le ha1]
+    unfold finiteEntropyLineFormula appendixLogPowerMeanLine
+    rw [linePowerSum_one]
+    have hden : 1 - a ≠ 0 := sub_ne_zero.mpr ha1.symm
+    field_simp [ha.ne', hden]
+  · change entropyLineFirst L (finiteParam a) lambda = _
+    rw [entropyLineFirst_finite_on L (isOpen_setOf_linePositive L)
+      (fun _ hs => hs) ha ha1 h]
+    have haDeriv := (fullDetailsAppendixA_8 a ha L h).1.deriv
+    have hOneDeriv := (fullDetailsAppendixA_8 1 zero_lt_one L h).1.deriv
+    congr 1
+    rw [show lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+          1 a lambda = escortMean L a lambda by
+          simpa [lambdaDeriv, iteratedDeriv] using haDeriv,
+      show lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+          1 1 lambda = escortMean L 1 lambda by
+          simpa [lambdaDeriv, iteratedDeriv] using hOneDeriv]
+  · change entropyLineSecond L (finiteParam a) lambda = _
+    rw [entropyLineSecond_finite_on L (isOpen_setOf_linePositive L)
+      (fun _ hs => hs) ha ha1 h]
+    have haSecond := (fullDetailsAppendixA_8 a ha L h).2.2.1
+    have hOneSecond := (fullDetailsAppendixA_8 1 zero_lt_one L h).2.2.1
+    rw [show lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+          2 a lambda =
+            -escortSecond L a lambda + a * escortVar L a lambda by
+          simpa [lambdaDeriv, iteratedDeriv, secondDeriv] using haSecond,
+      show lambdaDeriv
+        (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+          2 1 lambda =
+            -escortSecond L 1 lambda + 1 * escortVar L 1 lambda by
+          simpa [lambdaDeriv, iteratedDeriv, secondDeriv] using hOneSecond,
+      singularWeight_finite ha.le ha1]
+    unfold escortVar
+    have hden : 1 - a ≠ 0 := sub_ne_zero.mpr ha1.symm
+    field_simp [hden]
+    ring
+
+/-- Appendix A.9: the actual entropy and its first two line derivatives are
+jointly continuous through the Shannon order.  At every positive finite order
+different from one, the same three quantities satisfy the manuscript's exact
+pole-cancellation formula for the logarithmic power mean. -/
+theorem fullDetailsAppendixA_9
+    {I : Type u} [Fintype I] [Nonempty I]
+    (L : PositiveLineData I) {lambda0 : ℝ}
+    (hlambda0 : 0 < lambda0)
+    (hpos : ∀ lambda ∈ Icc (-lambda0) lambda0, LinePositive L lambda) :
+    (∀ lambda ∈ Icc (-lambda0) lambda0,
+      ContinuousWithinAt (fun p : Param × ℝ => entropyLine L p.1 p.2)
+          (Set.univ ×ˢ Icc (-lambda0) lambda0) (1, lambda) ∧
+        ContinuousWithinAt (fun p : Param × ℝ => entropyLineFirst L p.1 p.2)
+          (Set.univ ×ˢ Icc (-lambda0) lambda0) (1, lambda) ∧
+        ContinuousWithinAt (fun p : Param × ℝ => entropyLineSecond L p.1 p.2)
+          (Set.univ ×ˢ Icc (-lambda0) lambda0) (1, lambda)) ∧
+    (∀ r : ℕ, r ≤ 2 → ∀ a : ℝ, 0 < a → a ≠ 1 →
+      ∀ lambda ∈ Icc (-lambda0) lambda0,
+        lambdaDeriv
+            (fun p : ℝ × ℝ => entropyLine L (finiteParam p.1) p.2)
+            r a lambda =
+          singularWeight (finiteParam a) *
+            (lambdaDeriv
+                (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+                r a lambda -
+              lambdaDeriv
+                (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+                r 1 lambda) ∧
+        singularWeight (finiteParam a) *
+            (lambdaDeriv
+                (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+                r a lambda -
+              lambdaDeriv
+                (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+                r 1 lambda) =
+          -a * ∫ s in (0 : ℝ)..1,
+            alphaLambdaDeriv
+              (fun p : ℝ × ℝ => appendixLogPowerMeanLine p.1 L p.2)
+              r (1 + s * (a - 1)) lambda) := by
+  constructor
+  · intro lambda hlambda
+    exact continuousWithinAt_entropyLine_bundle_of_ne_top L hlambda0 hpos
+      (a := (1 : Param)) (by simp) hlambda
+  · intro r hr a ha ha1 lambda hlambda
+    constructor
+    · exact appendixEntropyLineOrder_eq_weighted_logPowerMean L hr ha ha1
+        (hpos lambda hlambda)
+    let F : ℝ × ℝ → ℝ :=
+      fun p => appendixLogPowerMeanLine p.1 L p.2
+    let g : ℝ → ℝ := fun b => lambdaDeriv F r b lambda
+    have hline : LinePositive L lambda := hpos lambda hlambda
+    have hpositive : ∀ b ∈ uIcc (1 : ℝ) a, 0 < b := by
+      intro b hb
+      rcases Set.mem_uIcc.mp hb with hb | hb
+      · exact lt_of_lt_of_le zero_lt_one hb.1
+      · exact lt_of_lt_of_le ha hb.1
+    have hderiv : ∀ b ∈ uIcc (1 : ℝ) a,
+        HasDerivAt g (deriv g b) b := by
+      intro b hb
+      have hd := hasDerivAt_appendixLogPowerMean_order L hr
+        (hpositive b hb) hline
+      exact hd.congr_deriv hd.deriv.symm
+    have hexplicit : ContinuousOn
+        (fun b => appendixLogPowerMeanAlpha r L b lambda) (uIcc 1 a) := by
+      intro b hb
+      exact ((continuousAt_appendixLogPowerMeanAlpha_pair L hr
+        (hpositive b hb) hline).comp (x := b)
+          (continuousAt_id.prodMk continuousAt_const)).continuousWithinAt
+    have hcont : ContinuousOn (fun b => deriv g b) (uIcc 1 a) := by
+      apply hexplicit.congr
+      intro b hb
+      have hactual := (hasDerivAt_appendixLogPowerMean_order L hr
+        (hpositive b hb) hline).deriv
+      have hexact := alphaLambdaDeriv_appendixLogPowerMeanLine L hr
+        (hpositive b hb) hline
+      simpa [g, F] using hactual.trans hexact
+    rw [singularWeight_finite ha.le ha1]
+    simpa [F, g, alphaLambdaDeriv] using
+      appendixPoleCancellation g ha1 hcont hderiv
 
 /-- Appendix A.10: the first two derivatives vanish and are jointly continuous
 at order zero.  The second conjunct uses the manuscript's literal nonempty
