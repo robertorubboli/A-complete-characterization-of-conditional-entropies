@@ -26,17 +26,19 @@
 \title{Lean Formalization of the Parameter Classification for Conditional Entropies}
 
 \begin{abstract}
-This note records the Lean formalization of the necessary-and-sufficient
-parameter classification for the concrete conditional-entropy candidates in
-the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}. It gives a compact
-theorem-facing proof map, a
-statement-by-statement correspondence table for all thirty-one numbered
-environments in the complete-proof document, and a trust and reproducibility
-record.  The public index is one-to-one: every manuscript row has a distinct
-canonical Lean name, and all thirty-one rows directly package the stated
-formal content.  The
-presentation is deliberately theorem-facing: it separates public conclusions,
-paper-level ingredients, and proved reusable infrastructure.
+This note explains how Lean~4 verifies the necessary and sufficient parameter
+conditions for the concrete conditional-entropy candidates studied in the
+complete-proof paper, Ref.~\cite{rubboli2026parametersFull}. The formalization
+covers all thirty-one numbered results: sixteen results in Sections~4 and~5 and
+fifteen technical results in Appendix~A. For each result, the note identifies
+one distinct Lean theorem with the same mathematical content, allowing the
+reader to move directly from a statement in the paper to its formal proof. A
+dependency diagram also shows how the main classification is built from the
+underlying calculus, measure-theoretic, localization, and semiring/channel
+results. Every supporting result is proved using Lean and Mathlib: the
+development contains no unfinished proofs, project-defined axioms, or
+additional unproved assumptions. No previous knowledge of Lean is needed to
+understand the organization of the formalization described here.
 \end{abstract}
 
 \author{Roberto Rubboli}
