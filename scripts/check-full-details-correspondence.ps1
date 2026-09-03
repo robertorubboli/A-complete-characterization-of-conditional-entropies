@@ -29,15 +29,19 @@ if (-not (Test-Path -LiteralPath $sourcePath)) {
 # and the manifest are accidentally changed in the same way.
 $expectedNumbers = @(
   '4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7',
-  '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9', '5.10',
+  '5.1', '5.2', '5.3', '5.4', '5.5', '5.6', '5.7', '5.8', '5.9',
   'A.1', 'A.2', 'A.3', 'A.4', 'A.5', 'A.6', 'A.7', 'A.8', 'A.9',
   'A.10', 'A.11', 'A.12', 'A.13', 'A.14', 'A.15'
 )
 $expectedKinds = @(
+  # 4.1--4.7
   'lemma', 'lemma', 'lemma', 'proposition', 'proposition', 'proposition',
-  'proposition', 'proposition', 'proposition', 'proposition', 'remark',
-  'remark', 'proposition', 'proposition', 'proposition', 'proposition',
-  'proposition', 'lemma', 'lemma', 'lemma', 'lemma', 'lemma', 'lemma',
+  'proposition',
+  # 5.1--5.9
+  'proposition', 'proposition', 'proposition', 'remark', 'remark',
+  'proposition', 'proposition', 'proposition', 'proposition',
+  # A.1--A.15
+  'lemma', 'lemma', 'lemma', 'lemma', 'lemma', 'lemma',
   'lemma', 'lemma', 'lemma', 'lemma', 'proposition', 'lemma', 'lemma',
   'lemma', 'lemma'
 )
@@ -58,7 +62,6 @@ $expectedLabels = @(
   'prop:negative-tropical-necessary',
   'prop:positive-tropical-necessary',
   'prop:derivation-necessary',
-  'prop:derivation-classification',
   'lem:app-power-mean-hessian',
   'lem:app-monomial-hessian',
   'lem:app-renyi-continuity',
@@ -92,7 +95,6 @@ $expectedCanonicalDeclarations = @(
   'ConditionalEntropy.fullDetailsProposition5_7',
   'ConditionalEntropy.fullDetailsProposition5_8',
   'ConditionalEntropy.fullDetailsProposition5_9',
-  'ConditionalEntropy.fullDetailsProposition5_10',
   'ConditionalEntropy.fullDetailsAppendixA_1',
   'ConditionalEntropy.fullDetailsAppendixA_2',
   'ConditionalEntropy.fullDetailsAppendixA_3',
@@ -110,12 +112,12 @@ $expectedCanonicalDeclarations = @(
   'ConditionalEntropy.fullDetailsAppendixA_15'
 )
 
-$expectedCount = 32
+$expectedCount = 31
 if ($expectedNumbers.Count -ne $expectedCount -or
     $expectedKinds.Count -ne $expectedCount -or
     $expectedLabels.Count -ne $expectedCount -or
     $expectedCanonicalDeclarations.Count -ne $expectedCount) {
-  throw 'Internal full-details audit specification does not contain 32 aligned rows.'
+  throw 'Internal full-details audit specification does not contain 31 aligned rows.'
 }
 
 function Get-AppendixSectionName([int]$index) {
@@ -217,12 +219,12 @@ for ($lineIndex = 0; $lineIndex -lt $sourceLines.Count; $lineIndex++) {
 }
 
 if ($sourceRows.Count -ne $expectedCount) {
-  throw "Expected 32 numbered full-details environments, found $($sourceRows.Count)."
+  throw "Expected 31 numbered full-details environments, found $($sourceRows.Count)."
 }
 
 $manifestRows = @($manifest.rows)
 if ($manifestRows.Count -ne $expectedCount) {
-  throw "Expected 32 manifest rows, found $($manifestRows.Count)."
+  throw "Expected 31 manifest rows, found $($manifestRows.Count)."
 }
 
 Assert-UniqueValues ($sourceRows | ForEach-Object number) 'source statement number'
@@ -289,7 +291,7 @@ $tableRowMatches = [regex]::Matches(
   [System.Text.RegularExpressions.RegexOptions]::Singleline
 )
 if ($tableRowMatches.Count -ne $expectedCount) {
-  throw "Expected 32 complete correspondence rows in the Lean note, found " +
+  throw "Expected 31 complete correspondence rows in the Lean note, found " +
     "$($tableRowMatches.Count)."
 }
 for ($index = 0; $index -lt $expectedCount; $index++) {
@@ -343,7 +345,7 @@ foreach ($line in Get-Content -LiteralPath $markdownTablePath) {
   }
 }
 if ($markdownRows.Count -ne $expectedCount) {
-  throw "Expected 32 rows in the Markdown correspondence table, found " +
+  throw "Expected 31 rows in the Markdown correspondence table, found " +
     "$($markdownRows.Count)."
 }
 for ($index = 0; $index -lt $expectedCount; $index++) {
@@ -435,10 +437,10 @@ if ($RequireAllExact -and $nonExactCount -gt 0) {
 }
 
 if ($nonExactCount -eq 0) {
-  Write-Output ('Machine one-to-one certificate passed: all 32 canonical rows ' +
+  Write-Output ('Machine one-to-one certificate passed: all 31 canonical rows ' +
     'are marked exact and elaborate. Semantic equivalence is established by ' +
     'the recorded manual statement review, not inferred from LaTeX by this script.')
 } else {
-  Write-Output ("This is not a 32-row exactness certificate: $nonExactCount " +
+  Write-Output ("This is not a 31-row exactness certificate: $nonExactCount " +
     'row(s) have a recorded qualification or gap.')
 }

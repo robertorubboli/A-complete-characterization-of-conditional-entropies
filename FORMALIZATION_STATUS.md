@@ -10,11 +10,11 @@ audit pass on the current release state.
 The paper hierarchy described here was revised on 30 August 2026. The canonical
 manuscript is maintained on arXiv and is not duplicated in this repository.
 GitHub hosts only the complete-proof and Lean auxiliary documents. The
-complete-proof paper's statements 4.1--5.10 and natural-log convention are the
+complete-proof paper's statements 4.1--5.9 and natural-log convention are the
 specification used by the Lean note and declaration correspondence. The public
 facade in `ConditionalEntropy/FullDetailsStatements.lean` assigns one unique
-Lean declaration to each of the seventeen numbered main-text environments.
-Appendix A is tracked separately in the 32-row correspondence manifest so that
+Lean declaration to each of the sixteen numbered main-text environments.
+Appendix A is tracked separately in the 31-row correspondence manifest so that
 technical results are not silently conflated with the main classification
 statements.
 
@@ -25,7 +25,8 @@ whose imports transitively cover the declaration-bearing dependency tree.
 The verified terminal theorem classifies the four concrete candidate families.
 It does not formalize the upstream universal representation theorem asserting
 that every abstract conditional entropy has that candidate representation.
-That scope boundary is explicit in the Lean auxiliary document.
+That distinction is documented without being included as an additional
+paper-facing proposition.
 
 ## Status at a glance
 
@@ -42,8 +43,8 @@ That scope boundary is explicit in the Lean auxiliary document.
 | `mainClassification` | Assumption-free declaration; axiom audit passed |
 | Original conditional semiring, channel order, and `embeddingLift` | Strict root build passed |
 | `allConditionalEntropyAxioms` | Exact four-family declaration; axiom audit passed |
-| Main-text 4.1--5.10 correspondence | One unique paper-facing facade per numbered environment; Proposition 5.10 is explicitly scoped to supplied representations |
-| Full-details 32-row manifest | 32 unique canonical names: 31 exact rows and 1 explicit scope qualification (5.10) |
+| Main-text 4.1--5.9 correspondence | Sixteen unique paper-facing facades; every row is exact |
+| Full-details 31-row manifest | 31 unique canonical names; every row is exact |
 | Three-column internal-blueprint ledger | Structural correspondence audit passed |
 | `scripts/check.ps1` | Passes on the current release state |
 
@@ -97,17 +98,17 @@ classification.
   Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. No
   main-manuscript copy or separate concise Sections 4--5 note is hosted here.
 - [`paper/auxiliary-files/sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
-  is the complete-proof auxiliary document. Its 4.1--5.10 numbering and
+  is the complete-proof auxiliary document. Its 4.1--5.9 numbering and
   natural-log convention determine the Lean correspondence.
 - [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
   is the Lean auxiliary document, with its theorem-facing proof map, trust audit,
   one-to-one main-text statement table, and separate Appendix audit.
 
 [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
-is the single machine-readable inventory of all 32 numbered environments
-(4.1--5.10 and A.1--A.15). Its companion checker reconstructs the numbering
+is the single machine-readable inventory of all 31 numbered environments
+(4.1--5.9 and A.1--A.15). Its companion checker reconstructs the numbering
 from the LaTeX source, verifies the ordered labels and unique canonical names,
-and asks Lean to elaborate every row marked exact or qualified.
+and asks Lean to elaborate every exact row.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
 contains one source-ordered row for every audited labeled internal-blueprint

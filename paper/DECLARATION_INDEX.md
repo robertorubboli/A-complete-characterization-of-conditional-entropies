@@ -15,7 +15,7 @@ forbidden-token audit results are reported separately.
 The stable manuscript-facing names are defined in
 [`ConditionalEntropy/FullDetailsStatements.lean`](../ConditionalEntropy/FullDetailsStatements.lean).
 There is exactly one such facade for each numbered main-text environment
-4.1--5.10. The authoritative number/label/name mapping, including the separate
+4.1--5.9. The authoritative number/label/name mapping, including the separate
 Appendix A audit, is
 [`full-details-correspondence.json`](full-details-correspondence.json). The
 tables below list implementation dependencies and therefore remain

@@ -2,17 +2,15 @@
 
 This is the reader-facing one-to-one index for
 [`sections-4-5-full-details.tex`](auxiliary-files/sections-4-5-full-details.tex).
-Each of its 32 numbered environments has one distinct canonical Lean
+Each of its 31 numbered environments has one distinct canonical Lean
 declaration, and each declaration in the table is used for only that
 environment. The canonical declarations are stable facades: their proofs may
 call several lower-level implementation lemmas, so the underlying dependency
 graph remains many-to-many.
 
 “Exact” means that the facade directly packages the formal content of the
-numbered result. One row is explicitly qualified. Proposition 5.10 is exact
-for a supplied representing finite positive measure, while the paper’s cited
-universal representation and normalization theorem remains external. Lemma
-A.9 now directly packages the entropy-line continuity and the exact
+numbered result. Every remaining row is exact. Lemma A.9 directly packages
+the entropy-line continuity and the exact
 Shannon-point pole-cancellation formula for derivative orders zero, one, and
 two.
 
@@ -41,7 +39,6 @@ this Markdown rendering remains reader-facing documentation.
 | Proposition 5.7 — negative-tropical necessity | `ConditionalEntropy.fullDetailsProposition5_7` | Exact |
 | Proposition 5.8 — positive-tropical necessity | `ConditionalEntropy.fullDetailsProposition5_8` | Exact |
 | Proposition 5.9 — derivation necessity | `ConditionalEntropy.fullDetailsProposition5_9` | Exact |
-| Proposition 5.10 — represented derivation classification | `ConditionalEntropy.fullDetailsProposition5_10` | Qualified: exact for supplied representations; universal representation and normalization remain cited externally |
 | Lemma A.1 — Hessian of the power mean | `ConditionalEntropy.fullDetailsAppendixA_1` | Exact |
 | Lemma A.2 — Hessian and sign classification of a monomial | `ConditionalEntropy.fullDetailsAppendixA_2` | Exact |
 | Lemma A.3 — Rényi continuity and support bound | `ConditionalEntropy.fullDetailsAppendixA_3` | Exact |

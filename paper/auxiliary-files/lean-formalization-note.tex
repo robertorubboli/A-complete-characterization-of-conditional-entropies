@@ -30,11 +30,11 @@ This note records the Lean formalization of the necessary-and-sufficient
 parameter classification for the concrete conditional-entropy candidates in
 the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}. It gives a compact
 theorem-facing proof map, a
-statement-by-statement correspondence table for all thirty-two numbered
+statement-by-statement correspondence table for all thirty-one numbered
 environments in the complete-proof document, and the precise trust and scope
 boundary.  The public index is one-to-one: every manuscript row has a distinct
-canonical Lean name.  Thirty-one rows directly package the stated formal
-content; the status column identifies the single qualified row.  The
+canonical Lean name, and all thirty-one rows directly package the stated
+formal content.  The
 presentation is deliberately theorem-facing: it separates public conclusions,
 paper-level ingredients, and proved reusable infrastructure.
 \end{abstract}
@@ -89,11 +89,8 @@ to dependent.
 In Figure~\ref{fig:lean-dependencies}, arrows deliberately point in the reverse
 direction, from a conclusion to ingredients used in its proof. Pale green boxes
 are the two public conclusions, white boxes are paper-facing intermediate
-results, pale blue boxes are reusable infrastructure that is itself proved in
-Lean, and the dashed gray box is an upstream representation theorem cited from
-Section~III of Ref.~\cite{rubboli2026complete}. That gray result is needed only
-for the statement that every abstract derivation has the displayed barycentric
-form; it is not an axiom or hypothesis of either green Lean declaration.
+results, and pale blue boxes are reusable infrastructure that is itself proved
+in Lean.
 
 \begin{figure}[htbp]
 \centering
@@ -107,9 +104,7 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
   infra/.style={draw=blue!55!black,fill=blue!8,rounded corners=2pt,
     align=center,font=\scriptsize,text width=31mm,minimum height=9mm},
   papercompact/.style={draw=black!65,fill=white,rounded corners=2pt,
-    align=center,font=\scriptsize,text width=31mm,minimum height=9mm},
-  boundary/.style={draw=black!55,dashed,fill=black!4,rounded corners=2pt,
-    align=center,font=\scriptsize,text width=55mm,minimum height=9mm}]
+    align=center,font=\scriptsize,text width=31mm,minimum height=9mm}]
 
 \node[final] (classification) at (-2.8,0)
   {\texttt{mainClassification}\\exact parameter equivalences};
@@ -119,7 +114,7 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \node[paper] (suff) at (-4.1,-1.8)
   {Sufficiency\\Statements~4.4--4.7};
 \node[paper] (necess) at (0,-1.8)
-  {Necessity\\Statements~5.1--5.10};
+  {Necessity\\Statements~5.1--5.9};
 \node[paper] (candidate) at (4.1,-1.8)
   {Candidate algebra,\\semiring laws, and\\channel laws};
 
@@ -139,10 +134,6 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \node[infra] (stationary) at (3.4,-5.4)
   {Tropical stationarity,\\binary-face, and\\finite block witnesses};
 
-\node[boundary] (upstream) at (0,-7.0)
-  {Upstream abstract homomorphism/derivation representation\\
-   (cited paper result; outside this Lean theorem)};
-
 \draw (classification) -- (suff);
 \draw (classification) -- (necess);
 \draw (laws) -- (suff);
@@ -160,7 +151,6 @@ form; it is not an axiom or hypothesis of either green Lean declaration.
 \draw (endpoint) -- (disc);
 \draw (local) -- (disc);
 \draw (local) -- (stationary);
-\draw[dashed] (necess) -- (upstream);
 \end{tikzpicture}
 \caption{Theorem-facing proof map for the parameter classification. Every
 displayed statement number is from the complete-proof paper,
@@ -168,15 +158,13 @@ Ref.~\cite{rubboli2026parametersFull}. Arrows point from a result to ingredients
 reverse of the prerequisite-to-dependent convention in the detailed Lean
 implementation dependency graph. Color
 records proof role, not confidence: green means public conclusion, blue means
-internally proved infrastructure, white means a paper-facing result, and dashed
-gray marks the explicitly excluded upstream representation theorem. The dashed
-connector records manuscript context, not a Lean axiom or dependency.}
+internally proved infrastructure, and white means a paper-facing result.}
 \label{fig:lean-dependencies}
 \end{figure}
 
 Table~\ref{tab:lean-correspondence} follows the numbering of the complete-proof
 paper, Ref.~\cite{rubboli2026parametersFull}.  It is a one-to-one index at the
-paper-facing interface: each of the seventeen numbered environments in the
+paper-facing interface: each of the sixteen numbered environments in the
 main text, including Remarks~5.4--5.5, has exactly one distinct canonical Lean
 declaration, and no declaration in the table represents two manuscript
 environments.  All names are in the namespace
@@ -188,10 +176,7 @@ in the source and dependency graph.
 
 This interface-level bijection says exactly which Lean theorem a reader should
 inspect for each manuscript result; it does not claim that the internal proof
-graph is one-to-one.  Proposition~5.10 is indexed by a theorem about a supplied
-represented derivation.  The separate upstream theorem that every abstract
-derivation has such a representation remains the cited result identified
-above, rather than a Lean assumption.
+graph is one-to-one.
 
 \renewcommand{\arraystretch}{1.12}
 \begin{table}[htbp]
@@ -305,23 +290,17 @@ complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 \StatementCell{Proposition~5.9: derivation necessity} &
 \LeanCell{\LeanDecl{fullDetailsProposition5_9}} &
 \StatusCell{Exact facade}\\
-\addlinespace
-\StatementCell{Proposition~5.10: represented derivations} &
-\LeanCell{\LeanDecl{fullDetailsProposition5_10}} &
-\StatusCell{Qualified: exact for represented family}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The canonical declarations in Table~\ref{tab:lean-correspondence} are the
-stable reader-facing interface.  For example, the proof of
-\LeanDecl{fullDetailsProposition5_7} calls the lower-level theorem
-\LeanDecl{negativeTropicalNecessity}, which in turn uses the Shannon,
-two-upper-point, truncated-moment, and stationarity-correction lemmas.  Those
-dependencies explain the proof; they do not create extra correspondences for
-Proposition~5.7.
+\clearpage
 
-The repository also keeps a machine-readable 32-row audit of every numbered
+Table~\ref{tab:lean-correspondence} is the stable reader-facing interface.
+Each facade may call several lower-level lemmas, but those implementation
+dependencies do not create additional manuscript correspondences.
+
+The repository also keeps a machine-readable 31-row audit of every numbered
 environment in the complete-proof document, including Appendix~A, in
 \path{paper/full-details-correspondence.json}.  Appendix statements are
 listed separately below because they provide technical ingredients rather
@@ -332,8 +311,8 @@ graph serve still different purposes and are not part of this bijection.
 Table~\ref{tab:lean-appendix-correspondence} completes the index for the
 fifteen numbered Appendix statements, all of which have exact facades.
 Row~A.9 bundles joint entropy-line continuity with the exact cancellation
-integral for orders zero, one, and two; hence only Proposition~5.10 remains
-qualified.
+integral for orders zero, one, and two. Thus every row in the two tables is
+exact.
 
 \begin{table}[htbp]
 \centering
@@ -462,10 +441,9 @@ powershell -File scripts/check.ps1
 runs the forbidden-token scan, a warning-as-error build of the integrated
 \LeanDecl{CompleteCharacterization} target, the axiom audit, and a structural
 audit of the internal 152-row blueprint ledger.  It also runs the independent
-full-details audit, which reconstructs all thirty-two numbers and labels from
+full-details audit, which reconstructs all thirty-one numbers and labels from
 the LaTeX source, checks that canonical names are unique and in the recorded
-order, and asks Lean to elaborate every exact or qualified declaration.  The
-semantic status of the single qualified row is stated explicitly above.  The
+order, and asks Lean to elaborate every exact declaration.  The
 formalization proves the classification and law
 package for the four concrete candidate families in the complete-proof
 paper's natural-log convention. The upstream representation

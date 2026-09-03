@@ -17,10 +17,10 @@ The two auxiliary documents have distinct roles:
    semiring/channel lift.
 2. `lean-formalization-note.tex` records the theorem-facing proof map, trust
    boundary, reproducibility instructions, a one-to-one canonical Lean
-   declaration for every numbered main-text statement 4.1--5.10, and a
+   declaration for every numbered main-text statement 4.1--5.9, and a
    separate audit of the numbered Appendix A statements.
 
-The complete-proof paper's 4.1--5.10 and A.1--A.15 numbering and natural-log
+The complete-proof paper's 4.1--5.9 and A.1--A.15 numbering and natural-log
 convention are the sole specification for the organization of the Lean
 correspondence. The public one-to-one table is deliberately separate from the
 many-to-many implementation dependency graph.

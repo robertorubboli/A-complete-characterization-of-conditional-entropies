@@ -4,15 +4,11 @@ import ConditionalEntropy.MainClassification
 /-!
 # Paper-facing statements for the complete proof of Sections 4 and 5
 
-This module is the one-to-one public interface between the seventeen numbered
+This module is the one-to-one public interface between the sixteen numbered
 main-text environments in `sections-4-5-full-details.tex` and Lean.  Each
 declaration below corresponds to exactly one numbered environment.  Its proof
 may use several smaller implementation lemmas; those implementation
 dependencies are deliberately kept separate from this paper-facing index.
-
-The last declaration classifies a *supplied represented derivation*.  It does
-not assert the upstream representation theorem saying that every abstract
-derivation has such a representing measure.
 -/
 
 noncomputable section
@@ -403,31 +399,5 @@ theorem fullDetailsProposition5_9
           (normalize (toPosCone x hx)) =
         l1Mass x.1 * renyi alpha (normalize (toPosCone x hx))
       rw [integratedEntropyPos_dirac]
-
-/-- Proposition 5.10, for the represented family: a supplied finite positive
-representing measure gives a monotone derivation exactly when its support lies
-in `[0,1]`.  This theorem neither assumes nor asserts that every abstract
-derivation has such a representation. -/
-theorem fullDetailsProposition5_10 (sigma : FiniteMeasure Param) :
-    CMMonotone (HZero sigma : PolyJointFunctional.{u}) ↔
-      suppMeasure (finiteMeasure sigma) ⊆ Icc (0 : Param) 1 := by
-  constructor
-  · intro hmono
-    have hconcave :
-        ∀ {I : Type u} [Fintype I] [Nonempty I],
-          ConcaveCone (derivationColumn sigma : ConeVec I → ℝ) :=
-      ((globalTemperateDerivationShapeReduction
-        1 (diracProb 0) sigma).2.2).1 hmono
-    exact derivationNecessity sigma hconcave
-  · intro hsupp
-    have h :
-        CMMonotone (derivationFamily sigma : PolyJointFunctional.{u}) ∧
-          (derivationFamily sigma : PolyJointFunctional.{u}) =
-            (HZero sigma : PolyJointFunctional.{u}) :=
-      derivationSufficiency sigma hsupp
-    intro X Y Y' _ _ _ _ _ _ P Q hPQ
-    have hmono := h.1 P Q hPQ
-    rw [h.2] at hmono
-    exact hmono
 
 end ConditionalEntropy

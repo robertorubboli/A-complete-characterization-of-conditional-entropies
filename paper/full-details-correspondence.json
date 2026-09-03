@@ -148,15 +148,6 @@
       "statusDetail": "Canonical facade restates the paper-facing formal content."
     },
     {
-      "number": "5.10",
-      "kind": "proposition",
-      "label": "prop:derivation-classification",
-      "title": "Classification within the represented derivation family",
-      "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_10",
-      "coverage": "qualified",
-      "statusDetail": "Exact for every supplied representing finite positive measure; the upstream universal representation theorem and normalization-to-probability clause remain external."
-    },
-    {
       "number": "A.1",
       "kind": "lemma",
       "label": "lem:app-power-mean-hessian",

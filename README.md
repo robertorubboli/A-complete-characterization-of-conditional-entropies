@@ -41,8 +41,8 @@ Lean correspondence. GitHub hosts the following two auxiliary documents:
 2. **Lean-formalization auxiliary document.**
    [`lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex)
    contains the theorem-facing proof map, trust audit, reproducibility
-   instructions, a one-to-one public-declaration table for the seventeen
-   numbered main-text statements 4.1--5.10, and a separate Appendix A audit.
+   instructions, a one-to-one public-declaration table for the sixteen
+   numbered main-text statements 4.1--5.9, and a separate Appendix A audit.
    Download the compile-verified
    [`lean-formalization-note.pdf`](paper/auxiliary-files/pdf/lean-formalization-note.pdf).
 
@@ -60,8 +60,8 @@ instructions.
 - [`CompleteCharacterization.lean`](CompleteCharacterization.lean) is the
   integrated project entry point.
 - [`ConditionalEntropy/FullDetailsStatements.lean`](ConditionalEntropy/FullDetailsStatements.lean)
-  is the stable paper-facing interface: each of the seventeen numbered
-  main-text environments 4.1--5.10 has one distinct canonical Lean theorem.
+  is the stable paper-facing interface: each of the sixteen numbered
+  main-text environments 4.1--5.9 has one distinct canonical Lean theorem.
   Lower-level implementation lemmas remain many-to-many dependencies beneath
   that interface.
 - [`ConditionalEntropy/MainClassification.lean`](ConditionalEntropy/MainClassification.lean)
@@ -79,10 +79,9 @@ instructions.
   dependency-closed specification consumed by the structural ledger audit. It is
   an internal formalization artifact, not a separate concise auxiliary document.
 - [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
-  is the machine-readable 32-row audit for all numbered main-text and Appendix
-  environments in the complete-proof document. It records one canonical
-  declaration per row: 31 are exact facades and one carries an explicit scope
-  qualification (Proposition 5.10).
+  is the machine-readable 31-row audit for all numbered main-text and Appendix
+  environments in the complete-proof document. It records one exact canonical
+  declaration per row.
 - [`paper/FULL_DETAILS_CORRESPONDENCE.md`](paper/FULL_DETAILS_CORRESPONDENCE.md)
   is the GitHub-readable three-column rendering of that one-to-one index.
 

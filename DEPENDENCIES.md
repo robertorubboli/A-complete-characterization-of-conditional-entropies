@@ -51,7 +51,7 @@ changing the DOT graph does not regenerate or alter it.
 | Classification | `MainClassification` | `mainClassification`, combining `necessityBundle` with `Section4Sufficiency`. |
 | Candidate law packages | `ConditionalEntropyAxioms`, `CandidateNormalization`, `JointTensorCandidates`, `CandidateEmbeddingInvariance` | Normalization, embedding invariance, tensor additivity, and conditional-monotonicity records for the four candidate families. |
 | Full candidate-law assembly | `AllConditionalEntropyAxioms` | `allConditionalEntropyAxioms`, combining the candidate packages, sufficiency, and the original channel lift `embeddingLift`. |
-| Paper-facing correspondence | `FullDetailsStatements` | Seventeen unique canonical facades `fullDetailsLemma4_1` through `fullDetailsProposition5_10`, one for each numbered main-text environment in the complete-proof document. |
+| Paper-facing correspondence | `FullDetailsStatements` | Sixteen unique canonical facades `fullDetailsLemma4_1` through `fullDetailsProposition5_9`, one for each numbered main-text environment in the complete-proof document. |
 | Appendix-facing correspondence | `FullDetailsAppendixStatements`, `FullDetailsAppendixA3A6`, `FullDetailsAppendixA11` | Fifteen unique exact canonical facades for A.1--A.15, including the entropy-specific Shannon cancellation theorem A.9. |
 
 ## Critical paths
@@ -87,9 +87,9 @@ For the internal-blueprint statement correspondence, see
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md).
 The theorem-facing proof map and three-column correspondence table are in
 [`paper/auxiliary-files/lean-formalization-note.tex`](paper/auxiliary-files/lean-formalization-note.tex).
-The displayed 4.1--5.10 numbers belong to the complete-proof auxiliary
+The displayed 4.1--5.9 numbers belong to the complete-proof auxiliary
 document, which also fixes the natural-log convention used throughout Lean.
-The ordered 32-row source/declaration inventory, including Appendix A, is
+The ordered 31-row source/declaration inventory, including Appendix A, is
 [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json);
 its checker distinguishes the one-to-one public facade from the many-to-many
 implementation graph described here.

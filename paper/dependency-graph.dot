@@ -57,7 +57,7 @@ digraph ConditionalEntropyDependencies {
   all_axioms [label="AllConditionalEntropyAxioms\nallConditionalEntropyAxioms",
               fillcolor="#f8fafc", color="#334155", penwidth=1.8];
 
-  main_facades [label="FullDetailsStatements\n17 unique facades for 4.1--5.10",
+  main_facades [label="FullDetailsStatements\n16 unique facades for 4.1--5.9",
                 fillcolor="#fffbeb", color="#b45309", penwidth=1.7];
   appendix_facades [label="FullDetailsAppendixStatements · FullDetailsAppendixA3A6\nFullDetailsAppendixA11\n15 unique facades for A.1--A.15",
                     fillcolor="#fffbeb", color="#b45309", penwidth=1.7];
