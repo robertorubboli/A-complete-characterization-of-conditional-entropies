@@ -63,9 +63,11 @@ available at
 on the repository's main branch.
 
 A Lean file contains definitions and named mathematical statements together
-with their proofs. Lean calls each named item a \emph{declaration}. A theorem
-declaration records exactly which assumptions may be used and which conclusion
-must be proved. When the project is built, Lean checks every step using
+with their proofs. Lean calls each named item a \emph{declaration}. A
+declaration is simply a named entry that Lean stores, such as a definition,
+lemma, or theorem. A theorem declaration records exactly which assumptions may
+be used and which conclusion must be proved. When the project is built, Lean
+checks every step using
 Mathlib, its standard mathematical library, and declarations that have already
 been proved in the project. This project rejects unfinished-proof markers, and
 Lean accepts each remaining theorem only when its proof checks.
