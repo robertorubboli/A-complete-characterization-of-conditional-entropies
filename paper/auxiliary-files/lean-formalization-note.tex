@@ -67,15 +67,16 @@ with their proofs. Lean calls each named item a \emph{declaration}. A theorem
 declaration records exactly which assumptions may be used and which conclusion
 must be proved. When the project is built, Lean checks every step using
 Mathlib, its standard mathematical library, and declarations that have already
-been proved in the project. If a step is missing or does not follow, the build
-fails.
+been proved in the project. This project rejects unfinished-proof markers, and
+Lean accepts each remaining theorem only when its proof checks.
 
 Every numbered lemma, proposition, and remark in the complete-proof paper,
 Ref.~\cite{rubboli2026parametersFull}, has one matching Lean theorem. The
-theorem's name points directly to its formal proof. For example, Lemma~4.1 is
-represented by \LeanDecl{ConditionalEntropy.fullDetailsLemma4_1}. A theorem
-may use several smaller proved lemmas internally, just as a written proof may
-refer to earlier results.
+theorem's name finds its complete formal statement and the proof that combines
+any required supporting lemmas. For example, Lemma~4.1 is represented by
+\LeanDecl{ConditionalEntropy.fullDetailsLemma4_1}. A theorem may use several
+smaller proved lemmas internally, just as a written proof may refer to earlier
+results.
 
 The formal proof ends with two final theorems. The theorem
 \LeanDecl{mainClassification} states that, for the given probability measure
@@ -85,10 +86,11 @@ condition. Its only explicit input is the measure being classified; it needs
 no additional hypothesis. The theorem
 \LeanDecl{allConditionalEntropyAxioms} proves nonnegativity, zero-embedding
 invariance, tensor additivity, fair-bit normalization, and embedded channel
-monotonicity for every admissible candidate. All of its conditions are part of
-the theorem itself, so it has no external input. Neither theorem uses a
-project-defined axiom. In the complete-proof paper and in Lean, $\log$ is the
-natural logarithm and an independent fair bit has value $\log 2$.
+monotonicity for every admissible candidate, with each admissibility condition
+written explicitly. It assumes no additional fact beyond those stated
+conditions. Neither theorem uses a project-defined axiom. In the complete-proof
+paper and in Lean, $\log$ is the natural logarithm and an independent fair bit
+has value $\log 2$.
 
 The two dependency diagrams show the proof at different levels of detail.
 Figure~\ref{fig:lean-dependencies} is a short overview. Starting at either
@@ -96,6 +98,7 @@ green box and following the arrows downward shows which results are used in
 that proof. White boxes represent numbered results from the complete-proof
 paper, while blue boxes collect smaller supporting results proved in Lean.
 
+\clearpage
 The files \path{paper/dependency-graph.dot},
 \path{paper/dependency-graph.svg}, and \path{paper/dependency-graph.png} are
 editable, vector-image, and bitmap-image versions of one more detailed
@@ -120,7 +123,7 @@ direction from the arrows in Figure~\ref{fig:lean-dependencies}.
 \node[final] (classification) at (-2.8,0)
   {\texttt{mainClassification}\\exact parameter equivalences};
 \node[final] (laws) at (2.8,0)
-  {\texttt{allConditionalEntropy}\\\texttt{Axioms}\\five-law candidate package};
+  {\texttt{allConditionalEntropy}\\\texttt{Axioms}\\five conditional-entropy laws};
 
 \node[paper] (suff) at (-4.1,-1.8)
   {Sufficiency\\Statements~4.4--4.7};
@@ -288,10 +291,10 @@ Appendix~A.
 
 The file \path{paper/full-details-correspondence.json} records the same
 thirty-one pairs in a form that can be checked automatically. The separate
-152-row blueprint lists the smaller results used while constructing the
-proofs. Those rows describe internal proof steps and do not correspond to
-additional numbered manuscript statements. The detailed dependency graph
-shows how these steps are connected.
+152-row blueprint lists labeled definitions and results used to construct the
+formalization, including supporting and final results. These rows describe the
+internal structure and do not correspond to additional numbered manuscript
+statements. The detailed dependency graph shows how the entries are connected.
 
 The theorem for Lemma~A.9 includes both parts of that lemma: continuity along
 the entropy line and the exact cancellation integral for orders zero, one, and
@@ -388,12 +391,12 @@ of the complete-proof paper, Ref.~\cite{rubboli2026parametersFull}.}
 
 The project uses Lean~4.32.2 and Mathlib~4.32.2. Its source contains no
 \texttt{sorry} or \texttt{admit}, which are markers for unfinished proofs, and
-no project-defined \texttt{axiom} or \texttt{opaque} declaration. Thus none of
-the manuscript results has been inserted into the project as an unproved fact.
-The final theorems require no extra project hypothesis. Like other Lean
-developments based on Mathlib, the project uses Lean's standard logical
-foundations, including classical choice, propositional extensionality, and
-quotient soundness.
+no project-defined \texttt{axiom}. It also uses no project-defined
+\texttt{opaque} declaration. Thus none of the manuscript results has been
+inserted into the project as an unproved fact. The final theorems require no
+extra project hypothesis. Like other Lean developments based on Mathlib, the
+project uses Lean's standard logical foundations, including classical choice,
+propositional extensionality, and quotient soundness.
 
 The command
 \begin{verbatim}
@@ -401,14 +404,14 @@ powershell -File scripts/check.ps1
 \end{verbatim}
 performs the complete check. It rejects unfinished-proof markers, builds all
 Lean files with warnings treated as errors, reports the standard logical
-foundations used by the final theorems, and checks the 152 internal proof
-records. It also reads all thirty-one result numbers and labels from the LaTeX
-paper, verifies that their Lean names are distinct and appear in the same
-order, and asks Lean to check every corresponding theorem. A successful run
-therefore checks both the proofs and the paper-to-Lean correspondence. The
-formalization covers the classification and the five entropy laws for all four
-concrete candidate families, using the natural-log convention of the
-complete-proof paper.
+foundations used by the final theorems, and checks the 152 labeled definitions
+and results recorded in the blueprint. It also reads all thirty-one result
+numbers and labels from the LaTeX paper, verifies that their Lean names are
+distinct and appear in the same order, and asks Lean to check every
+corresponding theorem. A successful run therefore checks both the proofs and
+the paper-to-Lean correspondence. The formalization covers the classification
+and the five entropy laws for all four concrete candidate families, using the
+natural-log convention of the complete-proof paper.
 
 \bibliographystyle{ultimate}
 \renewcommand{\bibfont}{\footnotesize}
