@@ -306,7 +306,7 @@ theorem renyi_zeroExtend {J : Type v} [Fintype J] [Nonempty I] [Nonempty J]
   have hrpos : 0 < paramToReal a htop := ENNReal.toReal_pos hzero htop
   simp [renyi, htop, hzero, hone, renyiFinite_zeroExtend e p hrpos]
 
-/-- Literal relabeling/embedding package requested by the blueprint. -/
+/-- Relabeling and embedding package used by the internal blueprint. -/
 theorem renyi_embedding {J : Type v} [Fintype J] [Nonempty I] [Nonempty J]
     (p : ProbVec I) (e : I ↪ J) (r : I ≃ J) (a : Param) :
     renyi a (zeroExtendProb e p) = renyi a p ∧

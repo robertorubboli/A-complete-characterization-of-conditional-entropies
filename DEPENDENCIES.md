@@ -77,10 +77,10 @@ finite semiring and quotient
   → allConditionalEntropyAxioms.
 ```
 
-`mainClassification` and `allConditionalEntropyAxioms` are intentionally
-separate terminal declarations: the former is the necessary-and-sufficient
-parameter classification, while the latter verifies the original law package
-for each admissible candidate and uses the semiring/channel lift.
+The two terminal declarations have complementary roles. `mainClassification`
+is the necessary-and-sufficient parameter classification, while
+`allConditionalEntropyAxioms` verifies the five-law package for each admissible
+candidate and uses the semiring/channel lift.
 
 For the internal-blueprint statement correspondence, see
 [`paper/DECLARATION_INDEX.md`](paper/DECLARATION_INDEX.md) and the larger

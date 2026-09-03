@@ -7,9 +7,9 @@ import Mathlib.Topology.Algebra.Ring.Real
 /-!
 # Pointwise limits preserve shape
 
-This file formalizes Lemma B.7 of the replacement manuscript. The proof uses
-only closure of the order relation on `ℝ` and continuity of addition,
-multiplication, and `max`.
+This file supplies the pointwise-limit closure results packaged by Lemma A.7
+of the complete-proof document. The proof uses only closure of the order
+relation on `ℝ` and continuity of addition, multiplication, and `max`.
 -/
 
 open Filter

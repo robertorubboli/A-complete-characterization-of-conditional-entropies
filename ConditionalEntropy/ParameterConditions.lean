@@ -3,9 +3,10 @@ import BoundaryProofs.Curvature
 /-!
 # Parameter conditions
 
-Predicates corresponding to equations (247), (248), and (255).  The measure
-theory is deliberately separated from the finite coefficient calculus so the
-dependency graph mirrors the manuscript.
+These predicates record the finite coefficient conditions used by the
+sufficiency and necessity arguments.  The measure theory is separated from
+the finite coefficient calculus so the dependency graph mirrors the proof
+architecture.
 -/
 
 namespace ConditionalEntropy

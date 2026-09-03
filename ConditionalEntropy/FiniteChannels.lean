@@ -5,8 +5,8 @@ import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 /-!
 # Finite stochastic matrices, conditional channels, and embedding lift
 
-This file gives a proof-carrying version of the manuscript's original finite
-channel model.  A conditional mixing channel is a finite family of doubly
+This file gives the proof-carrying finite channel model used by the manuscript.
+A conditional mixing channel is a finite family of doubly
 stochastic row maps and nonnegative selection matrices whose aggregate is row
 stochastic.  Its output is proved entrywise nonnegative and mass preserving.
 
@@ -25,8 +25,7 @@ universe u v w z
 def NonnegMatrix {I : Type u} {J : Type v} (D : I → J → ℝ) : Prop :=
   ∀ i j, 0 ≤ D i j
 
-/-- A raw matrix is row stochastic.  This predicate is named differently from
-the older bundled `RowStochastic` structure in `Conditioning.lean`. -/
+/-- Row-stochasticity for a raw matrix. -/
 def IsRowStochastic {I : Type u} {J : Type v} [Fintype J]
     (D : I → J → ℝ) : Prop :=
   NonnegMatrix D ∧ ∀ i, ∑ j, D i j = 1

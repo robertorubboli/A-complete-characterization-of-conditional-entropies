@@ -24,5 +24,5 @@ jobs:
             CompleteCharacterization
             --wfail
 
-      - name: Verify source and kernel dependencies
+      - name: Verify source, kernel, and correspondences
         run: bash ./scripts/check.sh --no-build

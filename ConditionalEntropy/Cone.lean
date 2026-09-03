@@ -6,11 +6,10 @@ import Mathlib.Topology.Algebra.Ring.Real
 /-!
 # The nonnegative cone and elementary curvature rules
 
-This module implements the proof-carrying cone interface used in Sections 4
-and 5 of the manuscript, together with the first four lemmas of Section 4.
-Only ordinary Mathlib structures are used: in particular, the cone is an
-additive submonoid and is deliberately not given an additive-group or module
-structure.
+This module implements the proof-carrying cone interface and elementary
+curvature rules used in Sections 4 and 5 of the manuscript.  Only ordinary
+Mathlib structures are used: in particular, the cone is an additive submonoid
+and is deliberately not given an additive-group or module structure.
 -/
 
 open Set

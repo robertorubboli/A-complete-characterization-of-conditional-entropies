@@ -3,9 +3,8 @@ import ConditionalEntropy.Basic
 /-!
 # Finite midpoint counterexamples
 
-These lemmas are the order-theoretic endpoint of Appendix B.5--B.6.  Once a
-strict second-order sign has produced two finite endpoints, the corresponding
-shape property is contradicted directly.
+These lemmas turn strict midpoint inequalities into direct contradictions of
+concavity, convexity, and quasiconvexity.
 -/
 
 namespace ConditionalEntropy

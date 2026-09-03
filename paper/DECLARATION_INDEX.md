@@ -1,7 +1,7 @@
 # Paper-facing declaration dependency index
 
-This index follows the final vertical proof architecture rather than the old
-kernel-only audit. It lists the public declarations that connect the
+This index presents the public declarations in the verified vertical proof
+architecture. It connects the
 manuscript's endpoint calculus, localization, necessity, sufficiency,
 classification, and semiring/channel lift. The last column records the closest
 project dependencies or the declaration's role; Mathlib calls are omitted.

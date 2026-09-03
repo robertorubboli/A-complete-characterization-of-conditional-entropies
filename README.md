@@ -1,11 +1,10 @@
 # A complete characterization of conditional entropies
 
-This repository contains the two auxiliary documents for the canonical
-manuscript [*A Complete Characterisation of Conditional
-Entropies*](https://arxiv.org/abs/2601.23213), together with the accompanying
-Lean 4 development. The main manuscript is maintained on arXiv and its source
-and PDF are intentionally not duplicated here. Sections 4 and 5 now appear
-directly in that manuscript; there is no separate concise Sections 4--5 note.
+This repository accompanies the canonical manuscript [*A Complete
+Characterisation of Conditional
+Entropies*](https://arxiv.org/abs/2601.23213) with a Lean 4 development and two
+auxiliary documents: a complete-proof account of Sections 4 and 5 and a
+Lean-formalization note.
 
 The two terminal Lean declarations are:
 
@@ -17,10 +16,8 @@ The two terminal Lean declarations are:
 Both use the natural-log convention of the complete-proof paper; an
 independent fair bit therefore has value `Real.log 2`.
 
-These theorems classify the four already-defined concrete candidate families.
-They do not formalize the upstream representation theorem saying that every
-abstract conditional entropy has this candidate representation; that theorem
-remains a cited input in the paper, not a hidden Lean assumption.
+The Lean development begins with the four concrete candidate families and
+proves their exact parameter classification and five-law package.
 
 The development contains no `sorry`, `admit`, project-defined `axiom`, or
 project-defined `opaque`. Its public declarations use only Lean and Mathlib's
@@ -71,13 +68,13 @@ instructions.
   assembles nonnegativity, embedding invariance, tensor additivity, fair-bit
   normalization, and monotonicity under embedded conditional majorization.
 - [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
-  is the exhaustive three-column internal-blueprint ledger. It retains the
-  requested headings **Manuscript statement**, **Lean declaration**, and
-  **Status**. Its LaTeX counterpart is
+  is the exhaustive three-column internal-blueprint ledger. It uses the
+  headings **Manuscript statement**, **Lean declaration**, and **Status**. Its
+  LaTeX counterpart is
   [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
 - [`paper/blueprint-sections-4-5.tex`](paper/blueprint-sections-4-5.tex) is the
-  dependency-closed specification consumed by the structural ledger audit. It is
-  an internal formalization artifact, not a separate concise auxiliary document.
+  dependency-closed internal specification consumed by the structural ledger
+  audit.
 - [`paper/full-details-correspondence.json`](paper/full-details-correspondence.json)
   is the machine-readable 31-row audit for all numbered main-text and Appendix
   environments in the complete-proof document. It records one exact canonical

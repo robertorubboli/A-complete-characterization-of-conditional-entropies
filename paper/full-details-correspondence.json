@@ -79,7 +79,7 @@
       "number": "5.2",
       "kind": "proposition",
       "label": "prop:negative-atom-necessary",
-      "title": "Negative Shannon-atom obstruction",
+      "title": "Negative Shannon atom excludes upper support",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_2",
       "coverage": "exact",
       "statusDetail": "Canonical facade restates the paper-facing formal content."
@@ -97,7 +97,7 @@
       "number": "5.4",
       "kind": "remark",
       "label": "rem:normalizing-witnesses",
-      "title": "Homogeneous cone witnesses",
+      "title": "Unnormalised cone witnesses and homogeneity",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsRemark5_4",
       "coverage": "exact",
       "statusDetail": "Canonical facade formalizes the homogeneity content of the remark."
@@ -115,7 +115,7 @@
       "number": "5.6",
       "kind": "proposition",
       "label": "prop:negative-single-point",
-      "title": "Complete exceptional negative branch",
+      "title": "Exceptional negative branch: unique upper point, finite one-sided moments, and moment bound",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsProposition5_6",
       "coverage": "exact",
       "statusDetail": "Canonical facade restates the paper-facing formal content."
@@ -169,7 +169,7 @@
       "number": "A.3",
       "kind": "lemma",
       "label": "lem:app-renyi-continuity",
-      "title": "Continuity and uniform bound for finite-dimensional Renyi entropy",
+      "title": "Continuity and uniform bound for finite-dimensional Rényi entropy",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_3",
       "coverage": "exact",
       "statusDetail": "Canonical facade proves global endpoint-aware continuity and the sharp support-cardinality bound."
@@ -178,7 +178,7 @@
       "number": "A.4",
       "kind": "lemma",
       "label": "lem:app-renyi-shape",
-      "title": "Concavity and Schur concavity in the sufficient ranges",
+      "title": "Concavity and Schur concavity in the sufficient-condition ranges",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_4",
       "coverage": "exact",
       "statusDetail": "Canonical facade packages simplex concavity and endpoint-aware Schur concavity."
@@ -196,7 +196,7 @@
       "number": "A.6",
       "kind": "lemma",
       "label": "lem:app-common-discretisation",
-      "title": "Common discrete approximation of the Renyi parameter",
+      "title": "Common discrete approximation of the Rényi parameter",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_6",
       "coverage": "exact",
       "statusDetail": "Canonical facade proves the pushforward identity and dominated-convergence limit for arbitrary measurable finite-range maps."
@@ -205,7 +205,7 @@
       "number": "A.7",
       "kind": "lemma",
       "label": "lem:app-pointwise-shape",
-      "title": "Pointwise limits preserve shape inequalities",
+      "title": "Pointwise limits preserve the shape inequalities",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_7",
       "coverage": "exact",
       "statusDetail": "Canonical facade proves closure of concavity, convexity, and quasiconvexity on an arbitrary convex set."
@@ -232,7 +232,7 @@
       "number": "A.10",
       "kind": "lemma",
       "label": "lem:app-endpoint-differentiability",
-      "title": "Continuity of differentiated entropy at the parameter endpoints",
+      "title": "Continuity of the differentiated entropy at the parameter endpoints",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_10",
       "coverage": "exact",
       "statusDetail": "Canonical facade is the endpoint-aware derivative and joint-continuity bundle under the stable-max hypothesis."
@@ -241,7 +241,7 @@
       "number": "A.11",
       "kind": "proposition",
       "label": "prop:app-fixed-d-interchange",
-      "title": "Differentiation under the Renyi-parameter integral",
+      "title": "Differentiation under the Rényi-parameter integral at fixed dimension",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_11",
       "coverage": "exact",
       "statusDetail": "Canonical facade proves C2 regularity and both signed-integral derivative identities without a moment hypothesis."
@@ -268,7 +268,7 @@
       "number": "A.14",
       "kind": "lemma",
       "label": "lem:app-quasiconvex-stationary",
-      "title": "Stationary second-order condition for a quasiconvex function",
+      "title": "Second-order condition for a one-dimensional quasi-convex function",
       "canonicalDeclaration": "ConditionalEntropy.fullDetailsAppendixA_14",
       "coverage": "exact",
       "statusDetail": "Canonical facade proves the stationary second-order condition for a twice differentiable quasiconvex curve."

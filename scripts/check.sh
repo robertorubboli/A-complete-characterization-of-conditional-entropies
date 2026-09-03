@@ -21,3 +21,4 @@ fi
 
 lake env lean scripts/AxiomAudit.lean
 pwsh -NoProfile -File scripts/check-correspondence.ps1
+pwsh -NoProfile -File scripts/check-full-details-correspondence.ps1 -RequireAllExact

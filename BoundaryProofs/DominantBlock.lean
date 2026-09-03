@@ -8,10 +8,11 @@ import Mathlib.Tactic.Ring
 /-!
 # Dominant-block estimates
 
-This file formalizes Lemma B.12.  A finite probability weight concentrated on
-one block has its first and second logarithmic power-mean derivatives close to
-the values on that block.  The proof is elementary and uses only finite sums,
-the triangle inequality, and nonnegativity of squares.
+This file supplies the dominant-block estimates packaged by Lemma A.12 of the
+complete-proof document.  A finite probability weight concentrated on one
+block has its first and second logarithmic power-mean derivatives close to the
+values on that block.  The proof uses only finite sums, the triangle
+inequality, and nonnegativity of squares.
 -/
 
 open scoped BigOperators
@@ -149,7 +150,7 @@ private theorem weightedVariance_le_center
   rw [hcenter]
   nlinarith [sq_nonneg (m - c)]
 
-/-- Lemma B.12, first estimate. -/
+/-- First dominant-block estimate used in Lemma A.12. -/
 theorem dominantBlock_first
     {ι : Type*} [Fintype ι]
     (π u : ι → ℝ) (j : ι) {δ M : ℝ}
@@ -163,7 +164,7 @@ theorem dominantBlock_first
       _ ≤ 2 * M := by linarith [hM i, hM j]
   · linarith
 
-/-- Lemma B.12, second estimate. -/
+/-- Second dominant-block estimate used in Lemma A.12. -/
 theorem dominantBlock_second
     {ι : Type*} [Fintype ι]
     (π u : ι → ℝ) (j : ι) {α δ M : ℝ}

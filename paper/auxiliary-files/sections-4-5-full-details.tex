@@ -33,10 +33,9 @@
 \begin{abstract}
 This standalone companion gives the complete analytic proofs of the exact
 parameter ranges stated in Sections~4 and~5 of
-Ref.~\cite{rubboli2026complete}. It retains the same classification, notation,
-and witness families, while reorganizing, strengthening, or extracting several
-statements from arguments appearing elsewhere in the main paper.  The explicit
-cross-references below identify the corresponding main-paper statements. It
+Ref.~\cite{rubboli2026complete}. It uses the same classification, notation,
+and witness families as the main paper. The explicit cross-references below
+identify the corresponding main-paper statements. It
 also supplies the real-power
 calculus, common discretization, signed-measure differentiation, two-block and
 three-block localization, the separate Shannon argument, tropical stationarity,
@@ -59,10 +58,10 @@ finiteness is derived from monotonicity before the signed moment is formed.
 \section*{Relation to the main paper}
 
 Sections~4 and~5 of Ref.~\cite{rubboli2026complete} state the classification
-and give the principal proof ideas.  The present paper reproduces those
-statements in the same classification and witness families, with several statements reorganized, strengthened, or extracted from arguments appearing elsewhere in the main paper. A few are stated in a
-stronger endpoint-aware form that directly implies the main-paper formulation.  The
-present paper supplies their complete analytic proofs.
+and give the principal proof ideas. The present paper supplies the corresponding
+complete analytic proofs in the same classification, notation, and witness
+families. Its endpoint-aware statements directly imply the main-paper
+formulations.
 Sections~\ref{sec:sufficient-conditions}
 and~\ref{sec:necessary-conditions} keep the logical obstructions and witness
 choices visible; Appendix~\ref{app:technical-sections45} supplies the analytic
@@ -888,7 +887,7 @@ The results of this section provide a sufficient parameter region for all temper
 \section{Necessary conditions for the parameters}
 \label{sec:necessary-conditions}
 
-In this section, we prove that the sufficient conditions obtained in Section~\ref{sec:sufficient-conditions} are necessary. The proof removes the regularity assumption previously imposed near $\alpha=1$. In particular, we do not assume that the two one-sided integrals of $|\alpha/(1-\alpha)|$ are finite. Whenever such an integral appears in the final parameter region, its finiteness will be derived from monotonicity.
+In this section, we prove that the sufficient conditions obtained in Section~\ref{sec:sufficient-conditions} are necessary. We make no regularity assumption near $\alpha=1$. In particular, the two one-sided integrals of $|\alpha/(1-\alpha)|$ are not assumed finite; whenever such an integral occurs in the final parameter region, its finiteness is derived from monotonicity.
 
 \subsection{Proof protocol: endpoint differentiation and signed moments}
 \label{sec:necessity-protocol}
@@ -1214,12 +1213,10 @@ Thus a positive value in \eqref{eq:Phi-second-log-main} contradicts concavity, w
 \subsection{Necessary conditions; temperate case}
 \label{sec:temperate-necessity}
 
-The next propositions and remarks are the complete, mathematically strengthened
-temperate-necessity arguments.  Propositions~5.1--5.3 and~5.6 below correspond
-to Propositions~V.1--V.4 of the main paper.  Remarks~5.4--5.5 isolate the
-homogeneity/channel lift and the compensated witness used between those main
-statements; they have no separately numbered main-paper counterparts.  We keep
-the same parameter notation.
+The next propositions and remarks give the temperate-necessity arguments.
+Propositions~5.1--5.3 and~5.6 correspond to Propositions~V.1--V.4 of the main
+paper. Remarks~5.4--5.5 state the homogeneity/channel lift and the compensated
+witness used in these proofs.
 
 \begin{proposition}
 \label{prop:positive-necessary}
@@ -1352,7 +1349,7 @@ By local uniformity of the convergence, the second derivative of $\Phi_\mu$ is n
 \end{proof}
 
 If there is no atom at $1$, we cannot initially define a global coefficient
-$1-\int\omega\,\mathrm d\mu$, because one or both one-sided integrals may be infinite. We instead work with truncated coefficients. This is the only modification needed to remove the former regularity assumption.
+$1-\int\omega\,\mathrm d\mu$, because one or both one-sided integrals may be infinite. We instead work with truncated coefficients, so the construction is well-defined without a global regularity assumption.
 
 \begin{proposition}
 \label{prop:negative-truncated-moment}
@@ -1547,9 +1544,10 @@ In \eqref{eq:negative-final-parameter-region}, division of \eqref{eq:negative-fu
 \subsection{Necessary conditions for tropical homomorphisms}
 \label{sec:tropical-necessity}
 
-We now prove Propositions~5.7--5.8 in this complete-proof paper.  Proposition~5.7
-corresponds to Proposition~V.5 of the main paper.  Proposition~5.8 extracts the
-positive-tropical necessity argument from Step~4 of Proposition~III.7 there.
+We now prove Propositions~5.7--5.8 in this complete-proof paper. Proposition~5.7
+corresponds to Proposition~V.5 of the main paper. Proposition~5.8 gives the
+positive-tropical necessity argument used in Step~4 of Proposition~III.7 of the
+main paper.
 The negative branch uses the same Shannon and three-block witnesses as the
 temperate case, with an additional exact stationarity correction.  The
 positive branch uses a separate binary fixed-face witness.

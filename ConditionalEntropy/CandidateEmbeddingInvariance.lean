@@ -3,9 +3,9 @@ import ConditionalEntropy.JointTensorCandidates
 /-!
 # Embedding invariance of the conditional candidates
 
-Zero insertion creates no new active conditioning columns.  The old active
+Zero insertion creates no new active conditioning columns.  The source active
 columns are transported bijectively, their masses are unchanged, and their
-conditional laws are zero extensions of the original conditional laws.  This
+conditional laws are zero extensions of the source conditional laws.  This
 proves embedding invariance for all four endpoint-aware candidates.
 -/
 
@@ -71,7 +71,7 @@ theorem colMass_jointZeroExtend_of_not_range
   intro x' _
   exact jointZeroExtend_eq_zero_of_not_range_right eX eY P x' y' hy
 
-/-- The injection of old active columns into the zero-extended law. -/
+/-- The injection of source active columns into the zero-extended law. -/
 def activeJointZeroExtendMap
     (eX : X ↪ X') (eY : Y ↪ Y') (P : JointProb X Y) :
     Active P → Active (jointZeroExtend eX eY P) :=
@@ -108,7 +108,7 @@ theorem activeJointZeroExtendMap_surjective
   apply Subtype.ext
   exact hy
 
-/-- Active columns of a zero extension are canonically equivalent to the old
+/-- Active columns of a zero extension are canonically equivalent to the source
 active columns.  The direction is chosen to simplify finite-sum reindexing. -/
 noncomputable def activeJointZeroExtendEquiv
     (eX : X ↪ X') (eY : Y ↪ Y') (P : JointProb X Y) :

@@ -32,7 +32,7 @@ structure FiniteJointRep where
 
 attribute [instance] FiniteJointRep.fintypeX FiniteJointRep.fintypeY
 
-/-- Heterogeneous block sum, now internalized as a closed operation. -/
+/-- Heterogeneous block sum as a closed operation. -/
 @[reducible] def finiteJointAdd (P Q : FiniteJointRep.{u}) : FiniteJointRep.{u} where
   X := Sum P.X Q.X
   Y := Sum P.Y Q.Y
@@ -40,7 +40,7 @@ attribute [instance] FiniteJointRep.fintypeX FiniteJointRep.fintypeY
   fintypeY := inferInstance
   matrix := jointConeDirectSum P.matrix Q.matrix
 
-/-- Heterogeneous Kronecker product, internalized as a closed operation. -/
+/-- Heterogeneous Kronecker product as a closed operation. -/
 @[reducible] def finiteJointMul (P Q : FiniteJointRep.{u}) : FiniteJointRep.{u} where
   X := P.X × Q.X
   Y := P.Y × Q.Y

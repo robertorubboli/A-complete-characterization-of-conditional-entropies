@@ -4,7 +4,8 @@ import Mathlib.Topology.Algebra.Order.LiminfLimsup
 /-!
 # Exact finite-dimensional stationarity
 
-This is the algebraic content of Lemma B.15.  It turns a limiting stationary
+This is the algebraic core of the exact stationarity correction packaged by
+Lemma A.15 of the complete-proof document.  It turns a limiting stationary
 direction into directions that are exactly stationary before the dimension
 limit is taken.
 -/

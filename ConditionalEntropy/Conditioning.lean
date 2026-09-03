@@ -4,10 +4,10 @@ import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 /-!
 # Conditioning maps and one-column shape
 
-This module formalizes the reduction used throughout Appendix A of
-arXiv:2601.23213: a positively homogeneous one-column functional lifts by
-summing over conditioning columns, and concavity/convexity controls its
-behavior under row-stochastic maps on the conditioning register.
+This module defines the one-column lift used throughout the development. A
+positively homogeneous one-column functional is summed over conditioning
+columns, and concavity or convexity controls its behavior under row-stochastic
+maps on the conditioning register.
 -/
 
 open scoped BigOperators
@@ -150,8 +150,7 @@ theorem columnLift_pushConditioning_le
       rw [Finset.sum_comm]
       simp_rw [← Finset.sum_mul, D.sum_row, one_mul]
 
-/-- Concavity therefore implies monotonicity after lifting to conditioning
-columns, the positive-temperate implication in Appendix A. -/
+/-- Concavity implies monotonicity after lifting to conditioning columns. -/
 theorem conditioning_monotone_of_concave
     {E ι κ : Type*} [AddCommMonoid E] [Module ℝ E] [Fintype ι] [Fintype κ]
     (f : E → ℝ) (hconc : IsConcave f) (hhom : IsPosHomogeneous f)

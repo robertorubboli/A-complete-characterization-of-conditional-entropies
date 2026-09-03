@@ -1,12 +1,9 @@
 # Conditional-entropy auxiliary files
 
-This folder is the self-contained source release for the two auxiliary
-documents accompanying
+This folder contains the self-contained sources and shared build dependencies
+for the two auxiliary documents accompanying
 [*A Complete Characterisation of Conditional
-Entropies*](https://arxiv.org/abs/2601.23213). The canonical main manuscript is
-maintained on arXiv and is intentionally not included in this repository. This
-directory contains only the two auxiliary documents and their shared build
-dependencies.
+Entropies*](https://arxiv.org/abs/2601.23213).
 
 The two auxiliary documents have distinct roles:
 
@@ -25,9 +22,8 @@ convention are the sole specification for the organization of the Lean
 correspondence. The public one-to-one table is deliberately separate from the
 many-to-many implementation dependency graph.
 
-There is no separate concise Sections 4--5 document. Both auxiliary documents
-use the shared `bibliography.bib` database and `ultimate.bst` bibliography
-style.
+Both auxiliary documents use the shared `bibliography.bib` database and
+`ultimate.bst` bibliography style.
 
 ## Overleaf
 

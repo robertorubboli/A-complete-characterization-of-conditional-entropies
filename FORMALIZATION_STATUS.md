@@ -7,26 +7,20 @@ and their paper-facing signatures are present, and the integrated
 warning-as-error build, axiom audit, forbidden-token scan, and correspondence
 audit pass on the current release state.
 
-The paper hierarchy described here was revised on 30 August 2026. The canonical
-manuscript is maintained on arXiv and is not duplicated in this repository.
-GitHub hosts only the complete-proof and Lean auxiliary documents. The
-complete-proof paper's statements 4.1--5.9 and natural-log convention are the
-specification used by the Lean note and declaration correspondence. The public
-facade in `ConditionalEntropy/FullDetailsStatements.lean` assigns one unique
-Lean declaration to each of the sixteen numbered main-text environments.
-Appendix A is tracked separately in the 31-row correspondence manifest so that
-technical results are not silently conflated with the main classification
-statements.
+The canonical manuscript is maintained on arXiv. This repository contains the
+complete-proof and Lean auxiliary documents. The complete-proof paper's
+statements 4.1--5.9 and natural-log convention determine the Lean note and
+declaration correspondence. The public facade in
+`ConditionalEntropy/FullDetailsStatements.lean` assigns one unique Lean
+declaration to each of the sixteen numbered main-text environments. Appendix A
+has fifteen additional exact facades in the 31-row correspondence manifest.
 
 The project is pinned to Lean 4.32.2 and Mathlib 4.32.2. Its integrated entry
 point is [`CompleteCharacterization.lean`](CompleteCharacterization.lean),
 whose imports transitively cover the declaration-bearing dependency tree.
 
-The verified terminal theorem classifies the four concrete candidate families.
-It does not formalize the upstream universal representation theorem asserting
-that every abstract conditional entropy has that candidate representation.
-That distinction is documented without being included as an additional
-paper-facing proposition.
+The verified terminal theorem classifies the four concrete candidate families,
+and the companion terminal theorem verifies their five stated laws.
 
 ## Status at a glance
 
@@ -95,8 +89,8 @@ classification.
 ## Paper hierarchy and correspondence
 
 - The canonical manuscript, [*A Complete Characterisation of Conditional
-  Entropies*](https://arxiv.org/abs/2601.23213), is maintained on arXiv. No
-  main-manuscript copy or separate concise Sections 4--5 note is hosted here.
+  Entropies*](https://arxiv.org/abs/2601.23213), states the classification in
+  its broader information-theoretic setting.
 - [`paper/auxiliary-files/sections-4-5-full-details.tex`](paper/auxiliary-files/sections-4-5-full-details.tex)
   is the complete-proof auxiliary document. Its 4.1--5.9 numbering and
   natural-log convention determine the Lean correspondence.
@@ -112,8 +106,7 @@ and asks Lean to elaborate every exact row.
 
 [`paper/BLUEPRINT_STATEMENT_STATUS.md`](paper/BLUEPRINT_STATEMENT_STATUS.md)
 contains one source-ordered row for every audited labeled internal-blueprint
-statement. It retains the requested column headings **Manuscript statement**,
-**Lean declaration**, and
+statement. It uses the column headings **Manuscript statement**, **Lean declaration**, and
 **Status**. Each row is marked **Formalized** or **Formalized (split API)** and
 is covered by the strict root build. The matching LaTeX table is
 [`paper/blueprint-statement-correspondence.tex`](paper/blueprint-statement-correspondence.tex).
